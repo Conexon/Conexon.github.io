@@ -13,6 +13,22 @@
 </head>
 <body>
 
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    /*tr:nth-child(even) {;
+        background-color:#ddddd;
+}*/
+</style>
+
 <div id='map'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZmVvbWlrZSIsImEiOiJNRjJrRmRnIn0.Sc8mxXKYTRfgegc_3vjZiw';
@@ -20,24 +36,31 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/feomike/cj0zcunxh000m2sqb2epkabb4',
     zoom: 12,
-    center: [-89.5,35.85]  
+    center: [-89.425,35.77]  
 });
 
-var ml_substat = 'curve'
-var ml_feeder = '01_234'
+var ml_substat = '01'
+var ml_feeder = '214'
 
+//cable
 var cable_url = 'mapbox://feomike.1qdehpp8' 
 var cable_source_layer = 'forked_deer_cable-bftp2t'
-
+//consumers
 var consumers_url = 'mapbox://feomike.9jdmxhmw'
 var consumers_source_layer = 'forked_deer_consumers-2dd3vx'
-
-var splice_can_url = 'mapbox://feomike.2k3sl1qd' //repeated b/c it is empty
+//cn_splicepoint
+var cn_splicepoint_url = 'mapbox://feomike.410le1kb'
+var cn_splicepoint_source_layer = 'forked_deer_cn_splicepoint-2cr7sk'
+//poles
+var poles_url = 'mapbox://feomike.cy6knjce' 
+var poles_source_layer = 'forked_deer_poles-3buo14'
+//splice_cans
+var splice_can_url = 'mapbox://feomike.2k3sl1qd' 
 var splice_can_source_layer = 'forked_deer_splice_can-di3pa2' 
-
+//substations
 var substat_url = 'mapbox://feomike.ac45nn2b'
 var substat_source_layer = 'forked_deer_substations-6h7loi'  
-
+//tap_geo
 var tap_url = 'mapbox://feomike.4fw85as0' 
 var tap_source_layer = 'forked_deer_tap_geo-7oavkj' 
 
@@ -177,6 +200,44 @@ map.on('load', function () {
                     ['2', spanAerial],
                     ['3', spanUnder],
                     ['4', spanUnder]] } }
+    }); 
+});
+
+//poles
+map.on('load', function () {
+    map.addLayer({//POLES
+        'id': 'poles',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+            'circle-color': myBlack}
+    }); 
+});
+
+//cn_splicepoint
+map.on('load', function () {
+    map.addLayer({//CN_SPLICEPOINT
+        'id': 'cn_splicepoint',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: cn_splicepoint_url},
+        'source-layer': cn_splicepoint_source_layer,
+        'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder]],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': 1,
+                'stops': [[12, 2], [13,2], [14,3], [15,4], [16,5] ]}, 
+            'circle-color': myBlack}
     }); 
 });
 
@@ -573,6 +634,50 @@ map.on('load', function () {
                  'base': .5,
                  'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
     }); 
+});
+
+// When a click event occurs on a feature in the places layer, open a popup at the
+// location of the feature, with description HTML from its properties.
+map.on('click', 'cn_splicepoint', function (e) {
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var seq = e.features[0].properties.SEQUENCE;
+    var pole_no = e.features[0].properties.STATIONID;
+    var hut_len = e.features[0].properties.HUT_LEN;
+    var drop_len = e.features[0].properties.DROP_LEN;
+    var in_lt = e.features[0].properties.IN_LT;
+    var out_lt = e.features[0].properties.OUT_LT_DS;
+    
+
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+
+    html_table = '<table style="width:50%"> ' //line 1
+    html_table = html_table + '<tr> <th>Field</th> <th>Value</th> </tr>' //header
+    html_table = html_table + '<tr> <td>sequence: </td> <td> ' + seq + '</td> <tr>' //row 1 
+    html_table = html_table + '<tr> <td>Pole No: </td> <td> ' + pole_no + '</td> <tr>' //row 2
+    html_table = html_table + '<tr> <td>Hut Len: </td> <td> ' + hut_len + '</td> <tr>' //row 3
+    html_table = html_table + '<tr> <td>Drop Len: </td> <td> ' + drop_len + '</td> <tr>' //row 4
+    html_table = html_table + '<tr> <td>in Light: </td> <td> ' + in_lt + '</td> <tr>' //row 5
+    html_table = html_table + '<tr> <td>out Light: </td> <td> ' + out_lt + '</td> <tr>' //row 6
+    html_table = html_table + '</table>' //end
+    new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(html_table) //description + ml_substat works
+        .addTo(map);
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'cn_splicepoint', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'cn_splicepoint', function () {
+    map.getCanvas().style.cursor = '';
 });
 
 </script>
