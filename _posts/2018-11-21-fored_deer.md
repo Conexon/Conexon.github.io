@@ -6,6 +6,10 @@ permalink: /post/forked_deer.html
 shortdesc: links to feeder maps
 ---
 
+Whole COOP
+----------
+* [map](/coop/forked_deer/coop.html)
+
 Curve Substation
 --------------
 * Feeder 01-214 - [map](/coop/forked_deer/s01_f214.html)
@@ -24,8 +28,8 @@ Ripley Substation
 
 Newbern Substation
 --------------
-* Feeder 04-214 - [map](/coop/forked_deer/s04_f234.html)
-* Feeder 04-234 - [map](/coop/forked_deer/s04_f304.html)
+* Feeder 04-234 - [map](/coop/forked_deer/s04_f234.html)
+* Feeder 04-304 - [map](/coop/forked_deer/s04_f304.html)
 
 Richwood Substation
 --------------
@@ -48,11 +52,7 @@ Mill Creek Substation
 Nauvoo Substation
 --------------
 * Feeder 08-214 - [map](/coop/forked_deer/s08_f214.html)
-* Feeder 08-224 - [map](/coop/forked_deer/s08_f214.html)
+* Feeder 08-224 - [map](/coop/forked_deer/s08_f224.html)
 * Feeder 08-234 - [map](/coop/forked_deer/s08_f234.html)
-* Feeder 08-244 - [map](/coop/forked_deer/s08_f234.html)
+* Feeder 08-244 - [map](/coop/forked_deer/s08_f244.html)
 * Feeder 08-254 - [map](/coop/forked_deer/s08_f254.html)
-
-Whole COOP
-----------
-* [map](/coop/forked_deer/coop.html)
