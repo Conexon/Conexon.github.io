@@ -6,6 +6,8 @@ permalink: /post/forked_deer.html
 shortdesc: links to feeder maps
 ---
 
+Unless Noted, all maps were designed with default settings.
+
 Whole COOP
 ----------
 * [map](/coop/forked_deer/coop.html)
@@ -45,7 +47,10 @@ Bonicord Substation
 
 Mill Creek Substation
 --------------
-* Feeder 07-324 - [map](/coop/forked_deer/s07_f324.html)
+* Feeder 07-324 at 400' - [map](/coop/forked_deer/s07_f324_400.html)
+* Feeder 07-324 at 400' - [map](/coop/forked_deer/s07_f324.html)
+* Feeder 07-324 at 1000' - [map](/coop/forked_deer/s07_f324_1000.html)
+
 * Feeder 07-334 - [map](/coop/forked_deer/s07_f334.html)
 * Feeder 07-344 - [map](/coop/forked_deer/s07_f344.html)
 
