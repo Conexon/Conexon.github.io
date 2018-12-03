@@ -26,6 +26,6 @@ Scenario - 2) 800 max feet; only 2 taps
 
 Scenario - 3) Original Rule plus; 2nd comb 2 meter consolidation to longer drop length
 ------------
-* Feeder 01-214 - [map](/coop/forked_deer/s01_f214_800_adss.html)
-* Feeder 01-234 - [map](/coop/forked_deer/s01_f234_800_adss.html)
-* Feeder 07-334 - [map](/coop/forked_deer/s07_f334_800_adss.html)
+* Feeder 01-214 - [map](/coop/forked_deer/s01_f214_800_adss_t.html)
+* Feeder 01-234 - [map](/coop/forked_deer/s01_f234_800_adss_t.html)
+* Feeder 07-334 - [map](/coop/forked_deer/s07_f334_800_adss_t.html)
