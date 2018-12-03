@@ -35,34 +35,34 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhO
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-    zoom: 13,
-    center: [-89.445,35.9175]   //[-89.5,35.9]
+    zoom: 12,
+    center: [-89.45,35.77]   //[-89.5,35.9]
 });
 
-var ml_substat = '07'
-var ml_feeder = '334'
+var ml_substat = '01'
+var ml_feeder = '214'
 
 //cable
-var cable_url = 'mapbox://conexon-design.207nhf2i' 
-var cable_source_layer = 'forked_deer_cable-5qyf8g'
-//consumers
-var consumers_url = 'mapbox://conexon-design.9mmlptb5'
-var consumers_source_layer = 'forked_deer_consumers-7v6zlq'
+var cable_url = 'mapbox://conexon-design.7zqay3zt' 
+var cable_source_layer = 'fdec_cable_800_adss-8nbsxl'
 //cn_splicepoint
-var cn_splicepoint_url = 'mapbox://conexon-design.9djv849m'
-var cn_splicepoint_source_layer = 'fdec_splicepoint_n_800-a0as52'
+var cn_splicepoint_url = 'mapbox://conexon-design.cj6rf84y'
+var cn_splicepoint_source_layer = 'fdec_cn_splicepoint_800_adss-8ukmw1'
+//consumers
+var consumers_url = 'mapbox://conexon-design.73h9edvo'
+var consumers_source_layer = 'fdec_consumers_800_adss-bb822y'
 //poles
-var poles_url = 'mapbox://conexon-design.bagx6s2b' 
-var poles_source_layer = 'forked_deer_poles-cur4vb'
+var poles_url = 'mapbox://conexon-design.9ngzy8kk' 
+var poles_source_layer = 'fdec_poles_800_adss-52xd8n'
 //splice_cans
-var splice_can_url = 'mapbox://conexon-design.4ratm7k4' 
-var splice_can_source_layer = 'forked_deer_splice_can-cwg2f9' 
+var splice_can_url = 'mapbox://conexon-design.bs7f49n8' 
+var splice_can_source_layer = 'fdec_splice_can_800_adss-apmaut' 
 //substations
-var substat_url = 'mapbox://conexon-design.ai5dnszf'
-var substat_source_layer = 'forked_deer_substations-43x577'  
+var substat_url = 'mapbox://conexon-design.c3v3wv1m'
+var substat_source_layer = 'fdec_substations_800_adss-08ew3p'  
 //tap_geo
-var tap_url = 'mapbox://conexon-design.buvueb20' 
-var tap_source_layer = 'fdec_tap_geo_n_800-c99fnd' 
+var tap_url = 'mapbox://conexon-design.55qv2yoa' 
+var tap_source_layer = 'fdec_tap_geo_800_adss-3yqjb3' 
 
 var myBlue = '#0000FF'
 var myOrange = '#FFA500'
@@ -324,11 +324,6 @@ map.on('load', function () {
 });
 
 
-//cn_splicepoint
-var cn_splicepoint_url = 'mapbox://conexon-design.9djv849m'
-var cn_splicepoint_source_layer = 'fdec_splicepoint_n_800-a0as52'
-
-
 //tube-2P - these are the outside circles
 //TUBE IS THE OUTSIDE COLOR - look at issue #94
 map.on('load', function () {
@@ -365,200 +360,197 @@ map.on('load', function () {
     }); 
 });
 
-// //strand-2P - these are the outside circles
-// //STRAND IS THE INSIDE COLOR - look at issue #94
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'strand-2',
-//         'type': 'circle',
-//         'source': {
-//             type: 'vector', 
-//             url: cn_splicepoint_url},
-//         'source-layer': cn_splicepoint_source_layer,
-//         'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder],
-//             ['in', 'TAP_TYPE','2P-21','2P-19','2P-17','2P-15','2P-14','2P-12','2P-10',
-//             '2P-8','2P-7','2P-5','2P-4T']], 
-//         'layout': {'visibility': 'visible'},
-//         'paint': {
-//             'circle-radius': {
-//                 'base': .9,
-//                 'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
-//             // color circles by strand, using data-driven styles 
-//             'circle-color': 
-//                 ['match', ['get','STRAND'],
-//                 'blue', myBlue,
-//                 'orange', myOrange,
-//                 'green', myGreen,
-//                 'brown', myBrown,
-//                 'slate', mySlate,
-//                 'white', myWhite,
-//                 'red', myRed,
-//                 'black', myBlack,
-//                 'yellow', myYellow,
-//                 'violet', myViolet,
-//                 'rose', myRose,
-//                 'aqua', myAqua,'#ccc']}
-//     }); 
-// });
+//strand-2P - these are the outside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-2',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: cn_splicepoint_url},
+        'source-layer': cn_splicepoint_source_layer,
+        'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder],
+            ['in', 'TAP_TYPE','2P-21','2P-19','2P-17','2P-15','2P-14','2P-12','2P-10',
+            '2P-8','2P-7','2P-5','2P-4T']], 
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','STRAND'],
+                'blue', myBlue,
+                'orange', myOrange,
+                'green', myGreen,
+                'brown', myBrown,
+                'slate', mySlate,
+                'white', myWhite,
+                'red', myRed,
+                'black', myBlack,
+                'yellow', myYellow,
+                'violet', myViolet,
+                'rose', myRose,
+                'aqua', myAqua,'#ccc']}
+    }); 
+});
 
-// //TUBE-4 - these are the outside square
-// //TUBE IS THE OUTSIDE COLOR - look at issue #94
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'tube-4',
-//         'type': 'symbol',
-//         'source': {
-//             type: 'vector', 
-//             url: tap_url},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 4]], 
-//         'layout': {
-//             'visibility': 'visible',
-//             'icon-image': '{TUBE}-square-15',
-//             'icon-allow-overlap': true,
-//             'icon-size':{
-//                  'base': .5,
-//                  'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2] ]}}
-//     }); 
-// });
+//TUBE-4 - these are the outside square
+//TUBE IS THE OUTSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tube-4',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 4]], 
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': '{TUBE}-square-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2] ]}}
+    }); 
+});
 
-// //strand-4P - these are the inside circles
-// //STRAND IS THE INSIDE COLOR - look at issue #94
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'strand-4',
-//         'type': 'circle',
-//         'source': {
-//             type: 'vector', 
-//             url: tap_url},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 4]], 
-//         'layout': {'visibility': 'visible'},
-//         'paint': {
-//             'circle-radius': {
-//                 'base': .9,
-//                 'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
-//             // color circles by strand, using data-driven styles 
-//             'circle-color': 
-//                 ['match', ['get','STRAND'],
-//                 'blue', myBlue,
-//                 'orange', myOrange,
-//                 'green', myGreen,
-//                 'brown', myBrown,
-//                 'slate', mySlate,
-//                 'white', myWhite,
-//                 'red', myRed,
-//                 'black', myBlack,
-//                 'yellow', myYellow,
-//                 'violet', myViolet,
-//                 'rose', myRose,
-//                 'aqua', myAqua,'#ccc']}
-//     }); 
-// });
+//strand-4P - these are the inside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-4',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 4]], 
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','STRAND'],
+                'blue', myBlue,
+                'orange', myOrange,
+                'green', myGreen,
+                'brown', myBrown,
+                'slate', mySlate,
+                'white', myWhite,
+                'red', myRed,
+                'black', myBlack,
+                'yellow', myYellow,
+                'violet', myViolet,
+                'rose', myRose,
+                'aqua', myAqua,'#ccc']}
+    }); 
+});
 
-// //TUBE-8 - these are the outside square
-// //TUBE IS THE OUTSIDE COLOR - look at issue #94
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'tube-8',
-//         'type': 'symbol',
-//         'source': {
-//             type: 'vector', 
-//             url: tap_url},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 8]], 
-//         'layout': {
-//             'visibility': 'visible',
-//             'icon-image': '{TUBE}-octagon-15',
-//             'icon-allow-overlap': true,
-//             'icon-size':{
-//                  'base': .5,
-//                  'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2]]}}
-//     }); 
-// });
+//TUBE-8 - these are the outside square
+//TUBE IS THE OUTSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tube-8',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 8]], 
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': '{TUBE}-octagon-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2]]}}
+    }); 
+});
 
-// //strand-8P - these are the inside circles
-// //STRAND IS THE INSIDE COLOR - look at issue #94
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'strand-8',
-//         'type': 'circle',
-//         'source': {
-//             type: 'vector', 
-//             url: tap_url},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 8]], 
-//         'layout': {'visibility': 'visible'},
-//         'paint': {
-//             'circle-radius': {
-//                 'base': .9,
-//                 'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
-//             // color circles by strand, using data-driven styles 
-//             'circle-color': 
-//                 ['match', ['get','STRAND'],
-//                 'blue', myBlue,
-//                 'orange', myOrange,
-//                 'green', myGreen,
-//                 'brown', myBrown,
-//                 'slate', mySlate,
-//                 'white', myWhite,
-//                 'red', myRed,
-//                 'black', myBlack,
-//                 'yellow', myYellow,
-//                 'violet', myViolet,
-//                 'rose', myRose,
-//                 'aqua', myAqua,'#ccc']}
-//     }); 
-// });
+//strand-8P - these are the inside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-8',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'PORT', 8]], 
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','STRAND'],
+                'blue', myBlue,
+                'orange', myOrange,
+                'green', myGreen,
+                'brown', myBrown,
+                'slate', mySlate,
+                'white', myWhite,
+                'red', myRed,
+                'black', myBlack,
+                'yellow', myYellow,
+                'violet', myViolet,
+                'rose', myRose,
+                'aqua', myAqua,'#ccc']}
+    }); 
+});
 
-// var cn_splicepoint_url = 'mapbox://conexon-design.9djv849m'
-// var cn_splicepoint_source_layer = 'fdec_splicepoint_n_800-a0as52'
-
-// //tap-text - loss
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'tap-text',
-//         'type': 'symbol',
-//         'source': {
-//             type: 'vector', 
-//             url: cn_splicepoint_source_layer},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder], ['==','EQUIPMENT','Tap']],
-//         'paint': {
-//             'text-color': tapColor},
-//         'layout': {
-//             'text-field':'{LOSS}', //
-//             'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
-//             'text-allow-overlap': true,
-//             'text-size': {
-//                 'base': 1, 
-//                 'stops': [[12, 6], [13,7], [14,8], [15,10], [16,12] ]}}
-//     }); 
-// });
+//tap-text - loss
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tap-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+        'paint': {
+            'text-color': tapColor},
+        'layout': {
+            'text-field':'{LOSS}', //
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': 1, 
+                'stops': [[12, 6], [13,7], [14,8], [15,10], [16,12] ]}}
+    }); 
+});
 
 
-// //tap-text - sequence
-// map.on('load', function () {
-//     map.addLayer({//TAP
-//         'id': 'tap-Sequence-text',
-//         'type': 'symbol',
-//         'source': {
-//             type: 'vector', 
-//             url: cn_splicepoint_url},
-//         'source-layer': cn_splicepoint_source_layer,
-//         'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder], ['==','EQUIPMENT','Tap']],
-//         'paint': {
-//             'text-color': seqColor},
-//         'layout': {
-//             'text-field':'{SEQUENCE}',
-//             'text-allow-overlap': true,
-//             'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
-//             'text-offset': [0, 1.55],
-//             'text-size': {
-//                 'base': 0, 
-//                 'stops': [[12, 1], [13,2], [14,8], [15,10], [16,12] ]}}
-//     }); 
-// });
+//tap-text - sequence
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tap-Sequence-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: cn_splicepoint_url},
+        'source-layer': cn_splicepoint_source_layer,
+        'filter': ["all",['==', 'CN_SUBSTAT', ml_substat],['==', 'CN_FEEDER', ml_feeder], ['==','EQUIPMENT','Tap']],
+        'paint': {
+            'text-color': seqColor},
+        'layout': {
+            'text-field':'{SEQUENCE}',
+            'text-allow-overlap': true,
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-offset': [0, 1.55],
+            'text-size': {
+                'base': 0, 
+                'stops': [[12, 1], [13,2], [14,8], [15,10], [16,12] ]}}
+    }); 
+});
 
 //Cable-Aerial-text
 map.on('load', function () {
@@ -642,9 +634,9 @@ map.on('load', function () {
         'type': 'symbol',
         'source': {
             type: 'vector', 
-            url: cn_splicepoint_url},
-        'source-layer': cn_splicepoint_source_layer,
-        'filter': ["all", ['==', 'CN_SUBSTAT', ml_substat],["==","EQUIPMENT","Substation"]],
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        'filter': ["all", ['==', 'ML_SUBSTAT', ml_substat]],
         'layout': {
             'visibility': 'visible',
             'icon-image': 'black-square-15',
