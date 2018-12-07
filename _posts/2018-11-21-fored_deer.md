@@ -29,3 +29,14 @@ Scenario - 3) Original Rule plus; 2nd comb 2 meter consolidation to longer drop 
 * Feeder 01-214 - [map](/coop/forked_deer/s01_f214_800_adss_t.html)
 * Feeder 01-234 - [map](/coop/forked_deer/s01_f234_800_adss_t.html)
 * Feeder 07-334 - [map](/coop/forked_deer/s07_f334_800_adss_t.html)
+
+Scenario - 4) Near Final 
+--------------
+* Original Rule plus
+	* 2nd comb 2 meter consolidation to longer drop length
+	* with electric reclosers only
+	* and regulators
+	* where reclosers/regulators (red squares) must be on 96 count strand
+* Feeder 01-214 - [map](/coop/forked_deer/s01_f214_near.html)
+* Feeder 01-234 - [map](/coop/forked_deer/s01_f234_near.html)
+* Feeder 07-334 - [map](/coop/forked_deer/s07_f334_near.html)
