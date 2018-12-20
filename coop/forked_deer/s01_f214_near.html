@@ -35,8 +35,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhO
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-    zoom: 12,
-    center: [-89.45,35.77]   //[-89.5,35.9]
+    zoom: 17,
+    //center: [-89.45,35.77]   //[-89.5,35.9]
+    center: [-89.460,35.78675]
 });
 
 var ml_substat = '01'
@@ -68,7 +69,13 @@ var rec_url = 'mapbox://conexon-design.6diprtgg'
 var rec_source_layer = 'fdec_reclosers_near-0iqxap' 
 //regulators_electric
 var reg_url = 'mapbox://conexon-design.7iloalwo' 
-var reg_source_layer = 'fdec_regulators_near-09v0l0'  
+var reg_source_layer = 'fdec_regulators_near-09v0l0' 
+//meter-spider
+var spider_url = 'mapbox://conexon-design.1gavhl0t' 
+var spider_source_layer = 'meter_spider-6hpzsw' 
+//meter-line
+var line_url = 'mapbox://conexon-design.7j1168j0' 
+var line_source_layer = 'meter_line-aykcqm'  
 
 var myBlue = '#0000FF'
 var myOrange = '#FFA500'
@@ -206,6 +213,24 @@ map.on('load', function () {
                     ['2', spanAerial],
                     ['3', spanUnder],
                     ['4', spanUnder]] } }
+    }); 
+});
+
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//meter-spider
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'meter-line',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: line_url},
+        'source-layer': line_source_layer,
+        //filter: ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myOrange}  //myOrange, seqColor, strandTextColor, 
     }); 
 });
 
