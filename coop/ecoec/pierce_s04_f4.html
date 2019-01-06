@@ -578,6 +578,29 @@ map.on('load', function () {
     }); 
 });
 
+//addresses - loss
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'meter-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+        'paint': {
+            'text-color': strandTextColor},
+        'layout': {
+            'text-field':'{ML_LABEL}', //
+            "text-offset": [0, -1.5],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': 1, 
+                'stops': [[12, 1], [13,2], [14,3], [15,7], [16,10], [17,12] ]}}
+    }); 
+});    
+    
 //Substation - these are squares
 map.on('load', function () {
     map.addLayer({//SUBSTATION
