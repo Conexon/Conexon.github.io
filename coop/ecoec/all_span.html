@@ -32,9 +32,35 @@ var cable_source_layer_1 = 'ml_span_1-8mm4bm'
 var cable_url_2 = 'mapbox://feomike.dnb93cgy' 
 var cable_source_layer_2 = 'ml_span_2-6vd0rj'  
 
+var feed_bnd_url = 'mapbox://conexon-design.6lqt7ys3'
+var feed_bdn_source_layer = 'ecoec_feederndry-5r9qwm'
+
 
 var spanAerial = '#551a8b' //purple
 var spanUnder = '#FFA500'
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//feeder boundary
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'feed_bnd',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: feed_bnd_url},
+        'source-layer': feed_bdn_source_layer,
+        //filter: ["all",['==', 'ml_substat', '04']],
+        // 'paint': {
+        //     'line-width': 1,
+        //     'line-color': {
+        //     //     property: 'stype',
+        //     //     type: 'categorical',
+        //     //     stops: [ ['1',spanAerial],
+        //     //         ['2', spanAerial],
+        //     //         ['3', spanUnder],
+        //     //         ['4', spanUnder]] } }
+    }); 
+});
 
 
 //remember shapefile fields need to be upper case for mapbox to recognize them
