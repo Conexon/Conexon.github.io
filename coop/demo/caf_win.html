@@ -125,9 +125,48 @@ map.on('load', function () {
         }
     });
 
+    map.addSource('lacks_speed', {
+        type: 'vector',
+        url: 'mapbox://conexon-design.61rsyv3g'
+    });
+    map.addLayer({
+        'id': 'Lacks 10:1',
+        'type': 'fill',
+        'source': 'lacks_speed',
+        'source-layer': 'fcc_lacks_speed-5pflgy',
+        'filter': ["all",['==', 'f_w_fw', 0],['==', 'f_wo_fw', 0]],
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'fill-color': '#efb517',
+            'fill-opacity': 0.6
+        }
+    });
+
+    map.addSource('lacks_speed_w_fw', {
+        type: 'vector',
+        url: 'mapbox://conexon-design.61rsyv3g'
+    });
+    map.addLayer({
+        'id': 'Lacks 10:1 Has FW',
+        'type': 'fill',
+        'source': 'lacks_speed',
+        'source-layer': 'fcc_lacks_speed-5pflgy',
+        'filter': ["all",['==', 'f_w_fw', 1]],
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'fill-color': '#BA8B0B',
+            'fill-opacity': 0.6
+        }
+    });
+
+
 });
 
-var toggleableLayerIds = [ 'cafwin-all', 'cafwin_wo_viasat' ];
+var toggleableLayerIds = [ 'cafwin-all', 'cafwin_wo_viasat', 'Lacks 10:1', 'Lacks 10:1 Has FW' ];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
