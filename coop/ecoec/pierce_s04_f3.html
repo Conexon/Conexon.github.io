@@ -641,6 +641,29 @@ map.on('load', function () {
                 'stops': [[12, 1], [13,2], [14,3], [15,7], [16,10], [17,12] ]}}
     }); 
 });    
+
+//pole labels
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'pole-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+        'paint': {
+            'text-color': strandTextColor},
+        'layout': {
+            'text-field':'{ML_POLE_NO}', //
+            "text-offset": [0, -1.5],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': 1, 
+                'stops': [[12, 1], [13,2], [14,3], [15,7], [16,10], [17,12] ]}}
+    }); 
+});    
     
 //Substation - these are squares
 map.on('load', function () {
@@ -672,7 +695,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));    
 
-var toggleableLayerIds = ['meter-text' ];
+var toggleableLayerIds = ['meter-text', 'pole-text' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
     var link = document.createElement('a');
