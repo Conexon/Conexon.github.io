@@ -690,6 +690,28 @@ map.on('load', function () {
     }); 
 });
 
+
+//CAF-Win - these are squares
+map.on('load', function () {
+    map.addSource('cafwin', {
+        type: 'vector',
+        url: 'mapbox://conexon-design.1aqyrbhd'
+    });
+    map.addLayer({
+        'id': 'cafwin',
+        'type': 'fill',
+        'source': 'cafwin',
+        'source-layer': 'caf_win-adkxzq',
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'fill-color': '#3887be',
+            'fill-opacity': 0.6
+        }
+    });
+});    
+    
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());   
 
@@ -701,7 +723,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));  
 
-var toggleableLayerIds = ['meter-text', 'pole-text' ];
+var toggleableLayerIds = ['meter-text', 'pole-text', 'cafwin' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
     var link = document.createElement('a');
