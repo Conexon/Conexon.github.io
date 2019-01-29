@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Show and hide layers</title>
+    <title>Conexon Scoring Criteria - Mississippi</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
@@ -55,6 +55,18 @@
     #menu a.active:hover {
         background: #3074a4;
     }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 200%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
 </style>
 
 <nav id="menu"></nav>
@@ -69,11 +81,19 @@ var map = new mapboxgl.Map({
     center: [-90.0, 32.7] //-95.5,37.5
 });
 
+//colors
+var myBlack = '#000000'
+var myGray = '#A9A9A9'
+
+//caf area
 var cafSrcLyr = 'caf_win-adkxzq'
 var cafUrl = 'mapbox://conexon-design.1aqyrbhd'
-
+//fcc-477-lacks speed
 var lacksSpeedSrcLyr = 'fcc_lacks_speed-5pflgy'
 var lacksSpeedUrl = 'mapbox://conexon-design.61rsyv3g'
+//criteria
+var rus_criteriaSrcLyr = 'ms_criteria-23exg6'
+var rus_criteriaUrl = 'mapbox://conexon-design.0u7umc5n'
 
 map.on('load', function () {
 
@@ -95,7 +115,6 @@ map.on('load', function () {
             'fill-opacity': 0.6
         }
     });
-
 
     //CAF All Winning Blocks
     map.addSource('cafwin', {
@@ -157,552 +176,158 @@ map.on('load', function () {
         }
     });
 
-    // //business locations circles
-    // map.addSource('bus_banks', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.7gaosi78'
-    // });
-    // map.addLayer({
-    //     'id': 'bus_banks',
+    //all criteria for identification
+    map.addSource('rus_criteria_id', {
+        type: 'vector',
+        url: rus_criteriaUrl
+    });
+    map.addLayer({
+        'id': 'rus_criteria_id',
+        'type': 'circle',
+        'source': 'rus_criteria_id',
+        'source-layer': rus_criteriaSrcLyr,
+        //'filter': ["all",['==', 'type', 'business']],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': 1,
+                'stops': [[12, 1], [13,2], [14,3], [15,4], [16,5] ]}, 
+            'circle-color': myGray}
+    });
+
+    // //this workls
+    // //rus_criteria_id
+    // map.addLayer({//rus_criteria_id
+    //     'id': 'rus_criteria_id',
     //     'type': 'circle',
-    //     'source': 'bus_credit',
-    //     'source-layer': 'bus_banks-d26r6z',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         // 'circle-radius': 8,
-    //         // 'circle-color': 'rgba(55,148,179,1)'
-    //         'circle-radius': {
-    //             'base': .9,
-    //             'stops': [[12, 10], [13,3], [14,4], [15,5], [16,9] ]},
-    //             'circle-color': 'rgba(55,148,179,1)'
-    //     }
-    // });
-
-    // //business locations icons/squares
-    // map.addSource('bus_banks', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.7gaosi78'
-    // });
-    // map.addLayer({
-    //     'id': 'bus_banks',
-    //     'type': 'symbol',
-    //     'source': 'bus_banks',
-    //     'source-layer': 'bus_banks-d26r6z',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'slate-square-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}
-    // });
-
-
-    // //business locations icons/squares
-    // map.addSource('bus_credit', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.8tfsa6je'
-    // });
-    // map.addLayer({
-    //     'id': 'bus_credit',
-    //     'type': 'symbol',
-    //     'source': 'bus_credit',
-    //     'source-layer': 'bus_credit-54lffg',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'slate-square-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}
-    // });
-
-    // //business locations icons/squares
-    // map.addSource('bus_fedex', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.0slaznpm'
-    // });
-    // map.addLayer({
-    //     'id': 'bus_fedex',
-    //     'type': 'symbol',
-    //     'source': 'bus_fedex',
-    //     'source-layer': 'bus_fedex-833nuc',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'slate-square-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}
-    // });
-
-    // //business locations icons/squares
-    // map.addSource('bus_shipping', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.21zrv8xt'
-    // });
-    // map.addLayer({
-    //     'id': 'bus_shipping',
-    //     'type': 'symbol',
-    //     'source': 'bus_shipping',
-    //     'source-layer': 'bus_shipping-921d1r',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'slate-square-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}
-    // });
-
-    //green circles
-    // //community locations circles - child care
-    // map.addSource('com_childcare', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.2mjtxvzt'
-    // });
-    // map.addLayer({
-    //     'id': 'com_childcare',
-    //     'type': 'circle',
-    //     'source': 'com_childcare',
-    //     'source-layer': 'com_childcare-8r5usc',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
+    //     'source': {
+    //         type: 'vector', 
+    //         url: rus_criteriaUrl},
+    //     'source-layer': rus_criteriaSrcLyr,
+    //     'layout': {'visibility': 'visible'},
     //     'paint': {
     //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
+    //             'base': 1,
+    //             'stops': [[12, 1], [13,2], [14,3], [15,4], [16,5] ]}, 
+    //         'circle-color': myBlack}
+    //     }); 
 
-    // //community locations circles - fire
-    // map.addSource('com_fire', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.88738cuz'
-    // });
-    // map.addLayer({
-    //     'id': 'com_fire',
-    //     'type': 'circle',
-    //     'source': 'com_fire',
-    //     'source-layer': 'com_fire-44a3vs',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
+    //business locations icons/squares
+    map.addSource('business', {
+        type: 'vector',
+        url: rus_criteriaUrl
+    });
+    map.addLayer({
+        'id': 'business',
+        'type': 'symbol',
+        'source': 'business',
+        'source-layer': rus_criteriaSrcLyr,
+        'filter': ["all",['==', 'type', 'business']],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'slate-square-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .05,
+                 'stops': [
+                    [8,.05],[9,.1],[10,.2],[11,.4],
+                    [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}
+    });
 
-    // //community locations circles - govt_bildings
-    // map.addSource('com_govtbld', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.53wxafct'
-    // });
-    // map.addLayer({
-    //     'id': 'com_govtbld',
-    //     'type': 'circle',
-    //     'source': 'com_govtbld',
-    //     'source-layer': 'com_govt_bld-4xgzm9',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
+    //community locations circles - green circles
+    map.addSource('community', {
+        type: 'vector',
+        url: rus_criteriaUrl
+    });
+    map.addLayer({
+        'id': 'community',
+        'type': 'circle',
+        'source': 'community',
+        'source-layer': rus_criteriaSrcLyr,
+        'filter': ["all",['==', 'type', 'community']],
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'circle-radius': {
+                'base':  1 ,
+                'stops': [
+                    [8,1],[9,1.5],[10,2],[11,3],
+                    [12,4],[13,5],[14,6],[15,7],[16,8] 
+                    ]},             
+                'circle-color': '#33cc33'
+         }
+    });
 
-    // //community locations circles - police
-    // map.addSource('com_police', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.0bzd3kcd'
-    // });
-    // map.addLayer({
-    //     'id': 'com_police',
-    //     'type': 'circle',
-    //     'source': 'com_police',
-    //     'source-layer': 'com_police-6osiyk',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
+    //education locations icons/college - colleges
+    map.addSource('education', {
+        type: 'vector',
+        url: rus_criteriaUrl
+    });
+    map.addLayer({
+        'id': 'education',
+        'type': 'symbol',
+        'source': 'education',
+        'source-layer': rus_criteriaSrcLyr,
+        'filter': ["all",['==', 'type', 'education']],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'college-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .05,
+                 'stops': [
+                    [8,.05],[9,.1],[10,.4],[11,.8],
+                    [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
+    });
 
-    // //community locations circles - shelter
-    // map.addSource('com_shelter', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.2r58b9kg'
-    // });
-    // map.addLayer({
-    //     'id': 'com_shelter',
-    //     'type': 'circle',
-    //     'source': 'com_shelter',
-    //     'source-layer': 'com_shelter-3lgz21',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
+    //health locations icons - EMS
+    map.addSource('healthcare', {
+        type: 'vector',
+        url: rus_criteriaUrl
+    });
+    map.addLayer({
+        'id': 'healthcare',
+        'type': 'symbol',
+        'source': 'healthcare',
+        'source-layer': rus_criteriaSrcLyr,
+        'filter': ["all",['==', 'type', 'health']],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'hospital-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .05,
+                 'stops': [
+                    [8,.05],[9,.1],[10,.4],[11,.8],
+                    [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
+//                     [8,.05],[9,.1],[10,.2],[11,.4],
+//                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
+    });
 
-    // //community locations circles - shelter
-    // map.addSource('com_worship', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.13leoa32'
-    // });
-    // map.addLayer({
-    //     'id': 'com_worship',
-    //     'type': 'circle',
-    //     'source': 'com_worship',
-    //     'source-layer': 'com_worship-1io13k',
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     'paint': {
-    //         'circle-radius': {
-    //             'base':  1 ,
-    //             'stops': [
-    //                 [8,1],[9,1.5],[10,2],[11,3],
-    //                 [12,4],[13,5],[14,6],[15,7],[16,8] 
-    //                 ]},             
-    //             'circle-color': '#33cc33'
-    //      }
-    // });
-
-    // //education locations icons/college - colleges
-    // map.addSource('ed_colleges', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.0yw2virr'
-    // });
-    // map.addLayer({
-    //     'id': 'ed_colleges',
-    //     'type': 'symbol',
-    //     'source': 'ed_colleges',
-    //     'source-layer': 'ed_colleges-95zhuf',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'college-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // });
-
-
-    // //education locations icons/college - other
-    // map.addSource('ed_other', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.6dph13h4'
-    // });
-    // map.addLayer({
-    //     'id': 'ed_other',
-    //     'type': 'symbol',
-    //     'source': 'ed_other',
-    //     'source-layer': 'ed_other-9zn3s6',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'college-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // });
-
-    // //education locations icons/college - private
-    // map.addSource('ed_private', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.0he55ix7'
-    // });
-    // map.addLayer({
-    //     'id': 'ed_private',
-    //     'type': 'symbol',
-    //     'source': 'ed_private',
-    //     'source-layer': 'ed_private-5r8myc',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'college-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // });
-
-    // //education locations icons/college - public
-    // map.addSource('ed_public', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.46ksqlfq'
-    // });
-    // map.addLayer({
-    //     'id': 'ed_public',
-    //     'type': 'symbol',
-    //     'source': 'ed_public',
-    //     'source-layer': 'ed_public-aravfd',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'college-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // });
-
-    // //education locations icons/college - truck
-    // map.addSource('ed_truck', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.9kcgno43'
-    // });
-    // map.addLayer({
-    //     'id': 'ed_truck',
-    //     'type': 'symbol',
-    //     'source': 'ed_truck',
-    //     'source-layer': 'ed_truck-dujfka',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'college-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // });
-
-
-    // //health locations icons - EMS
-    // map.addSource('health_ems', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.2owcfr6c'
-    // });
-    // map.addLayer({
-    //     'id': 'health_ems',
-    //     'type': 'symbol',
-    //     'source': 'health_ems',
-    //     'source-layer': 'health_ems-bmkt55',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });
-
-    // //health locations icons - hospitals
-    // map.addSource('health_hospitals', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.ch5haza1'
-    // });
-    // map.addLayer({
-    //     'id': 'health_hospitals',
-    //     'type': 'symbol',
-    //     'source': 'health_hospitals',
-    //     'source-layer': 'health_hospitals-2c7mvv',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });    
-
-    // //health locations icons - pharmacies
-    // map.addSource('health_pharm', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.2r79r2sx'
-    // });
-    // map.addLayer({
-    //     'id': 'health_pharm',
-    //     'type': 'symbol',
-    //     'source': 'health_pharm',
-    //     'source-layer': 'health_pharm-2itpmx',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });
-
-    // //health locations icons - red_cross
-    // map.addSource('health_redcross', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.dd5o1j9w'
-    // });
-    // map.addLayer({
-    //     'id': 'health_redcross',
-    //     'type': 'symbol',
-    //     'source': 'health_redcross',
-    //     'source-layer': 'health_redcross-bl8e45',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });
-
-
-    // //health locations icons - snf
-    // map.addSource('health_snf', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.3ytikz6s'
-    // });
-    // map.addLayer({
-    //     'id': 'health_snf',
-    //     'type': 'symbol',
-    //     'source': 'health_snf',
-    //     'source-layer': 'health_snf-c082ir',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });
-
-    //  //health locations icons - urgent_care
-    // map.addSource('health_urgent_care', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.4jry0xtj'
-    // });
-    // map.addLayer({
-    //     'id': 'health_urgent_care',
-    //     'type': 'symbol',
-    //     'source': 'health_urgent_care',
-    //     'source-layer': 'health_urgent_care-060km0',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });   
-
-
-    // //health locations icons - va
-    // map.addSource('health_va', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.5aij6qfi'
-    // });
-    // map.addLayer({
-    //     'id': 'health_va',
-    //     'type': 'symbol',
-    //     'source': 'health_va',
-    //     'source-layer': 'health_va-bk46hm',
-    //         'layout': {
-    //             'visibility': 'visible',
-    //             'icon-image': 'hospital-15',
-    //             'icon-allow-overlap': true,
-    //             'icon-size':{
-    //                  'base': .05,
-    //                  'stops': [
-    //                     [8,.05],[9,.1],[10,.4],[11,.8],
-    //                     [12,1],[13,1.5],[14,2],[15,3],[16,5] ]}}
-    // //                     [8,.05],[9,.1],[10,.2],[11,.4],
-    // //                     [12,.6],[13,.8],[14,1],[15,1.2],[16,4] ]}}                        
-    // });    
-
-    // map.addSource('coops', {
-    //     type: 'vector',
-    //     url: 'mapbox://conexon-design.a13kq5uc'
-    // });
-    // map.addLayer({
-    //     'id': 'coops',
-    //     'type': 'line',
-    //     'source': 'coops',
-    //     'source-layer': 'coops-beg10g',
-    //     'filter': ["all",['==', 'OBJECTID', 633]],
-    //     'layout': {
-    //         'visibility': 'visible'
-    //     },
-    //     // 'paint': {
-    //     //     'fill-color': '#3887be',
-    //     //     'fill-opacity': 0.6
-    //     // }
-    // });
+   
+    map.addSource('coops', {
+        type: 'vector',
+        url: 'mapbox://conexon-design.a13kq5uc'
+    });
+    map.addLayer({
+        'id': 'coops',
+        'type': 'line',
+        'source': 'coops',
+        'source-layer': 'coops-beg10g',
+        'filter': ["all",['==', 'STATE', 'MS']],
+        'layout': {
+            'visibility': 'visible'
+        },
+        // 'paint': {
+        //     'fill-color': '#3887be',
+        //     'fill-opacity': 0.6
+        // }
+    });
 
 
 });
 
-//var toggleableLayerIds = [ 'cafwin-all', 'cafwin_wo_viasat', 'Lacks 10:1', 'Lacks 10:1 Has FW' ];
 
 var toggleableLayerIds = [ 'cafwin-all','cafwin_wo_viasat','Lacks 10:1', 'Lacks 10:1 Has FW' ];
 
@@ -733,6 +358,53 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     var layers = document.getElementById('menu');
     layers.appendChild(link);
 }
+
+
+
+// When a click event occurs on a feature in the places layer, open a popup at the
+// location of the feature, with description HTML from its properties.
+map.on('click', 'rus_criteria_id', function (e) {
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var type = e.features[0].properties.type;
+    var subtype = e.features[0].properties.subtype;
+    var name = e.features[0].properties.name;
+    var address = e.features[0].properties.address;
+    var city = e.features[0].properties.city;
+    var state = e.features[0].properties.state;
+    var zip = e.features[0].properties.zip;
+    //var out_lt = e.features[0].properties.OUT_LT_DS;
+    
+    // Ensure that if the map is zoomed out such that multiple
+    // copies of the feature are visible, the popup appears
+    // over the copy being pointed to.
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+    html_table = '<table style="width:90%"> ' //line 1
+    html_table = html_table + '<tr> <th>Field</th> <th>Value</th> </tr>' //header
+    html_table = html_table + '<tr> <td>Type: </td> <td> ' + type + '</td> <tr>' //row 1
+    html_table = html_table + '<tr> <td>Subtype: </td> <td> ' + subtype + '</td> <tr>' //row 1 
+    html_table = html_table + '<tr> <td>Name: </td> <td> ' + name + '</td> <tr>' //row 1 
+    html_table = html_table + '<tr> <td>Address: </td> <td> ' + address + '</td> <tr>' //row 2
+    html_table = html_table + '<tr> <td>City: </td> <td> ' + city + '</td> <tr>' //row 3
+    html_table = html_table + '<tr> <td>State: </td> <td> ' + state + '</td> <tr>' //row 4
+    html_table = html_table + '<tr> <td>ZIP: </td> <td> ' + zip + '</td> <tr>' //row 5
+    html_table = html_table + '</table>' //end
+    new mapboxgl.Popup()
+        .setLngLat(coordinates)
+        .setHTML(html_table) //description + ml_substat works
+        .addTo(map);
+});
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'rus_criteria_id', function () {
+    map.getCanvas().style.cursor = 'pointer';
+});
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'rus_criteria_id', function () {
+    map.getCanvas().style.cursor = '';
+});
+
+
 
 </script>
 
