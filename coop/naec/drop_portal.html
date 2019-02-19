@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    /*tr:nth-child(even) {;
+        background-color:#ddddd;
+}*/
+</style>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    hash: true,
+    style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+    zoom: 11.98,
+    center: [-91.61579,36.21452]    
+});
+
+//source from Postgis
+//consumers
+var consumers_url = 'mapbox://conexon-design.4pmcdfc9'
+var consumers_source_layer = 'mb_naec_consumers-24p6vq'
+//poles
+var poles_url = 'mapbox://conexon-design.2sizmedu' 
+var poles_source_layer = 'mb_naec_poles-a58gnj'
+//substations
+var substat_url = 'mapbox://conexon-design.dvcpdg3t'
+var substat_source_layer = 'mb_naec_substations-1ux1ou'  
+
+
+//Sourve from SDE
+var cable_url = 'mapbox://conexon-design.4t6s36pf' 
+var cable_source_layer = 'naec_sdm_cable-4krtz3' 
+//splice_cans
+var splice_can_url = 'mapbox://conexon-design.6ov9wbu3' 
+var splice_can_source_layer = 'naec_sdm_splicepoint-d4q0gz' 
+//tap_geo
+var tap_url = 'mapbox://conexon-design.5zg8na6h' 
+var tap_source_layer = 'naec_sdm_equipmentdisp-1rrapz' 
+
+
+var myBlue = '#0000FF'
+var myOrange = '#FFA500'
+var myGreen = '#008000'
+var myBrown = '#894444'
+var mySlate = '#808080'
+var myWhite = '#FFFFFF'
+var myRed = '#FF0000'
+var myBlack = '#000000'
+var myYellow = '#FFFF00'
+var myViolet = '#EE82EE'
+var myRose = '#FFC0CB'
+var myAqua = '#00FFFF'
+var spanColor = '#800080'
+var tapColor = '#bababa'//'#c4c4c4'
+var spanAerial = '#551a8b' //purple
+var spanUnder = '#FFA500'
+var seqColor = '#A9A9A9' //'#FFA500'
+var strandTextColor = '#545454' //'#FFA500'
+var strandLineColor = '#dcdcdc' //'#FFA500'
+
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-144
+map.on('load', function () {
+    map.addLayer({//CABLE
+        'id': 'cable-144',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 144]],
+        'layout':{'line-join':'round','line-cap':'round'},
+        'paint': {
+            'line-width': {
+                base: 1.5,
+                stops: [[10,1.5],[11,9],[12,10],[13,12],[14,13],[15,14],[16,15]]},
+            'line-color': strandLineColor}
+    }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-96
+map.on('load', function () {
+    map.addLayer({//CABLE
+        'id': 'cable-96',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 96]],
+        'layout':{'line-join':'round','line-cap':'round'},
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,1],[11,8],[12,9],[13,10],[14,11],[15,12],[16,13]]},
+            'line-color': strandLineColor}
+    }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-48
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'cable-48',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 48]],
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,1],[11,5],[12,6],[13,7],[14,8],[15,9],[16,10]]},
+            'line-color': strandLineColor}
+        }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-24
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'cable-24',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 24]],
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,1],[11,3],[12,4],[13,5],[14,6],[15,7],[16,8]]},
+            'line-color': strandLineColor}
+    }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-12
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'cable-12',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 12]],
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,1],[11,2],[12,3],[13,4],[14,5],[15,6],[16,7]]},
+            'line-color': strandLineColor}
+    }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-4
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'cable-4',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'cableSize', 4]],
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,1],[11,1],[12,2],[13,3],[14,4],[15,5],[16,6]]},
+            'line-color': strandLineColor} 
+    }); 
+});
+
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable
+map.on('load', function () {
+     map.addLayer({//CABLE
+        'id': 'cable',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'paint': {
+            'line-width': 1,
+            'line-color': {
+                property: 'class',
+                type: 'categorical',
+                stops: [ ['A',spanAerial],
+                    // ['2', spanAerial],
+                    // ['3', spanUnder],
+                    ['U', spanUnder]] } }
+    }); 
+});
+
+
+//poles
+map.on('load', function () {
+    map.addLayer({//POLES
+        'id': 'poles',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+            'circle-color': myBlack}
+    }); 
+});
+
+
+//consumers-outside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-rings',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,5], [15,6], [16,10] ]}, 
+            'circle-color': myOrange}
+    }); 
+});
+
+//consumers-inside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-inside',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,3], [14,4], [15,5], [16,9] ]}, //, [22, 60]] }, 
+            'circle-color': myWhite}
+    }); 
+});
+
+//consumers-text - 'M'
+map.on('load', function () {
+     map.addLayer({//CONSUMERS
+        'id': 'consumers-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'paint': {
+            'text-color': myOrange},
+        'layout': {
+            'text-field':'M', //
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': 1, 
+                'stops': [[12, 5], [13,6], [14,8], [15,8], [16,12] ]}}
+    }); 
+});
+
+//splice-cans - these are bow-ties
+map.on('load', function () {
+    map.addLayer({//SPLICE-CAN
+        'id': 'splice-can',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: splice_can_url
+            },
+        'source-layer': splice_can_source_layer ,
+        'filter': ["all",['==', 'Subtype', 1]],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'blue-bowtie-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .25], [13,.45], [14,.55], [15,.65], [16,.75] ] } }
+    }); 
+});
+
+
+//tube-2P - these are the outside circles
+//TUBE IS THE OUTSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tube-2',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'tap_ports', 2]],  
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 2], [13,6], [14,8], [15,10], [16,12] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','fiber_tube'],
+                'Blue', myBlue,
+                'Orange', myOrange,
+                'Green', myGreen,
+                'Brown', myBrown,
+                'Slate', mySlate,
+                'White', myWhite,
+                'Red', myRed,
+                'Black', myBlack,
+                'Yellow', myYellow,
+                'Violet', myViolet,
+                'Rose', myRose,
+                'Aqua', myAqua,'#ccc']}
+    }); 
+});
+
+//strand-2P - these are the outside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-2',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'filter': ["all",['==', 'tap_ports', 2]],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','fiber_stra'],
+                'Blue', myBlue,
+                'Orange', myOrange,
+                'Green', myGreen,
+                'Brown', myBrown,
+                'Slate', mySlate,
+                'White', myWhite,
+                'Red', myRed,
+                'Black', myBlack,
+                'Yellow', myYellow,
+                'Violet', myViolet,
+                'Rose', myRose,
+                'Aqua', myAqua,'#ccc']}
+    }); 
+});
+
+//TUBE-4 - these are the outside square
+//TUBE IS THE OUTSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tube-4',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer, 
+        'filter': ["all",['==', 'tap_ports', 4]], 
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': '{tube}-square-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2] ]}}
+    }); 
+});
+
+//strand-4P - these are the inside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-4',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer, 
+        'filter': ["all",['==', 'tap_ports', 4]],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','strand'],
+                'blue', myBlue,
+                'orange', myOrange,
+                'green', myGreen,
+                'brown', myBrown,
+                'slate', mySlate,
+                'white', myWhite,
+                'red', myRed,
+                'black', myBlack,
+                'yellow', myYellow,
+                'violet', myViolet,
+                'rose', myRose,
+                'aqua', myAqua,'#ccc']}
+    }); 
+});
+
+//TUBE-8 - these are the outside square
+//TUBE IS THE OUTSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'tube-8',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer, 
+        'filter': ["all",['==', 'tap_ports', 8]], 
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': '{tube}-octagon-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .5], [13,1], [14,1.25], [15,1.75], [16,2]]}}
+    }); 
+});
+
+//strand-8P - these are the inside circles
+//STRAND IS THE INSIDE COLOR - look at issue #94
+map.on('load', function () {
+    map.addLayer({//TAP
+        'id': 'strand-8',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+         'filter': ["all",['==', 'tap_ports', 8]],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
+            // color circles by strand, using data-driven styles 
+            'circle-color': 
+                ['match', ['get','strand'],
+                'blue', myBlue,
+                'orange', myOrange,
+                'green', myGreen,
+                'brown', myBrown,
+                'slate', mySlate,
+                'white', myWhite,
+                'red', myRed,
+                'black', myBlack,
+                'yellow', myYellow,
+                'violet', myViolet,
+                'rose', myRose,
+                'aqua', myAqua,'#ccc']}
+    }); 
+});
+
+
+// //tap-text - loss
+// map.on('load', function () {
+//     map.addLayer({//TAP
+//         'id': 'tap-text',
+//         'type': 'symbol',
+//         'source': {
+//             type: 'vector', 
+//             url: tap_url},
+//         'source-layer': tap_source_layer,
+//         //'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+//         'paint': {
+//             'text-color': tapColor},
+//         'layout': {
+//             'text-field':'{LOSS}', //
+//             'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+//             'text-allow-overlap': true,
+//             'text-size': {
+//                 'base': 1, 
+//                 'stops': [[12, 6], [13,7], [14,8], [15,10], [16,12] ]}}
+//     }); 
+// });
+
+
+
+
+/////////////////////////////////////////////////////
+
+
+
+//end
+//Cable-Strand Count
+map.on('load', function () {
+    map.addLayer({//SPAN
+        'id': 'cable-strand-count-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'paint': {
+            'text-color': strandTextColor},
+        'layout': {
+            'text-field':'{cableSize}',
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'symbol-placement': 'line',
+            'text-allow-overlap': true,
+            'text-offset': [0, -1],
+            'text-size': {
+                'base': 1, 
+                'stops': [[12, 8], [13,9], [14,10], [15,12], [16,14] ]}}
+    }); 
+});
+
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());   
+
+// Add geolocate control to the map.
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));   
+
+</script>
+</body>
+</html>
