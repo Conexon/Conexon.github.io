@@ -32,8 +32,8 @@ var cable_source_layer = 'avecc_cable-4f5knl'
 // var consumers_url = 'mapbox://conexon-design.43092d0p'
 // var consumers_source_layer = 'ecoec_consumers-dsmbeh'
 
-// var splice_can_url = 'mapbox://conexon-design.4nz2dcws'
-// var splice_can_source_layer = 'ecoec_splice_can-cyui46'
+var splice_point_url = 'mapbox://conexon-design.10b9jbcd'
+var splice_point_source_layer = 'avecc_splicepoints-4eofp4'
 // //poles
 // var poles_url = 'mapbox://conexon-design.2ycf2gxi' 
 // var poles_source_layer = 'ecoec_poles-cpcps0'
@@ -243,26 +243,26 @@ map.on('load', function () {
             //     }); 
             // });
 
-            // //splice-cans - these are bow-ties
-            // map.on('load', function () {
-            //     map.addLayer({//SPLICE-CAN
-            //         'id': 'splice-can',
-            //         'type': 'symbol',
-            //         'source': {
-            //             type: 'vector', 
-            //             url: splice_can_url
-            //             },
-            //         'source-layer': splice_can_source_layer ,
-            //         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
-            //         'layout': {
-            //             'visibility': 'visible',
-            //             'icon-image': 'blue-bowtie-15',
-            //             'icon-allow-overlap': true,
-            //             'icon-size':{
-            //                  'base': .5,
-            //                  'stops': [[12, .25], [13,.45], [14,.55], [15,.65], [16,.75] ] } }
-            //     }); 
-            // });
+//splice-cans - these are bow-ties
+map.on('load', function () {
+    map.addLayer({//SPLICE-CAN
+        'id': 'splice_can',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: splice_point_url
+            },
+        'source-layer': splice_point_source_layer ,
+        'filter': ["all",['==', 'Subtype', 1]],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'blue-bowtie-15',
+            'icon-allow-overlap': true,
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .25], [13,.45], [14,.55], [15,.65], [16,.75] ] } }
+    }); 
+});
 
 //tube-2P - these are the outside circles
 //TUBE IS THE OUTSIDE COLOR - look at issue #94
@@ -449,9 +449,9 @@ map.on('load', function () {
 //         'type': 'symbol',
 //         'source': {
 //             type: 'vector', 
-//             url: tap_url},
-//         'source-layer': tap_source_layer,
-//         'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder]],
+//             url: splice_point_url},
+//         'source-layer': splice_point_source_layer,
+//         'filter': ["all",['==', 'Subtype', 13]],
 //         'paint': {
 //             'text-color': tapColor},
 //         'layout': {
@@ -561,24 +561,24 @@ map.on('load', function () {
 
 
     
-// //Substation - these are squares
-// map.on('load', function () {
-//     map.addLayer({//SUBSTATION
-//         'id': 'substation',
-//         'type': 'symbol',
-//         'source': {
-//             type: 'vector', 
-//             url: substat_url},
-//         'source-layer': substat_source_layer,
-//         'filter': ['==', 'ML_SUBSTAT', ml_substat],
-//         'layout': {
-//             'visibility': 'visible',
-//             'icon-image': 'black-square-15',
-//             'icon-size':{
-//                  'base': .5,
-//                  'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
-//     }); 
-// });
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: splice_point_url},
+        'source-layer': splice_point_source_layer,
+        'filter': ['==', 'Subtype', 4],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
     
    
 
