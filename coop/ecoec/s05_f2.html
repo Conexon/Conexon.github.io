@@ -60,12 +60,12 @@ var map = new mapboxgl.Map({
     container: 'map',
     hash: true,
     style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-    zoom: 14.27,
-    center: [-95.60863,35.31872]
+    zoom: 12,
+    center: [-95.40808,35.49314]
 });
 
-var ml_substat = '06'
-var ml_feeder = '1'
+var ml_substat = '05'
+var ml_feeder = '2'
 
 var cable_url = 'mapbox://conexon-design.0myhzhf1' 
 var cable_source_layer = 'ecoec_cable-69uz1j' 
@@ -104,6 +104,26 @@ var spanUnder = '#FFA500'
 var seqColor = '#A9A9A9' //'#FFA500'
 var strandTextColor = '#545454' //'#FFA500'
 var strandLineColor = '#dcdcdc' //'#FFA500'
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//cable-144
+map.on('load', function () {
+    map.addLayer({//CABLE
+        'id': 'cable-144',
+        'type': 'line',
+        'source': {
+            type: 'vector', 
+            url: cable_url},
+        'source-layer': cable_source_layer,
+        'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['==', 'CABLE', 144]],
+        'layout':{'line-join':'round','line-cap':'round'},
+        'paint': {
+            'line-width': {
+                base: 1,
+                stops: [[10,4],[11,10],[12,11],[13,12],[14,13],[15,14],[16,15]]},
+            'line-color': strandLineColor}
+    }); 
+});
 
 //remember shapefile fields need to be upper case for mapbox to recognize them
 //cable-96
