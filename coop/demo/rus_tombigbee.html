@@ -79,14 +79,14 @@ var myOrange = '#FFA500'
 
 //PFSA - these are squares
 map.on('load', function () {
-    map.addSource('pfsa', {
+    map.addSource('Proposed Funded', {
         type: 'vector',
         url: pfsa_url
     });
     map.addLayer({
-        'id': 'pfsa',
+        'id': 'Proposed Funded',
         'type': 'fill',
-        'source': 'pfsa',
+        'source': 'Proposed Funded',
         'source-layer': pfsa_source_layer,
         'layout': {
             'visibility': 'visible'
@@ -100,14 +100,14 @@ map.on('load', function () {
     
 //NFSA - these are squares
 map.on('load', function () {
-    map.addSource('nfsa', {
+    map.addSource('Non Funded', {
         type: 'vector',
         url: nfsa_url
     });
     map.addLayer({
-        'id': 'nfsa',
+        'id': 'Non Funded',
         'type': 'fill',
-        'source': 'nfsa',
+        'source': 'Non Funded',
         'source-layer': nfsa_source_layer,
         'layout': {
             'visibility': 'visible'
@@ -130,7 +130,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));   
 
-var toggleableLayerIds = ['pfsa', 'nfsa' ];
+var toggleableLayerIds = ['Proposed Funded', 'Non Funded' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
     var link = document.createElement('a');
