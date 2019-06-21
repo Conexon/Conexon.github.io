@@ -25,54 +25,286 @@ var map = new mapboxgl.Map({
 });
 
 
-var cable_url_0 = 'mapbox://feomike.5zgb89ak' 
-var cable_source_layer_0 = 'ml_span_0-9akooq' 
+var span_source_layer = 'demo_cemc_span-1f84jl'
+var span_url = 'mapbox://conexon-design.bgtcvgrd'
 
-var cable_url_1 = 'mapbox://feomike.2pa191a9' 
-var cable_source_layer_1 = 'ml_span_1-8mm4bm' 
- 
-var cable_url_2 = 'mapbox://feomike.dnb93cgy' 
-var cable_source_layer_2 = 'ml_span_2-6vd0rj'  
+var poles_source_layer = 'demo_cemc_poles-cmvfj2'
+var poles_url = 'mapbox://conexon-design.doltn0ec'
 
+var substat_source_layer = 'demo_cemc_substations-d30yot'
+var substat_url = 'mapbox://conexon-design.770u2qjq'
 
-var span_source_layer = 'cemc_base_span'
-var span_url = 'mapbox://conexon-design.cemc_base_span'
-
-var poles_source_layer = 'cemc_base_pole'
-var poles_url = 'mapbox://conexon-design.cemc_base_pole'
-
-var substat_source_layer = 'cemc_base_substation'
-var substat_url = 'mapbox://conexon-design.cemc_base_substation'
-
-var consumers_source_layer = 'cemc_base_consumer'
-var consumers_url = 'mapbox://conexon-design.cemc_base_consumer'
+var consumers_source_layer = 'demo_cemc_consumers-bgjkl5'
+var consumers_url = 'mapbox://conexon-design.cpc9olel'
 
 var spanAerial = '#551a8b' //purple
 var spanUnder = '#FFA500'
 var myOrange = '#FFA500'
 var myWhite = '#FFFFFF'
 var myBlack = '#000000'
+var myGray = '#67696d'
 
+var myBlue = '#0000FF'
+var myGreen = '#008000'
+var myRed = '#FF0000'
+var myViolet = '#EE82EE'
+var myAqua = '#00FFFF'
+var myRose = '#FFC0CB'
+var myYellow = '#FFFF00'
+var myBrown = '#894444'
+
+//DOVER
 map.on('load', function () {
      map.addLayer({//SPAN
-        'id': 'span',
+        'id': 'span-DV-Primary',
         'type': 'line',
          'source': {
             type: 'vector', 
             url: span_url},
         'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'DV'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
         'paint': {
-            'line-width': 1,
-            'line-color': {
-                property: 'stype',
-                type: 'categorical',
-                stops: [ ['1',spanAerial],
-                    ['2', spanAerial],
-                    ['3', spanUnder],
-                    ['4', spanUnder]] } }
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-DV-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'DV'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myBlue}
     }); 
 });
 
+//Indian Mound
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-IM-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'IM'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myGreen}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-IM-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'IM'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myGreen}
+    }); 
+});
+
+
+//Lone Oak
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-LO-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'LO'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRed}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-LO-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'LO'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myRed}
+    }); 
+});
+
+//St. Bethlehem
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-SB-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'SB'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myViolet}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-SB-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'SB'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myViolet}
+    }); 
+});
+
+//Adams
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-AD-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'AD'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myAqua}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-AD-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'AD'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myAqua}
+    }); 
+});
+
+//Orlinda
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-OR-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'OR'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRose}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-OR-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'OR'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myRose}
+    }); 
+});
+
+//Mitchellville
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-MV-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'MV'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBrown}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-MV-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'MV'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myBrown}
+    }); 
+});
 
 
 //consumers-outside ring
@@ -85,6 +317,7 @@ map.on('load', function () {
             url: consumers_url},
         'source-layer': consumers_source_layer,
         'layout': {'visibility': 'visible'},
+        filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
         'paint': {
             'circle-radius': {
                 'base': .5,
@@ -102,6 +335,7 @@ map.on('load', function () {
             type: 'vector', 
             url: consumers_url},
         'source-layer': consumers_source_layer,
+        filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
         'layout': {'visibility': 'visible'},
         'paint': {
             'circle-radius': {
@@ -132,24 +366,6 @@ map.on('load', function () {
 //     }); 
 // });
 
-//Substation - these are squares
-map.on('load', function () {
-    map.addLayer({//SUBSTATION
-        'id': 'substation',
-        'type': 'symbol',
-        'source': {
-            type: 'vector', 
-            url: substat_url},
-        'source-layer': substat_source_layer,
-        'layout': {
-            'visibility': 'visible',
-            'icon-image': 'black-square-15',
-            'icon-size':{
-                 'base': .5,
-                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
-    }); 
-});
-
 //poles
 map.on('load', function () {
     map.addLayer({//POLES
@@ -159,15 +375,40 @@ map.on('load', function () {
             type: 'vector', 
             url: poles_url},
         'source-layer': poles_source_layer,
+        filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
         'layout': {
             'visibility': 'visible'},
         'paint': {
             'circle-radius': {
                 'base': .9,
                 'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
-            'circle-color': myBlack}
+            'circle-color': myGray}
     }); 
 });
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+        'layout': {
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+
+
+
 
 </script>
 </body>
