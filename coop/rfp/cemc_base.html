@@ -53,41 +53,41 @@ var myRose = '#FFC0CB'
 var myYellow = '#FFFF00'
 var myBrown = '#894444'
 
-// //DOVER
-// map.on('load', function () {
-//      map.addLayer({//SPAN
-//         'id': 'span-DV-Primary',
-//         'type': 'line',
-//          'source': {
-//             type: 'vector', 
-//             url: span_url},
-//         'source-layer': span_source_layer,
-//             filter: ["all",
-//             ['in', 'ML_SUBSTAT', 'DV'],
-//             ['in', 'ML_SUBTYPE' , 1, 3]
-//             ],
-//         'paint': {
-//             'line-width': 1.5,
-//             'line-color': myBlue}
-//     }); 
-// });
-// map.on('load', function () {
-//      map.addLayer({//SPAN
-//         'id': 'span-DV-Secondary',
-//         'type': 'line',
-//          'source': {
-//             type: 'vector', 
-//             url: span_url},
-//         'source-layer': span_source_layer,
-//             filter: ["all",
-//             ['in', 'ML_SUBSTAT', 'DV'],
-//             ['in', 'ML_SUBTYPE' , 2, 4]
-//             ],
-//         'paint': {
-//             'line-width': .75,
-//             'line-color': myBlue}
-//     }); 
-// });
+//DOVER
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-DV-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'DV'],
+            ['in', 'ML_SUBTYPE' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-DV-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ML_SUBSTAT', 'DV'],
+            ['in', 'ML_SUBTYPE' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myBlue}
+    }); 
+});
 
 // //Indian Mound
 // map.on('load', function () {
