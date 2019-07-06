@@ -37,6 +37,12 @@ var substat_url = 'mapbox://conexon-design.cgz9uvns'
 var consumers_source_layer = 'demo_mid_south_consumers-cmn0qp'
 var consumers_url = 'mapbox://conexon-design.b73t2q8z'
 
+var feeder_poly_source_layer = 'demo_mid_south_feeder_poly-bycv7l'
+var feeder_poly_url = 'mapbox://conexon-design.5tam2zjz'
+
+var cable_phase1_source_layer = 'demo_mid_south_cable-dfvtkf'
+var cable_phase1_url = 'mapbox://conexon-design.5uwj2wkk'
+
 var spanAerial = '#551a8b' //purple
 var spanUnder = '#FFA500'
 var myOrange = '#FFA500'
@@ -52,7 +58,25 @@ var myAqua = '#00FFFF'
 var myRose = '#FFC0CB'
 var myYellow = '#FFFF00'
 var myBrown = '#894444'
+var myCream = '#fffdd0'
 
+map.on('load', function () {
+     map.addLayer({//feeder_poly
+        'id': 'feeder_poly',
+        'type': 'fill',
+         'source': {
+            type: 'vector', 
+            url: feeder_poly_url},
+        'source-layer': feeder_poly_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'fill-color': myCream,
+            'fill-opacity': 0.6,
+            'fill-outline-color': myBlack
+
+        }
+    }); 
+});
 
 map.on('load', function () {
      map.addLayer({//SPAN
@@ -62,395 +86,53 @@ map.on('load', function () {
             type: 'vector', 
             url: span_url},
         'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '01']//,
+            // filter: ["all",
+            // ['in', 'cn_substat', '01']//,
             //['in', 'cn_subtype' , 1, 3]
-            ],
+            // ],
         'paint': {
-            'line-width': 1.5,
-            'line-color': myBlue}
+            'line-width': 1,
+            'line-color': myBlack}
     }); 
 });
 
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//span
 map.on('load', function () {
      map.addLayer({//SPAN
-        'id': 'span-03',
+        'id': 'span',
         'type': 'line',
          'source': {
             type: 'vector', 
             url: span_url},
         'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '03']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
         'paint': {
             'line-width': 1.5,
-            'line-color': myGreen}
+            'line-color': {
+                property: 'cn_substat',
+                type: 'categorical',
+                stops: [ 
+                    ['01',myBlue],
+                    ['03', myGreen],
+                    ['04', myRed],
+                    ['06', myViolet],
+                    ['07', myAqua],
+                    ['09', myRose],
+                    ['10', myBrown],
+                    ['12',myBlue],
+                    ['13', myGreen],
+                    ['14', myRed],
+                    ['15', myViolet],
+                    ['17', myAqua],
+                    ['18', myRose],
+                    ['19', myBrown],  
+                    ['20',myBlue],
+                    ['21', myGreen],
+                    ['22', myRed],
+                    ['26', myViolet]                                   
+                    ] } }
     }); 
 });
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-04',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '04']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRed}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-06',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '06']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myViolet}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-07',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '07']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myAqua}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-09',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '09']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRose}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-10',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '10']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myYellow}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-12',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '12']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myBrown}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-13',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '13']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myBlue}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-14',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '14']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myGreen}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-15',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '15']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRed}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-17',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '17']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myViolet}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-18',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '18']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myAqua}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-19',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '19']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRose}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-20',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '20']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myYellow}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-21',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '21']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myBrown}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-22',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '22']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myBlue}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-26',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '26']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myGreen}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-50',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '50']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRed}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-51',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '51']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myViolet}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-52',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '52']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myAqua}
-    }); 
-});
-
-map.on('load', function () {
-     map.addLayer({//SPAN
-        'id': 'span-62',
-        'type': 'line',
-         'source': {
-            type: 'vector', 
-            url: span_url},
-        'source-layer': span_source_layer,
-            filter: ["all",
-            ['in', 'cn_substat', '62']//,
-            //['in', 'cn_subtype' , 1, 3]
-            ],
-        'paint': {
-            'line-width': 1.5,
-            'line-color': myRose}
-    }); 
-});
-
-
 
 //consumers-outside ring
 map.on('load', function () {
@@ -551,7 +233,6 @@ map.on('load', function () {
                  'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
     }); 
 });
-
 
 
 </script>

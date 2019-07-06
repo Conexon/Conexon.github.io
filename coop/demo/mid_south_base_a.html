@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmVvbWlrZSIsImEiOiJNRjJrRmRnIn0.Sc8mxXKYTRfgegc_3vjZiw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/feomike/cj0zcunxh000m2sqb2epkabb4',
+    zoom: 9.14,
+    center: [-95.8602,30.6418],
+    hash: true
+});
+
+
+var span_source_layer = 'demo_mid_south_span-dfa14q'
+var span_url = 'mapbox://conexon-design.1juuy7uh'
+
+var poles_source_layer = 'demo_mid_south_poles-1oovxl'
+var poles_url = 'mapbox://conexon-design.57ncsxp3'
+
+var substat_source_layer = 'demo_mid_south_substations-2doqta'
+var substat_url = 'mapbox://conexon-design.cgz9uvns'
+
+var consumers_source_layer = 'demo_mid_south_consumers-cmn0qp'
+var consumers_url = 'mapbox://conexon-design.b73t2q8z'
+
+var spanAerial = '#551a8b' //purple
+var spanUnder = '#FFA500'
+var myOrange = '#FFA500'
+var myWhite = '#FFFFFF'
+var myBlack = '#000000'
+var myGray = '#67696d'
+
+var myBlue = '#0000FF'
+var myGreen = '#008000'
+var myRed = '#FF0000'
+var myViolet = '#EE82EE'
+var myAqua = '#00FFFF'
+var myRose = '#FFC0CB'
+var myYellow = '#FFFF00'
+var myBrown = '#894444'
+
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-01',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '01']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-03',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '03']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myGreen}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-04',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '04']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRed}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-06',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '06']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myViolet}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-07',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '07']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myAqua}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-09',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '09']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRose}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-10',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '10']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myYellow}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-12',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '12']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBrown}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-13',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '13']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-14',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '14']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myGreen}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-15',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '15']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRed}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-17',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '17']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myViolet}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-18',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '18']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myAqua}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-19',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '19']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRose}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-20',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '20']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myYellow}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-21',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '21']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBrown}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-22',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '22']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-26',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '26']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myGreen}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-50',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '50']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRed}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-51',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '51']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myViolet}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-52',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '52']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myAqua}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-62',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'cn_substat', '62']//,
+            //['in', 'cn_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRose}
+    }); 
+});
+
+
+
+//consumers-outside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-rings',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'layout': {'visibility': 'visible'},
+        //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 1], [13,2], [14,3], [15,5], [16,8] ]}, 
+            'circle-color': myOrange}
+    }); 
+});
+
+//consumers-inside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-inside',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .4,
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}, //, [22, 60]] }, 
+            'circle-color': myWhite}
+    }); 
+});
+
+//consumers-text - 'M'
+map.on('load', function () {
+     map.addLayer({//CONSUMERS
+        'id': 'consumers-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+        'paint': {
+            'text-color': myOrange},
+        'layout': {
+            'text-field':'M', //
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': .1, 
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}}
+    }); 
+});
+
+//poles
+map.on('load', function () {
+    map.addLayer({//POLES
+        'id': 'poles',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        'layout': {
+            'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+            'circle-color': myGray}
+    }); 
+});
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        'layout': {
+            'text-field': '{name}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+
+</script>
+</body>
+</html>
