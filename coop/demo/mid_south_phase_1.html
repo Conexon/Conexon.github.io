@@ -83,6 +83,9 @@ var consumers_url = 'mapbox://conexon-design.b73t2q8z'
 var feeder_poly_source_layer = 'demo_mid_south_feeder_poly-bycv7l'
 var feeder_poly_url = 'mapbox://conexon-design.5tam2zjz'
 
+var feeder_pt_source_layer = 'demo_mid_south_sub_feeder_pt-cfhnkl'
+var feeder_pt_url = 'mapbox://conexon-design.17o4er2p'
+
 var cable_phase1_source_layer = 'demo_mid_south_cable-dfvtkf'
 var cable_phase1_url = 'mapbox://conexon-design.5uwj2wkk'
 
@@ -99,7 +102,7 @@ var myBlack = '#000000' //288
 var myDarkGray = '#3f3f3f' //144
 var mySlateGray = '#7e7e7e' //96
 var myGray = '#67696d' //used already
-var myLightGray = '#bdbdbd' // 48
+var myLightGray = '#ffd8b7'//'#ffbd84'//'#bdbdbd' // 48
 
 var myBlue = '#0000FF'
 var myGreen = '#008000'
@@ -110,6 +113,7 @@ var myRose = '#FFC0CB'
 var myYellow = '#FFFF00'
 var myBrown = '#894444'
 var myCream = '#fffdd0'
+var feedLbl = '#67696d'//'#7e7e7e'//'#ffbd84'
 
 map.on('load', function () {
      map.addLayer({//feeder_poly
@@ -397,6 +401,34 @@ map.on('load', function () {
     }); 
 });
 
+
+//feeder_pt - these are squares
+map.on('load', function () {
+    map.addLayer({//feeder_pt
+        'id': 'feeder_pt',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: feeder_pt_url},
+        'source-layer': feeder_pt_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'text-color': feedLbl
+            },        
+        'layout': {
+            'text-field': '{cn_feeder}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            //'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .1,
+                 'stops': [[12, .25], [13,1], [14,1.5], [15,2], [16,3] ]} 
+             }
+    }); 
+});
+
+
 //Substation - these are squares
 map.on('load', function () {
     map.addLayer({//SUBSTATION
@@ -443,6 +475,9 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     var layers = document.getElementById('menu');
     layers.appendChild(link);
 }
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());   
 
 
 </script>
