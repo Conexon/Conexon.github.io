@@ -92,6 +92,11 @@ var cable_phase1_url = 'mapbox://conexon-design.5uwj2wkk'
 var pilot_ring_source_layer = 'demo_mid_south_pilot_ring-d731fj'
 var pilot_ring_url = 'mapbox://conexon-design.7m84giea'
 
+var coil_source_layer = 'demo_mid_south_coil-2y5yue'
+var coil_url = 'mapbox://conexon-design.1ol2frzt'
+
+var tap_source_layer = 'demo_mid_south_tap_phase_1-dc3ql4'
+var tap_url = 'mapbox://conexon-design.aqcth5nq'
 
 var spanAerial = '#551a8b' //purple
 var spanUnder = '#FFA500'
@@ -382,7 +387,7 @@ map.on('load', function () {
 //cable_phase1
 map.on('load', function () {
      map.addLayer({//cable_phase1
-        'id': 'Conexon High Level',
+        'id': 'Conexon High Level - Cable',
         'type': 'line',
          'source': {
             type: 'vector', 
@@ -416,7 +421,7 @@ map.on('load', function () {
             'text-color': feedLbl
             },        
         'layout': {
-            'text-field': '{cn_feeder}', //
+            'text-field': '{cn_substat}-{cn_feeder}', //
             "text-offset": [0, -1],
             'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
             'visibility': 'visible',
@@ -428,6 +433,43 @@ map.on('load', function () {
     }); 
 });
 
+//coil on ring
+map.on('load', function () {
+    map.addLayer({//coil on ring
+        'id': 'Pilot Coil',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: coil_url},
+        'source-layer': coil_source_layer,
+        'layout': {'visibility': 'visible'},
+        //filter: ['==', 'pilot_ring', 1],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 2], [13,4], [14,5], [15,6], [16,8] ]}, 
+            'circle-color': myGreen}
+    }); 
+});
+
+//taps on pilot ring
+map.on('load', function () {
+    map.addLayer({//taps_ring
+        'id': 'Conexon High Level - Taps',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'layout': {'visibility': 'visible'},
+        filter: ['==', 'pilot_ring', 1],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 2], [13,4], [14,5], [15,6], [16,8] ]}, 
+            'circle-color': myBlue}
+    }); 
+});
 
 //Substation - these are squares
 map.on('load', function () {
@@ -452,7 +494,7 @@ map.on('load', function () {
 });
 
 
-var toggleableLayerIds = ['Pilot Ring','Conexon High Level' ];
+var toggleableLayerIds = ['Pilot Ring','Pilot Coil', 'Conexon High Level - Cable', 'Conexon High Level - Taps' ];
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
     var link = document.createElement('a');
