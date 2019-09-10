@@ -79,14 +79,14 @@
       var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-        zoom: 10,
-        minZoom: 10,
-        maxZoom: 16,
+        zoom: 8.599279447010748,
+        minZoom: 5,
+        maxZoom: 11,
         center: [-87.49152336285181, 37.57517701502124]
       });
 
       map.on('load', function() {
-        map.addSource('rudo_ku', {
+        map.addSource('rudo_ky', {
           type: 'vector',
           url: 'mapbox://conexon-design.17ut9e5t'
         });
@@ -94,7 +94,7 @@
         map.addLayer({
           id: 'lacking',
           type: 'fill',
-          source: 'rudo_ku',
+          source: 'rudo_ky',
           'source-layer': 'ky_rudof-58zizr',
           filter: ['all', ['==', 'auction_90', 0], ['==', 's_25_3_w', 0]],
           layout: { visibility: 'none' },
@@ -107,7 +107,7 @@
         map.addLayer({
           id: 'priceCap',
           type: 'fill',
-          source: 'rudo_ku',
+          source: 'rudo_ky',
           'source-layer': 'ky_rudof-58zizr',
           filter: ['==', 'reg_type', 'PC'],
           layout: { visibility: 'none' },
@@ -120,7 +120,7 @@
         map.addLayer({
           id: 'eligible',
           type: 'fill',
-          source: 'rudo_ku',
+          source: 'rudo_ky',
           'source-layer': 'ky_rudof-58zizr',
           layout: { visibility: 'none' },
           filter: [
@@ -154,7 +154,7 @@
           }
         });
 
-        map.on('click', 'rudo_ku', event => {
+        map.on('click', 'rudo_ky', event => {
           console.log(event.features[0].properties);
         });
 
