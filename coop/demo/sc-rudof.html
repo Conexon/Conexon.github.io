@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Show and hide layers</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 200px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      #menu a:last-child {
+        border: none;
+      }
+
+      #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+      }
+
+      #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+      }
+
+      #menu a.active:hover {
+        background: #3074a4;
+      }
+    </style>
+
+    <nav id="menu"></nav>
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+        zoom: 7,
+        minZoom: 4,
+        maxZoom: 10,
+        center: [-80.79264973044349, 33.60446958536693]
+      });
+
+      map.on('load', function() {
+        map.addSource('rudo_sc', {
+          type: 'vector',
+          url: 'mapbox://conexon-design.7q73p2h8'
+        });
+
+        map.addLayer({
+          id: 'lacking',
+          type: 'fill',
+          source: 'rudo_sc',
+          'source-layer': 'rudof_sc-4whqwc',
+          filter: ['all', ['==', 'auction_90', 0], ['==', 's_25_3_w', 0]],
+          layout: { visibility: 'none' },
+          paint: {
+            'fill-color': 'limegreen',
+            'fill-opacity': 0.6
+          }
+        });
+
+        map.addLayer({
+          id: 'priceCap',
+          type: 'fill',
+          source: 'rudo_sc',
+          'source-layer': 'rudof_sc-4whqwc',
+          filter: ['==', 'reg_type', 'PC'],
+          layout: { visibility: 'none' },
+          paint: {
+            'fill-color': 'orange',
+            'fill-opacity': 0.6
+          }
+        });
+
+        map.addLayer({
+          id: 'eligible',
+          type: 'fill',
+          source: 'rudo_sc',
+          'source-layer': 'rudof_sc-4whqwc',
+          layout: { visibility: 'none' },
+          filter: [
+            'all',
+            ['==', 'auction_90', 0],
+            ['==', 's_25_3_w', 0],
+            ['==', 'reg_type', 'PC']
+          ],
+          paint: {
+            'fill-color': 'blue',
+            'fill-opacity': 0.6
+          }
+        });
+
+        //coops-9vspdx
+
+        map.addSource('coops', {
+          type: 'vector',
+          url: 'mapbox://conexon-design.8q8mtxgm'
+        });
+
+        map.addLayer({
+          id: 'ohCoopsLine',
+          type: 'line',
+          source: 'coops',
+          'source-layer': 'coops-9vspdx',
+          layout: { visibility: 'none' },
+          filter: ['all', ['==', 'STATE', 'SC']],
+          paint: {
+            'line-width': 3,
+            'line-color': 'black'
+          }
+        });
+
+        map.addLayer({
+          id: 'ohCoopsFill',
+          type: 'fill',
+          source: 'coops',
+          'source-layer': 'coops-9vspdx',
+          filter: ['all', ['==', 'STATE', 'SC']],
+          paint: {
+            'fill-color': 'blue',
+            'fill-opacity': 0
+          }
+        });
+
+        map.on('click', 'msCoopsFill', event => {
+          console.log(event.features[0].properties);
+        });
+
+        map.on('moveend', () => {
+          console.log(map.getZoom());
+          console.log(map.getBounds());
+          console.log(map.getCenter());
+        });
+      });
+
+      var toggleableLayerIds = [
+        'lacking',
+        'priceCap',
+        'eligible',
+        'ohCoopsLine'
+      ];
+
+      for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i];
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = '';
+        link.textContent =
+          id === 'lacking'
+            ? 'Lacking 25/3, not in CAF II'
+            : id === 'priceCap'
+            ? 'Price Cap Only'
+            : id === 'eligible'
+            ? 'Eligible'
+            : 'Coop Boundaries';
+        link.id = id;
+
+        link.onclick = function(e) {
+          console.log(e);
+          var clickedLayer = e.target.id;
+          e.preventDefault();
+          e.stopPropagation();
+
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+          if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+          } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+          }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+      }
+    </script>
+  </body>
+</html>
