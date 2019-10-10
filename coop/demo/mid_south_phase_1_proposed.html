@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        left: 10px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0,0,0,0.4);
+        font-family: 'Open Sans', sans-serif;
+    }
+    #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0,0,0,0.25);
+        text-align: center;
+    }
+    #menu a:last-child {
+        border: none;
+    }
+    #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+    }
+    #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+    }
+    #menu a.active:hover {
+        background: #3074a4;
+    }
+</style>
+
+<nav id="menu"></nav>      
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZmVvbWlrZSIsImEiOiJNRjJrRmRnIn0.Sc8mxXKYTRfgegc_3vjZiw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/feomike/cj0zcunxh000m2sqb2epkabb4',
+    zoom: 10.42,
+    center: [-95.8544,30.3689],
+    hash: true
+});
+
+
+
+
+var span_source_layer = 'demo_mid_south_span-dfa14q'
+var span_url = 'mapbox://conexon-design.1juuy7uh'
+
+var poles_source_layer = 'demo_mid_south_poles-1oovxl'
+var poles_url = 'mapbox://conexon-design.57ncsxp3'
+
+var substat_source_layer = 'demo_mid_south_substations-2doqta'
+var substat_url = 'mapbox://conexon-design.cgz9uvns'
+
+var consumers_source_layer = 'demo_mid_south_consumers-cmn0qp'
+var consumers_url = 'mapbox://conexon-design.b73t2q8z'
+
+var feeder_poly_source_layer = 'demo_mid_south_feeder_poly-bycv7l'
+var feeder_poly_url = 'mapbox://conexon-design.5tam2zjz'
+
+var feeder_pt_source_layer = 'demo_mid_south_sub_feeder_pt-cfhnkl'
+var feeder_pt_url = 'mapbox://conexon-design.17o4er2p'
+
+var cable_phase1_source_layer = 'demo_mid_south_cable-dfvtkf'
+var cable_phase1_url = 'mapbox://conexon-design.5uwj2wkk'
+
+var pilot_ring_source_layer = 'demo_mid_south_pilot_ring-d731fj'
+var pilot_ring_url = 'mapbox://conexon-design.7m84giea'
+
+var coil_source_layer = 'demo_mid_south_coil-2y5yue'
+var coil_url = 'mapbox://conexon-design.1ol2frzt'
+
+var tap_source_layer = 'demo_mid_south_tap_phase_1-dc3ql4'
+var tap_url = 'mapbox://conexon-design.aqcth5nq'
+
+var spanAerial = '#551a8b' //purple
+var spanUnder = '#FFA500'
+var myOrange = '#FFA500'
+var myWhite = '#FFFFFF'
+
+var myBlack = '#000000' //288
+var myDarkGray = '#3f3f3f' //144
+var mySlateGray = '#7e7e7e' //96
+var myGray = '#67696d' //used already
+var myLightGray = '#ffd8b7'//'#ffbd84'//'#bdbdbd' // 48
+
+var myBlue = '#0000FF'
+var myGreen = '#008000'
+var myRed = '#FF0000'
+var myViolet = '#EE82EE'
+var myAqua = '#00FFFF'
+var myRose = '#FFC0CB'
+var myYellow = '#FFFF00'
+var myBrown = '#894444'
+var myCream = '#fffdd0'
+var feedLbl = '#67696d'//'#7e7e7e'//'#ffbd84'
+
+map.on('load', function () {
+     map.addLayer({//feeder_poly
+        'id': 'feeder_poly',
+        'type': 'fill',
+         'source': {
+            type: 'vector', 
+            url: feeder_poly_url},
+        'source-layer': feeder_poly_source_layer,
+        filter: ["all", ['==', 'cn_substat', '06']],
+        'paint': {
+            'fill-color': myCream,
+            'fill-opacity': 0.6,
+            'fill-outline-color': myBlack
+
+        }
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-01',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'line-width': 1,
+            'line-color': myBlack}
+    }); 
+});
+
+//remember shapefile fields need to be upper case for mapbox to recognize them
+//span
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': {
+                property: 'cn_substat',
+                type: 'categorical',
+                stops: [ 
+                    ['01',myBlue],
+                    ['03', myGreen],
+                    ['04', myRed],
+                    ['06', myViolet],
+                    ['07', myAqua],
+                    ['09', myRose],
+                    ['10', myBrown],
+                    ['12',myBlue],
+                    ['13', myGreen],
+                    ['14', myRed],
+                    ['15', myViolet],
+                    ['17', myAqua],
+                    ['18', myRose],
+                    ['19', myBrown],  
+                    ['20',myBlue],
+                    ['21', myGreen],
+                    ['22', myRed],
+                    ['26', myViolet]                                   
+                    ] } }
+    }); 
+});
+
+//consumers-outside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-rings',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'layout': {'visibility': 'visible'},
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 1], [13,2], [14,3], [15,5], [16,8] ]}, 
+            'circle-color': myOrange}
+    }); 
+});
+
+//consumers-inside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-inside',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .4,
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}, //, [22, 60]] }, 
+            'circle-color': myWhite}
+    }); 
+});
+
+//consumers-text - 'M'
+map.on('load', function () {
+     map.addLayer({//CONSUMERS
+        'id': 'consumers-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'text-color': myOrange},
+        'layout': {
+            'text-field':'M', //
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': .1, 
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}}
+    }); 
+});
+
+//poles
+map.on('load', function () {
+    map.addLayer({//POLES
+        'id': 'poles',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        'layout': {
+            'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+            'circle-color': myGray}
+    }); 
+});
+
+
+// //pilot_ring_288
+// map.on('load', function () {
+//      map.addLayer({//cable_phase1
+//         'id': 'pilot_ring_288',
+//         'type': 'line',
+//          'source': {
+//             type: 'vector', 
+//             url: pilot_ring_url},
+//         'source-layer': pilot_ring_source_layer,
+//         filter: ["all", ['in', 'Counts', '288']],
+//         'paint': {
+//             'line-width': 10,
+//             'line-color': {
+//                 property: 'Counts',
+//                 type: 'categorical',
+//                 stops: [ 
+//                     ['288',myBlack]                                  
+//                     ] } }
+//     }); 
+// });
+
+// //pilot_ring_144
+// map.on('load', function () {
+//      map.addLayer({//cable_phase1
+//         'id': 'pilot_ring_144',
+//         'type': 'line',
+//          'source': {
+//             type: 'vector', 
+//             url: pilot_ring_url},
+//         'source-layer': pilot_ring_source_layer,
+//         filter: ["all", ['in', 'Counts', '144']],
+//         'paint': {
+//             'line-width': 7,
+//             'line-color': {
+//                 property: 'Counts',
+//                 type: 'categorical',
+//                 stops: [ 
+//                     ['144',mySlateGray]                                  
+//                     ] } }
+//     }); 
+// });
+
+// //pilot_ring_48
+// map.on('load', function () {
+//      map.addLayer({//cable_phase1
+//         'id': 'pilot_ring_48',
+//         'type': 'line',
+//          'source': {
+//             type: 'vector', 
+//             url: pilot_ring_url},
+//         'source-layer': pilot_ring_source_layer,
+//         filter: ["all", ['in', 'Counts', '48']],
+//         'paint': {
+//             'line-width': 4,
+//             'line-color': {
+//                 property: 'Counts',
+//                 type: 'categorical',
+//                 stops: [ 
+//                     ['48',myLightGray]                                  
+//                     ] } }
+//     }); 
+// });
+
+//pilot_ring
+map.on('load', function () {
+     map.addLayer({//cable_phase1
+        'id': 'Pilot Ring',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: pilot_ring_url},
+        'source-layer': pilot_ring_source_layer,
+        'paint': {
+            'line-width': 9,
+            'line-color': {
+                property: 'Counts',
+                type: 'categorical',
+                stops: [ 
+                    ['288',myDarkGray],
+                    ['144', myGray],
+                    ['48', myLightGray]                                   
+                    ] } }
+    }); 
+});
+
+
+//pilot_ring_text
+map.on('load', function () {
+    map.addLayer({//pilot_ring_text
+        'id': 'pilot_ring_text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: pilot_ring_url},
+        'source-layer': pilot_ring_source_layer,
+        //'filter': ["all",['==', 'ML_SUBSTAT', ml_substat],['==', 'ML_FEEDER', ml_feeder],['in', 'STYPE', '1','2']],
+        'paint': {
+            'text-color': mySlateGray},
+        'layout': {
+            'text-field':'{Counts}',
+            'text-allow-overlap': true,
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'symbol-placement': 'line',
+            'text-offset': [0, 0.6]
+            // 'text-size': {
+            //     'base': 6, 
+            //     'stops': [[12, 7], [13,8], [14,9], [15,10], [16,11] ]}
+            }
+    }); 
+});
+
+
+//cable_phase1
+map.on('load', function () {
+     map.addLayer({//cable_phase1
+        'id': 'Conexon High Level - Cable',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: cable_phase1_url},
+        'source-layer': cable_phase1_source_layer,
+        'paint': {
+            'line-width': 9,
+            'line-color': {
+                property: 'cable',
+                type: 'categorical',
+                stops: [ 
+                    [144,myDarkGray],
+                    [96, myGray],
+                    [48, myLightGray]                                   
+                    ] } }
+    }); 
+});
+
+
+//feeder_pt - these are squares
+map.on('load', function () {
+    map.addLayer({//feeder_pt
+        'id': 'feeder_pt',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: feeder_pt_url},
+        'source-layer': feeder_pt_source_layer,
+        filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'paint': {
+            'text-color': feedLbl
+            },        
+        'layout': {
+            'text-field': '{cn_substat}-{cn_feeder}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            //'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .1,
+                 'stops': [[12, .25], [13,1], [14,1.5], [15,2], [16,3] ]} 
+             }
+    }); 
+});
+
+//coil on ring
+map.on('load', function () {
+    map.addLayer({//coil on ring
+        'id': 'Pilot Coil',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: coil_url},
+        'source-layer': coil_source_layer,
+        'layout': {'visibility': 'visible'},
+        //filter: ['==', 'pilot_ring', 1],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 2], [13,4], [14,5], [15,6], [16,8] ]}, 
+            'circle-color': myGreen}
+    }); 
+});
+
+//taps on pilot ring
+map.on('load', function () {
+    map.addLayer({//taps_ring
+        'id': 'Conexon High Level - Taps',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: tap_url},
+        'source-layer': tap_source_layer,
+        'layout': {'visibility': 'visible'},
+        filter: ['==', 'pilot_ring', 1],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 2], [13,4], [14,5], [15,6], [16,8] ]}, 
+            'circle-color': myBlue}
+    }); 
+});
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        filter: ["all", ['in', 'ml_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+        'layout': {
+            'text-field': '{name}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+var toggleableLayerIds = ['Pilot Ring','Pilot Coil', 'Conexon High Level - Cable', 'Conexon High Level - Taps' ];
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());   
+
+
+</script>
+</body>
+</html>
