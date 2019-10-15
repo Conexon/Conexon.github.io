@@ -390,7 +390,7 @@ map.on('load', function () {
         'filter': ["all",['==', 'cn_substat', ml_substat],['==', 'cn_feeder', ml_feeder], ['==', 'port', 8]],
         'layout': {
             'visibility': 'visible',
-            'icon-image': '{TUBE}-octagon-15',
+            'icon-image': '{tube}-octagon-15',
             'icon-allow-overlap': true,
             'icon-size':{
                  'base': .5,
@@ -416,7 +416,7 @@ map.on('load', function () {
                 'stops': [[12, 1], [13,4], [14,6], [15,7], [16,10] ]}, //, [22, 60]] },
             // color circles by strand, using data-driven styles 
             'circle-color': 
-                ['match', ['get','STRAND'],
+                ['match', ['get','strand'],
                 'blue', myBlue,
                 'orange', myOrange,
                 'green', myGreen,
