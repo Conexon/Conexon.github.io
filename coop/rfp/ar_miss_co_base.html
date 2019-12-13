@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+    zoom: 9.37,
+    center: [-90.083,35.8032],
+    hash: true
+});
+
+
+var span_source_layer = 'demo_msco_span-19phg4'
+var span_url = 'mapbox://conexon-design.balgpel2'
+
+var poles_source_layer = 'demo_msco_poles-0lag60'
+var poles_url = 'mapbox://conexon-design.36eyarkx'
+
+var substat_source_layer = 'demo_msco_substations-2lzrpr'
+var substat_url = 'mapbox://conexon-design.22957qis'
+
+var consumers_source_layer = 'demo_msco_consumers-bnohre'
+var consumers_url = 'mapbox://conexon-design.5n9fxdhr'
+
+var spanAerial = '#551a8b' //purple
+var spanUnder = '#FFA500'
+var myOrange = '#FFA500'
+var myWhite = '#FFFFFF'
+var myBlack = '#000000'
+var myGray = '#67696d'
+
+var myBlue = '#0000FF'
+var myGreen = '#008000'
+var myRed = '#FF0000'
+var myViolet = '#EE82EE'
+var myAqua = '#00FFFF'
+var myRose = '#FFC0CB'
+var myYellow = '#FFFF00'
+var myBrown = '#894444'
+
+// // //DELL
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-DV-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '1'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBlue}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-DV-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '1'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myBlue}
+    }); 
+});
+
+// //"HICKMANEAST" / "BARFIELD"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-IM-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '10', '19', '21', '9', '8'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myGreen}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-IM-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '10', '19', '21', '9', '8'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myGreen}
+    }); 
+});
+
+
+//"REGINOLD"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-LO-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '2'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRed}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-LO-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '2'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myRed}
+    }); 
+});
+
+//"OSCEOLA"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-SB-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '4'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myViolet}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-SB-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '4'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myViolet}
+    }); 
+});
+
+// //"MANILA"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-AD-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '5'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myAqua}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-AD-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '5'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myAqua}
+    }); 
+});
+
+//"LEPANTO"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-OR-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '6'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myRose}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-OR-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '6'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myRose}
+    }); 
+});
+
+// //"GOSNEL"
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-MV-Primary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '7'],
+            ['in', 'ml_subtype' , 1, 3]
+            ],
+        'paint': {
+            'line-width': 1.5,
+            'line-color': myBrown}
+    }); 
+});
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span-MV-Secondary',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            filter: ["all",
+            ['in', 'ml_substat', '7'],
+            ['in', 'ml_subtype' , 2, 4]
+            ],
+        'paint': {
+            'line-width': .75,
+            'line-color': myBrown}
+    }); 
+});
+
+
+//consumers-outside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-rings',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        'layout': {'visibility': 'visible'},
+        // filter: ["all",['in', 'ml_substat', 'DV','IM','LO','SB','AD','OR','MV']],
+        'paint': {
+            'circle-radius': {
+                'base': .5,
+                'stops': [[12, 1], [13,2], [14,3], [15,5], [16,8] ]}, 
+            'circle-color': myOrange}
+    }); 
+});
+
+//consumers-inside ring
+map.on('load', function () {
+    map.addLayer({//CONSUMERS
+        'id': 'consumers-inside',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        // filter: ["all",['in', 'ml_substat', 'DV','IM','LO','SB','AD','OR','MV']],
+        'layout': {'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .4,
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}, //, [22, 60]] }, 
+            'circle-color': myWhite}
+    }); 
+});
+
+//consumers-text - 'M'
+map.on('load', function () {
+     map.addLayer({//CONSUMERS
+        'id': 'consumers-text',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: consumers_url},
+        'source-layer': consumers_source_layer,
+        //filter: ["all",['in', 'ml_substat', 'DV','IM','LO','SB','AD','OR','MV']],
+        'paint': {
+            'text-color': myOrange},
+        'layout': {
+            'text-field':'M', //
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            'text-allow-overlap': true,
+            'text-size': {
+                'base': .1, 
+                'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}}
+    }); 
+});
+
+//poles
+map.on('load', function () {
+    map.addLayer({//POLES
+        'id': 'poles',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: poles_url},
+        'source-layer': poles_source_layer,
+        // filter: ["all",['in', 'ml_substat', 'DV','IM','LO','SB','AD','OR','MV']],
+        'layout': {
+            'visibility': 'visible'},
+        'paint': {
+            'circle-radius': {
+                'base': .9,
+                'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+            'circle-color': myGray}
+    }); 
+});
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        // filter: ["all",['in', 'ml_substat', 'DV','IM','LO','SB','AD','OR','MV']],
+        'layout': {
+            'text-field': '{subname}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+
+</script>
+</body>
+</html>
