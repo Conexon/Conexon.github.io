@@ -1,114 +1,297 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8' />
+  <head>
+    <meta charset="utf-8" />
     <title></title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
     <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+      }
 
-<div id='map'></div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
-var map = new mapboxgl.Map({
-    container: 'map',
-    hash: true,
-    style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-    zoom: 9,
-    center: [-89.4589,30.5975]
-});
+      #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
 
-rusFld = 'ms028_m' //'MS028'
-coopCode = 'COAST'
+      #menu a:last-child {
+        border: none;
+      }
 
-var myBlue = '#0000FF'
-var myOrange = '#FFA500'
-var myGreen = '#008000'
-var mySlate = '#808080'
-var myAqua = '#00FFFF'
+      #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+      }
 
-var a_url = 'mapbox://conexon-design.rdof_bg_ms' 
-var a_source_layer = 'rdof_bg_ms' 
+      #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+      }
 
-var block_url = 'mapbox://conexon-design.rdof_block_ms' 
-var block_source_layer = 'rdof_block_ms' 
+      #menu a.active:hover {
+        background: #3074a4;
+      }
+    </style>
+    <!-- toggle menu -->
+    <nav id="menu"></nav>
+    <!-- container for mapbox map-->
+    <div id="map"></div>
 
-var meter_url = 'mapbox://conexon-design.rdof_meters_ms'
-var meter_source_layer = 'rdof_meters_ms'
+    <script>
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
 
-//Block Groups - 
-map.on('load', function () {
-    map.addLayer({//BLOCK GROUPS
-        'id': 'bg',
-        'type': 'fill',
-        'source': {
-            type: 'vector', 
-            url: a_url},
-        'source-layer': a_source_layer,
-        'filter': ['>', rusFld, 0],
-        layout: { 'visibility': 'visible'},
+      // need to update the zoom and center per client
+      // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
+      var map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+        zoom: 9,
+        minZoom: 9,
+        maxZoom: 15,
+        center: [-89.4589, 30.5975]
+      });
+
+      // coop RUS number for filtering block groups and blocks
+      rusFld = 'ms028_m';
+      rusFld2 = 'ms028_pct';
+      // coop code for filtering meters
+      coopCode = 'COAST';
+
+      // define colors for layers
+      var myOrange = '#FFA500';
+      var myGreen = '#008000';
+      var mySlate = '#808080';
+
+      // change the following per coop
+      // these are per state, so only the state needs updated
+      // e.g. var blockGroupUrl = 'mapbox://conexon-design.rdof_bg_ms';
+      // you would change `ms` to the new state abbreviation
+      var blockGroupsUrl = 'mapbox://conexon-design.rdof_bg_ms';
+      var blockGroupsSourceLayer = 'rdof_bg_ms';
+
+      var blocksUrl = 'mapbox://conexon-design.rdof_block_ms';
+      var blocksSourceLayer = 'rdof_block_ms';
+
+      var metersUrl = 'mapbox://conexon-design.rdof_meters_ms';
+      var metersSourceLayer = 'rdof_meters_ms';
+
+      // block group layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroups',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
           paint: {
             'fill-color': myGreen,
-            'fill-opacity': 0.4
-          }          
-    }); 
-});
+            'fill-opacity': 0.4,
+            'fill-outline-color': 'black'
+          }
+        });
+      });
 
+      // block group label layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroupsText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'text-color': 'black'
+          },
+          layout: {
+            'text-field': ['get', 'geoid'],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 0],
+                [12, 8],
+                [14, 10]
+              ]
+            }
+          }
+        });
+      });
 
-//Blocks - 
-map.on('load', function () {
-    map.addLayer({//BLOCKS
-        'id': 'blocks',
-        'type': 'fill',
-        'source': {
-            type: 'vector', 
-            url: block_url},
-        'source-layer': block_source_layer,
-        'filter': ['>', rusFld, 0],
-        layout: { 'visibility': 'visible'},
+      // blocks layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blocks',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', rusFld, 0],
           paint: {
             'fill-color': myOrange,
-            'fill-opacity': 0.9
-          }          
-    }); 
-});
+            'fill-opacity': 0.9,
+            'fill-outline-color': 'black'
+          }
+        });
+      });
 
+      // blocks text layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blocksText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', rusFld, 0],
+          layout: {
+            'text-field': ['get', 'geoid10'],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 0],
+                [12, 8],
+                [14, 10]
+              ]
+            }
+          }
+        });
+      });
 
-//Meters - 
-map.on('load', function () {
-    map.addLayer({//METERS
-        'id': 'meters',
-        'type': 'circle',
-        'source': {
-            type: 'vector', 
-            url: meter_url},
-        'source-layer': meter_source_layer,
-        'filter': ['==', 'coop_code', coopCode],
-        'layout': {
-            'visibility': 'visible' },
-        'paint': {
+      // meters layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'meters',
+          type: 'circle',
+          source: {
+            type: 'vector',
+            url: metersUrl
+          },
+          'source-layer': metersSourceLayer,
+          filter: ['==', 'coop_code', coopCode],
+          paint: {
             'circle-radius': {
-                'base': .4,
-                'stops': [[10,1], [11,1.5], [12,2], [13,2.5], [14,3.25], [15,4.25], [16,5.25] ]}, 
-            'circle-color': mySlate}            
-    }); 
-});
+              base: 0.4,
+              stops: [
+                [10, 1],
+                [11, 1.5],
+                [12, 2],
+                [13, 2.5],
+                [14, 3.25],
+                [15, 4.25],
+                [16, 5.25]
+              ]
+            },
+            'circle-color': mySlate
+          }
+        });
+      });
 
+      // toggle set up
+      var toggleableLayerIds = [
+        { name: 'Block groups', id: 'blockGroups' },
+        { name: 'Blocks', id: 'blocks' },
+        { name: 'Meters', id: 'meters' }
+      ];
 
+      for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i].id;
+        var name = toggleableLayerIds[i].name;
 
-var bg_url = 'mapbox://conexon-design.rdof_bg_ms' 
-var bg_source_layer = 'rdof_bg_ms' 
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = name;
+        link.id = id;
 
-</script>
-</body>
+        link.onclick = function(e) {
+          var clickedLayer = this.id;
+          e.preventDefault();
+          e.stopPropagation();
+
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+          if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'none'
+              );
+            this.className = '';
+          } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
+          }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+      }
+    </script>
+  </body>
 </html>
-
-
-//https://api.mapbox.com/v4/rdof_bg_ms/page.html?access_token=pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg
-
