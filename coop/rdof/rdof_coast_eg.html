@@ -270,10 +270,22 @@
 
           if (visibility === 'visible') {
             map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'none'
+              );
             this.className = '';
           } else {
             this.className = 'active';
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
           }
         };
 
