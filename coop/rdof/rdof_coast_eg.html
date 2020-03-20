@@ -92,7 +92,7 @@
 
       // coop RUS number for filtering block groups and blocks
       rusFld = 'ms028_m';
-      rusFld2 = 'ms028_m';
+      rusFld2 = 'ms028_pct';
       // coop code for filtering meters
       coopCode = 'COAST';
 
@@ -124,7 +124,7 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', rusFld, 0],
+          filter: ['>', rusFld2, 50],
           paint: {
             'fill-color': myGreen,
             'fill-opacity': 0.4,
@@ -143,12 +143,12 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', rusFld, 0],
+          filter: ['>', rusFld2, 50],
           paint: {
             'text-color': 'black'
           },
           layout: {
-            'text-field': ['get', 'gid'],
+            'text-field': ['get', 'geoid'],
             'symbol-placement': 'point',
             'text-allow-overlap': true,
             'text-justify': 'center',
@@ -197,7 +197,7 @@
           'source-layer': blocksSourceLayer,
           filter: ['>', rusFld, 0],
           layout: {
-            'text-field': ['get', 'gid'],
+            'text-field': ['get', 'geoid10'],
             'symbol-placement': 'point',
             'text-allow-overlap': true,
             'text-justify': 'center',
