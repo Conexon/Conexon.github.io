@@ -7,9 +7,9 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
     <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css"
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
       rel="stylesheet"
     />
     <style>
@@ -246,7 +246,11 @@
             'text-color': myDarkGreen
           },
           layout: {
-            'text-field': ['get', 'fcc_amt'],
+            'text-field': [
+              'number-format',
+              ['get', 'fcc_amt'],
+              { currency: 'USD' }
+            ],
             'symbol-placement': 'point',
             'text-allow-overlap': true,
             'text-justify': 'center',
