@@ -115,7 +115,6 @@
       var metersUrl = 'mapbox://conexon-design.rdof_meters_ms';
       var metersSourceLayer = 'rdof_meters_ms';
 
-
       // block group layer
       map.on('load', function() {
         map.addLayer({
@@ -134,8 +133,6 @@
           }
         });
       });
-
-
 
       // blocks layer
       map.on('load', function() {
@@ -156,7 +153,6 @@
         });
       });
 
-
       // block group line layer
       map.on('load', function() {
         map.addLayer({
@@ -169,7 +165,7 @@
           'source-layer': blockGroupsSourceLayer,
           filter: ['>', rusFld2, 50],
           paint: {
-            'line-color':  myGreen,
+            'line-color': myGreen,
             'line-width': 3
           }
         });
@@ -235,8 +231,6 @@
         });
       });
 
-
-
       // block group label layer
       map.on('load', function() {
         map.addLayer({
@@ -259,9 +253,9 @@
             'text-padding': 4,
             'text-rotation-alignment': 'viewport',
             'text-font': [
-                'literal',
-                ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
-                ],
+              'literal',
+              ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+            ],
             'text-size': {
               base: 0,
               stops: [
@@ -275,8 +269,6 @@
           }
         });
       });
-
-
 
       // toggle set up
       var toggleableLayerIds = [
@@ -310,6 +302,12 @@
                 'visibility',
                 'none'
               );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'none'
+              );
             this.className = '';
           } else {
             this.className = 'active';
@@ -317,6 +315,12 @@
             if (clickedLayer !== 'meters')
               map.setLayoutProperty(
                 `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
                 'visibility',
                 'visible'
               );
