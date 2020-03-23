@@ -246,7 +246,11 @@
             'text-color': myDarkGreen
           },
           layout: {
-            'text-field': ['get', 'fcc_amt'],
+            'text-field': [
+              'number-format',
+              ['get', 'fcc_amt'],
+              { currency: 'USD' }
+            ],
             'symbol-placement': 'point',
             'text-allow-overlap': true,
             'text-justify': 'center',
