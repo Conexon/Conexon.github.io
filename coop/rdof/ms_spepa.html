@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    hash: true,
+    style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+    zoom: 9,
+    center: [-89.4589,30.5975]
+});
+
+rusPctFld = 'ms028_pct' //'MS028'
+rusFld = 'ms028_m' //'MS028'
+coopCode = 'COAST'
+
+var myBlue = '#0000FF'
+var myOrange = '#FFA500'
+var myGreen = '#008000'
+var mySlate = '#808080'
+var myAqua = '#00FFFF'
+
+var a_url = 'mapbox://conexon-design.rdof_bg_ms' 
+var a_source_layer = 'rdof_bg_ms' 
+
+var block_url = 'mapbox://conexon-design.rdof_block_ms' 
+var block_source_layer = 'rdof_block_ms' 
+
+var meter_url = 'mapbox://conexon-design.rdof_meters_ms'
+var meter_source_layer = 'rdof_meters_ms'
+
+//Block Groups - 
+map.on('load', function () {
+    map.addLayer({//BLOCK GROUPS
+        'id': 'bg',
+        'type': 'fill',
+        'source': {
+            type: 'vector', 
+            url: a_url},
+        'source-layer': a_source_layer,
+        'filter': ['>', rusPctFld, 50],
+        layout: { 'visibility': 'visible'},
+          paint: {
+            'fill-color': myGreen,
+            'fill-opacity': 0.4
+          }          
+    }); 
+});
+
+
+//Blocks - 
+map.on('load', function () {
+    map.addLayer({//BLOCKS
+        'id': 'blocks',
+        'type': 'fill',
+        'source': {
+            type: 'vector', 
+            url: block_url},
+        'source-layer': block_source_layer,
+        'filter': ['>', rusFld, 0],
+        layout: { 'visibility': 'visible'},
+          paint: {
+            'fill-color': myOrange,
+            'fill-opacity': 0.9
+          }          
+    }); 
+});
+
+
+//Meters - 
+map.on('load', function () {
+    map.addLayer({//METERS
+        'id': 'meters',
+        'type': 'circle',
+        'source': {
+            type: 'vector', 
+            url: meter_url},
+        'source-layer': meter_source_layer,
+        'filter': ['==', 'coop_code', coopCode],
+        'layout': {
+            'visibility': 'visible' },
+        'paint': {
+            'circle-radius': {
+                'base': .4,
+                'stops': [[10,1], [11,1.5], [12,2], [13,2.5], [14,3.25], [15,4.25], [16,5.25] ]}, 
+            'circle-color': mySlate}            
+    }); 
+});
+
+
+</script>
+</body>
+</html>
+

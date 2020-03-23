@@ -99,6 +99,7 @@
       // define colors for layers
       var myOrange = '#FFA500';
       var myGreen = '#008000';
+      var myDarkGreen = '#044D04';
       var mySlate = '#808080';
 
       // change the following per coop
@@ -133,39 +134,6 @@
         });
       });
 
-      // block group label layer
-      map.on('load', function() {
-        map.addLayer({
-          id: 'blockGroupsText',
-          type: 'symbol',
-          source: {
-            type: 'vector',
-            url: blockGroupsUrl
-          },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', rusFld2, 50],
-          paint: {
-            'text-color': 'black'
-          },
-          layout: {
-            'text-field': ['get', 'geoid'],
-            'symbol-placement': 'point',
-            'text-allow-overlap': true,
-            'text-justify': 'center',
-            'text-padding': 4,
-            'text-rotation-alignment': 'viewport',
-            'text-size': {
-              base: 0,
-              stops: [
-                [10, 0],
-                [12, 8],
-                [14, 10]
-              ]
-            }
-          }
-        });
-      });
-
       // blocks layer
       map.on('load', function() {
         map.addLayer({
@@ -181,6 +149,24 @@
             'fill-color': myOrange,
             'fill-opacity': 0.9,
             'fill-outline-color': 'black'
+          }
+        });
+      });
+
+      // block group line layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroupsLines',
+          type: 'line',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'line-color': myGreen,
+            'line-width': 3
           }
         });
       });
@@ -207,8 +193,9 @@
               base: 0,
               stops: [
                 [10, 0],
-                [12, 8],
-                [14, 10]
+                [12, 4],
+                [14, 8],
+                [15, 12]
               ]
             }
           }
@@ -240,6 +227,45 @@
               ]
             },
             'circle-color': mySlate
+          }
+        });
+      });
+
+      // block group label layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroupsText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'text-color': myDarkGreen
+          },
+          layout: {
+            'text-field': ['get', 'fcc_amt'],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-font': [
+              'literal',
+              ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+            ],
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 12],
+                [12, 14],
+                [14, 20],
+                [15, 22],
+                [16, 28]
+              ]
+            }
           }
         });
       });
@@ -276,6 +302,12 @@
                 'visibility',
                 'none'
               );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'none'
+              );
             this.className = '';
           } else {
             this.className = 'active';
@@ -283,6 +315,12 @@
             if (clickedLayer !== 'meters')
               map.setLayoutProperty(
                 `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
                 'visibility',
                 'visible'
               );
