@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_45",
+"name": "rdof_bg_pnt_sc",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 890, "statefp": "45", "countyfp": "043", "tractce": "920201", "blkgrpce": "1", "geoid": "450439202011", "namelsad": "Block Group 1", "mtfcc": "G5030", "funcstat": "S", "aland": 95152081.0, "awater": 543120.0, "intptlat": "+33.4108813", "intptlon": "-079.4699039", "fcc_904": 9, "sc025_m": 0, "sc025_pct": 0, "sc038_m": 0, "sc038_pct": 0, "sc033_m": 0, "sc033_pct": 0, "sc023_m": 0, "sc023_pct": 0, "sc040_m": 0, "sc040_pct": 0, "sc026_m": 0, "sc026_pct": 0, "sc028_m": 7, "sc028_pct": 78, "sc032_m": 0, "sc032_pct": 0, "sc041_m": 0, "sc041_pct": 0, "fcc_amt": 14457 }, "geometry": { "type": "Point", "coordinates": [ -79.47009785245676, 33.400814133447092 ] } },
