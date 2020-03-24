@@ -2,6 +2,5 @@ title: conexon design
 subtitle: design output for conexon
 
 #build config
-server: true 
+server: true
 auto: true
-markdown: rdiscount 
