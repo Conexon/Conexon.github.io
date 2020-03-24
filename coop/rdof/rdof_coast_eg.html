@@ -117,6 +117,7 @@
       var metersSourceLayer = 'rdof_meters_ms';
 
       // block group layer
+
       map.on('load', function() {
         map.addLayer({
           id: 'blockGroups',
@@ -133,10 +134,9 @@
             'fill-outline-color': 'black'
           }
         });
-      });
 
-      // blocks layer
-      map.on('load', function() {
+        // blocks layer
+
         map.addLayer({
           id: 'blocks',
           type: 'fill',
@@ -152,10 +152,9 @@
             'fill-outline-color': 'black'
           }
         });
-      });
 
-      // block group line layer
-      map.on('load', function() {
+        // block group line layer
+
         map.addLayer({
           id: 'blockGroupsLines',
           type: 'line',
@@ -170,10 +169,9 @@
             'line-width': 3
           }
         });
-      });
 
-      // blocks text layer
-      map.on('load', function() {
+        // blocks text layer
+
         map.addLayer({
           id: 'blocksText',
           type: 'symbol',
@@ -201,10 +199,9 @@
             }
           }
         });
-      });
 
-      // meters layer
-      map.on('load', function() {
+        // meters layer
+
         map.addLayer({
           id: 'meters',
           type: 'circle',
@@ -230,10 +227,9 @@
             'circle-color': mySlate
           }
         });
-      });
 
-      // block group label layer
-      map.on('load', function() {
+        // block group label layer
+
         map.addLayer({
           id: 'blockGroupsText',
           type: 'symbol',
