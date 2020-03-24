@@ -13,7 +13,10 @@
 1. Paste (COMMAND+V or CTRL+V) the raw contents of the file into the file editor.
    ![Edit file](./images/edit-file.png)
 1. **Edit the variables!** [They'll look like this](https://github.com/Conexon/Conexon.github.io/blob/e14844b9c5a0498b38940d47a8f26505f0c1bfda/coop/rdof/template.html#L78-L98).
-1. Create a pull request. You can add a message and description if you want, and even change branch name, but it's not necessary. Click the "Propse new file" button.
+1. Create a pull request. You can add a message and description if you want, and even change branch name, but it's not necessary.
+1. Click the option to "Create a new branch ...".
+   ![Create branch](./images/create-branch.png)
+1. Click the "Propose new file" button.
    ![Create PR](./images/create-pr.png)
 1. Click the "Create pull request button"
    ![Actually create PR](./images/actually-create-pr.png)
