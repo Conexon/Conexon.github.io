@@ -83,7 +83,7 @@
       // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
       var map = new mapboxgl.Map({
         container: 'map',
-        hash: true,
+        //hash: true,
         style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
         zoom: 9,
         minZoom: 9,
@@ -132,6 +132,9 @@
             'fill-color': myGreen,
             'fill-opacity': 0.4,
             'fill-outline-color': 'black'
+          },
+          layout: {
+            visibility: 'visible'
           }
         });
 
@@ -150,6 +153,9 @@
             'fill-color': myOrange,
             'fill-opacity': 0.9,
             'fill-outline-color': 'black'
+          },
+          layout: {
+            visibility: 'visible'
           }
         });
 
@@ -167,6 +173,9 @@
           paint: {
             'line-color': myGreen,
             'line-width': 3
+          },
+          layout: {
+            visibility: 'visible'
           }
         });
 
@@ -197,6 +206,9 @@
                 [15, 12]
               ]
             }
+          },
+          layout: {
+            visibility: 'visible'
           }
         });
 
@@ -225,12 +237,15 @@
               ]
             },
             'circle-color': mySlate
+          },
+          layout: {
+            visibility: 'visible'
           }
         });
 
         // block group label layer
 
-        map.addLayer({
+        /*map.addLayer({
           id: 'blockGroupsText',
           type: 'symbol',
           source: {
@@ -268,7 +283,72 @@
               ]
             }
           }
+        });*/
+      });
+
+      map.once('idle', () => {
+        let blockGroups = {
+          type: 'FeatureCollection',
+          features: []
+        };
+
+        const queriedBlockGroups = map.querySourceFeatures('blockGroups', {
+          sourceLayer: blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50]
         });
+
+        queriedBlockGroups.forEach(blockGroup => {
+          console.log(blockGroup);
+          blockGroups.features.push(
+            turf.centroid(blockGroup.geometry, blockGroup.properties)
+          );
+        });
+
+        blockGroups.features.forEach(blockGroup => {
+          console.log(blockGroup);
+        });
+
+        map.addSource('blockGroupsText', {
+          type: 'geojson',
+          data: blockGroups
+        });
+
+        //map.once('idle', () => {
+        map.addLayer({
+          id: 'blockGroupsText',
+          type: 'symbol',
+          source: 'blockGroupsText',
+          paint: {
+            'text-color': myDarkGreen
+          },
+          layout: {
+            'text-field': [
+              'number-format',
+              ['get', 'fcc_amt'],
+              { currency: 'USD' }
+            ],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-font': [
+              'literal',
+              ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+            ],
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 12],
+                [12, 14],
+                [14, 20],
+                [15, 22],
+                [16, 28]
+              ]
+            }
+          }
+        });
+        //});
       });
 
       // toggle set up
@@ -292,7 +372,12 @@
           var clickedLayer = this.id;
           e.preventDefault();
           e.stopPropagation();
-
+          console.log(
+            this.id,
+            map.getLayoutProperty(clickedLayer, 'visibility'),
+            map.getLayoutProperty(`${clickedLayer}Text`, 'visibility')
+          );
+          console.log();
           var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
           if (visibility === 'visible') {
