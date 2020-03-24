@@ -5,7 +5,7 @@
    ![Raw button](./images/raw-button.png)
 1. Copy (COMMAND+C or CTRL+C) all the contents.
 1. Click the back button.
-1. [Go to the `rdof` directory](./rdof).
+1. Go to the `rdof` directory if you aren't already here.
 1. Click the "Create new file" button.
    ![Create new file button](./images/create-new-file-button.png)
 1. Enter the name of your file. This will always be formatted the same, you only ever need to change the coop name, e.g. `rdof_coast.html`.
