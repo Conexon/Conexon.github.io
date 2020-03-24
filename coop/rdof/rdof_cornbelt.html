@@ -1,0 +1,339 @@
+  <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      #menu a:last-child {
+        border: none;
+      }
+
+      #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+      }
+
+      #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+      }
+
+      #menu a.active:hover {
+        background: #3074a4;
+      }
+    </style>
+    <!-- toggle menu -->
+    <nav id="menu"></nav>
+    <!-- container for mapbox map-->
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+
+      // need to update the zoom and center per client
+      // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
+      var map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+        zoom: 9.01,
+        minZoom: 4,
+        maxZoom: 15,
+        center: [-88.9151, 40.3452] 
+      });
+
+      // coop RUS number for filtering block groups and blocks
+      rusFld = 'il038_m';
+      rusFld2 = 'il038_pct';
+      // coop code for filtering meters
+      coopCode = 'CORNBELT';
+
+      // define colors for layers
+      var myOrange = '#FFA500';
+      var myGreen = '#008000';
+      var myDarkGreen = '#044D04';
+      var mySlate = '#808080';
+
+      // change the following per coop
+      // these are per state, so only the state needs updated
+      // e.g. var blockGroupUrl = 'mapbox://conexon-design.rdof_bg_ms';
+      // you would change `ms` to the new state abbreviation
+      var blockGroupsUrl = 'mapbox://conexon-design.rdof_bg_il';
+      var blockGroupsSourceLayer = 'rdof_bg_il';
+
+      var blocksUrl = 'mapbox://conexon-design.rdof_block_il';
+      var blocksSourceLayer = 'rdof_block_il';
+
+      var metersUrl = 'mapbox://conexon-design.rdof_meters_il';
+      var metersSourceLayer = 'rdof_meters_il';
+
+      // block group layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroups',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'fill-color': myGreen,
+            'fill-opacity': 0.4,
+            'fill-outline-color': 'black'
+          }
+        });
+      });
+
+      // blocks layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blocks',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', rusFld, 0],
+          paint: {
+            'fill-color': myOrange,
+            'fill-opacity': 0.9,
+            'fill-outline-color': 'black'
+          }
+        });
+      });
+
+      // block group line layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroupsLines',
+          type: 'line',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'line-color': myGreen,
+            'line-width': 3
+          }
+        });
+      });
+
+      // blocks text layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blocksText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', rusFld, 0],
+          layout: {
+            'text-field': ['get', 'geoid10'],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 0],
+                [12, 4],
+                [14, 8],
+                [15, 12]
+              ]
+            }
+          }
+        });
+      });
+
+      // meters layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'meters',
+          type: 'circle',
+          source: {
+            type: 'vector',
+            url: metersUrl
+          },
+          'source-layer': metersSourceLayer,
+          filter: ['==', 'coop_code', coopCode],
+          paint: {
+            'circle-radius': {
+              base: 0.4,
+              stops: [
+                [10, 1],
+                [11, 1.5],
+                [12, 2],
+                [13, 2.5],
+                [14, 3.25],
+                [15, 4.25],
+                [16, 5.25]
+              ]
+            },
+            'circle-color': mySlate
+          }
+        });
+      });
+
+      // block group label layer
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroupsText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', rusFld2, 50],
+          paint: {
+            'text-color': myDarkGreen
+          },
+          layout: {
+            'text-field': [
+              'number-format',
+              ['get', 'fcc_amt'],
+              { currency: 'USD' }
+            ],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-font': [
+              'literal',
+              ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+            ],
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 12],
+                [12, 14],
+                [14, 20],
+                [15, 22],
+                [16, 28]
+              ]
+            }
+          }
+        });
+      });
+
+      // toggle set up
+      var toggleableLayerIds = [
+        { name: 'Block groups', id: 'blockGroups' },
+        { name: 'Blocks', id: 'blocks' },
+        { name: 'Meters', id: 'meters' }
+      ];
+
+      for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i].id;
+        var name = toggleableLayerIds[i].name;
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = name;
+        link.id = id;
+
+        link.onclick = function(e) {
+          var clickedLayer = this.id;
+          e.preventDefault();
+          e.stopPropagation();
+
+          var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+          if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'none'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'none'
+              );
+            this.className = '';
+          } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'visible'
+              );
+          }
+        };
+
+        var layers = document.getElementById('menu');
+        layers.appendChild(link);
+      }
+    </script>
+  </body>
+</html>
