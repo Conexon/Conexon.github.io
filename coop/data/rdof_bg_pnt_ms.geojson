@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_28",
+"name": "rdof_bg_pnt_ms",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 1445, "statefp": "28", "countyfp": "025", "tractce": "950300", "blkgrpce": "4", "geoid": "280259503004", "namelsad": "Block Group 4", "mtfcc": "G5030", "funcstat": "S", "aland": 1887814.0, "awater": 0.0, "intptlat": "+33.6212067", "intptlon": "-088.6512695", "fcc_904": 10, "ms028_m": 0, "ms028_pct": 0, "ms034_m": 0, "ms034_pct": 0, "ms030_m": 0, "ms030_pct": 0, "ms001_m": 0, "ms001_pct": 0, "ms024_m": 0, "ms024_pct": 0, "ms040_m": 0, "ms040_pct": 0, "ms049_m": 0, "ms049_pct": 0, "ms020_m": 0, "ms020_pct": 0, "fcc_amt": 163, "ms045_m": 0, "ms045_pct": 0 }, "geometry": { "type": "Point", "coordinates": [ -88.651269432028997, 33.621206773830934 ] } },
