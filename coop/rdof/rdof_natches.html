@@ -79,13 +79,13 @@
         modify these values
       **************************/
       const stateAbbr = 'ms';
-      const rusNumber = 'ms045';
+      const rusNumber = 'ms050';
       const blockMetersAttr = `${rusNumber}_m`;
       const blockGroundPctAttr = `${rusNumber}_pct`;
-      const coopCode = 'EMEPA';
-      const zoom = 9.37;
-      const center = [-89.2275, 33.825]; // leave as an array. #9.37/33.825/
-      const minZoom = 7;
+      const coopCode = 'NTEPA';
+      const zoom = 9.64;
+      const center = [-89.2307, 33.8404]; // leave as an array 9.64//
+      const minZoom = 9;
       const maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
@@ -104,8 +104,8 @@
       const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
       const blocksSourceLayer = `rdof_block_${stateAbbr}`;
 
-      const metersUrl =  'mapbox://conexon-design.1ydzhqf2'  //`mapbox://conexon-design.rdof_meters_${stateAbbr}`;
-      const metersSourceLayer = 'natches-5sgkfd' //`rdof_meters_${stateAbbr}`;
+      const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
+      const metersSourceLayer = `rdof_meters_${stateAbbr}`;
 
       mapboxgl.accessToken =
         'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
@@ -133,7 +133,7 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-         // filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 50],
           paint: {
             'fill-color': blockGroupFill,
             'fill-opacity': 0.4
@@ -153,7 +153,7 @@
             url: blocksUrl
           },
           'source-layer': blocksSourceLayer,
-          //filter: ['>', blockMetersAttr, 0],
+          filter: ['>', blockMetersAttr, 0],
           paint: {
             'fill-color': blockFill,
             'fill-opacity': 0.9,
@@ -174,7 +174,7 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-         // filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 50],
           paint: {
             'line-color': blockGroupFill,
             'line-width': 3
@@ -194,7 +194,7 @@
             url: blocksUrl
           },
           'source-layer': blocksSourceLayer,
-         // filter: ['>', blockMetersAttr, 0],
+          filter: ['>', blockMetersAttr, 0],
           layout: {
             'text-field': ['get', 'geoid10'],
             'symbol-placement': 'point',
@@ -225,7 +225,7 @@
             url: metersUrl
           },
           'source-layer': metersSourceLayer,
-          //filter: ['==', 'coop_code', coopCode],
+          filter: ['==', 'coop_code', coopCode],
           paint: {
             'circle-radius': {
               base: 0.4,
@@ -264,7 +264,7 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              //filter: ['>', blockGroundPctAttr, 50],
+              filter: ['>', blockGroundPctAttr, 50],
               paint: {
                 'text-color': blockGroupBorder
               },
