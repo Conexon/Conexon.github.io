@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      #menu a {
+        font-size: 13px;
+        color: #404040;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      #menu a:last-child {
+        border: none;
+      }
+
+      #menu a:hover {
+        background-color: #f8f8f8;
+        color: #404040;
+      }
+
+      #menu a.active {
+        background-color: #3887be;
+        color: #ffffff;
+      }
+
+      #menu a.active:hover {
+        background: #3074a4;
+      }
+    </style>
+    <!-- toggle menu -->
+    <nav id="menu"></nav>
+    <!-- container for mapbox map -->
+    <div id="map"></div>
+
+    <script>
+      /**************************
+        modify these values
+      **************************/
+      const stateAbbr = 'ar';
+      const rusNumber = 'ar029';
+      const blockMetersAttr = `${rusNumber}_m`;
+      const blockGroundPctAttr = `${rusNumber}_pct`;
+      const coopCode = 'SCAEC';
+      const zoom = 9;
+      const center = [-89.4589, 30.5975]; // leave as an array
+      const minZoom = 9;
+      const maxZoom = 15;
+      // colors
+      const blockFill = '#FFA500';
+      const blockGroupFill = '#008000';
+      const blockGroupBorder = '#044D04';
+      const meters = '#808080';
+      const blockBorder = '#000000';
+      /**************************
+        end of modifying values
+      **************************/
+
+      // tilesets
+      const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
+      const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
+
+      const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
+      const blocksSourceLayer = `rdof_block_${stateAbbr}`;
+
+      const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
+      const metersSourceLayer = `rdof_meters_${stateAbbr}`;
+
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+
+      // need to update the zoom and center per client
+      // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
+      const map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+        zoom: zoom,
+        minZoom: minZoom,
+        maxZoom: maxZoom,
+        center: center
+      });
+
+      // block group layer
+
+      map.on('load', function() {
+        map.addLayer({
+          id: 'blockGroups',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', blockGroundPctAttr, 50],
+          paint: {
+            'fill-color': blockGroupFill,
+            'fill-opacity': 0.4
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+
+        // blocks layer
+
+        map.addLayer({
+          id: 'blocks',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', blockMetersAttr, 0],
+          paint: {
+            'fill-color': blockFill,
+            'fill-opacity': 0.9,
+            'fill-outline-color': blockBorder
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+
+        // block group line layer
+
+        map.addLayer({
+          id: 'blockGroupsLines',
+          type: 'line',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', blockGroundPctAttr, 50],
+          paint: {
+            'line-color': blockGroupFill,
+            'line-width': 3
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+
+        // blocks text layer
+
+        map.addLayer({
+          id: 'blocksText',
+          type: 'symbol',
+          source: {
+            type: 'vector',
+            url: blocksUrl
+          },
+          'source-layer': blocksSourceLayer,
+          filter: ['>', blockMetersAttr, 0],
+          layout: {
+            'text-field': ['get', 'geoid10'],
+            'symbol-placement': 'point',
+            'text-allow-overlap': true,
+            'text-justify': 'center',
+            'text-padding': 4,
+            'text-rotation-alignment': 'viewport',
+            'text-size': {
+              base: 0,
+              stops: [
+                [10, 0],
+                [12, 4],
+                [14, 8],
+                [15, 12]
+              ]
+            },
+            visibility: 'visible'
+          }
+        });
+
+        // meters layer
+
+        map.addLayer({
+          id: 'meters',
+          type: 'circle',
+          source: {
+            type: 'vector',
+            url: metersUrl
+          },
+          'source-layer': metersSourceLayer,
+          filter: ['==', 'coop_code', coopCode],
+          paint: {
+            'circle-radius': {
+              base: 0.4,
+              stops: [
+                [10, 1],
+                [11, 1.5],
+                [12, 2],
+                [13, 2.5],
+                [14, 3.25],
+                [15, 4.25],
+                [16, 5.25]
+              ]
+            },
+            'circle-color': meters
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+      });
+
+      map.once('idle', () => {
+        fetch(
+          `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
+        )
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            map.addSource('blockGroupsText', {
+              type: 'geojson',
+              data: data
+            });
+
+            map.addLayer({
+              id: 'blockGroupsText',
+              type: 'symbol',
+              source: 'blockGroupsText',
+              filter: ['>', blockGroundPctAttr, 50],
+              paint: {
+                'text-color': blockGroupBorder
+              },
+              layout: {
+                'text-field': [
+                  'number-format',
+                  ['get', 'fcc_amt'],
+                  { currency: 'USD' }
+                ],
+                'symbol-placement': 'point',
+                'text-allow-overlap': true,
+                'text-justify': 'center',
+                'text-padding': 4,
+                'text-rotation-alignment': 'viewport',
+                'text-font': [
+                  'literal',
+                  ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+                ],
+                'text-size': {
+                  base: 0,
+                  stops: [
+                    [10, 12],
+                    [12, 14],
+                    [14, 20],
+                    [15, 22],
+                    [16, 28]
+                  ]
+                }
+              }
+            });
+          });
+      });
+
+      // toggle set up
+      const toggleableLayerIds = [
+        { name: 'Block groups', id: 'blockGroups' },
+        { name: 'Blocks', id: 'blocks' },
+        { name: 'Meters', id: 'meters' }
+      ];
+
+      for (let i = 0; i < toggleableLayerIds.length; i++) {
+        const id = toggleableLayerIds[i].id;
+        const name = toggleableLayerIds[i].name;
+
+        let link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = name;
+        link.id = id;
+        link.onclick = function(e) {
+          const clickedLayer = this.id;
+          e.preventDefault();
+          e.stopPropagation();
+
+          const visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+          if (visibility === 'visible') {
+            this.className = '';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'none'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'none'
+              );
+          } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            if (clickedLayer !== 'meters')
+              map.setLayoutProperty(
+                `${clickedLayer}Text`,
+                'visibility',
+                'visible'
+              );
+            if (clickedLayer === 'blockGroups')
+              map.setLayoutProperty(
+                `${clickedLayer}Lines`,
+                'visibility',
+                'visible'
+              );
+          }
+        };
+
+        const layers = document.getElementById('menu');
+        layers.appendChild(link);
+      }
+    </script>
+  </body>
+</html>
