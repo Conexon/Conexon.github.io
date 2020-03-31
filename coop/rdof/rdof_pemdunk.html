@@ -309,7 +309,7 @@
               type: 'symbol',
               source: 'substations',
               layout: {
-                'icon-image': 'black-square-15',
+                'icon-image': 'red-square-15',
                 'icon-size': {
                   base: 0.5,
                   stops: [
@@ -343,6 +343,38 @@
               } else {
                 listOfVisibleSubstations.push(
                   event.features[0].properties.cn_substat
+                );
+              }
+
+              let substationIconExpression = [];
+
+              if (listOfVisibleSubstations.length > 0) {
+                substationIconExpression.push('case');
+                console.log(
+                  'comparing',
+                  event.features[0].properties.cn_substat,
+                  listOfVisibleSubstations
+                );
+                if (
+                  listOfVisibleSubstations.includes(
+                    event.features[0].properties.cn_substat
+                  )
+                ) {
+                  substationIconExpression.push([
+                    '==',
+                    ['get', 'cn_substat'],
+                    event.features[0].properties.cn_substat
+                  ]);
+                  substationIconExpression.push('black-square-15');
+                }
+                substationIconExpression.push('red-square-15');
+                console.log(substationIconExpression);
+                // create express
+
+                map.setLayoutProperty(
+                  'substations',
+                  'icon-image',
+                  substationIconExpression
                 );
               }
 
