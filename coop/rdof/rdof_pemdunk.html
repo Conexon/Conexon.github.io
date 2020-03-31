@@ -254,7 +254,7 @@
             'circle-color': meters
           },
           layout: {
-            //visibility: 'none'
+            visibility: 'none'
           }
         });
 
@@ -301,15 +301,12 @@
 
             map.on('click', 'substations', event => {
               console.log(event.features[0].properties);
+              const toggleVisibilityTo =
+                map.getLayoutProperty('meters', 'visibility') === 'none'
+                  ? 'visible'
+                  : 'none';
               // set the filter on meters and turn it on
-              /*
-              map.setFilter('meters', [
-                '==',
-                'substation',
-                event.features[0].properties.cn_substat
-              ]);
-              */
-              map.setLayoutProperty('meters', 'visibility', 'visible');
+              map.setLayoutProperty('meters', 'visibility', toggleVisibilityTo);
               map.setFilter('meters', [
                 '==',
                 'substation',
