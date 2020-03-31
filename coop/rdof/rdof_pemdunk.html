@@ -260,6 +260,43 @@
       });
 
       map.once('idle', () => {
+        const lowerCoopCode = coopCode.toLowerCase();
+        fetch(
+          `https://conexon.github.io/coop/data/clients/${lowerCoopCode}_sub.geojson`
+        )
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+            map.addSource('substations', {
+              type: 'geojson',
+              data: data
+            });
+
+            map.addLayer({
+              id: 'substations',
+              type: 'symbol',
+              source: 'substations',
+              layout: {
+                'icon-image': 'black-square-15',
+                'icon-size': {
+                  base: 0.5,
+                  stops: [
+                    [12, 0.75],
+                    [13, 1.25],
+                    [14, 1.75],
+                    [15, 2.25],
+                    [16, 3.75]
+                  ]
+                },
+                'icon-allow-overlap': true,
+                'text-field': '{subname}',
+                'text-offset': [0, -1]
+              }
+            });
+          });
+
         fetch(
           `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
         )
