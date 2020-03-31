@@ -27,6 +27,18 @@
   </head>
   <body>
     <style>
+      #data {
+        background: #fff;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        left: 10px;
+        border-radius: 3px;
+        width: 500px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+      }
+
       #menu {
         background: #fff;
         position: absolute;
@@ -69,6 +81,8 @@
         background: #3074a4;
       }
     </style>
+    <!-- data -->
+    <div id="data"></div>
     <!-- toggle menu -->
     <nav id="menu"></nav>
     <!-- container for mapbox map -->
@@ -76,8 +90,8 @@
 
     <script>
       /**************************
-        modify these values
-      **************************/
+              modify these values
+            **************************/
       const stateAbbr = 'mo';
       const rusNumber = 'mo012';
       const blockMetersAttr = `${rusNumber}_m`;
@@ -96,8 +110,19 @@
       const meters = '#808080';
       const blockBorder = '#000000';
       /**************************
-        end of modifying values
-      **************************/
+              end of modifying values
+            **************************/
+
+      const colors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'black',
+        'aqua'
+      ];
 
       // tilesets
       const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
@@ -263,6 +288,8 @@
         });
       });
 
+      const listOfVisibleSubstations = [];
+
       map.once('idle', () => {
         const lowerCoopCode = coopCode.toLowerCase();
         fetch(
@@ -300,18 +327,67 @@
             });
 
             map.on('click', 'substations', event => {
-              console.log(event.features[0].properties);
-              const toggleVisibilityTo =
-                map.getLayoutProperty('meters', 'visibility') === 'none'
-                  ? 'visible'
-                  : 'none';
+              console.log(event.features[0].properties.cn_substat);
+
+              if (
+                listOfVisibleSubstations.includes(
+                  event.features[0].properties.cn_substat
+                )
+              ) {
+                listOfVisibleSubstations.splice(
+                  listOfVisibleSubstations.indexOf(
+                    event.features[0].properties.cn_substat
+                  ),
+                  1
+                );
+              } else {
+                listOfVisibleSubstations.push(
+                  event.features[0].properties.cn_substat
+                );
+              }
+
               // set the filter on meters and turn it on
+              const toggleVisibilityTo =
+                listOfVisibleSubstations.length === 0 ? 'none' : 'visible';
               map.setLayoutProperty('meters', 'visibility', toggleVisibilityTo);
-              map.setFilter('meters', [
-                '==',
-                'substation',
-                event.features[0].properties.cn_substat
-              ]);
+
+              console.log('list', listOfVisibleSubstations);
+
+              const testFilters = ['any', ['==', 'cn_substat']];
+
+              let meterFilters = [];
+              if (listOfVisibleSubstations.length > 0) meterFilters.push('any');
+              listOfVisibleSubstations.forEach(substation => {
+                meterFilters.push(['==', 'substation', substation]);
+              });
+
+              console.log('meterfilters', meterFilters);
+
+              if (listOfVisibleSubstations.length > 0)
+                map.setFilter('meters', meterFilters);
+
+              map.once('idle', () => {
+                if (toggleVisibilityTo === 'visible') {
+                  const metersShown = map.queryRenderedFeatures({
+                    layers: ['meters']
+                  });
+                  // get unique feeders
+                  let feeders = [];
+                  let filters = ['match', ['get', 'feeder']];
+                  metersShown.forEach((meter, i) => {
+                    if (!feeders.includes(meter.properties.feeder)) {
+                      feeders.push(meter.properties.feeder);
+
+                      filters.push(meter.properties.feeder);
+                      filters.push(colors[i % colors.length]);
+                    }
+                  });
+                  filters.push('black'); // the default color
+
+                  console.log(feeders);
+                  map.setPaintProperty('meters', 'circle-color', filters);
+                }
+              });
 
               // render data
             });
