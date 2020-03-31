@@ -387,9 +387,55 @@
                   console.log(feeders);
                   map.setPaintProperty('meters', 'circle-color', filters);
                 }
-              });
 
-              // render data
+                let dataContainer = document.getElementById('data');
+
+                if (listOfVisibleSubstations.length > 0) {
+                  // render data
+
+                  dataContainer.innerHTML = '';
+                  let dataList = document.createElement('dl');
+                  let myData = {
+                    meterTotal: 0,
+                    meterRDOF: 0,
+                    meterCable: 0,
+                    meterFiber: 0,
+                    meterTelCo: 0,
+                    meterNoService: 0,
+                    meterUnderServed: 0
+                  };
+                  listOfVisibleSubstations.forEach(substation => {
+                    console.log(substation);
+                    data.features.forEach(feature => {
+                      if (feature.properties.cn_substat === substation) {
+                        myData.meterTotal += feature.properties.meters;
+                        myData.meterRDOF += feature.properties.meters_rdof;
+                        myData.meterCable += feature.properties.meters_cable;
+                        myData.meterFiber += feature.properties.meters_fiber;
+                        myData.meterTelCo += feature.properties.meters_telco;
+                        myData.meterNoService +=
+                          feature.properties.meters_no_service;
+                        myData.meterUnderServed +=
+                          feature.properties.meters_underserved;
+                      }
+                    });
+                  });
+
+                  const entries = Object.entries(myData);
+
+                  for (const [dataType, dataDef] of entries) {
+                    let dt = document.createElement('dt');
+                    let dd = document.createElement('dd');
+                    dt.innerHTML = dataType;
+                    dd.innerHTML = dataDef;
+                    dataList.appendChild(dt);
+                    dataList.appendChild(dd);
+                    dataContainer.appendChild(dataList);
+                  }
+                } else {
+                  dataContainer.innerHTML = '';
+                }
+              });
             });
           });
 
