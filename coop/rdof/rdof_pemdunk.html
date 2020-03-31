@@ -254,8 +254,12 @@
             'circle-color': meters
           },
           layout: {
-            visibility: 'none'
+            //visibility: 'none'
           }
+        });
+
+        map.on('click', 'meters', event => {
+          console.log(event.features[0].properties);
         });
       });
 
@@ -268,7 +272,6 @@
             return response.json();
           })
           .then(data => {
-            console.log(data);
             map.addSource('substations', {
               type: 'geojson',
               data: data
@@ -294,6 +297,26 @@
                 'text-field': '{subname}',
                 'text-offset': [0, -1]
               }
+            });
+
+            map.on('click', 'substations', event => {
+              console.log(event.features[0].properties);
+              // set the filter on meters and turn it on
+              /*
+              map.setFilter('meters', [
+                '==',
+                'substation',
+                event.features[0].properties.cn_substat
+              ]);
+              */
+              map.setLayoutProperty('meters', 'visibility', 'visible');
+              map.setFilter('meters', [
+                '==',
+                'substation',
+                event.features[0].properties.cn_substat
+              ]);
+
+              // render data
             });
           });
 
