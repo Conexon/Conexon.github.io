@@ -91,6 +91,8 @@
       const blockFill = '#FFA500';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
       /**************************
@@ -157,7 +159,7 @@
             ['>', blockGroundPctAttr, 0]
           ],
           paint: {
-            'fill-color': 'blue',
+            'fill-color': blockGroup2Fill,
             'fill-opacity': 0.4
           },
           layout: {
@@ -199,7 +201,7 @@
             ['>', blockGroundPctAttr, 0]
           ],
           paint: {
-            'line-color': 'blue',
+            'line-color': blockGroup2Fill,
             'line-width': 3
           },
           layout: {
@@ -350,7 +352,7 @@
                 ['>', blockGroundPctAttr, 0]
               ],
               paint: {
-                'text-color': 'blue'
+                'text-color': blockGroup2Fill
               },
               layout: {
                 'text-field': [
