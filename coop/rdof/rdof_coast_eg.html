@@ -91,6 +91,8 @@
       const blockFill = '#FFA500';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
       /**************************
@@ -133,10 +135,40 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': blockGroupFill,
+            'fill-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
             'fill-opacity': 0.4
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+
+        // block group line layer
+
+        map.addLayer({
+          id: 'blockGroupsLines',
+          type: 'line',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', blockGroundPctAttr, 0],
+          paint: {
+            'line-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
+            'line-width': 3
           },
           layout: {
             visibility: 'visible'
@@ -158,26 +190,6 @@
             'fill-color': blockFill,
             'fill-opacity': 0.9,
             'fill-outline-color': blockBorder
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-
-        // block group line layer
-
-        map.addLayer({
-          id: 'blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: blockGroupsUrl
-          },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
           },
           layout: {
             visibility: 'visible'
@@ -264,9 +276,14 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 50],
+              filter: ['>', blockGroundPctAttr, 0],
               paint: {
-                'text-color': blockGroupBorder
+                'text-color': [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupBorder
+                ]
               },
               layout: {
                 'text-field': [
@@ -330,12 +347,13 @@
                 'visibility',
                 'none'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups') {
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
                 'none'
               );
+            }
           } else {
             this.className = 'active';
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
@@ -345,12 +363,13 @@
                 'visibility',
                 'visible'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups') {
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
                 'visible'
               );
+            }
           }
         };
 
