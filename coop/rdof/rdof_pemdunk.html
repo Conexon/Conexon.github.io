@@ -346,27 +346,22 @@
                 );
               }
 
-              let substationIconExpression = [];
-
               if (listOfVisibleSubstations.length > 0) {
+                let substationIconExpression = [];
                 substationIconExpression.push('case');
                 console.log(
                   'comparing',
                   event.features[0].properties.cn_substat,
                   listOfVisibleSubstations
                 );
-                if (
-                  listOfVisibleSubstations.includes(
-                    event.features[0].properties.cn_substat
-                  )
-                ) {
+                listOfVisibleSubstations.forEach(substation => {
                   substationIconExpression.push([
                     '==',
                     ['get', 'cn_substat'],
-                    event.features[0].properties.cn_substat
+                    substation
                   ]);
                   substationIconExpression.push('black-square-15');
-                }
+                });
                 substationIconExpression.push('red-square-15');
                 console.log(substationIconExpression);
                 // create express
@@ -375,6 +370,12 @@
                   'substations',
                   'icon-image',
                   substationIconExpression
+                );
+              } else {
+                map.setLayoutProperty(
+                  'substations',
+                  'icon-image',
+                  'red-square-15'
                 );
               }
 
@@ -458,7 +459,22 @@
                   for (const [dataType, dataDef] of entries) {
                     let dt = document.createElement('dt');
                     let dd = document.createElement('dd');
-                    dt.innerHTML = dataType;
+
+                    const label =
+                      dataType === 'meterTotal'
+                        ? 'Total meters'
+                        : dataType === 'meterRDOF'
+                        ? 'Meters in RDOF blocks'
+                        : dataType === 'meterCable'
+                        ? 'Meters with cable service'
+                        : dataType === 'meterFiber'
+                        ? 'Meters with fiber service'
+                        : dataType === 'meterTelCo'
+                        ? 'Meters with TelCo service'
+                        : dataType === 'meterNoService'
+                        ? 'Meters with no service'
+                        : 'Meters that are underserved';
+                    dt.innerHTML = label;
                     dd.innerHTML = dataDef;
                     dataList.appendChild(dt);
                     dataList.appendChild(dd);
