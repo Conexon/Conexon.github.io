@@ -440,7 +440,8 @@
                     amount50: 0,
                     blockGroupCount50: 0,
                     amountAny: 0,
-                    blockGroupCountAny: 0
+                    blockGroupCountAny: 0,
+                    fccLocations: 0
                   };
                   listOfVisibleSubstations.forEach(substation => {
                     data.features.forEach(feature => {
@@ -470,6 +471,11 @@
                           ? myData.blockGroupCountAny +
                             feature.properties.sub_bg_cnt_any
                           : myData.blockGroupCountAny;
+                        myData.fccLocations = feature.properties.sub_bg_locs_any
+                          ? myData.fccLocations +
+                            feature.properties.sub_bg_locs_any
+                          : myData.fccLocations;
+                        //sub_bg_locs_any
                       }
                     });
                   });
@@ -504,7 +510,9 @@
                         ? 'Number of block groups at 50%'
                         : dataType === 'amountAny'
                         ? '10 year reserve price total'
-                        : 'Number of block groups total';
+                        : dataType === 'blockGroupCountAny'
+                        ? 'Number of block groups total'
+                        : 'FCC locations';
                     dt.innerHTML = label;
                     const dtClasses = [
                       'text-sm',
