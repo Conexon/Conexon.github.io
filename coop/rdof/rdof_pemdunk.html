@@ -12,16 +12,26 @@
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         margin: 0;
         padding: 0;
+      }
+      .mapWrapper {
+        height: 800px;
+        margin: 1em auto;
+        position: relative;
       }
       #map {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
+        max-width: 100%;
       }
     </style>
   </head>
@@ -29,22 +39,17 @@
     <style>
       #data {
         background: #fff;
-        position: absolute;
+
         z-index: 1;
-        top: 10px;
-        left: 10px;
         border-radius: 3px;
-        width: 500px;
+
         border: 1px solid rgba(0, 0, 0, 0.4);
         font-family: 'Open Sans', sans-serif;
       }
 
       #menu {
         background: #fff;
-        position: absolute;
-        z-index: 1;
-        top: 10px;
-        right: 10px;
+
         border-radius: 3px;
         width: 120px;
         border: 1px solid rgba(0, 0, 0, 0.4);
@@ -81,12 +86,20 @@
         background: #3074a4;
       }
     </style>
+    <div class="container mx-auto">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-3"><div id="data"></div></div>
+        <div class="col-span-8">
+          <div class="mapWrapper"><div id="map"></div></div>
+        </div>
+        <div class="col-span-1"><nav id="menu"></nav></div>
+      </div>
+    </div>
     <!-- data -->
-    <div id="data"></div>
+
     <!-- toggle menu -->
-    <nav id="menu"></nav>
+
     <!-- container for mapbox map -->
-    <div id="map"></div>
 
     <script>
       /**************************
