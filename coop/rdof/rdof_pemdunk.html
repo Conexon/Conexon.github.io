@@ -79,15 +79,13 @@
         color: white;
       }
     </style>
-    <div class="container mx-auto">
-      <img width="50px" class="inline" src="../../images/logo.png" /> Conexon
-    </div>
+
     <div class="container mx-auto">
       <div class="grid grid-cols-12 gap-4">
         <div class="col-span-4">
-          <div id="data" class="mt-8">
+          <div id="data">
             <h1 class="text-2xl">
-              Click a substation to view its meters and data.
+              Click 1 or more substations to view meters and data.
             </h1>
           </div>
         </div>
@@ -100,6 +98,11 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="container mx-auto mt-8 border-t pt-8 text-lg">
+      <img width="75px" class="inline" src="../../images/logo.png" />
+      <span class="text-3xl">conexon</span>
     </div>
 
     <script>
@@ -318,7 +321,7 @@
               type: 'symbol',
               source: 'substations',
               layout: {
-                'icon-image': 'red-square-15',
+                'icon-image': 'black-square-15',
                 'icon-size': {
                   base: 0.5,
                   stops: [
@@ -363,9 +366,9 @@
                     ['get', 'cn_substat'],
                     substation
                   ]);
-                  substationIconExpression.push('black-square-15');
+                  substationIconExpression.push('red-square-15');
                 });
-                substationIconExpression.push('red-square-15');
+                substationIconExpression.push('black-square-15');
 
                 // create express
 
@@ -378,7 +381,7 @@
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
-                  'red-square-15'
+                  'black-square-15'
                 );
               }
 
@@ -434,8 +437,10 @@
                     meterTelCo: 0,
                     meterNoService: 0,
                     meterUnderServed: 0,
-                    amount: 0,
-                    blockGroupCount: 0
+                    amount50: 0,
+                    blockGroupCount50: 0,
+                    amountAny: 0,
+                    blockGroupCountAny: 0
                   };
                   listOfVisibleSubstations.forEach(substation => {
                     data.features.forEach(feature => {
@@ -449,14 +454,22 @@
                           feature.properties.meters_no_service;
                         myData.meterUnderServed +=
                           feature.properties.meters_underserved;
-                        myData.amount = feature.properties.sub_amt_50
-                          ? myData.amount + feature.properties.sub_amt_50
-                          : myData.amount;
-                        myData.blockGroupCount = feature.properties
+                        myData.amount50 = feature.properties.sub_amt_50
+                          ? myData.amount50 + feature.properties.sub_amt_50
+                          : myData.amount50;
+                        myData.blockGroupCount50 = feature.properties
                           .sub_bg_cnt_50
-                          ? myData.blockGroupCount +
+                          ? myData.blockGroupCount50 +
                             feature.properties.sub_bg_cnt_50
-                          : myData.blockGroupCount;
+                          : myData.blockGroupCount50;
+                        myData.amountAny = feature.properties.sub_amt_any
+                          ? myData.amountAny + feature.properties.sub_amt_any
+                          : myData.amountAny;
+                        myData.blockGroupCountAny = feature.properties
+                          .sub_bg_cnt_any
+                          ? myData.blockGroupCountAny +
+                            feature.properties.sub_bg_cnt_any
+                          : myData.blockGroupCountAny;
                       }
                     });
                   });
@@ -485,30 +498,31 @@
                         ? 'Meters with no service'
                         : dataType === 'meterUnderServed'
                         ? 'Meters that are underserved'
-                        : dataType === 'amount'
-                        ? '10 year reserve price'
-                        : 'Number of block groups';
+                        : dataType === 'amount50'
+                        ? '10 year reserve price at 50%'
+                        : dataType === 'blockGroupCount50'
+                        ? 'Number of block groups at 50%'
+                        : dataType === 'amountAny'
+                        ? '10 year reserve price total'
+                        : 'Number of block groups total';
                     dt.innerHTML = label;
                     const dtClasses = [
                       'text-sm',
-                      'leading-5',
                       'font-medium',
                       'text-gray-700',
                       'truncate'
                     ];
                     const ddClasses = [
-                      'mt-1',
-                      'text-3xl',
-                      'leading-9',
+                      'text-xl',
                       'font-semibold',
                       'text-gray-900',
-                      'mb-5',
-                      'pb-5',
+                      'mb-1',
+                      'pb-1',
                       'border-b'
                     ];
                     dt.classList.add(...dtClasses);
                     dd.innerHTML =
-                      dataType === 'amount'
+                      dataType === 'amount50' || dataType === 'amountAny'
                         ? dataDef.toLocaleString('en-US', {
                             style: 'currency',
                             currency: 'USD'
@@ -520,7 +534,8 @@
                     dataContainer.appendChild(dataList);
                   }
                 } else {
-                  dataContainer.innerHTML = '';
+                  dataContainer.innerHTML =
+                    '<h1 class="text-2xl">Click 1 or more substations to view meters and data.</h1>';
                 }
               });
             });
