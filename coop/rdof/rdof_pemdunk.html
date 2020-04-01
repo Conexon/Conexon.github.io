@@ -23,42 +23,34 @@
       }
       .mapWrapper {
         height: 800px;
-        margin: 1em auto;
+        margin: 2em auto;
         position: relative;
+        z-index: 1;
       }
       #map {
         position: absolute;
         top: 0;
         bottom: 0;
         width: 100%;
-        max-width: 100%;
       }
     </style>
   </head>
-  <body>
+  <body class="my-8">
     <style>
-      #data {
-        background: #fff;
-
-        z-index: 1;
-        border-radius: 3px;
-
-        border: 1px solid rgba(0, 0, 0, 0.4);
-        font-family: 'Open Sans', sans-serif;
-      }
-
       #menu {
-        background: #fff;
-
+        background: lightgray;
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        right: 10px;
         border-radius: 3px;
         width: 120px;
         border: 1px solid rgba(0, 0, 0, 0.4);
-        font-family: 'Open Sans', sans-serif;
       }
 
       #menu a {
         font-size: 13px;
-        color: #404040;
+        color: black;
         display: block;
         margin: 0;
         padding: 0;
@@ -78,28 +70,35 @@
       }
 
       #menu a.active {
-        background-color: #3887be;
-        color: #ffffff;
+        background-color: white;
+        color: black;
       }
 
       #menu a.active:hover {
-        background: #3074a4;
+        background: gray;
+        color: white;
       }
     </style>
     <div class="container mx-auto">
+      <img width="50px" class="inline" src="../../images/logo.png" /> Conexon
+    </div>
+    <div class="container mx-auto">
       <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-3"><div id="data"></div></div>
-        <div class="col-span-8">
-          <div class="mapWrapper"><div id="map"></div></div>
+        <div class="col-span-4">
+          <div id="data" class="mt-8">
+            <h1 class="text-2xl">
+              Click a substation to view its meters and data.
+            </h1>
+          </div>
         </div>
-        <div class="col-span-1"><nav id="menu"></nav></div>
+        <div class="col-span-8">
+          <div class="mapWrapper">
+            <div id="map"></div>
+            <nav id="menu"></nav>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- data -->
-
-    <!-- toggle menu -->
-
-    <!-- container for mapbox map -->
 
     <script>
       /**************************
@@ -111,7 +110,7 @@
       const blockGroundPctAttr = `${rusNumber}_pct`;
       const coopCode = 'PEMDUNK';
       const zoom = 9.01;
-      const center = [-89.9788, 36.2479]; // leave as an array  9//
+      const center = [-89.9611, 36.3216]; // leave as an array  9//
       const minZoom = 9;
       const maxZoom = 15;
       // colors
@@ -278,26 +277,21 @@
           filter: ['==', 'coop_code', coopCode],
           paint: {
             'circle-radius': {
-              base: 0.4,
+              base: 2,
               stops: [
-                [10, 1],
-                [11, 1.5],
                 [12, 2],
-                [13, 2.5],
-                [14, 3.25],
-                [15, 4.25],
-                [16, 5.25]
+                [13, 3],
+                [14, 4],
+                [15, 5],
+                [16, 6]
               ]
             },
+
             'circle-color': meters
           },
           layout: {
             visibility: 'none'
           }
-        });
-
-        map.on('click', 'meters', event => {
-          console.log(event.features[0].properties);
         });
       });
 
@@ -340,8 +334,6 @@
             });
 
             map.on('click', 'substations', event => {
-              console.log(event.features[0].properties.cn_substat);
-
               if (
                 listOfVisibleSubstations.includes(
                   event.features[0].properties.cn_substat
@@ -362,11 +354,7 @@
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
                 substationIconExpression.push('case');
-                console.log(
-                  'comparing',
-                  event.features[0].properties.cn_substat,
-                  listOfVisibleSubstations
-                );
+
                 listOfVisibleSubstations.forEach(substation => {
                   substationIconExpression.push([
                     '==',
@@ -376,7 +364,7 @@
                   substationIconExpression.push('black-square-15');
                 });
                 substationIconExpression.push('red-square-15');
-                console.log(substationIconExpression);
+
                 // create express
 
                 map.setLayoutProperty(
@@ -397,8 +385,6 @@
                 listOfVisibleSubstations.length === 0 ? 'none' : 'visible';
               map.setLayoutProperty('meters', 'visibility', toggleVisibilityTo);
 
-              console.log('list', listOfVisibleSubstations);
-
               const testFilters = ['any', ['==', 'cn_substat']];
 
               let meterFilters = [];
@@ -406,8 +392,6 @@
               listOfVisibleSubstations.forEach(substation => {
                 meterFilters.push(['==', 'substation', substation]);
               });
-
-              console.log('meterfilters', meterFilters);
 
               if (listOfVisibleSubstations.length > 0)
                 map.setFilter('meters', meterFilters);
@@ -430,7 +414,6 @@
                   });
                   filters.push('black'); // the default color
 
-                  console.log(feeders);
                   map.setPaintProperty('meters', 'circle-color', filters);
                 }
 
@@ -448,10 +431,11 @@
                     meterFiber: 0,
                     meterTelCo: 0,
                     meterNoService: 0,
-                    meterUnderServed: 0
+                    meterUnderServed: 0,
+                    amount: 0,
+                    blockGroupCount: 0
                   };
                   listOfVisibleSubstations.forEach(substation => {
-                    console.log(substation);
                     data.features.forEach(feature => {
                       if (feature.properties.cn_substat === substation) {
                         myData.meterTotal += feature.properties.meters;
@@ -463,13 +447,24 @@
                           feature.properties.meters_no_service;
                         myData.meterUnderServed +=
                           feature.properties.meters_underserved;
+                        myData.amount = feature.properties.sub_amt_50
+                          ? myData.amount + feature.properties.sub_amt_50
+                          : myData.amount;
+                        myData.blockGroupCount = feature.properties
+                          .sub_bg_cnt_50
+                          ? myData.blockGroupCount +
+                            feature.properties.sub_bg_cnt_50
+                          : myData.blockGroupCount;
                       }
                     });
                   });
 
+                  console.log('myData', myData);
+
                   const entries = Object.entries(myData);
 
                   for (const [dataType, dataDef] of entries) {
+                    console.log('dl', dataType, dataDef);
                     let dt = document.createElement('dt');
                     let dd = document.createElement('dd');
 
@@ -486,9 +481,36 @@
                         ? 'Meters with TelCo service'
                         : dataType === 'meterNoService'
                         ? 'Meters with no service'
-                        : 'Meters that are underserved';
+                        : dataType === 'meterUnderServed'
+                        ? 'Meters that are underserved'
+                        : dataType === 'amount'
+                        ? '10 year reserve price'
+                        : 'Number of block groups';
                     dt.innerHTML = label;
-                    dd.innerHTML = dataDef;
+                    const dtClasses = [
+                      'text-sm',
+                      'leading-5',
+                      'font-medium',
+                      'text-gray-700',
+                      'truncate'
+                    ];
+                    const ddClasses = [
+                      'mt-1',
+                      'text-3xl',
+                      'leading-9',
+                      'font-semibold',
+                      'text-gray-900',
+                      'mb-5'
+                    ];
+                    dt.classList.add(...dtClasses);
+                    dd.innerHTML =
+                      dataType === 'amount'
+                        ? dataDef.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: 'USD'
+                          })
+                        : dataDef;
+                    dd.classList.add(...ddClasses);
                     dataList.appendChild(dt);
                     dataList.appendChild(dd);
                     dataContainer.appendChild(dataList);
