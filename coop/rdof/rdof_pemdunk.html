@@ -435,8 +435,8 @@
                     meterCable: 0,
                     meterFiber: 0,
                     meterTelCo: 0,
-                    meterNoService: 0,
-                    meterUnderServed: 0,
+                    //meterNoService: 0,
+                    //meterUnderServed: 0,
                     amount50: 0,
                     blockGroupCount50: 0,
                     amountAny: 0,
@@ -451,10 +451,12 @@
                         myData.meterCable += feature.properties.meters_cable;
                         myData.meterFiber += feature.properties.meters_fiber;
                         myData.meterTelCo += feature.properties.meters_telco;
+                        /*
                         myData.meterNoService +=
                           feature.properties.meters_no_service;
                         myData.meterUnderServed +=
                           feature.properties.meters_underserved;
+                          */
                         myData.amount50 = feature.properties.sub_amt_50
                           ? myData.amount50 + feature.properties.sub_amt_50
                           : myData.amount50;
@@ -475,7 +477,6 @@
                           ? myData.fccLocations +
                             feature.properties.sub_bg_locs_any
                           : myData.fccLocations;
-                        //sub_bg_locs_any
                       }
                     });
                   });
@@ -500,11 +501,11 @@
                         ? 'Meters with fiber service'
                         : dataType === 'meterTelCo'
                         ? 'Meters with TelCo service'
-                        : dataType === 'meterNoService'
-                        ? 'Meters with no service'
-                        : dataType === 'meterUnderServed'
-                        ? 'Meters that are underserved'
-                        : dataType === 'amount50'
+                        : //: dataType === 'meterNoService'
+                        //? 'Meters with no service'
+                        //: dataType === 'meterUnderServed'
+                        //? 'Meters that are underserved'
+                        dataType === 'amount50'
                         ? '10 year reserve price at 50%'
                         : dataType === 'blockGroupCount50'
                         ? 'Number of block groups at 50%'
