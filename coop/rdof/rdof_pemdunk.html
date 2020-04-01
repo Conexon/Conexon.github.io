@@ -12,10 +12,20 @@
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
       body {
         margin: 0;
         padding: 0;
+      }
+      .mapWrapper {
+        height: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
       }
       #map {
         position: absolute;
@@ -25,23 +35,22 @@
       }
     </style>
   </head>
-  <body>
+  <body class="my-8">
     <style>
       #menu {
-        background: #fff;
+        background: lightgray;
         position: absolute;
         z-index: 1;
-        top: 10px;
-        right: 10px;
+        top: 1.5em;
+        right: 1.5em;
         border-radius: 3px;
         width: 120px;
         border: 1px solid rgba(0, 0, 0, 0.4);
-        font-family: 'Open Sans', sans-serif;
       }
 
       #menu a {
         font-size: 13px;
-        color: #404040;
+        color: black;
         display: block;
         margin: 0;
         padding: 0;
@@ -61,41 +70,76 @@
       }
 
       #menu a.active {
-        background-color: #3887be;
-        color: #ffffff;
+        background-color: white;
+        color: black;
       }
 
       #menu a.active:hover {
-        background: #3074a4;
+        background: gray;
+        color: white;
       }
     </style>
-    <!-- toggle menu -->
-    <nav id="menu"></nav>
-    <!-- container for mapbox map -->
-    <div id="map"></div>
+
+    <div class="container mx-auto">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-4">
+          <div id="data">
+            <h1 class="text-2xl">
+              Click 1 or more substations to view meters and data.
+            </h1>
+          </div>
+        </div>
+        <div class="col-span-8">
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="mapWrapper">
+              <div id="map"></div>
+              <nav id="menu"></nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto mt-8 border-t pt-8 text-lg">
+      <img width="75px" class="inline" src="../../images/logo.png" />
+      <span class="text-3xl">conexon</span>
+    </div>
 
     <script>
       /**************************
-        modify these values
-      **************************/
+              modify these values
+            **************************/
       const stateAbbr = 'mo';
       const rusNumber = 'mo012';
       const blockMetersAttr = `${rusNumber}_m`;
       const blockGroundPctAttr = `${rusNumber}_pct`;
       const coopCode = 'PEMDUNK';
       const zoom = 9.01;
-      const center = [-89.9788, 36.2479]; // leave as an array  9//
+      const center = [-89.9611, 36.3216]; // leave as an array  9//
       const minZoom = 9;
       const maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
       /**************************
-        end of modifying values
-      **************************/
+              end of modifying values
+            **************************/
+
+      const colors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'black',
+        'aqua'
+      ];
 
       // tilesets
       const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
@@ -133,10 +177,40 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': blockGroupFill,
+            'fill-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
             'fill-opacity': 0.4
+          },
+          layout: {
+            visibility: 'visible'
+          }
+        });
+
+        // block group line layer
+
+        map.addLayer({
+          id: 'blockGroupsLines',
+          type: 'line',
+          source: {
+            type: 'vector',
+            url: blockGroupsUrl
+          },
+          'source-layer': blockGroupsSourceLayer,
+          filter: ['>', blockGroundPctAttr, 0],
+          paint: {
+            'line-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
+            'line-width': 3
           },
           layout: {
             visibility: 'visible'
@@ -158,26 +232,6 @@
             'fill-color': blockFill,
             'fill-opacity': 0.9,
             'fill-outline-color': blockBorder
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-
-        // block group line layer
-
-        map.addLayer({
-          id: 'blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: blockGroupsUrl
-          },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
           },
           layout: {
             visibility: 'visible'
@@ -228,26 +282,265 @@
           filter: ['==', 'coop_code', coopCode],
           paint: {
             'circle-radius': {
-              base: 0.4,
+              base: 2,
               stops: [
-                [10, 1],
-                [11, 1.5],
                 [12, 2],
-                [13, 2.5],
-                [14, 3.25],
-                [15, 4.25],
-                [16, 5.25]
+                [13, 3],
+                [14, 4],
+                [15, 5],
+                [16, 6]
               ]
             },
+
             'circle-color': meters
           },
           layout: {
-            visibility: 'visible'
+            visibility: 'none'
           }
         });
       });
 
+      const listOfVisibleSubstations = [];
+
       map.once('idle', () => {
+        const lowerCoopCode = coopCode.toLowerCase();
+        fetch(
+          `https://conexon.github.io/coop/data/clients/${lowerCoopCode}_sub.geojson`
+        )
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            map.addSource('substations', {
+              type: 'geojson',
+              data: data
+            });
+
+            map.addLayer({
+              id: 'substations',
+              type: 'symbol',
+              source: 'substations',
+              layout: {
+                'icon-image': 'black-square-15',
+                'icon-size': {
+                  base: 0.5,
+                  stops: [
+                    [12, 0.75],
+                    [13, 1.25],
+                    [14, 1.75],
+                    [15, 2.25],
+                    [16, 3.75]
+                  ]
+                },
+                'icon-allow-overlap': true,
+                'text-field': '{subname}',
+                'text-offset': [0, -1]
+              }
+            });
+
+            map.on('click', 'substations', event => {
+              if (
+                listOfVisibleSubstations.includes(
+                  event.features[0].properties.cn_substat
+                )
+              ) {
+                listOfVisibleSubstations.splice(
+                  listOfVisibleSubstations.indexOf(
+                    event.features[0].properties.cn_substat
+                  ),
+                  1
+                );
+              } else {
+                listOfVisibleSubstations.push(
+                  event.features[0].properties.cn_substat
+                );
+              }
+
+              if (listOfVisibleSubstations.length > 0) {
+                let substationIconExpression = [];
+                substationIconExpression.push('case');
+
+                listOfVisibleSubstations.forEach(substation => {
+                  substationIconExpression.push([
+                    '==',
+                    ['get', 'cn_substat'],
+                    substation
+                  ]);
+                  substationIconExpression.push('red-square-15');
+                });
+                substationIconExpression.push('black-square-15');
+
+                // create express
+
+                map.setLayoutProperty(
+                  'substations',
+                  'icon-image',
+                  substationIconExpression
+                );
+              } else {
+                map.setLayoutProperty(
+                  'substations',
+                  'icon-image',
+                  'black-square-15'
+                );
+              }
+
+              // set the filter on meters and turn it on
+              const toggleVisibilityTo =
+                listOfVisibleSubstations.length === 0 ? 'none' : 'visible';
+              map.setLayoutProperty('meters', 'visibility', toggleVisibilityTo);
+
+              const testFilters = ['any', ['==', 'cn_substat']];
+
+              let meterFilters = [];
+              if (listOfVisibleSubstations.length > 0) meterFilters.push('any');
+              listOfVisibleSubstations.forEach(substation => {
+                meterFilters.push(['==', 'substation', substation]);
+              });
+
+              if (listOfVisibleSubstations.length > 0)
+                map.setFilter('meters', meterFilters);
+
+              map.once('idle', () => {
+                if (toggleVisibilityTo === 'visible') {
+                  const metersShown = map.queryRenderedFeatures({
+                    layers: ['meters']
+                  });
+                  // get unique feeders
+                  let feeders = [];
+                  let filters = ['match', ['get', 'feeder']];
+                  metersShown.forEach((meter, i) => {
+                    if (!feeders.includes(meter.properties.feeder)) {
+                      feeders.push(meter.properties.feeder);
+
+                      filters.push(meter.properties.feeder);
+                      filters.push(colors[i % colors.length]);
+                    }
+                  });
+                  filters.push('black'); // the default color
+
+                  map.setPaintProperty('meters', 'circle-color', filters);
+                }
+
+                let dataContainer = document.getElementById('data');
+
+                if (listOfVisibleSubstations.length > 0) {
+                  // render data
+
+                  dataContainer.innerHTML = '';
+                  let dataList = document.createElement('dl');
+                  let myData = {
+                    meterTotal: 0,
+                    meterRDOF: 0,
+                    meterCable: 0,
+                    meterFiber: 0,
+                    meterTelCo: 0,
+                    meterNoService: 0,
+                    meterUnderServed: 0,
+                    amount50: 0,
+                    blockGroupCount50: 0,
+                    amountAny: 0,
+                    blockGroupCountAny: 0
+                  };
+                  listOfVisibleSubstations.forEach(substation => {
+                    data.features.forEach(feature => {
+                      if (feature.properties.cn_substat === substation) {
+                        myData.meterTotal += feature.properties.meters;
+                        myData.meterRDOF += feature.properties.meters_rdof;
+                        myData.meterCable += feature.properties.meters_cable;
+                        myData.meterFiber += feature.properties.meters_fiber;
+                        myData.meterTelCo += feature.properties.meters_telco;
+                        myData.meterNoService +=
+                          feature.properties.meters_no_service;
+                        myData.meterUnderServed +=
+                          feature.properties.meters_underserved;
+                        myData.amount50 = feature.properties.sub_amt_50
+                          ? myData.amount50 + feature.properties.sub_amt_50
+                          : myData.amount50;
+                        myData.blockGroupCount50 = feature.properties
+                          .sub_bg_cnt_50
+                          ? myData.blockGroupCount50 +
+                            feature.properties.sub_bg_cnt_50
+                          : myData.blockGroupCount50;
+                        myData.amountAny = feature.properties.sub_amt_any
+                          ? myData.amountAny + feature.properties.sub_amt_any
+                          : myData.amountAny;
+                        myData.blockGroupCountAny = feature.properties
+                          .sub_bg_cnt_any
+                          ? myData.blockGroupCountAny +
+                            feature.properties.sub_bg_cnt_any
+                          : myData.blockGroupCountAny;
+                      }
+                    });
+                  });
+
+                  console.log('myData', myData);
+
+                  const entries = Object.entries(myData);
+
+                  for (const [dataType, dataDef] of entries) {
+                    console.log('dl', dataType, dataDef);
+                    let dt = document.createElement('dt');
+                    let dd = document.createElement('dd');
+
+                    const label =
+                      dataType === 'meterTotal'
+                        ? 'Total meters'
+                        : dataType === 'meterRDOF'
+                        ? 'Meters in RDOF blocks'
+                        : dataType === 'meterCable'
+                        ? 'Meters with cable service'
+                        : dataType === 'meterFiber'
+                        ? 'Meters with fiber service'
+                        : dataType === 'meterTelCo'
+                        ? 'Meters with TelCo service'
+                        : dataType === 'meterNoService'
+                        ? 'Meters with no service'
+                        : dataType === 'meterUnderServed'
+                        ? 'Meters that are underserved'
+                        : dataType === 'amount50'
+                        ? '10 year reserve price at 50%'
+                        : dataType === 'blockGroupCount50'
+                        ? 'Number of block groups at 50%'
+                        : dataType === 'amountAny'
+                        ? '10 year reserve price total'
+                        : 'Number of block groups total';
+                    dt.innerHTML = label;
+                    const dtClasses = [
+                      'text-sm',
+                      'font-medium',
+                      'text-gray-700',
+                      'truncate'
+                    ];
+                    const ddClasses = [
+                      'text-xl',
+                      'font-semibold',
+                      'text-gray-900',
+                      'mb-2',
+                      'pb-2',
+                      'border-b'
+                    ];
+                    dt.classList.add(...dtClasses);
+                    dd.innerHTML =
+                      dataType === 'amount50' || dataType === 'amountAny'
+                        ? dataDef.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: 'USD'
+                          })
+                        : dataDef;
+                    dd.classList.add(...ddClasses);
+                    dataList.appendChild(dt);
+                    dataList.appendChild(dd);
+                    dataContainer.appendChild(dataList);
+                  }
+                } else {
+                  dataContainer.innerHTML =
+                    '<h1 class="text-2xl">Click 1 or more substations to view meters and data.</h1>';
+                }
+              });
+            });
+          });
+
         fetch(
           `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
         )
@@ -264,9 +557,14 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 50],
+              filter: ['>', blockGroundPctAttr, 0],
               paint: {
-                'text-color': blockGroupBorder
+                'text-color': [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupBorder
+                ]
               },
               layout: {
                 'text-field': [
@@ -301,8 +599,7 @@
       // toggle set up
       const toggleableLayerIds = [
         { name: 'Block groups', id: 'blockGroups' },
-        { name: 'Blocks', id: 'blocks' },
-        { name: 'Meters', id: 'meters' }
+        { name: 'Blocks', id: 'blocks' }
       ];
 
       for (let i = 0; i < toggleableLayerIds.length; i++) {
@@ -330,12 +627,13 @@
                 'visibility',
                 'none'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups') {
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
                 'none'
               );
+            }
           } else {
             this.className = 'active';
             map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
@@ -345,12 +643,13 @@
                 'visibility',
                 'visible'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups') {
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
                 'visible'
               );
+            }
           }
         };
 
