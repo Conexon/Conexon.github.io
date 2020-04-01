@@ -425,123 +425,126 @@
                 let dataContainer = document.getElementById('data');
 
                 if (listOfVisibleSubstations.length > 0) {
-                  // render data
-
                   dataContainer.innerHTML = '';
-                  let dataList = document.createElement('dl');
-                  let myData = {
-                    meterTotal: 0,
-                    meterRDOF: 0,
-                    meterCable: 0,
-                    meterFiber: 0,
-                    meterTelCo: 0,
-                    //meterNoService: 0,
-                    //meterUnderServed: 0,
-                    amount50: 0,
-                    blockGroupCount50: 0,
-                    amountAny: 0,
-                    blockGroupCountAny: 0,
-                    fccLocations: 0
-                  };
+                  let myData = [
+                    {
+                      label: 'Meter data',
+                      data: [
+                        { label: 'Total', count: 0 },
+                        { label: 'In RDOF blocks', count: 0 },
+                        { label: 'With cable', count: 0 },
+                        { label: 'With fiber', count: 0 },
+                        { label: 'With TelCo', count: 0 }
+                      ]
+                    },
+                    {
+                      label: '10 year reserve price',
+                      data: [
+                        { label: 'Total', count: 0 },
+                        { label: 'At 50% meter coverage', count: 0 }
+                      ]
+                    },
+                    {
+                      label: 'Number of block groups',
+                      data: [
+                        { label: 'Total', count: 0 },
+                        { label: 'At 50% meter coverage', count: 0 }
+                      ]
+                    },
+                    {
+                      label: 'FCC locations',
+                      data: [{ label: 'Total', count: 0 }]
+                    }
+                  ];
+
                   listOfVisibleSubstations.forEach(substation => {
                     data.features.forEach(feature => {
                       if (feature.properties.cn_substat === substation) {
-                        myData.meterTotal += feature.properties.meters;
-                        myData.meterRDOF += feature.properties.meters_rdof;
-                        myData.meterCable += feature.properties.meters_cable;
-                        myData.meterFiber += feature.properties.meters_fiber;
-                        myData.meterTelCo += feature.properties.meters_telco;
-                        /*
-                        myData.meterNoService +=
-                          feature.properties.meters_no_service;
-                        myData.meterUnderServed +=
-                          feature.properties.meters_underserved;
-                          */
-                        myData.amount50 = feature.properties.sub_amt_50
-                          ? myData.amount50 + feature.properties.sub_amt_50
-                          : myData.amount50;
-                        myData.blockGroupCount50 = feature.properties
-                          .sub_bg_cnt_50
-                          ? myData.blockGroupCount50 +
-                            feature.properties.sub_bg_cnt_50
-                          : myData.blockGroupCount50;
-                        myData.amountAny = feature.properties.sub_amt_any
-                          ? myData.amountAny + feature.properties.sub_amt_any
-                          : myData.amountAny;
-                        myData.blockGroupCountAny = feature.properties
+                        myData[0].data[0].count += feature.properties.meters;
+                        myData[0].data[1].count +=
+                          feature.properties.meters_rdof;
+                        myData[0].data[2].count +=
+                          feature.properties.meters_cable;
+                        myData[0].data[3].count +=
+                          feature.properties.meters_fiber;
+                        myData[0].data[4].count +=
+                          feature.properties.meters_telco;
+                        myData[1].data[0].count = feature.properties.sub_amt_any
+                          ? myData[1].data[0].count +
+                            feature.properties.sub_amt_any
+                          : myData[1].data[0].count;
+                        myData[1].data[1].count = feature.properties.sub_amt_50
+                          ? myData[1].data[1].count +
+                            feature.properties.sub_amt_50
+                          : myData[1].data[1].count;
+                        myData[2].data[0].count = feature.properties
                           .sub_bg_cnt_any
-                          ? myData.blockGroupCountAny +
+                          ? myData[2].data[0].count +
                             feature.properties.sub_bg_cnt_any
-                          : myData.blockGroupCountAny;
-                        myData.fccLocations = feature.properties.sub_bg_locs_any
-                          ? myData.fccLocations +
+                          : myData[2].data[0].count;
+                        myData[2].data[1].count = feature.properties
+                          .sub_bg_cnt_50
+                          ? myData[2].data[1].count +
+                            feature.properties.sub_bg_cnt_50
+                          : myData[2].data[1].count;
+                        myData[3].data[0].count = feature.properties
+                          .sub_bg_locs_any
+                          ? myData[3].data[0].count +
                             feature.properties.sub_bg_locs_any
-                          : myData.fccLocations;
+                          : myData[3].data[0].count;
                       }
                     });
                   });
 
-                  console.log('myData', myData);
-
-                  const entries = Object.entries(myData);
-
-                  for (const [dataType, dataDef] of entries) {
-                    console.log('dl', dataType, dataDef);
-                    let dt = document.createElement('dt');
-                    let dd = document.createElement('dd');
-
-                    const label =
-                      dataType === 'meterTotal'
-                        ? 'Total meters'
-                        : dataType === 'meterRDOF'
-                        ? 'Meters in RDOF blocks'
-                        : dataType === 'meterCable'
-                        ? 'Meters with cable service'
-                        : dataType === 'meterFiber'
-                        ? 'Meters with fiber service'
-                        : dataType === 'meterTelCo'
-                        ? 'Meters with TelCo service'
-                        : //: dataType === 'meterNoService'
-                        //? 'Meters with no service'
-                        //: dataType === 'meterUnderServed'
-                        //? 'Meters that are underserved'
-                        dataType === 'amount50'
-                        ? '10 year reserve price at 50%'
-                        : dataType === 'blockGroupCount50'
-                        ? 'Number of block groups at 50%'
-                        : dataType === 'amountAny'
-                        ? '10 year reserve price total'
-                        : dataType === 'blockGroupCountAny'
-                        ? 'Number of block groups total'
-                        : 'FCC locations';
-                    dt.innerHTML = label;
-                    const dtClasses = [
-                      'text-sm',
-                      'font-medium',
-                      'text-gray-700',
-                      'truncate'
+                  myData.forEach((metricGroup, i) => {
+                    let heading = document.createElement('h1');
+                    headingClasses = [
+                      'font-bold',
+                      'border-b',
+                      'text-2xl',
+                      'mb-2'
                     ];
-                    const ddClasses = [
-                      'text-xl',
-                      'font-semibold',
-                      'text-gray-900',
-                      'mb-2',
-                      'pb-2',
-                      'border-b'
-                    ];
-                    dt.classList.add(...dtClasses);
-                    dd.innerHTML =
-                      dataType === 'amount50' || dataType === 'amountAny'
-                        ? dataDef.toLocaleString('en-US', {
-                            style: 'currency',
-                            currency: 'USD'
-                          })
-                        : dataDef;
-                    dd.classList.add(...ddClasses);
-                    dataList.appendChild(dt);
-                    dataList.appendChild(dd);
-                    dataContainer.appendChild(dataList);
-                  }
+                    if (i !== 0) headingClasses.push('mt-4');
+                    heading.classList.add(...headingClasses);
+                    heading.innerHTML = metricGroup.label;
+                    dataContainer.appendChild(heading);
+
+                    let dataList = document.createElement('dl');
+                    metricGroup.data.forEach((metric, j) => {
+                      let dt = document.createElement('dt');
+                      let dd = document.createElement('dd');
+                      dt.innerHTML = metric.label;
+                      console.log('i=', i);
+
+                      let value =
+                        i === 1
+                          ? metric.count.toLocaleString('en-US', {
+                              style: 'currency',
+                              currency: 'USD'
+                            })
+                          : metric.count;
+                      dd.innerHTML = value;
+                      const dtClasses = [
+                        'text-sm',
+                        'font-medium',
+                        'text-gray-700',
+                        'truncate'
+                      ];
+                      const ddClasses = [
+                        'text-xl',
+                        'font-semibold',
+                        'text-gray-900',
+                        'mb-2',
+                        'pb-2'
+                      ];
+                      dt.classList.add(...dtClasses);
+                      dd.classList.add(...ddClasses);
+
+                      dataList.appendChild(dt);
+                      dataList.appendChild(dd);
+                      dataContainer.appendChild(dataList);
+                    });
+                  });
                 } else {
                   dataContainer.innerHTML =
                     '<h1 class="text-2xl">Click 1 or more substations to view meters and data.</h1>';
