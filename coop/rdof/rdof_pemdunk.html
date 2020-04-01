@@ -581,7 +581,7 @@
               layout: {
                 'text-field': [
                   'number-format',
-                  ['get', 'fcc_amt'],
+                  ['*', ['get', 'fcc_amt'], 10],
                   { currency: 'USD' }
                 ],
                 'symbol-placement': 'point',
