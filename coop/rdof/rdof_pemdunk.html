@@ -35,10 +35,10 @@
       }
     </style>
   </head>
-  <body class="my-8">
+  <body>
     <style>
       #menu {
-        background: lightgray;
+        background: white;
         position: absolute;
         z-index: 1;
         top: 1.5em;
@@ -50,7 +50,7 @@
 
       #menu a {
         font-size: 13px;
-        color: black;
+        color: lightgray;
         display: block;
         margin: 0;
         padding: 0;
@@ -65,8 +65,7 @@
       }
 
       #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
+        color: slategray;
       }
 
       #menu a.active {
@@ -75,26 +74,28 @@
       }
 
       #menu a.active:hover {
-        background: gray;
-        color: white;
+        color: lightgray;
       }
     </style>
 
-    <div class="container mx-auto">
-      <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-4">
-          <div id="data">
-            <h1 class="text-2xl">
-              Click 1 or more substations to view meters and data.
-            </h1>
-          </div>
-        </div>
+    <div class="">
+      <div class="grid grid-cols-12">
         <div class="col-span-8">
-          <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="mapWrapper">
+          <div class="bg-white overflow-hidden shadow-xs rounded-sm">
+            <div class="mapWrapper min-h-screen max-h-screen">
               <div id="map"></div>
               <nav id="menu"></nav>
             </div>
+          </div>
+        </div>
+        <div class="col-span-4">
+          <div
+            class="p-8 bg-gray-100 min-h-screen max-h-screen overflow-auto"
+            id="data"
+          >
+            <h1 class="text-2xl leading-none">
+              Click 1 or more substations to view meters and data.
+            </h1>
           </div>
         </div>
       </div>
@@ -499,22 +500,29 @@
                   myData.forEach((metricGroup, i) => {
                     let heading = document.createElement('h1');
                     headingClasses = [
-                      'font-bold',
-                      'border-b',
+                      'font-semibold',
                       'text-2xl',
-                      'mb-2'
+                      'leading-none'
                     ];
-                    if (i !== 0) headingClasses.push('mt-4');
+                    if (i !== 0) headingClasses.push('mt-16');
                     heading.classList.add(...headingClasses);
                     heading.innerHTML = metricGroup.label;
                     dataContainer.appendChild(heading);
 
                     let dataList = document.createElement('dl');
+                    let dataListClasses = ['my-4'];
+                    dataList.classList.add(...dataListClasses);
                     metricGroup.data.forEach((metric, j) => {
                       let dt = document.createElement('dt');
                       let dd = document.createElement('dd');
                       dt.innerHTML = metric.label;
-                      console.log('i=', i);
+                      console.log(
+                        'j=',
+                        i,
+                        myData.length,
+                        j,
+                        metricGroup.data.length
+                      );
 
                       let value =
                         i === 1
@@ -528,14 +536,13 @@
                         'text-sm',
                         'font-medium',
                         'text-gray-700',
-                        'truncate'
+                        'truncate',
+                        'mt-2'
                       ];
                       const ddClasses = [
                         'text-xl',
                         'font-semibold',
-                        'text-gray-900',
-                        'mb-2',
-                        'pb-2'
+                        'text-gray-900'
                       ];
                       dt.classList.add(...dtClasses);
                       dd.classList.add(...ddClasses);
@@ -547,7 +554,7 @@
                   });
                 } else {
                   dataContainer.innerHTML =
-                    '<h1 class="text-2xl">Click 1 or more substations to view meters and data.</h1>';
+                    '<h1 class="text-2xl leading-none">Click 1 or more substations to view meters and data.</h1>';
                 }
               });
             });
