@@ -301,7 +301,7 @@
         });
       });
 
-      const listOfVisibleSubstations = [];
+      let listOfVisibleSubstations = [];
 
       map.once('idle', () => {
         const lowerCoopCode = coopCode.toLowerCase();
@@ -312,6 +312,7 @@
             return response.json();
           })
           .then(data => {
+            console.log(data);
             map.addSource('substations', {
               type: 'geojson',
               data: data
@@ -360,8 +361,23 @@
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
                 substationIconExpression.push('case');
-
+                let geoids = [];
                 listOfVisibleSubstations.forEach(substation => {
+                  // get the geoid(s)
+
+                  data.features.forEach(feature => {
+                    if (feature.properties.cn_substat === substation) {
+                      Object.keys(feature.properties.sub_geoid_any).forEach(
+                        (key, index) => {
+                          geoids.push(key);
+                        }
+                      );
+                    }
+                  });
+
+                  console.log(geoids);
+
+                  // create the filter
                   substationIconExpression.push([
                     '==',
                     ['get', 'cn_substat'],
@@ -371,14 +387,13 @@
                 });
                 substationIconExpression.push('black-square-15');
 
-                // create express
-
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
                   substationIconExpression
                 );
               } else {
+                geoids = [];
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
@@ -535,13 +550,6 @@
                       let dt = document.createElement('dt');
                       let dd = document.createElement('dd');
                       dt.innerHTML = metric.label;
-                      console.log(
-                        'j=',
-                        i,
-                        myData.length,
-                        j,
-                        metricGroup.data.length
-                      );
 
                       let value =
                         i === 1
