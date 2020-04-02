@@ -427,6 +427,25 @@
 
                 if (listOfVisibleSubstations.length > 0) {
                   dataContainer.innerHTML = '';
+                  let countContainer = document.createElement('div');
+                  let countContainerClasses = [
+                    'p-3',
+                    'rounded-sm',
+                    'mb-8',
+                    'bg-blue-100',
+                    'font-semibold',
+                    'text-blue-700',
+                    'border-blue-600',
+                    'border-l-4'
+                  ];
+                  countContainer.classList.add(...countContainerClasses);
+                  const countContainerHTML = `${
+                    listOfVisibleSubstations.length
+                  } substation${
+                    listOfVisibleSubstations.length === 1 ? '' : 's'
+                  } selected.`;
+                  countContainer.innerHTML = countContainerHTML;
+                  dataContainer.appendChild(countContainer);
                   let myData = [
                     {
                       label: 'Meter data',
