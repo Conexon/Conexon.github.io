@@ -83,16 +83,32 @@
       const blockMetersAttr = `${rusNumber}_m`;
       const blockGroundPctAttr = `${rusNumber}_pct`;
       const coopCode = 'COLBASIN';
-      const zoom = 9;
-      const center = [-119.8494, 45.3214]; // leave as an array
-      const minZoom = 9;
+      const zoom = 8.65;
+      const center = [-119.7147, 45.2988]; // leave as an array
+      const minZoom = 8;
       const maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
+      /**************************
+              end of modifying values
+            **************************/
+
+      const colors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'black',
+        'aqua'
+      ];
       /**************************
         end of modifying values
       **************************/
@@ -124,6 +140,27 @@
 
       // block group layer
 
+      //old way
+      // map.on('load', function() {
+      //   map.addLayer({
+      //     id: 'blockGroups',
+      //     type: 'fill',
+      //     source: {
+      //       type: 'vector',
+      //       url: blockGroupsUrl
+      //     },
+      //     'source-layer': blockGroupsSourceLayer,
+      //     filter: ['>', blockGroundPctAttr, 50],
+      //     paint: {
+      //       'fill-color': blockGroupFill,
+      //       'fill-opacity': 0.4
+      //     },
+      //     layout: {
+      //       visibility: 'visible'
+      //     }
+      //   });
+
+      //blue/purple outline
       map.on('load', function() {
         map.addLayer({
           id: 'blockGroups',
@@ -133,9 +170,14 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': blockGroupFill,
+            'fill-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
             'fill-opacity': 0.4
           },
           layout: {
