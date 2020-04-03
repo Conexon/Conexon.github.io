@@ -365,10 +365,21 @@
               console.log('subs', listOfVisibleSubstations);
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
+                dataForCSV = [];
+                dataForCSV.push([
+                  'Substation id',
+                  'Substation name',
+                  'GeoId',
+                  'FCC locations',
+                  'Percent meters',
+                  'Amount',
+                  'Meters'
+                ]);
                 substationIconExpression.push('case');
                 let geoidFilters = [];
                 listOfVisibleSubstations.forEach(substation => {
                   // get the geoid(s)
+
                   data.features.forEach(feature => {
                     if (feature.properties.cn_substat === substation) {
                       if (feature.properties.sub_geoid_any) {
@@ -549,7 +560,7 @@
                     console.log(dataForCSV);
                     console.log(Papa.unparse(dataForCSV));
 
-                    const blobData = Papa.unparse(dataForCSV);
+                    const blobData = Papa.unparse(dataForCSV, { header: true });
                     try {
                       saveAs(
                         new Blob([blobData], {
