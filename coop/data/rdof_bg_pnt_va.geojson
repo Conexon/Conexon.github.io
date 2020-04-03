@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_va",
+"name": "sql_statement",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 435, "statefp": "51", "countyfp": "109", "tractce": "950400", "blkgrpce": "1", "geoid": "511099504001", "namelsad": "Block Group 1", "mtfcc": "G5030", "funcstat": "S", "aland": 45604613.0, "awater": 186447.0, "intptlat": "+37.9590676", "intptlon": "-078.1234635", "locations_904": 364, "cvec_meter": 435, "cvec_pct": 120, "princegeorge_meter": 0, "princegeorge_pct": 0, "rec_meter": 0, "rec_pct": 0, "fcc_904": 364, "va029_m": 435, "va029_pct": 120, "va036_m": 0, "va036_pct": 0, "va054_m": 0, "va054_pct": 0, "fcc_amt": 49356 }, "geometry": { "type": "Point", "coordinates": [ -78.120543695802738, 37.964870361396088 ] } },

@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_co",
+"name": "sql_statement",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 2785, "statefp": "08", "countyfp": "085", "tractce": "966502", "blkgrpce": "3", "geoid": "080859665023", "namelsad": "Block Group 3", "mtfcc": "G5030", "funcstat": "S", "aland": 3014176.0, "awater": 0.0, "intptlat": "+38.4829591", "intptlon": "-107.8365091", "fcc_904": 3, "co034_m": 0, "co034_pct": 0, "fcc_amt": 733 }, "geometry": { "type": "Point", "coordinates": [ -107.836508630708593, 38.48295902241761 ] } },
