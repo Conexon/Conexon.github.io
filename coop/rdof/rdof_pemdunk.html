@@ -7,6 +7,8 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
+    <script src="../../js/papaparse.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
     <link
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
@@ -304,6 +306,7 @@
       });
 
       let listOfVisibleSubstations = [];
+      let dataForCSV = [];
 
       map.once('idle', () => {
         const lowerCoopCode = coopCode.toLowerCase();
@@ -314,7 +317,6 @@
             return response.json();
           })
           .then(data => {
-            console.log(data);
             map.addSource('substations', {
               type: 'geojson',
               data: data
@@ -364,16 +366,41 @@
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
                 substationIconExpression.push('case');
-                let geoids = [];
+                let geoidFilters = [];
                 listOfVisibleSubstations.forEach(substation => {
                   // get the geoid(s)
                   data.features.forEach(feature => {
                     if (feature.properties.cn_substat === substation) {
                       if (feature.properties.sub_geoid_any) {
+                        // set filters based on the keys
                         Object.keys(feature.properties.sub_geoid_any).forEach(
                           (key, index) => {
-                            geoids.push(['==', ['get', 'geoid'], key]);
-                            geoids.push('red');
+                            geoidFilters.push(['==', ['get', 'geoid'], key]);
+                            geoidFilters.push('red');
+                          }
+                        );
+
+                        // build the CSV content
+                        const geoidKeys = Object.keys(
+                          feature.properties.sub_geoid_any
+                        );
+                        Object.keys(feature.properties.sub_geoid_any).forEach(
+                          (key, index) => {
+                            // get the values
+                            console.log(
+                              'key',
+                              key,
+                              feature.properties.sub_geoid_any[key]
+                            );
+                            const values = Object.values(
+                              feature.properties.sub_geoid_any[key]
+                            );
+                            dataForCSV.push([
+                              feature.properties.cn_substat,
+                              feature.properties.subname,
+                              key,
+                              ...values
+                            ]);
                           }
                         );
                       }
@@ -390,17 +417,16 @@
                 });
                 substationIconExpression.push('black-square-15');
 
+                console.log(dataForCSV, dataForCSV.join(','));
+
                 const currentFillExpression = [
                   'case',
                   ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
                   blockGroup2Fill,
                   blockGroupFill
                 ];
-                console.log('first', currentFillExpression);
 
-                currentFillExpression.splice(1, 0, ...geoids);
-
-                console.log('last', ...currentFillExpression);
+                currentFillExpression.splice(1, 0, ...geoidFilters);
 
                 map.setPaintProperty('blockGroups', 'fill-color', [
                   ...currentFillExpression
@@ -418,8 +444,8 @@
                   substationIconExpression
                 );
               } else {
-                console.log('hit the else');
-                geoids = [];
+                geoidFilters = [];
+                dataForCSV = [];
                 map.setPaintProperty('blockGroups', 'fill-color', [
                   'case',
                   ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
@@ -438,8 +464,6 @@
                   blockGroup2Fill,
                   blockGroupBorder
                 ]);
-
-                console.log(map.getPaintProperty('blockGroups', 'fill-color'));
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
@@ -506,6 +530,43 @@
                     listOfVisibleSubstations.length === 1 ? '' : 's'
                   } selected.`;
                   countContainer.innerHTML = countContainerHTML;
+                  const csvLink = document.createElement('button');
+                  csvLinkClasses = [
+                    'block',
+                    'underline',
+                    'mt-8',
+                    'text-xs',
+                    'font-semibold'
+                  ];
+                  csvLink.classList.add(...csvLinkClasses);
+                  //csvLink.href = '#';
+                  //csvLink.download = 'data.csv';
+                  csvLink.textContent = 'Download CSV';
+                  csvLink.onclick = function(e) {
+                    //e.preventDefault();
+                    //e.stopPropagation();
+                    console.log(e);
+                    console.log(dataForCSV);
+                    console.log(Papa.unparse(dataForCSV));
+
+                    const blobData = Papa.unparse(dataForCSV);
+                    try {
+                      saveAs(
+                        new Blob([blobData], {
+                          type: 'text/csv;charset=utf-16'
+                        }),
+                        'file.csv'
+                      );
+                    } catch (e) {
+                      window.open(
+                        'data:text/csv;charset=utf-16,' +
+                          encodeURIComponent(blobData),
+                        '_blank',
+                        ''
+                      );
+                    }
+                  };
+                  countContainer.appendChild(csvLink);
                   dataContainer.appendChild(countContainer);
                   let myData = [
                     {
