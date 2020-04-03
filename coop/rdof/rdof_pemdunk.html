@@ -152,6 +152,13 @@
       const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
       const metersSourceLayer = `rdof_meters_${stateAbbr}`;
 
+      const blockGroupFillDefault = [
+        'case',
+        ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+        blockGroup2Fill,
+        blockGroupFill
+      ];
+
       mapboxgl.accessToken =
         'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
 
@@ -180,13 +187,8 @@
           'source-layer': blockGroupsSourceLayer,
           filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': [
-              'case',
-              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-              blockGroup2Fill,
-              blockGroupFill
-            ],
-            'fill-opacity': 0.4
+            'fill-color': blockGroupFillDefault,
+            'fill-opacity': 0.25
           },
           layout: {
             visibility: 'visible'
@@ -358,24 +360,25 @@
                 );
               }
 
+              console.log('subs', listOfVisibleSubstations);
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
                 substationIconExpression.push('case');
                 let geoids = [];
                 listOfVisibleSubstations.forEach(substation => {
                   // get the geoid(s)
-
                   data.features.forEach(feature => {
                     if (feature.properties.cn_substat === substation) {
-                      Object.keys(feature.properties.sub_geoid_any).forEach(
-                        (key, index) => {
-                          geoids.push(key);
-                        }
-                      );
+                      if (feature.properties.sub_geoid_any) {
+                        Object.keys(feature.properties.sub_geoid_any).forEach(
+                          (key, index) => {
+                            geoids.push(['==', ['get', 'geoid'], key]);
+                            geoids.push('red');
+                          }
+                        );
+                      }
                     }
                   });
-
-                  console.log(geoids);
 
                   // create the filter
                   substationIconExpression.push([
@@ -387,13 +390,56 @@
                 });
                 substationIconExpression.push('black-square-15');
 
+                const currentFillExpression = [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupFill
+                ];
+                console.log('first', currentFillExpression);
+
+                currentFillExpression.splice(1, 0, ...geoids);
+
+                console.log('last', ...currentFillExpression);
+
+                map.setPaintProperty('blockGroups', 'fill-color', [
+                  ...currentFillExpression
+                ]);
+                map.setPaintProperty('blockGroupsLines', 'line-color', [
+                  ...currentFillExpression
+                ]);
+                map.setPaintProperty('blockGroupsText', 'text-color', [
+                  ...currentFillExpression
+                ]);
+
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
                   substationIconExpression
                 );
               } else {
+                console.log('hit the else');
                 geoids = [];
+                map.setPaintProperty('blockGroups', 'fill-color', [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupFill
+                ]);
+                map.setPaintProperty('blockGroupsLines', 'line-color', [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupFill
+                ]);
+                map.setPaintProperty('blockGroupsText', 'text-color', [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupBorder
+                ]);
+
+                console.log(map.getPaintProperty('blockGroups', 'fill-color'));
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
