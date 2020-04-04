@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "sql_statement",
+"name": "bg_29_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 2956, "statefp": "29", "countyfp": "015", "tractce": "460700", "blkgrpce": "1", "geoid": "290154607001", "namelsad": "Block Group 1", "mtfcc": "G5030", "funcstat": "S", "aland": 179237232.0, "awater": 39413006.0, "intptlat": "+38.1487620", "intptlon": "-093.4320096", "fcc_904": 951, "fcc_amt": 499700, "mo038_m": 0, "mo038_pct": 0, "mo024_m": 0, "mo024_pct": 0, "mo047_m": 0, "mo047_pct": 0, "mo036_m": 0, "mo036_pct": 0, "mo049_m": 0, "mo049_pct": 0, "mo048_m": 0, "mo048_pct": 0, "mo037_m": 0, "mo037_pct": 0, "mo030_m": 0, "mo030_pct": 0, "mo012_m": 0, "mo012_pct": 0, "mo055_m": 6, "mo055_pct": 1, "mo031_m": 0, "mo031_pct": 0, "mo045_m": 0, "mo045_pct": 0, "mo075_m": 0, "mo075_pct": 0 }, "geometry": { "type": "Point", "coordinates": [ -93.423655006062177, 38.153219259793644 ] } },

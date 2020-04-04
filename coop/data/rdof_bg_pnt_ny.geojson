@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "sql_statement",
+"name": "bg_36_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 7657, "statefp": "36", "countyfp": "115", "tractce": "091000", "blkgrpce": "2", "geoid": "361150910002", "namelsad": "Block Group 2", "mtfcc": "G5030", "funcstat": "S", "aland": 61285540.0, "awater": 374305.0, "intptlat": "+43.0753931", "intptlon": "-073.3675678", "fcc_904": 6, "ny019_m": 0, "ny019_pct": 0, "fcc_amt": 1218 }, "geometry": { "type": "Point", "coordinates": [ -73.370530655782233, 43.071110516029108 ] } },

@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "sql_statement",
+"name": "bg_40_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 2044, "statefp": "40", "countyfp": "089", "tractce": "098200", "blkgrpce": "2", "geoid": "400890982002", "namelsad": "Block Group 2", "mtfcc": "G5030", "funcstat": "S", "aland": 212441403.0, "awater": 654017.0, "intptlat": "+34.4554535", "intptlon": "-094.5712627", "fcc_904": 379, "ok029_m": 0, "ok029_pct": 0, "ok024_m": 0, "ok024_pct": 0, "ok030_m": 242, "ok030_pct": 64, "ok035_m": 0, "ok035_pct": 0, "ok022_m": 0, "ok022_pct": 0, "ok023_m": 0, "ok023_pct": 0, "ok028_m": 0, "ok028_pct": 0, "ok033_m": 0, "ok033_pct": 0, "ok010_m": 0, "ok010_pct": 0, "ok025_m": 0, "ok025_pct": 0, "fcc_amt": 388767 }, "geometry": { "type": "Point", "coordinates": [ -94.572860390589568, 34.454472251278261 ] } },

@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "sql_statement",
+"name": "bg_17_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 2047, "statefp": "17", "countyfp": "001", "tractce": "010300", "blkgrpce": "4", "geoid": "170010103004", "namelsad": "Block Group 4", "mtfcc": "G5030", "funcstat": "S", "aland": 58821936.0, "awater": 51734.0, "intptlat": "+39.8659839", "intptlon": "-091.0794362", "fcc_904": 47, "il038_m": 0, "il038_pct": 0, "fcc_amt": 24898 }, "geometry": { "type": "Point", "coordinates": [ -91.08458747124412, 39.865207784389355 ] } },
