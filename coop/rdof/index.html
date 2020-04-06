@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="../../js/papaparse.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .mapWrapper {
+        height: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: white;
+        position: absolute;
+        z-index: 1;
+        top: 1.5em;
+        right: 1.5em;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+      }
+
+      #menu a {
+        font-size: 13px;
+        color: lightgray;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      #menu a:last-child {
+        border: none;
+      }
+
+      #menu a:hover {
+        color: slategray;
+      }
+
+      #menu a.active {
+        background-color: white;
+        color: black;
+      }
+
+      #menu a.active:hover {
+        color: lightgray;
+      }
+    </style>
+
+    <div class="">
+      <div class="grid grid-cols-12">
+        <div class="col-span-8">
+          <div class="bg-white overflow-hidden shadow-xs rounded-sm">
+            <div class="mapWrapper min-h-screen max-h-screen">
+              <div id="map"></div>
+              <nav id="menu"></nav>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-4">
+          <div
+            class="p-8 bg-gray-100 min-h-screen max-h-screen overflow-auto"
+            id="data"
+          >
+            <h1 class="text-2xl leading-none">
+              Click 1 or more substations to view meters and data.
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto mt-8 border-t pt-8 text-lg">
+      <img width="75px" class="inline" src="../../images/logo.png" />
+      <span class="text-3xl">conexon</span>
+    </div>
+
+    <script>
+      var urlParams = new URLSearchParams(window.location.search);
+      fetch(`https://conexon.github.io/coop/data/clients/clients.json`)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          const clientData = data.find(
+            client => client.coopCode === urlParams.get('coopCode')
+          );
+
+          //console.log(data, clientData);
+
+          const stateAbbr = clientData.stateAbbr;
+          const rusNumber = clientData.rusNumber;
+          const blockMetersAttr = `${rusNumber}_m`;
+          const blockGroundPctAttr = `${rusNumber}_pct`;
+          const coopCode = 'PEMDUNK';
+          const zoom = clientData.zoom;
+          const center = clientData.center; // leave as an array  9//
+          const minZoom = clientData.minZoom || 9;
+          const maxZoom = clientData.maxZoom || 15;
+          // colors
+          const blockFill = '#FFA500';
+          const blockGroupFill = '#008000';
+          const blockGroupBorder = '#044D04';
+          const blockGroup2Fill = '#0000FF';
+          const blockGroup2Border = '#0000FF';
+          const meters = '#808080';
+          const blockBorder = '#000000';
+          const meterColors = [
+            'blue',
+            'orange',
+            'green',
+            'brown',
+            'slategray',
+            'red',
+            'black',
+            'aqua'
+          ];
+
+          // tilesets
+          const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
+          const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
+
+          const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
+          const blocksSourceLayer = `rdof_block_${stateAbbr}`;
+
+          const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
+          const metersSourceLayer = `rdof_meters_${stateAbbr}`;
+
+          const blockGroupFillDefault = [
+            'case',
+            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            blockGroup2Fill,
+            blockGroupFill
+          ];
+
+          mapboxgl.accessToken =
+            'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+
+          // need to update the zoom and center per client
+          // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
+          const map = new mapboxgl.Map({
+            container: 'map',
+            hash: true,
+            style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+            zoom: zoom,
+            minZoom: minZoom,
+            maxZoom: maxZoom,
+            center: center
+          });
+
+          // block group layer
+
+          map.on('load', function() {
+            map.addLayer({
+              id: 'blockGroups',
+              type: 'fill',
+              source: {
+                type: 'vector',
+                url: blockGroupsUrl
+              },
+              'source-layer': blockGroupsSourceLayer,
+              filter: ['>', blockGroundPctAttr, 0],
+              paint: {
+                'fill-color': blockGroupFillDefault,
+                'fill-opacity': 0.25
+              },
+              layout: {
+                visibility: 'visible'
+              }
+            });
+
+            // block group line layer
+
+            map.addLayer({
+              id: 'blockGroupsLines',
+              type: 'line',
+              source: {
+                type: 'vector',
+                url: blockGroupsUrl
+              },
+              'source-layer': blockGroupsSourceLayer,
+              filter: ['>', blockGroundPctAttr, 0],
+              paint: {
+                'line-color': [
+                  'case',
+                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                  blockGroup2Fill,
+                  blockGroupFill
+                ],
+                'line-width': 3
+              },
+              layout: {
+                visibility: 'visible'
+              }
+            });
+
+            // blocks layer
+
+            map.addLayer({
+              id: 'blocks',
+              type: 'fill',
+              source: {
+                type: 'vector',
+                url: blocksUrl
+              },
+              'source-layer': blocksSourceLayer,
+              filter: ['>', blockMetersAttr, 0],
+              paint: {
+                'fill-color': blockFill,
+                'fill-opacity': 0.9,
+                'fill-outline-color': blockBorder
+              },
+              layout: {
+                visibility: 'visible'
+              }
+            });
+
+            // blocks text layer
+
+            map.addLayer({
+              id: 'blocksText',
+              type: 'symbol',
+              source: {
+                type: 'vector',
+                url: blocksUrl
+              },
+              'source-layer': blocksSourceLayer,
+              filter: ['>', blockMetersAttr, 0],
+              layout: {
+                'text-field': ['get', 'geoid10'],
+                'symbol-placement': 'point',
+                'text-allow-overlap': true,
+                'text-justify': 'center',
+                'text-padding': 4,
+                'text-rotation-alignment': 'viewport',
+                'text-size': {
+                  base: 0,
+                  stops: [
+                    [10, 0],
+                    [12, 4],
+                    [14, 8],
+                    [15, 12]
+                  ]
+                },
+                visibility: 'visible'
+              }
+            });
+
+            // meters layer
+
+            map.addLayer({
+              id: 'meters',
+              type: 'circle',
+              source: {
+                type: 'vector',
+                url: metersUrl
+              },
+              'source-layer': metersSourceLayer,
+              filter: ['==', 'coop_code', coopCode],
+              paint: {
+                'circle-radius': {
+                  base: 2,
+                  stops: [
+                    [12, 2],
+                    [13, 3],
+                    [14, 4],
+                    [15, 5],
+                    [16, 6]
+                  ]
+                },
+
+                'circle-color': meters
+              },
+              layout: {
+                visibility: 'none'
+              }
+            });
+          });
+
+          let listOfVisibleSubstations = [];
+          let dataForCSV = [];
+
+          map.once('idle', () => {
+            const lowerCoopCode = coopCode.toLowerCase();
+            fetch(
+              `https://conexon.github.io/coop/data/clients/${lowerCoopCode}_sub.geojson`
+            )
+              .then(response => {
+                return response.json();
+              })
+              .then(data => {
+                map.addSource('substations', {
+                  type: 'geojson',
+                  data: data
+                });
+
+                map.addLayer({
+                  id: 'substations',
+                  type: 'symbol',
+                  source: 'substations',
+                  layout: {
+                    'icon-image': 'black-square-15',
+                    'icon-size': {
+                      base: 0.5,
+                      stops: [
+                        [12, 0.75],
+                        [13, 1.25],
+                        [14, 1.75],
+                        [15, 2.25],
+                        [16, 3.75]
+                      ]
+                    },
+                    'icon-allow-overlap': true,
+                    'text-field': '{subname}',
+                    'text-offset': [0, -1]
+                  }
+                });
+
+                map.on('click', 'substations', event => {
+                  if (
+                    listOfVisibleSubstations.includes(
+                      event.features[0].properties.cn_substat
+                    )
+                  ) {
+                    listOfVisibleSubstations.splice(
+                      listOfVisibleSubstations.indexOf(
+                        event.features[0].properties.cn_substat
+                      ),
+                      1
+                    );
+                  } else {
+                    listOfVisibleSubstations.push(
+                      event.features[0].properties.cn_substat
+                    );
+                  }
+
+                  if (listOfVisibleSubstations.length > 0) {
+                    let substationIconExpression = [];
+                    dataForCSV = [];
+                    dataForCSV.push([
+                      'Substation id',
+                      'Substation name',
+                      'GeoId',
+                      'FCC locations',
+                      'Percent meters',
+                      'Amount',
+                      'Meters'
+                    ]);
+                    substationIconExpression.push('case');
+                    let geoidFilters = [];
+                    listOfVisibleSubstations.forEach(substation => {
+                      // get the geoid(s)
+
+                      data.features.forEach(feature => {
+                        if (feature.properties.cn_substat === substation) {
+                          if (feature.properties.sub_geoid_any) {
+                            // set filters based on the keys
+                            Object.keys(
+                              feature.properties.sub_geoid_any
+                            ).forEach((key, index) => {
+                              geoidFilters.push(['==', ['get', 'geoid'], key]);
+                              geoidFilters.push('red');
+                            });
+
+                            // build the CSV content
+                            const geoidKeys = Object.keys(
+                              feature.properties.sub_geoid_any
+                            );
+                            Object.keys(
+                              feature.properties.sub_geoid_any
+                            ).forEach((key, index) => {
+                              // get the values
+                              const values = Object.values(
+                                feature.properties.sub_geoid_any[key]
+                              );
+                              dataForCSV.push([
+                                feature.properties.cn_substat,
+                                feature.properties.subname,
+                                key,
+                                ...values
+                              ]);
+                            });
+                          }
+                        }
+                      });
+
+                      // create the filter
+                      substationIconExpression.push([
+                        '==',
+                        ['get', 'cn_substat'],
+                        substation
+                      ]);
+                      substationIconExpression.push('red-square-15');
+                    });
+                    substationIconExpression.push('black-square-15');
+
+                    const currentFillExpression = [
+                      'case',
+                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill
+                    ];
+
+                    currentFillExpression.splice(1, 0, ...geoidFilters);
+
+                    map.setPaintProperty('blockGroups', 'fill-color', [
+                      ...currentFillExpression
+                    ]);
+                    map.setPaintProperty('blockGroupsLines', 'line-color', [
+                      ...currentFillExpression
+                    ]);
+                    map.setPaintProperty('blockGroupsText', 'text-color', [
+                      ...currentFillExpression
+                    ]);
+
+                    map.setLayoutProperty(
+                      'substations',
+                      'icon-image',
+                      substationIconExpression
+                    );
+                  } else {
+                    geoidFilters = [];
+                    dataForCSV = [];
+                    map.setPaintProperty('blockGroups', 'fill-color', [
+                      'case',
+                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill
+                    ]);
+                    map.setPaintProperty('blockGroupsLines', 'line-color', [
+                      'case',
+                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill
+                    ]);
+                    map.setPaintProperty('blockGroupsText', 'text-color', [
+                      'case',
+                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      blockGroup2Fill,
+                      blockGroupBorder
+                    ]);
+                    map.setLayoutProperty(
+                      'substations',
+                      'icon-image',
+                      'black-square-15'
+                    );
+                  }
+
+                  // set the filter on meters and turn it on
+                  const toggleVisibilityTo =
+                    listOfVisibleSubstations.length === 0 ? 'none' : 'visible';
+                  map.setLayoutProperty(
+                    'meters',
+                    'visibility',
+                    toggleVisibilityTo
+                  );
+
+                  const testFilters = ['any', ['==', 'cn_substat']];
+
+                  let meterFilters = [];
+                  if (listOfVisibleSubstations.length > 0)
+                    meterFilters.push('any');
+                  listOfVisibleSubstations.forEach(substation => {
+                    meterFilters.push(['==', 'substation', substation]);
+                  });
+
+                  if (listOfVisibleSubstations.length > 0)
+                    map.setFilter('meters', meterFilters);
+
+                  map.once('idle', () => {
+                    if (toggleVisibilityTo === 'visible') {
+                      const metersShown = map.queryRenderedFeatures({
+                        layers: ['meters']
+                      });
+                      // get unique feeders
+                      let feeders = [];
+                      let filters = ['match', ['get', 'feeder']];
+                      metersShown.forEach((meter, i) => {
+                        if (!feeders.includes(meter.properties.feeder)) {
+                          feeders.push(meter.properties.feeder);
+
+                          filters.push(meter.properties.feeder);
+                          filters.push(meterColors[i % meterColors.length]);
+                        }
+                      });
+                      filters.push('black'); // the default color
+
+                      map.setPaintProperty('meters', 'circle-color', filters);
+                    }
+
+                    let dataContainer = document.getElementById('data');
+
+                    if (listOfVisibleSubstations.length > 0) {
+                      dataContainer.innerHTML = '';
+                      let countContainer = document.createElement('div');
+                      let countContainerClasses = [
+                        'p-3',
+                        'rounded-sm',
+                        'mb-8',
+                        'bg-blue-100',
+                        'font-semibold',
+                        'text-blue-700',
+                        'border-blue-600',
+                        'border-l-4'
+                      ];
+                      countContainer.classList.add(...countContainerClasses);
+                      const countContainerHTML = `${
+                        listOfVisibleSubstations.length
+                      } substation${
+                        listOfVisibleSubstations.length === 1 ? '' : 's'
+                      } selected.`;
+                      countContainer.innerHTML = countContainerHTML;
+                      const csvLink = document.createElement('button');
+                      csvLinkClasses = [
+                        'block',
+                        'underline',
+                        'mt-8',
+                        'text-xs',
+                        'font-semibold'
+                      ];
+                      csvLink.classList.add(...csvLinkClasses);
+                      csvLink.textContent = 'Download CSV';
+                      csvLink.onclick = function(e) {
+                        const blobData = Papa.unparse(dataForCSV, {
+                          header: true
+                        });
+                        try {
+                          saveAs(
+                            new Blob([blobData], {
+                              type: 'text/csv;charset=utf-16'
+                            }),
+                            'file.csv'
+                          );
+                        } catch (e) {
+                          window.open(
+                            'data:text/csv;charset=utf-16,' +
+                              encodeURIComponent(blobData),
+                            '_blank',
+                            ''
+                          );
+                        }
+                      };
+                      countContainer.appendChild(csvLink);
+                      dataContainer.appendChild(countContainer);
+                      let myData = [
+                        {
+                          label: 'Meter data',
+                          data: [
+                            { label: 'Total', count: 0 },
+                            { label: 'In RDOF blocks', count: 0 },
+                            { label: 'With cable', count: 0 },
+                            { label: 'With fiber', count: 0 },
+                            { label: 'With TelCo', count: 0 }
+                          ]
+                        },
+                        {
+                          label: '10 year reserve price',
+                          data: [
+                            { label: 'Total', count: 0 },
+                            { label: 'At 50% meter coverage', count: 0 }
+                          ]
+                        },
+                        {
+                          label: 'Number of block groups',
+                          data: [
+                            { label: 'Total', count: 0 },
+                            { label: 'At 50% meter coverage', count: 0 }
+                          ]
+                        },
+                        {
+                          label: 'FCC locations',
+                          data: [{ label: 'Total', count: 0 }]
+                        }
+                      ];
+
+                      listOfVisibleSubstations.forEach(substation => {
+                        data.features.forEach(feature => {
+                          if (feature.properties.cn_substat === substation) {
+                            myData[0].data[0].count +=
+                              feature.properties.meters;
+                            myData[0].data[1].count +=
+                              feature.properties.meters_rdof;
+                            myData[0].data[2].count +=
+                              feature.properties.meters_cable;
+                            myData[0].data[3].count +=
+                              feature.properties.meters_fiber;
+                            myData[0].data[4].count +=
+                              feature.properties.meters_telco;
+                            myData[1].data[0].count = feature.properties
+                              .sub_amt_any
+                              ? myData[1].data[0].count +
+                                feature.properties.sub_amt_any
+                              : myData[1].data[0].count;
+                            myData[1].data[1].count = feature.properties
+                              .sub_amt_50
+                              ? myData[1].data[1].count +
+                                feature.properties.sub_amt_50
+                              : myData[1].data[1].count;
+                            myData[2].data[0].count = feature.properties
+                              .sub_bg_cnt_any
+                              ? myData[2].data[0].count +
+                                feature.properties.sub_bg_cnt_any
+                              : myData[2].data[0].count;
+                            myData[2].data[1].count = feature.properties
+                              .sub_bg_cnt_50
+                              ? myData[2].data[1].count +
+                                feature.properties.sub_bg_cnt_50
+                              : myData[2].data[1].count;
+                            myData[3].data[0].count = feature.properties
+                              .sub_bg_locs_any
+                              ? myData[3].data[0].count +
+                                feature.properties.sub_bg_locs_any
+                              : myData[3].data[0].count;
+                          }
+                        });
+                      });
+
+                      myData.forEach((metricGroup, i) => {
+                        let heading = document.createElement('h1');
+                        headingClasses = [
+                          'font-semibold',
+                          'text-2xl',
+                          'leading-none'
+                        ];
+                        if (i !== 0) headingClasses.push('mt-16');
+                        heading.classList.add(...headingClasses);
+                        heading.innerHTML = metricGroup.label;
+                        dataContainer.appendChild(heading);
+
+                        let dataList = document.createElement('dl');
+                        let dataListClasses = ['my-4'];
+                        dataList.classList.add(...dataListClasses);
+                        metricGroup.data.forEach((metric, j) => {
+                          let dt = document.createElement('dt');
+                          let dd = document.createElement('dd');
+                          dt.innerHTML = metric.label;
+
+                          let value =
+                            i === 1
+                              ? metric.count.toLocaleString('en-US', {
+                                  style: 'currency',
+                                  currency: 'USD'
+                                })
+                              : metric.count;
+                          dd.innerHTML = value;
+                          const dtClasses = [
+                            'text-sm',
+                            'font-medium',
+                            'text-gray-700',
+                            'truncate',
+                            'mt-2'
+                          ];
+                          const ddClasses = [
+                            'text-xl',
+                            'font-semibold',
+                            'text-gray-900'
+                          ];
+                          dt.classList.add(...dtClasses);
+                          dd.classList.add(...ddClasses);
+
+                          dataList.appendChild(dt);
+                          dataList.appendChild(dd);
+                          dataContainer.appendChild(dataList);
+                        });
+                      });
+                    } else {
+                      dataContainer.innerHTML =
+                        '<h1 class="text-2xl leading-none">Click 1 or more substations to view meters and data.</h1>';
+                    }
+                  });
+                });
+              });
+
+            fetch(
+              `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
+            )
+              .then(response => {
+                return response.json();
+              })
+              .then(data => {
+                map.addSource('blockGroupsText', {
+                  type: 'geojson',
+                  data: data
+                });
+
+                map.addLayer({
+                  id: 'blockGroupsText',
+                  type: 'symbol',
+                  source: 'blockGroupsText',
+                  filter: ['>', blockGroundPctAttr, 0],
+                  paint: {
+                    'text-color': [
+                      'case',
+                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      blockGroup2Fill,
+                      blockGroupBorder
+                    ]
+                  },
+                  layout: {
+                    'text-field': [
+                      'number-format',
+                      ['*', ['get', 'fcc_amt'], 10],
+                      { currency: 'USD' }
+                    ],
+                    'symbol-placement': 'point',
+                    'text-allow-overlap': true,
+                    'text-justify': 'center',
+                    'text-padding': 4,
+                    'text-rotation-alignment': 'viewport',
+                    'text-font': [
+                      'literal',
+                      ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+                    ],
+                    'text-size': {
+                      base: 0,
+                      stops: [
+                        [10, 12],
+                        [12, 14],
+                        [14, 20],
+                        [15, 22],
+                        [16, 28]
+                      ]
+                    }
+                  }
+                });
+              });
+          });
+
+          // toggle set up
+          const toggleableLayerIds = [
+            { name: 'Block groups', id: 'blockGroups' },
+            { name: 'Blocks', id: 'blocks' }
+          ];
+
+          for (let i = 0; i < toggleableLayerIds.length; i++) {
+            const id = toggleableLayerIds[i].id;
+            const name = toggleableLayerIds[i].name;
+
+            let link = document.createElement('a');
+            link.href = '#';
+            link.className = 'active';
+            link.textContent = name;
+            link.id = id;
+            link.onclick = function(e) {
+              const clickedLayer = this.id;
+              e.preventDefault();
+              e.stopPropagation();
+
+              const visibility = map.getLayoutProperty(
+                clickedLayer,
+                'visibility'
+              );
+
+              if (visibility === 'visible') {
+                this.className = '';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                if (clickedLayer !== 'meters')
+                  map.setLayoutProperty(
+                    `${clickedLayer}Text`,
+                    'visibility',
+                    'none'
+                  );
+                if (clickedLayer === 'blockGroups') {
+                  map.setLayoutProperty(
+                    `${clickedLayer}Lines`,
+                    'visibility',
+                    'none'
+                  );
+                }
+              } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                if (clickedLayer !== 'meters')
+                  map.setLayoutProperty(
+                    `${clickedLayer}Text`,
+                    'visibility',
+                    'visible'
+                  );
+                if (clickedLayer === 'blockGroups') {
+                  map.setLayoutProperty(
+                    `${clickedLayer}Lines`,
+                    'visibility',
+                    'visible'
+                  );
+                }
+              }
+            };
+
+            const layers = document.getElementById('menu');
+            layers.appendChild(link);
+          }
+        });
+    </script>
+  </body>
+</html>
