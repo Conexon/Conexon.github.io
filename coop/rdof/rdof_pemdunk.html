@@ -362,7 +362,6 @@
                 );
               }
 
-              console.log('subs', listOfVisibleSubstations);
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
                 dataForCSV = [];
@@ -398,11 +397,6 @@
                         Object.keys(feature.properties.sub_geoid_any).forEach(
                           (key, index) => {
                             // get the values
-                            console.log(
-                              'key',
-                              key,
-                              feature.properties.sub_geoid_any[key]
-                            );
                             const values = Object.values(
                               feature.properties.sub_geoid_any[key]
                             );
@@ -427,8 +421,6 @@
                   substationIconExpression.push('red-square-15');
                 });
                 substationIconExpression.push('black-square-15');
-
-                console.log(dataForCSV, dataForCSV.join(','));
 
                 const currentFillExpression = [
                   'case',
@@ -550,16 +542,8 @@
                     'font-semibold'
                   ];
                   csvLink.classList.add(...csvLinkClasses);
-                  //csvLink.href = '#';
-                  //csvLink.download = 'data.csv';
                   csvLink.textContent = 'Download CSV';
                   csvLink.onclick = function(e) {
-                    //e.preventDefault();
-                    //e.stopPropagation();
-                    console.log(e);
-                    console.log(dataForCSV);
-                    console.log(Papa.unparse(dataForCSV));
-
                     const blobData = Papa.unparse(dataForCSV, { header: true });
                     try {
                       saveAs(
