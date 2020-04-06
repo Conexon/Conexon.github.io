@@ -1,0 +1,11 @@
+[
+  {
+    "coopCode": "PEMDUNK",
+    "stateAbbr": "mo",
+    "rusNumber": "mo012",
+    "zoom": 9,
+    "center": [-89.9611, 36.3216],
+    "minZoom": 9,
+    "maxZoom": 15
+  }
+]
