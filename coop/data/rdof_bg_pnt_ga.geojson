@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_ga",
+"name": "bg_13_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 1965, "statefp": "13", "countyfp": "121", "tractce": "012300", "blkgrpce": "1", "geoid": "131210123001", "namelsad": "Block Group 1", "mtfcc": "G5030", "funcstat": "S", "aland": 594024.0, "awater": 0.0, "intptlat": "+33.6647791", "intptlon": "-084.4409935", "fcc_904": 1, "ga094_m": 0, "ga094_pct": 0, "fcc_amt": 40, "ga067_m": 0, "ga067_pct": 0 }, "geometry": { "type": "Point", "coordinates": [ -84.440993434503696, 33.664779094320565 ] } },
