@@ -395,7 +395,7 @@
               let meterFilters = [];
               if (listOfVisibleSubstations.length > 0) meterFilters.push('any');
               listOfVisibleSubstations.forEach(substation => {
-                meterFilters.push(['==', 'substation', substation]);
+                meterFilters.push(['==', 'cn_substat', substation]);
               });
 
               if (listOfVisibleSubstations.length > 0)
@@ -408,16 +408,18 @@
                   });
                   // get unique feeders
                   let feeders = [];
-                  let filters = ['match', ['get', 'feeder']];
+                  let filters = ['match', ['get', 'cn_feeder']];
                   metersShown.forEach((meter, i) => {
-                    if (!feeders.includes(meter.properties.feeder)) {
-                      feeders.push(meter.properties.feeder);
+                    if (!feeders.includes(meter.properties.cn_feeder)) {
+                      feeders.push(meter.properties.cn_feeder);
 
-                      filters.push(meter.properties.feeder);
+                      filters.push(meter.properties.cn_feeder);
                       filters.push(colors[i % colors.length]);
                     }
                   });
                   filters.push('black'); // the default color
+
+                  console.log(filters);
 
                   map.setPaintProperty('meters', 'circle-color', filters);
                 }
