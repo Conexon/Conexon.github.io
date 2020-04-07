@@ -25,5 +25,77 @@
     "center": [-83.0152, 43.6296],
     "minZoom": 4,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "DIXIEEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms030",
+    "zoom": 9,
+    "center": [-89.0237, 31.5538],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "NEMS",
+    "stateAbbr": "ms",
+    "rusNumber": "ms024",
+    "zoom": 10,
+    "center": [-89.4308, 34.4314],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "PRVEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms036",
+    "zoom": 9,
+    "center": [-89.5866, 31.1425],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms022",
+    "zoom": 9,
+    "center": [-89.4708, 32.7491],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "SOUPINE",
+    "stateAbbr": "ms",
+    "rusNumber": "ms040",
+    "zoom": 9,
+    "center": [-89.7229, 31.9238],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "TOMBB",
+    "stateAbbr": "ms",
+    "rusNumber": "ms049",
+    "zoom": 10,
+    "center": [-88.6421, 34.3086],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "TVEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms049",
+    "zoom": 9,
+    "center": [-89.9647, 34.2649],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "YAZOO",
+    "stateAbbr": "ms",
+    "rusNumber": "ms020",
+    "zoom": 9,
+    "center": [-90.4927, 32.7806],
+    "minZoom": 9,
+    "maxZoom": 15
   }
 ]
