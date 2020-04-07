@@ -7,8 +7,6 @@
       name="viewport"
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
-    <script src="../../js/papaparse.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
     <link
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
@@ -37,10 +35,10 @@
       }
     </style>
   </head>
-  <body>
+  <body class="my-8">
     <style>
       #menu {
-        background: white;
+        background: lightgray;
         position: absolute;
         z-index: 1;
         top: 1.5em;
@@ -52,7 +50,7 @@
 
       #menu a {
         font-size: 13px;
-        color: lightgray;
+        color: black;
         display: block;
         margin: 0;
         padding: 0;
@@ -67,7 +65,8 @@
       }
 
       #menu a:hover {
-        color: slategray;
+        background-color: #f8f8f8;
+        color: #404040;
       }
 
       #menu a.active {
@@ -76,28 +75,26 @@
       }
 
       #menu a.active:hover {
-        color: lightgray;
+        background: gray;
+        color: white;
       }
     </style>
 
-    <div class="">
-      <div class="grid grid-cols-12">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-12 gap-4">
+        <div class="col-span-4">
+          <div id="data">
+            <h1 class="text-2xl">
+              Click 1 or more substations to view meters and data.
+            </h1>
+          </div>
+        </div>
         <div class="col-span-8">
-          <div class="bg-white overflow-hidden shadow-xs rounded-sm">
-            <div class="mapWrapper min-h-screen max-h-screen">
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="mapWrapper">
               <div id="map"></div>
               <nav id="menu"></nav>
             </div>
-          </div>
-        </div>
-        <div class="col-span-4">
-          <div
-            class="p-8 bg-gray-100 min-h-screen max-h-screen overflow-auto"
-            id="data"
-          >
-            <h1 class="text-2xl leading-none">
-              Click 1 or more substations to view meters and data.
-            </h1>
           </div>
         </div>
       </div>
@@ -154,13 +151,6 @@
       const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
       const metersSourceLayer = `rdof_meters_${stateAbbr}`;
 
-      const blockGroupFillDefault = [
-        'case',
-        ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-        blockGroup2Fill,
-        blockGroupFill
-      ];
-
       mapboxgl.accessToken =
         'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
 
@@ -189,8 +179,13 @@
           'source-layer': blockGroupsSourceLayer,
           filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': blockGroupFillDefault,
-            'fill-opacity': 0.25
+            'fill-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
+            'fill-opacity': 0.4
           },
           layout: {
             visibility: 'visible'
@@ -305,8 +300,7 @@
         });
       });
 
-      let listOfVisibleSubstations = [];
-      let dataForCSV = [];
+      const listOfVisibleSubstations = [];
 
       map.once('idle', () => {
         const lowerCoopCode = coopCode.toLowerCase();
@@ -364,55 +358,9 @@
 
               if (listOfVisibleSubstations.length > 0) {
                 let substationIconExpression = [];
-                dataForCSV = [];
-                dataForCSV.push([
-                  'Substation id',
-                  'Substation name',
-                  'GeoId',
-                  'FCC locations',
-                  'Percent meters',
-                  'Amount',
-                  'Meters'
-                ]);
                 substationIconExpression.push('case');
-                let geoidFilters = [];
+
                 listOfVisibleSubstations.forEach(substation => {
-                  // get the geoid(s)
-
-                  data.features.forEach(feature => {
-                    if (feature.properties.cn_substat === substation) {
-                      if (feature.properties.sub_geoid_any) {
-                        // set filters based on the keys
-                        Object.keys(feature.properties.sub_geoid_any).forEach(
-                          (key, index) => {
-                            geoidFilters.push(['==', ['get', 'geoid'], key]);
-                            geoidFilters.push('red');
-                          }
-                        );
-
-                        // build the CSV content
-                        const geoidKeys = Object.keys(
-                          feature.properties.sub_geoid_any
-                        );
-                        Object.keys(feature.properties.sub_geoid_any).forEach(
-                          (key, index) => {
-                            // get the values
-                            const values = Object.values(
-                              feature.properties.sub_geoid_any[key]
-                            );
-                            dataForCSV.push([
-                              feature.properties.cn_substat,
-                              feature.properties.subname,
-                              key,
-                              ...values
-                            ]);
-                          }
-                        );
-                      }
-                    }
-                  });
-
-                  // create the filter
                   substationIconExpression.push([
                     '==',
                     ['get', 'cn_substat'],
@@ -422,24 +370,7 @@
                 });
                 substationIconExpression.push('black-square-15');
 
-                const currentFillExpression = [
-                  'case',
-                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-                  blockGroup2Fill,
-                  blockGroupFill
-                ];
-
-                currentFillExpression.splice(1, 0, ...geoidFilters);
-
-                map.setPaintProperty('blockGroups', 'fill-color', [
-                  ...currentFillExpression
-                ]);
-                map.setPaintProperty('blockGroupsLines', 'line-color', [
-                  ...currentFillExpression
-                ]);
-                map.setPaintProperty('blockGroupsText', 'text-color', [
-                  ...currentFillExpression
-                ]);
+                // create express
 
                 map.setLayoutProperty(
                   'substations',
@@ -447,26 +378,6 @@
                   substationIconExpression
                 );
               } else {
-                geoidFilters = [];
-                dataForCSV = [];
-                map.setPaintProperty('blockGroups', 'fill-color', [
-                  'case',
-                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-                  blockGroup2Fill,
-                  blockGroupFill
-                ]);
-                map.setPaintProperty('blockGroupsLines', 'line-color', [
-                  'case',
-                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-                  blockGroup2Fill,
-                  blockGroupFill
-                ]);
-                map.setPaintProperty('blockGroupsText', 'text-color', [
-                  'case',
-                  ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-                  blockGroup2Fill,
-                  blockGroupBorder
-                ]);
                 map.setLayoutProperty(
                   'substations',
                   'icon-image',
@@ -516,176 +427,125 @@
                 let dataContainer = document.getElementById('data');
 
                 if (listOfVisibleSubstations.length > 0) {
-                  dataContainer.innerHTML = '';
-                  let countContainer = document.createElement('div');
-                  let countContainerClasses = [
-                    'p-3',
-                    'rounded-sm',
-                    'mb-8',
-                    'bg-blue-100',
-                    'font-semibold',
-                    'text-blue-700',
-                    'border-blue-600',
-                    'border-l-4'
-                  ];
-                  countContainer.classList.add(...countContainerClasses);
-                  const countContainerHTML = `${
-                    listOfVisibleSubstations.length
-                  } substation${
-                    listOfVisibleSubstations.length === 1 ? '' : 's'
-                  } selected.`;
-                  countContainer.innerHTML = countContainerHTML;
-                  const csvLink = document.createElement('button');
-                  csvLinkClasses = [
-                    'block',
-                    'underline',
-                    'mt-8',
-                    'text-xs',
-                    'font-semibold'
-                  ];
-                  csvLink.classList.add(...csvLinkClasses);
-                  csvLink.textContent = 'Download CSV';
-                  csvLink.onclick = function(e) {
-                    const blobData = Papa.unparse(dataForCSV, { header: true });
-                    try {
-                      saveAs(
-                        new Blob([blobData], {
-                          type: 'text/csv;charset=utf-16'
-                        }),
-                        'file.csv'
-                      );
-                    } catch (e) {
-                      window.open(
-                        'data:text/csv;charset=utf-16,' +
-                          encodeURIComponent(blobData),
-                        '_blank',
-                        ''
-                      );
-                    }
-                  };
-                  countContainer.appendChild(csvLink);
-                  dataContainer.appendChild(countContainer);
-                  let myData = [
-                    {
-                      label: 'Meter data',
-                      data: [
-                        { label: 'Total', count: 0 },
-                        { label: 'In RDOF blocks', count: 0 },
-                        { label: 'With cable', count: 0 },
-                        { label: 'With fiber', count: 0 },
-                        { label: 'With TelCo', count: 0 }
-                      ]
-                    },
-                    {
-                      label: '10 year reserve price',
-                      data: [
-                        { label: 'Total', count: 0 },
-                        { label: 'At 50% meter coverage', count: 0 }
-                      ]
-                    },
-                    {
-                      label: 'Number of block groups',
-                      data: [
-                        { label: 'Total', count: 0 },
-                        { label: 'At 50% meter coverage', count: 0 }
-                      ]
-                    },
-                    {
-                      label: 'FCC locations',
-                      data: [{ label: 'Total', count: 0 }]
-                    }
-                  ];
+                  // render data
 
+                  dataContainer.innerHTML = '';
+                  let dataList = document.createElement('dl');
+                  let myData = {
+                    meterTotal: 0,
+                    meterRDOF: 0,
+                    meterCable: 0,
+                    meterFiber: 0,
+                    meterTelCo: 0,
+                    meterNoService: 0,
+                    meterUnderServed: 0,
+                    amount50: 0,
+                    blockGroupCount50: 0,
+                    amountAny: 0,
+                    blockGroupCountAny: 0,
+                    fccLocations: 0
+                  };
                   listOfVisibleSubstations.forEach(substation => {
                     data.features.forEach(feature => {
                       if (feature.properties.cn_substat === substation) {
-                        myData[0].data[0].count += feature.properties.meters;
-                        myData[0].data[1].count +=
-                          feature.properties.meters_rdof;
-                        myData[0].data[2].count +=
-                          feature.properties.meters_cable;
-                        myData[0].data[3].count +=
-                          feature.properties.meters_fiber;
-                        myData[0].data[4].count +=
-                          feature.properties.meters_telco;
-                        myData[1].data[0].count = feature.properties.sub_amt_any
-                          ? myData[1].data[0].count +
-                            feature.properties.sub_amt_any
-                          : myData[1].data[0].count;
-                        myData[1].data[1].count = feature.properties.sub_amt_50
-                          ? myData[1].data[1].count +
-                            feature.properties.sub_amt_50
-                          : myData[1].data[1].count;
-                        myData[2].data[0].count = feature.properties
-                          .sub_bg_cnt_any
-                          ? myData[2].data[0].count +
-                            feature.properties.sub_bg_cnt_any
-                          : myData[2].data[0].count;
-                        myData[2].data[1].count = feature.properties
+                        myData.meterTotal += feature.properties.meters;
+                        myData.meterRDOF += feature.properties.meters_rdof;
+                        myData.meterCable += feature.properties.meters_cable;
+                        myData.meterFiber += feature.properties.meters_fiber;
+                        myData.meterTelCo += feature.properties.meters_telco;
+                        myData.meterNoService +=
+                          feature.properties.meters_no_service;
+                        myData.meterUnderServed +=
+                          feature.properties.meters_underserved;
+                        myData.amount50 = feature.properties.sub_amt_50
+                          ? myData.amount50 + feature.properties.sub_amt_50
+                          : myData.amount50;
+                        myData.blockGroupCount50 = feature.properties
                           .sub_bg_cnt_50
-                          ? myData[2].data[1].count +
+                          ? myData.blockGroupCount50 +
                             feature.properties.sub_bg_cnt_50
-                          : myData[2].data[1].count;
-                        myData[3].data[0].count = feature.properties
-                          .sub_bg_locs_any
-                          ? myData[3].data[0].count +
+                          : myData.blockGroupCount50;
+                        myData.amountAny = feature.properties.sub_amt_any
+                          ? myData.amountAny + feature.properties.sub_amt_any
+                          : myData.amountAny;
+                        myData.blockGroupCountAny = feature.properties
+                          .sub_bg_cnt_any
+                          ? myData.blockGroupCountAny +
+                            feature.properties.sub_bg_cnt_any
+                          : myData.blockGroupCountAny;
+                        myData.fccLocations = feature.properties.sub_bg_locs_any
+                          ? myData.fccLocations +
                             feature.properties.sub_bg_locs_any
-                          : myData[3].data[0].count;
+                          : myData.fccLocations;
+                        //sub_bg_locs_any
                       }
                     });
                   });
 
-                  myData.forEach((metricGroup, i) => {
-                    let heading = document.createElement('h1');
-                    headingClasses = [
-                      'font-semibold',
-                      'text-2xl',
-                      'leading-none'
+                  console.log('myData', myData);
+
+                  const entries = Object.entries(myData);
+
+                  for (const [dataType, dataDef] of entries) {
+                    console.log('dl', dataType, dataDef);
+                    let dt = document.createElement('dt');
+                    let dd = document.createElement('dd');
+
+                    const label =
+                      dataType === 'meterTotal'
+                        ? 'Total meters'
+                        : dataType === 'meterRDOF'
+                        ? 'Meters in RDOF blocks'
+                        : dataType === 'meterCable'
+                        ? 'Meters with cable service'
+                        : dataType === 'meterFiber'
+                        ? 'Meters with fiber service'
+                        : dataType === 'meterTelCo'
+                        ? 'Meters with TelCo service'
+                        : dataType === 'meterNoService'
+                        ? 'Meters with no service'
+                        : dataType === 'meterUnderServed'
+                        ? 'Meters that are underserved'
+                        : dataType === 'amount50'
+                        ? '10 year reserve price at 50%'
+                        : dataType === 'blockGroupCount50'
+                        ? 'Number of block groups at 50%'
+                        : dataType === 'amountAny'
+                        ? '10 year reserve price total'
+                        : dataType === 'blockGroupCountAny'
+                        ? 'Number of block groups total'
+                        : 'FCC locations';
+                    dt.innerHTML = label;
+                    const dtClasses = [
+                      'text-sm',
+                      'font-medium',
+                      'text-gray-700',
+                      'truncate'
                     ];
-                    if (i !== 0) headingClasses.push('mt-16');
-                    heading.classList.add(...headingClasses);
-                    heading.innerHTML = metricGroup.label;
-                    dataContainer.appendChild(heading);
-
-                    let dataList = document.createElement('dl');
-                    let dataListClasses = ['my-4'];
-                    dataList.classList.add(...dataListClasses);
-                    metricGroup.data.forEach((metric, j) => {
-                      let dt = document.createElement('dt');
-                      let dd = document.createElement('dd');
-                      dt.innerHTML = metric.label;
-
-                      let value =
-                        i === 1
-                          ? metric.count.toLocaleString('en-US', {
-                              style: 'currency',
-                              currency: 'USD'
-                            })
-                          : metric.count;
-                      dd.innerHTML = value;
-                      const dtClasses = [
-                        'text-sm',
-                        'font-medium',
-                        'text-gray-700',
-                        'truncate',
-                        'mt-2'
-                      ];
-                      const ddClasses = [
-                        'text-xl',
-                        'font-semibold',
-                        'text-gray-900'
-                      ];
-                      dt.classList.add(...dtClasses);
-                      dd.classList.add(...ddClasses);
-
-                      dataList.appendChild(dt);
-                      dataList.appendChild(dd);
-                      dataContainer.appendChild(dataList);
-                    });
-                  });
+                    const ddClasses = [
+                      'text-xl',
+                      'font-semibold',
+                      'text-gray-900',
+                      'mb-2',
+                      'pb-2',
+                      'border-b'
+                    ];
+                    dt.classList.add(...dtClasses);
+                    dd.innerHTML =
+                      dataType === 'amount50' || dataType === 'amountAny'
+                        ? dataDef.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: 'USD'
+                          })
+                        : dataDef;
+                    dd.classList.add(...ddClasses);
+                    dataList.appendChild(dt);
+                    dataList.appendChild(dd);
+                    dataContainer.appendChild(dataList);
+                  }
                 } else {
                   dataContainer.innerHTML =
-                    '<h1 class="text-2xl leading-none">Click 1 or more substations to view meters and data.</h1>';
+                    '<h1 class="text-2xl">Click 1 or more substations to view meters and data.</h1>';
                 }
               });
             });
@@ -719,7 +579,7 @@
               layout: {
                 'text-field': [
                   'number-format',
-                  ['*', ['get', 'fcc_amt'], 10],
+                  ['get', 'fcc_amt'],
                   { currency: 'USD' }
                 ],
                 'symbol-placement': 'point',
