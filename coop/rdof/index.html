@@ -119,8 +119,6 @@
             client => client.coopCode === urlParams.get('coopCode')
           );
 
-          console.log(data, clientData);
-
           const stateAbbr = clientData.stateAbbr;
           const rusNumber = clientData.rusNumber;
           const blockMetersAttr = `${rusNumber}_m`;
@@ -308,7 +306,7 @@
               }
             });
 
-            ///*
+            /*
             map.on('click', 'meters', event => {
               console.log(event.features[0].properties);
             });
@@ -347,12 +345,13 @@
                       ]
                     },
                     'icon-allow-overlap': true,
+                    'text-allow-overlap': true,
                     'text-field': '{subname}',
                     'text-offset': [0, -1]
                   }
                 });
 
-                ///*
+                /*
                 map.on('click', 'substations', event => {
                   console.log(event.features[0].properties);
                 });
@@ -498,14 +497,17 @@
                   );
 
                   let meterFilters = [];
-                  if (listOfVisibleSubstations.length > 0)
+                  if (listOfVisibleSubstations.length > 0) {
                     meterFilters.push('any');
-                  listOfVisibleSubstations.forEach(substation => {
-                    meterFilters.push(['==', 'cn_substat', substation]);
-                  });
-
-                  if (listOfVisibleSubstations.length > 0)
-                    map.setFilter('meters', meterFilters);
+                    listOfVisibleSubstations.forEach(substation => {
+                      meterFilters.push(['==', 'cn_substat', substation]);
+                    });
+                    map.setFilter('meters', [
+                      'all',
+                      ['==', 'coop_code', coopCode],
+                      meterFilters
+                    ]);
+                  }
 
                   map.once('idle', () => {
                     if (toggleVisibilityTo === 'visible') {
@@ -518,7 +520,6 @@
                       let i = 0;
                       metersShown.forEach(meter => {
                         if (!feeders.includes(meter.properties.cn_feeder)) {
-                          console.log(i, i % meterColors.length);
                           feeders.push(meter.properties.cn_feeder);
                           filters.push(meter.properties.cn_feeder);
                           filters.push(meterColors[i % meterColors.length]);
@@ -526,8 +527,6 @@
                         }
                       });
                       filters.push('black'); // the default color
-
-                      console.log('filters', filters);
 
                       map.setPaintProperty('meters', 'circle-color', filters);
                     }
