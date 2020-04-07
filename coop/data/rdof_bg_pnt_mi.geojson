@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "rdof_bg_pnt_mi",
+"name": "bg_26_pnt",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 3146, "statefp": "26", "countyfp": "109", "tractce": "960200", "blkgrpce": "1", "geoid": "261099602001", "namelsad": "Block Group 1", "mtfcc": "G5030", "funcstat": "S", "aland": 464959227.0, "awater": 15624652.0, "intptlat": "+45.5314731", "intptlon": "-087.4194836", "fcc_904": 336, "mi048_m": 0, "mi048_pct": 0, "mi037_m": 0, "mi037_pct": 0, "fcc_amt": 343200, "mi049_m": 0, "mi049_pct": 0 }, "geometry": { "type": "Point", "coordinates": [ -87.422409431673955, 45.527272843744484 ] } },
