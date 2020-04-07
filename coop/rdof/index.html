@@ -110,7 +110,7 @@
 
     <script>
       var urlParams = new URLSearchParams(window.location.search);
-      fetch(`https://conexon.github.io/coop/data/clients/clients.json`)
+      fetch(`/coop/data/clients/clients.json`)
         .then(response => {
           return response.json();
         })
@@ -301,13 +301,18 @@
                     [16, 6]
                   ]
                 },
-
                 'circle-color': meters
               },
               layout: {
                 visibility: 'none'
               }
             });
+
+            ///*
+            map.on('click', 'meters', event => {
+              console.log(event.features[0].properties);
+            });
+            //*/
           });
 
           let listOfVisibleSubstations = [];
@@ -315,9 +320,7 @@
 
           map.once('idle', () => {
             const lowerCoopCode = coopCode.toLowerCase();
-            fetch(
-              `https://conexon.github.io/coop/data/clients/${lowerCoopCode}_sub.geojson`
-            )
+            fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
               .then(response => {
                 return response.json();
               })
@@ -348,6 +351,12 @@
                     'text-offset': [0, -1]
                   }
                 });
+
+                ///*
+                map.on('click', 'substations', event => {
+                  console.log(event.features[0].properties);
+                });
+                //*/
 
                 map.on('click', 'substations', event => {
                   if (
@@ -488,13 +497,11 @@
                     toggleVisibilityTo
                   );
 
-                  const testFilters = ['any', ['==', 'cn_substat']];
-
                   let meterFilters = [];
                   if (listOfVisibleSubstations.length > 0)
                     meterFilters.push('any');
                   listOfVisibleSubstations.forEach(substation => {
-                    meterFilters.push(['==', 'substation', substation]);
+                    meterFilters.push(['==', 'cn_substat', substation]);
                   });
 
                   if (listOfVisibleSubstations.length > 0)
@@ -507,15 +514,20 @@
                       });
                       // get unique feeders
                       let feeders = [];
-                      let filters = ['match', ['get', 'feeder']];
-                      metersShown.forEach((meter, i) => {
-                        if (!feeders.includes(meter.properties.feeder)) {
-                          feeders.push(meter.properties.feeder);
-                          filters.push(meter.properties.feeder);
+                      let filters = ['match', ['get', 'cn_feeder']];
+                      let i = 0;
+                      metersShown.forEach(meter => {
+                        if (!feeders.includes(meter.properties.cn_feeder)) {
+                          console.log(i, i % meterColors.length);
+                          feeders.push(meter.properties.cn_feeder);
+                          filters.push(meter.properties.cn_feeder);
                           filters.push(meterColors[i % meterColors.length]);
+                          i++;
                         }
                       });
                       filters.push('black'); // the default color
+
+                      console.log('filters', filters);
 
                       map.setPaintProperty('meters', 'circle-color', filters);
                     }
@@ -703,9 +715,7 @@
                 });
               });
 
-            fetch(
-              `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
-            )
+            fetch(`/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`)
               .then(response => {
                 return response.json();
               })
