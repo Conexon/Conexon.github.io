@@ -119,7 +119,7 @@
             client => client.coopCode === urlParams.get('coopCode')
           );
 
-          //console.log(data, clientData);
+          console.log(data, clientData);
 
           const stateAbbr = clientData.stateAbbr;
           const rusNumber = clientData.rusNumber;
@@ -145,7 +145,7 @@
             'brown',
             'slategray',
             'red',
-            'black',
+            //'black',
             'aqua'
           ];
 
@@ -511,7 +511,6 @@
                       metersShown.forEach((meter, i) => {
                         if (!feeders.includes(meter.properties.feeder)) {
                           feeders.push(meter.properties.feeder);
-
                           filters.push(meter.properties.feeder);
                           filters.push(meterColors[i % meterColors.length]);
                         }
