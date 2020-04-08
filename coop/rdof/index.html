@@ -624,21 +624,15 @@
                           dataContainer.appendChild(countContainer);
                           let myData = [
                             {
-                              label: 'Meter data',
-                              data: [
-                                { label: 'Total', count: 0 },
-                                { label: 'In RDOF blocks', count: 0 },
-                                { label: 'With cable', count: 0 },
-                                { label: 'With fiber', count: 0 },
-                                { label: 'With TelCo', count: 0 }
-                              ]
-                            },
-                            {
                               label: '10 year reserve price',
                               data: [
                                 { label: 'Total', count: 0 },
                                 { label: 'At 50% meter coverage', count: 0 }
                               ]
+                            },
+                            {
+                              label: 'FCC locations',
+                              data: [{ label: 'Total', count: 0 }]
                             },
                             {
                               label: 'Number of block groups',
@@ -648,8 +642,14 @@
                               ]
                             },
                             {
-                              label: 'FCC locations',
-                              data: [{ label: 'Total', count: 0 }]
+                              label: 'Meter data',
+                              data: [
+                                { label: 'Total', count: 0 },
+                                { label: 'In RDOF blocks', count: 0 },
+                                { label: 'With cable', count: 0 },
+                                { label: 'With fiber', count: 0 },
+                                { label: 'With TelCo', count: 0 }
+                              ]
                             }
                           ];
 
@@ -658,26 +658,26 @@
                               if (
                                 feature.properties.cn_substat === substation
                               ) {
-                                myData[0].data[0].count +=
+                                myData[3].data[0].count +=
                                   feature.properties.meters;
-                                myData[0].data[1].count +=
+                                myData[3].data[1].count +=
                                   feature.properties.meters_rdof;
-                                myData[0].data[2].count +=
+                                myData[3].data[2].count +=
                                   feature.properties.meters_cable;
-                                myData[0].data[3].count +=
+                                myData[3].data[3].count +=
                                   feature.properties.meters_fiber;
-                                myData[0].data[4].count +=
+                                myData[3].data[4].count +=
                                   feature.properties.meters_telco;
-                                myData[1].data[0].count = feature.properties
+                                myData[0].data[0].count = feature.properties
                                   .sub_amt_any
-                                  ? myData[1].data[0].count +
+                                  ? myData[0].data[0].count +
                                     feature.properties.sub_amt_any
-                                  : myData[1].data[0].count;
-                                myData[1].data[1].count = feature.properties
+                                  : myData[0].data[0].count;
+                                myData[0].data[1].count = feature.properties
                                   .sub_amt_50
-                                  ? myData[1].data[1].count +
+                                  ? myData[0].data[1].count +
                                     feature.properties.sub_amt_50
-                                  : myData[1].data[1].count;
+                                  : myData[0].data[1].count;
                                 myData[2].data[0].count = feature.properties
                                   .sub_bg_cnt_any
                                   ? myData[2].data[0].count +
@@ -688,11 +688,11 @@
                                   ? myData[2].data[1].count +
                                     feature.properties.sub_bg_cnt_50
                                   : myData[2].data[1].count;
-                                myData[3].data[0].count = feature.properties
+                                myData[1].data[0].count = feature.properties
                                   .sub_bg_locs_any
-                                  ? myData[3].data[0].count +
+                                  ? myData[1].data[0].count +
                                     feature.properties.sub_bg_locs_any
-                                  : myData[3].data[0].count;
+                                  : myData[1].data[0].count;
                               }
                             });
                           });
@@ -718,7 +718,7 @@
                               dt.innerHTML = metric.label;
 
                               let value =
-                                i === 1
+                                i === 0
                                   ? metric.count.toLocaleString('en-US', {
                                       style: 'currency',
                                       currency: 'USD'
