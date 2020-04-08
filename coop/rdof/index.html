@@ -8,7 +8,7 @@
       content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
     <link
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
@@ -96,7 +96,13 @@
             id="data"
           >
             <h1 class="text-2xl leading-none">
-              Click 1 or more substations to view meters and data.
+              Click 1 or more substations to view meters and data or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
             </h1>
           </div>
         </div>
@@ -109,8 +115,270 @@
     </div>
 
     <script>
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+
+      // need to update the zoom and center per client
+      // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
+      const map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84'
+        /*zoom: zoom,
+                minZoom: minZoom,
+                maxZoom: maxZoom,
+                center: center*/
+      });
+      let allSubstationHighlighted = false;
+      let allSubstations = [];
+      let listOfVisibleSubstations = [];
+      let dataForCSV = [];
+      let geoidFilters = [];
+      let substationIconExpression = [];
+      let stateAbbr = '';
+      let rusNumber = '';
+      let blockMetersAttr = '';
+      let blockGroundPctAttr = '';
+      let coopCode = '';
+      let zoom = 9;
+      let center; // leave as an array  9//
+      let minZoom = 9;
+      let maxZoom = 15;
+      // colors
+      const blockFill = '#FFA500';
+      const blockGroupFill = '#008000';
+      const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
+      const meters = '#808080';
+      const blockBorder = '#000000';
+      const meterColors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        //'black',
+        'aqua'
+      ];
+
+      const showHideSubstations = () => {
+        console.log('showhide');
+        console.log(allSubstations);
+        allSubstationHighlighted === false
+          ? (allSubstationHighlighted = true)
+          : (allSubstationHighlighted = false);
+        if (allSubstationHighlighted) {
+          dataForCSV = [];
+          dataForCSV.push([
+            'Substation id',
+            'Substation name',
+            'GeoId',
+            'FCC locations',
+            'Percent meters',
+            'Amount',
+            'Meters'
+          ]);
+          substationIconExpression.push('case');
+          geoidFilters = [];
+
+          allSubstations.features.forEach(feature => {
+            // create the filter
+            substationIconExpression.push([
+              '==',
+              ['get', 'cn_substat'],
+              feature.properties.cn_substat
+            ]);
+            substationIconExpression.push('red-square-15');
+
+            if (feature.properties.sub_geoid_any) {
+              // set filters based on the keys
+              Object.keys(feature.properties.sub_geoid_any).forEach(
+                (key, index) => {
+                  geoidFilters.push(['==', ['get', 'geoid'], key]);
+                  geoidFilters.push('red');
+                }
+              );
+
+              // build the CSV content
+              const geoidKeys = Object.keys(feature.properties.sub_geoid_any);
+              Object.keys(feature.properties.sub_geoid_any).forEach(
+                (key, index) => {
+                  // get the values
+                  const values = Object.values(
+                    feature.properties.sub_geoid_any[key]
+                  );
+                  dataForCSV.push([
+                    feature.properties.cn_substat,
+                    feature.properties.subname,
+                    key,
+                    ...values
+                  ]);
+                }
+              );
+            }
+          });
+          console.log('csv', dataForCSV);
+          substationIconExpression.push('black-square-15');
+
+          const currentFillExpression = [
+            'case',
+            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            blockGroup2Fill,
+            blockGroupFill
+          ];
+
+          currentFillExpression.splice(1, 0, ...geoidFilters);
+
+          map.setPaintProperty('blockGroups', 'fill-color', [
+            ...currentFillExpression
+          ]);
+          map.setPaintProperty('blockGroupsLines', 'line-color', [
+            ...currentFillExpression
+          ]);
+          map.setPaintProperty('blockGroupsText', 'text-color', [
+            ...currentFillExpression
+          ]);
+
+          map.setLayoutProperty(
+            'substations',
+            'icon-image',
+            substationIconExpression
+          );
+        } else {
+          listOfVisibleSubstations = [];
+          dataForCSV = [];
+          geoidFilters = [];
+          substationIconExpression = [];
+          map.setPaintProperty('blockGroups', 'fill-color', [
+            'case',
+            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            blockGroup2Fill,
+            blockGroupFill
+          ]);
+          map.setPaintProperty('blockGroupsLines', 'line-color', [
+            'case',
+            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            blockGroup2Fill,
+            blockGroupFill
+          ]);
+          map.setPaintProperty('blockGroupsText', 'text-color', [
+            'case',
+            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            blockGroup2Fill,
+            blockGroupBorder
+          ]);
+          map.setLayoutProperty('substations', 'icon-image', 'black-square-15');
+        }
+        /* if (
+                        listOfVisibleSubstations.includes(
+                          event.features[0].properties.cn_substat
+                        )
+                      ) {
+                        listOfVisibleSubstations.splice(
+                          listOfVisibleSubstations.indexOf(
+                            event.features[0].properties.cn_substat
+                          ),
+                          1
+                        );
+                      } else {
+                        listOfVisibleSubstations.push(
+                          event.features[0].properties.cn_substat
+                        );
+                      }
+
+                      if (listOfVisibleSubstations.length > 0) {
+                        let substationIconExpression = [];
+                        dataForCSV = [];
+                        dataForCSV.push([
+                          'Substation id',
+                          'Substation name',
+                          'GeoId',
+                          'FCC locations',
+                          'Percent meters',
+                          'Amount',
+                          'Meters'
+                        ]);
+                        substationIconExpression.push('case');
+                        let geoidFilters = [];
+                        listOfVisibleSubstations.forEach(substation => {
+                          // get the geoid(s)
+
+                          data.features.forEach(feature => {
+                            if (feature.properties.cn_substat === substation) {
+                              if (feature.properties.sub_geoid_any) {
+                                // set filters based on the keys
+                                Object.keys(
+                                  feature.properties.sub_geoid_any
+                                ).forEach((key, index) => {
+                                  geoidFilters.push([
+                                    '==',
+                                    ['get', 'geoid'],
+                                    key
+                                  ]);
+                                  geoidFilters.push('red');
+                                });
+
+                                // build the CSV content
+                                const geoidKeys = Object.keys(
+                                  feature.properties.sub_geoid_any
+                                );
+                                Object.keys(
+                                  feature.properties.sub_geoid_any
+                                ).forEach((key, index) => {
+                                  // get the values
+                                  const values = Object.values(
+                                    feature.properties.sub_geoid_any[key]
+                                  );
+                                  dataForCSV.push([
+                                    feature.properties.cn_substat,
+                                    feature.properties.subname,
+                                    key,
+                                    ...values
+                                  ]);
+                                });
+                              }
+                            }
+                          });
+
+                          // create the filter
+                          substationIconExpression.push([
+                            '==',
+                            ['get', 'cn_substat'],
+                            substation
+                          ]);
+                          substationIconExpression.push('red-square-15');
+                        });
+                        substationIconExpression.push('black-square-15');
+
+                        const currentFillExpression = [
+                          'case',
+                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          blockGroup2Fill,
+                          blockGroupFill
+                        ];
+
+                        currentFillExpression.splice(1, 0, ...geoidFilters);
+
+                        map.setPaintProperty('blockGroups', 'fill-color', [
+                          ...currentFillExpression
+                        ]);
+                        map.setPaintProperty('blockGroupsLines', 'line-color', [
+                          ...currentFillExpression
+                        ]);
+                        map.setPaintProperty('blockGroupsText', 'text-color', [
+                          ...currentFillExpression
+                        ]);
+
+                        map.setLayoutProperty(
+                          'substations',
+                          'icon-image',
+                          substationIconExpression
+                        );*/
+      };
+
       var urlParams = new URLSearchParams(window.location.search);
-      console.log(urlParams.get('coopCode'));
 
       if (!urlParams.get('coopCode')) {
         let mapContainer = document.getElementById('map');
@@ -128,10 +396,10 @@
           })
           .then(data => {
             const clientData = data.find(
-              client => client.coopCode === urlParams.get('coopCode')
+              client =>
+                client.coopCode.toLowerCase() ===
+                urlParams.get('coopCode').toLowerCase()
             );
-
-            console.log(clientData);
 
             if (!clientData) {
               let mapContainer = document.getElementById('map');
@@ -144,33 +412,15 @@
               dataContainer.remove();
               menuContainer.remove();
             } else {
-              const stateAbbr = clientData.stateAbbr;
-              const rusNumber = clientData.rusNumber;
-              const blockMetersAttr = `${rusNumber}_m`;
-              const blockGroundPctAttr = `${rusNumber}_pct`;
-              const coopCode = clientData.coopCode;
-              const zoom = clientData.zoom;
-              const center = clientData.center; // leave as an array  9//
-              const minZoom = clientData.minZoom || 9;
-              const maxZoom = clientData.maxZoom || 15;
-              // colors
-              const blockFill = '#FFA500';
-              const blockGroupFill = '#008000';
-              const blockGroupBorder = '#044D04';
-              const blockGroup2Fill = '#0000FF';
-              const blockGroup2Border = '#0000FF';
-              const meters = '#808080';
-              const blockBorder = '#000000';
-              const meterColors = [
-                'blue',
-                'orange',
-                'green',
-                'brown',
-                'slategray',
-                'red',
-                //'black',
-                'aqua'
-              ];
+              stateAbbr = clientData.stateAbbr;
+              rusNumber = clientData.rusNumber;
+              blockMetersAttr = `${rusNumber}_m`;
+              blockGroundPctAttr = `${rusNumber}_pct`;
+              coopCode = clientData.coopCode;
+              zoom = clientData.zoom;
+              center = clientData.center; // leave as an array  9//
+              minZoom = clientData.minZoom || 9;
+              maxZoom = clientData.maxZoom || 15;
 
               // tilesets
               const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
@@ -189,21 +439,10 @@
                 blockGroupFill
               ];
 
-              mapboxgl.accessToken =
-                'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
-
-              // need to update the zoom and center per client
-              // can possibly update the minzoom and maxzoom depending on the tileset in mapbox
-              const map = new mapboxgl.Map({
-                container: 'map',
-                hash: true,
-                style:
-                  'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-                zoom: zoom,
-                minZoom: minZoom,
-                maxZoom: maxZoom,
-                center: center
-              });
+              map.setZoom(zoom);
+              map.setMinZoom(minZoom);
+              map.setMaxZoom(maxZoom);
+              map.setCenter(center);
 
               // block group layer
 
@@ -339,9 +578,6 @@
             //*/
               });
 
-              let listOfVisibleSubstations = [];
-              let dataForCSV = [];
-
               map.once('idle', () => {
                 const lowerCoopCode = coopCode.toLowerCase();
                 fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
@@ -349,6 +585,8 @@
                     return response.json();
                   })
                   .then(data => {
+                    allSubstations = data;
+
                     map.addSource('substations', {
                       type: 'geojson',
                       data: data
@@ -377,11 +615,11 @@
                       }
                     });
 
-                    /*
-                map.on('click', 'substations', event => {
-                  console.log(event.features[0].properties);
-                });
-                //*/
+                    //*
+                    map.on('click', 'substations', event => {
+                      console.log(event.features[0].properties);
+                    });
+                    //*/
 
                     map.on('click', 'substations', event => {
                       if (
@@ -402,7 +640,7 @@
                       }
 
                       if (listOfVisibleSubstations.length > 0) {
-                        let substationIconExpression = [];
+                        substationIconExpression = [];
                         dataForCSV = [];
                         dataForCSV.push([
                           'Substation id',
@@ -414,7 +652,7 @@
                           'Meters'
                         ]);
                         substationIconExpression.push('case');
-                        let geoidFilters = [];
+                        geoidFilters = [];
                         listOfVisibleSubstations.forEach(substation => {
                           // get the geoid(s)
 
@@ -625,21 +863,15 @@
                           dataContainer.appendChild(countContainer);
                           let myData = [
                             {
-                              label: 'Meter data',
-                              data: [
-                                { label: 'Total', count: 0 },
-                                { label: 'In RDOF blocks', count: 0 },
-                                { label: 'With cable', count: 0 },
-                                { label: 'With fiber', count: 0 },
-                                { label: 'With TelCo', count: 0 }
-                              ]
-                            },
-                            {
                               label: '10 year reserve price',
                               data: [
                                 { label: 'Total', count: 0 },
                                 { label: 'At 50% meter coverage', count: 0 }
                               ]
+                            },
+                            {
+                              label: 'FCC locations',
+                              data: [{ label: 'Total', count: 0 }]
                             },
                             {
                               label: 'Number of block groups',
@@ -649,8 +881,14 @@
                               ]
                             },
                             {
-                              label: 'FCC locations',
-                              data: [{ label: 'Total', count: 0 }]
+                              label: 'Meter data',
+                              data: [
+                                { label: 'Total', count: 0 },
+                                { label: 'In RDOF blocks', count: 0 },
+                                { label: 'With cable', count: 0 },
+                                { label: 'With fiber', count: 0 },
+                                { label: 'With TelCo', count: 0 }
+                              ]
                             }
                           ];
 
@@ -659,26 +897,26 @@
                               if (
                                 feature.properties.cn_substat === substation
                               ) {
-                                myData[0].data[0].count +=
+                                myData[3].data[0].count +=
                                   feature.properties.meters;
-                                myData[0].data[1].count +=
+                                myData[3].data[1].count +=
                                   feature.properties.meters_rdof;
-                                myData[0].data[2].count +=
+                                myData[3].data[2].count +=
                                   feature.properties.meters_cable;
-                                myData[0].data[3].count +=
+                                myData[3].data[3].count +=
                                   feature.properties.meters_fiber;
-                                myData[0].data[4].count +=
+                                myData[3].data[4].count +=
                                   feature.properties.meters_telco;
-                                myData[1].data[0].count = feature.properties
+                                myData[0].data[0].count = feature.properties
                                   .sub_amt_any
-                                  ? myData[1].data[0].count +
+                                  ? myData[0].data[0].count +
                                     feature.properties.sub_amt_any
-                                  : myData[1].data[0].count;
-                                myData[1].data[1].count = feature.properties
+                                  : myData[0].data[0].count;
+                                myData[0].data[1].count = feature.properties
                                   .sub_amt_50
-                                  ? myData[1].data[1].count +
+                                  ? myData[0].data[1].count +
                                     feature.properties.sub_amt_50
-                                  : myData[1].data[1].count;
+                                  : myData[0].data[1].count;
                                 myData[2].data[0].count = feature.properties
                                   .sub_bg_cnt_any
                                   ? myData[2].data[0].count +
@@ -689,11 +927,11 @@
                                   ? myData[2].data[1].count +
                                     feature.properties.sub_bg_cnt_50
                                   : myData[2].data[1].count;
-                                myData[3].data[0].count = feature.properties
+                                myData[1].data[0].count = feature.properties
                                   .sub_bg_locs_any
-                                  ? myData[3].data[0].count +
+                                  ? myData[1].data[0].count +
                                     feature.properties.sub_bg_locs_any
-                                  : myData[3].data[0].count;
+                                  : myData[1].data[0].count;
                               }
                             });
                           });
@@ -719,7 +957,7 @@
                               dt.innerHTML = metric.label;
 
                               let value =
-                                i === 1
+                                i === 0
                                   ? metric.count.toLocaleString('en-US', {
                                       style: 'currency',
                                       currency: 'USD'
@@ -748,7 +986,7 @@
                           });
                         } else {
                           dataContainer.innerHTML =
-                            '<h1 class="text-2xl leading-none">Click 1 or more substations to view meters and data.</h1>';
+                            '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
                         }
                       });
                     });
