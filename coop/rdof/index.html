@@ -110,7 +110,6 @@
 
     <script>
       var urlParams = new URLSearchParams(window.location.search);
-      console.log(urlParams.get('coopCode'));
 
       if (!urlParams.get('coopCode')) {
         let mapContainer = document.getElementById('map');
@@ -128,10 +127,10 @@
           })
           .then(data => {
             const clientData = data.find(
-              client => client.coopCode === urlParams.get('coopCode')
+              client =>
+                client.coopCode.toLowerCase() ===
+                urlParams.get('coopCode').toLowerCase()
             );
-
-            console.log(clientData);
 
             if (!clientData) {
               let mapContainer = document.getElementById('map');
