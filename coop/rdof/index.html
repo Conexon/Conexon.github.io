@@ -138,8 +138,9 @@
               let dataContainer = document.getElementById('dataContainer');
               let menuContainer = document.getElementById('menu');
 
-              mapContainer.innerHTML =
-                '<div class="font-semibold m-8">Sorry we couldn\'t find that coopCode. Please double check it.</div>';
+              mapContainer.innerHTML = `<div class="m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
+                'coopCode'
+              )}</span>. Please double check it.</div>`;
               dataContainer.remove();
               menuContainer.remove();
             } else {
