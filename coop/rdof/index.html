@@ -267,10 +267,16 @@
                     url: blocksUrl
                   },
                   'source-layer': blocksSourceLayer,
-                  filter: ['>', blockMetersAttr, 0],
+                  filter: ['>=', blockMetersAttr, 0],
                   paint: {
                     'fill-color': blockFill,
-                    'fill-opacity': 0.9,
+                    'fill-opacity': [
+                      'case',
+                      ['==', ['to-number', ['get', blockMetersAttr]], 0],
+                      0.5,
+                      0.9
+                    ],
+                    //'fill-opacity': 0.9,
                     'fill-outline-color': blockBorder
                   },
                   layout: {
