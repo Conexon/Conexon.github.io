@@ -106,5 +106,23 @@
     "center": [-90.3471, 33.5364],
     "minZoom": 9,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "REC",
+    "stateAbbr": "va",
+    "rusNumber": "va054",
+    "zoom": 8.5,
+    "center": [-77.8615, 38.2503],
+    "minZoom": 8.5,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "SEMO",
+    "stateAbbr": "mo",
+    "rusNumber": "mo031",
+    "zoom": 9,
+    "center": [-89.6255, 36.9389],
+    "minZoom": 9,
+    "maxZoom": 15
   }
 ]
