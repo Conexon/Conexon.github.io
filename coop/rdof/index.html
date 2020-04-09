@@ -146,7 +146,8 @@
               const stateAbbr = clientData.stateAbbr;
               const rusNumber = clientData.rusNumber;
               const blockMetersAttr = `${rusNumber}_m`;
-              const blockGroundPctAttr = `${rusNumber}_pct`;
+              const blockGroupPctAttr = `${rusNumber}_pct`;
+              const blockGroupMetersAttr = `${rusNumber}_m`;
               const coopCode = clientData.coopCode;
               const zoom = clientData.zoom;
               const center = clientData.center; // leave as an array  9//
@@ -183,7 +184,7 @@
 
               const blockGroupFillDefault = [
                 'case',
-                ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                 blockGroup2Fill,
                 blockGroupFill
               ];
@@ -215,7 +216,7 @@
                     url: blockGroupsUrl
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', blockGroundPctAttr, 0],
+                  filter: ['>', blockGroupMetersAttr, 0],
                   paint: {
                     'fill-color': blockGroupFillDefault,
                     'fill-opacity': 0.25
@@ -224,6 +225,12 @@
                     visibility: 'visible'
                   }
                 });
+
+                //*
+                map.on('click', 'blockGroups', event => {
+                  console.log(event.features[0].properties);
+                });
+                //*/
 
                 // block group line layer
 
@@ -235,11 +242,11 @@
                     url: blockGroupsUrl
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', blockGroundPctAttr, 0],
+                  filter: ['>', blockGroupMetersAttr, 0],
                   paint: {
                     'line-color': [
                       'case',
-                      ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                      ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                       blockGroup2Fill,
                       blockGroupFill
                     ],
@@ -270,6 +277,12 @@
                     visibility: 'visible'
                   }
                 });
+
+                //*
+                map.on('click', 'blocks', event => {
+                  console.log(event.features[0].properties);
+                });
+                //*/
 
                 // blocks text layer
 
@@ -331,11 +344,11 @@
                   }
                 });
 
-                /*
-            map.on('click', 'meters', event => {
-              console.log(event.features[0].properties);
-            });
-            //*/
+                //*
+                map.on('click', 'meters', event => {
+                  console.log(event.features[0].properties);
+                });
+                //*/
               });
 
               let listOfVisibleSubstations = [];
@@ -376,11 +389,11 @@
                       }
                     });
 
-                    /*
-                map.on('click', 'substations', event => {
-                  console.log(event.features[0].properties);
-                });
-                //*/
+                    //*
+                    map.on('click', 'substations', event => {
+                      console.log(event.features[0].properties);
+                    });
+                    //*/
 
                     map.on('click', 'substations', event => {
                       if (
@@ -466,7 +479,7 @@
 
                         const currentFillExpression = [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupFill
                         ];
@@ -493,19 +506,19 @@
                         dataForCSV = [];
                         map.setPaintProperty('blockGroups', 'fill-color', [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupFill
                         ]);
                         map.setPaintProperty('blockGroupsLines', 'line-color', [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupFill
                         ]);
                         map.setPaintProperty('blockGroupsText', 'text-color', [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupBorder
                         ]);
@@ -767,11 +780,11 @@
                       id: 'blockGroupsText',
                       type: 'symbol',
                       source: 'blockGroupsText',
-                      filter: ['>', blockGroundPctAttr, 0],
+                      filter: ['>', blockGroupMetersAttr, 0],
                       paint: {
                         'text-color': [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupBorder
                         ]
