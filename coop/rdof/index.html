@@ -163,6 +163,8 @@
         'aqua'
       ];
 
+      const createDataContent = clients => {};
+
       const showHideSubstations = () => {
         console.log('showhide');
         console.log(allSubstations);
@@ -184,6 +186,7 @@
           geoidFilters = [];
 
           allSubstations.features.forEach(feature => {
+            listOfVisibleSubstations.push(feature.properties.cn_substat);
             // create the filter
             substationIconExpression.push([
               '==',
