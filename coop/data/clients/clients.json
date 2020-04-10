@@ -111,9 +111,9 @@
     "coopCode": "REC",
     "stateAbbr": "va",
     "rusNumber": "va054",
-    "zoom": 8.5,
+    "zoom": 9,
     "center": [-77.8615, 38.2503],
-    "minZoom": 8.5,
+    "minZoom": 9,
     "maxZoom": 15
   },
   {
