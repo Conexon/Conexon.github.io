@@ -138,7 +138,8 @@
       let stateAbbr = '';
       let rusNumber = '';
       let blockMetersAttr = '';
-      let blockGroundPctAttr = '';
+      let blockGroupPctAttr = '';
+      let blockGroupMetersAttr = '';
       let coopCode = '';
       let zoom = 9;
       let center; // leave as an array  9//
@@ -227,7 +228,7 @@
 
           const currentFillExpression = [
             'case',
-            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
             blockGroup2Fill,
             blockGroupFill,
           ];
@@ -256,19 +257,19 @@
           substationIconExpression = [];
           map.setPaintProperty('blockGroups', 'fill-color', [
             'case',
-            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
             blockGroup2Fill,
             blockGroupFill,
           ]);
           map.setPaintProperty('blockGroupsLines', 'line-color', [
             'case',
-            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
             blockGroup2Fill,
             blockGroupFill,
           ]);
           map.setPaintProperty('blockGroupsText', 'text-color', [
             'case',
-            ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+            ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
             blockGroup2Fill,
             blockGroupBorder,
           ]);
@@ -357,7 +358,7 @@
 
                         const currentFillExpression = [
                           'case',
-                          ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
                           blockGroup2Fill,
                           blockGroupFill
                         ];
@@ -418,7 +419,7 @@
               stateAbbr = clientData.stateAbbr;
               rusNumber = clientData.rusNumber;
               blockMetersAttr = `${rusNumber}_m`;
-              blockGroundPctAttr = `${rusNumber}_pct`;
+              blockGroupPctAttr = `${rusNumber}_pct`;
               coopCode = clientData.coopCode;
               zoom = clientData.zoom;
               center = clientData.center; // leave as an array  9//
@@ -446,6 +447,8 @@
               map.setMinZoom(minZoom);
               map.setMaxZoom(maxZoom);
               map.setCenter(center);
+              map.setBearing(0);
+              map.setPitch(0);
 
               // block group layer
 
@@ -458,7 +461,7 @@
                     url: blockGroupsUrl,
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', blockGroupMetersAttr, 0],
+                  filter: ['>', blockGroupPctAttr, 0],
                   paint: {
                     'fill-color': blockGroupFillDefault,
                     'fill-opacity': 0.25,
@@ -484,7 +487,7 @@
                     url: blockGroupsUrl,
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', blockGroupMetersAttr, 0],
+                  filter: ['>', blockGroupPctAttr, 0],
                   paint: {
                     'line-color': [
                       'case',
