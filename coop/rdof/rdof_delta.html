@@ -180,9 +180,6 @@
           }
         });
 
-
-
-
         // blocks layer
 
         map.addLayer({
@@ -304,7 +301,7 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 50],
+              filter: ['>', blockGroundPctAttr, 0],
               paint: {
                 'text-color': blockGroupBorder
               },
