@@ -250,6 +250,214 @@
             'icon-image',
             substationIconExpression
           );
+
+          let dataContainer = document.getElementById('data');
+
+          console.log('visible substations', listOfVisibleSubstations);
+          console.log('all substations', allSubstations);
+          if (listOfVisibleSubstations.length > 0) {
+            dataContainer.innerHTML = '';
+            let countContainer = document.createElement('div');
+            let countContainerClasses = [
+              'p-3',
+              'rounded-sm',
+              'mb-8',
+              'bg-blue-100',
+              'font-semibold',
+              'text-blue-700',
+              'border-blue-600',
+              'border-l-4',
+            ];
+            countContainer.classList.add(...countContainerClasses);
+            const countContainerHTML = `<span class="block">${
+              listOfVisibleSubstations.length
+            } substation${
+              listOfVisibleSubstations.length === 1 ? '' : 's'
+            } selected.</span>`;
+            countContainer.innerHTML = countContainerHTML;
+            const csvLink = document.createElement('button');
+            csvLinkClasses = [
+              'inline-block',
+              'underline',
+              'mt-8',
+              'mr-8',
+              'text-xs',
+              'font-semibold',
+            ];
+            csvLink.classList.add(...csvLinkClasses);
+            csvLink.textContent = 'Download CSV';
+            csvLink.onclick = function (e) {
+              const blobData = Papa.unparse(dataForCSV, {
+                header: true,
+              });
+              try {
+                saveAs(
+                  new Blob([blobData], {
+                    type: 'text/csv;charset=utf-16',
+                  }),
+                  'file.csv'
+                );
+              } catch (e) {
+                window.open(
+                  'data:text/csv;charset=utf-16,' +
+                    encodeURIComponent(blobData),
+                  '_blank',
+                  ''
+                );
+              }
+            };
+            countContainer.appendChild(csvLink);
+
+            // clear button
+            const clearLink = document.createElement('button');
+            clearLinkClasses = [
+              'inline-block',
+              'underline',
+              'mt-8',
+              'text-xs',
+              'font-semibold',
+            ];
+            clearLink.classList.add(...clearLinkClasses);
+            clearLink.textContent = 'Clear all substations';
+            clearLink.onclick = function (e) {
+              console.log('clear em');
+              listOfVisibleSubstations = [];
+              dataForCSV = [];
+              geoidFilters = [];
+              substationIconExpression = [];
+              allSubstationHighlighted = false;
+              dataContainer.innerHTML =
+                '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
+              map.setPaintProperty('blockGroups', 'fill-color', [
+                'case',
+                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+                blockGroup2Fill,
+                blockGroupFill,
+              ]);
+              map.setPaintProperty('blockGroupsLines', 'line-color', [
+                'case',
+                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+                blockGroup2Fill,
+                blockGroupFill,
+              ]);
+              map.setPaintProperty('blockGroupsText', 'text-color', [
+                'case',
+                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+                blockGroup2Fill,
+                blockGroupBorder,
+              ]);
+              map.setLayoutProperty(
+                'substations',
+                'icon-image',
+                'black-square-15'
+              );
+            };
+            countContainer.appendChild(clearLink);
+            dataContainer.appendChild(countContainer);
+            let myData = [
+              {
+                label: '10 year reserve price',
+                data: [
+                  { label: 'Total', count: 0 },
+                  { label: 'At 50% meter coverage', count: 0 },
+                ],
+              },
+              {
+                label: 'FCC locations',
+                data: [{ label: 'Total', count: 0 }],
+              },
+              {
+                label: 'Number of block groups',
+                data: [
+                  { label: 'Total', count: 0 },
+                  { label: 'At 50% meter coverage', count: 0 },
+                ],
+              },
+              {
+                label: 'Meter data',
+                data: [
+                  { label: 'Total', count: 0 },
+                  { label: 'In RDOF blocks', count: 0 },
+                  { label: 'With cable', count: 0 },
+                  { label: 'With fiber', count: 0 },
+                  { label: 'With TelCo', count: 0 },
+                ],
+              },
+            ];
+
+            listOfVisibleSubstations.forEach((substation) => {
+              allSubstations.features.forEach((feature) => {
+                if (feature.properties.cn_substat === substation) {
+                  myData[3].data[0].count += feature.properties.meters;
+                  myData[3].data[1].count += feature.properties.meters_rdof;
+                  myData[3].data[2].count += feature.properties.meters_cable;
+                  myData[3].data[3].count += feature.properties.meters_fiber;
+                  myData[3].data[4].count += feature.properties.meters_telco;
+                  myData[0].data[0].count = feature.properties.sub_amt_any
+                    ? myData[0].data[0].count + feature.properties.sub_amt_any
+                    : myData[0].data[0].count;
+                  myData[0].data[1].count = feature.properties.sub_amt_50
+                    ? myData[0].data[1].count + feature.properties.sub_amt_50
+                    : myData[0].data[1].count;
+                  myData[2].data[0].count = feature.properties.sub_bg_cnt_any
+                    ? myData[2].data[0].count +
+                      feature.properties.sub_bg_cnt_any
+                    : myData[2].data[0].count;
+                  myData[2].data[1].count = feature.properties.sub_bg_cnt_50
+                    ? myData[2].data[1].count + feature.properties.sub_bg_cnt_50
+                    : myData[2].data[1].count;
+                  myData[1].data[0].count = feature.properties.sub_bg_locs_any
+                    ? myData[1].data[0].count +
+                      feature.properties.sub_bg_locs_any
+                    : myData[1].data[0].count;
+                }
+              });
+            });
+
+            myData.forEach((metricGroup, i) => {
+              let heading = document.createElement('h1');
+              headingClasses = ['font-semibold', 'text-2xl', 'leading-none'];
+              if (i !== 0) headingClasses.push('mt-16');
+              heading.classList.add(...headingClasses);
+              heading.innerHTML = metricGroup.label;
+              dataContainer.appendChild(heading);
+
+              let dataList = document.createElement('dl');
+              let dataListClasses = ['my-4'];
+              dataList.classList.add(...dataListClasses);
+              metricGroup.data.forEach((metric, j) => {
+                let dt = document.createElement('dt');
+                let dd = document.createElement('dd');
+                dt.innerHTML = metric.label;
+
+                let value =
+                  i === 0
+                    ? metric.count.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })
+                    : metric.count;
+                dd.innerHTML = value;
+                const dtClasses = [
+                  'text-sm',
+                  'font-medium',
+                  'text-gray-700',
+                  'truncate',
+                  'mt-2',
+                ];
+                const ddClasses = ['text-xl', 'font-semibold', 'text-gray-900'];
+                dt.classList.add(...dtClasses);
+                dd.classList.add(...ddClasses);
+
+                dataList.appendChild(dt);
+                dataList.appendChild(dd);
+                dataContainer.appendChild(dataList);
+              });
+            });
+          } else {
+            dataContainer.innerHTML =
+              '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
+          }
         } else {
           listOfVisibleSubstations = [];
           dataForCSV = [];
@@ -275,111 +483,6 @@
           ]);
           map.setLayoutProperty('substations', 'icon-image', 'black-square-15');
         }
-        /* if (
-                        listOfVisibleSubstations.includes(
-                          event.features[0].properties.cn_substat
-                        )
-                      ) {
-                        listOfVisibleSubstations.splice(
-                          listOfVisibleSubstations.indexOf(
-                            event.features[0].properties.cn_substat
-                          ),
-                          1
-                        );
-                      } else {
-                        listOfVisibleSubstations.push(
-                          event.features[0].properties.cn_substat
-                        );
-                      }
-
-                      if (listOfVisibleSubstations.length > 0) {
-                        let substationIconExpression = [];
-                        dataForCSV = [];
-                        dataForCSV.push([
-                          'Substation id',
-                          'Substation name',
-                          'GeoId',
-                          'FCC locations',
-                          'Percent meters',
-                          'Amount',
-                          'Meters'
-                        ]);
-                        substationIconExpression.push('case');
-                        let geoidFilters = [];
-                        listOfVisibleSubstations.forEach(substation => {
-                          // get the geoid(s)
-
-                          data.features.forEach(feature => {
-                            if (feature.properties.cn_substat === substation) {
-                              if (feature.properties.sub_geoid_any) {
-                                // set filters based on the keys
-                                Object.keys(
-                                  feature.properties.sub_geoid_any
-                                ).forEach((key, index) => {
-                                  geoidFilters.push([
-                                    '==',
-                                    ['get', 'geoid'],
-                                    key
-                                  ]);
-                                  geoidFilters.push('red');
-                                });
-
-                                // build the CSV content
-                                const geoidKeys = Object.keys(
-                                  feature.properties.sub_geoid_any
-                                );
-                                Object.keys(
-                                  feature.properties.sub_geoid_any
-                                ).forEach((key, index) => {
-                                  // get the values
-                                  const values = Object.values(
-                                    feature.properties.sub_geoid_any[key]
-                                  );
-                                  dataForCSV.push([
-                                    feature.properties.cn_substat,
-                                    feature.properties.subname,
-                                    key,
-                                    ...values
-                                  ]);
-                                });
-                              }
-                            }
-                          });
-
-                          // create the filter
-                          substationIconExpression.push([
-                            '==',
-                            ['get', 'cn_substat'],
-                            substation
-                          ]);
-                          substationIconExpression.push('red-square-15');
-                        });
-                        substationIconExpression.push('black-square-15');
-
-                        const currentFillExpression = [
-                          'case',
-                          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
-                          blockGroup2Fill,
-                          blockGroupFill
-                        ];
-
-                        currentFillExpression.splice(1, 0, ...geoidFilters);
-
-                        map.setPaintProperty('blockGroups', 'fill-color', [
-                          ...currentFillExpression
-                        ]);
-                        map.setPaintProperty('blockGroupsLines', 'line-color', [
-                          ...currentFillExpression
-                        ]);
-                        map.setPaintProperty('blockGroupsText', 'text-color', [
-                          ...currentFillExpression
-                        ]);
-
-                        map.setLayoutProperty(
-                          'substations',
-                          'icon-image',
-                          substationIconExpression
-                        );*/
       };
 
       var urlParams = new URLSearchParams(window.location.search);
