@@ -160,6 +160,24 @@
     "center": [-88.9151, 40.3452],
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CADVALLEY",
+    "stateAbbr": "ok",
+    "rusNumber": "ok029",
+    "zoom": 9,
+    "center": [-96.4039, 35.2974],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "OEC",
+    "stateAbbr": "ok",
+    "rusNumber": "ok010",
+    "zoom": 9,
+    "center": [-97.5382, 35.103],
+    "minZoom": 9,
+    "maxZoom": 15
   }
 
 
