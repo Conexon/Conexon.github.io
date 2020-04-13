@@ -178,6 +178,15 @@
     "center": [-97.5382, 35.103],
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "SACOSAGE",
+    "stateAbbr": "mo",
+    "rusNumber": "mo055",
+    "zoom": 9,
+    "center": [-93.9457, 37.8552],
+    "minZoom": 9,
+    "maxZoom": 15
   }
 
 
