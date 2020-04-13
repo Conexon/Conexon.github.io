@@ -84,18 +84,31 @@
       const blockGroundPctAttr = `${rusNumber}_pct`;
       const coopCode = 'CADVALLEY';
       const zoom = 9;
-      const center = [-96.544, 35.2996]; // leave as an array
+      const center = [-96.4039, 35.2974]; // leave as an array  /
       const minZoom = 9;
       const maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
+      const blockGroup2Fill = '#0000FF';
+      const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
       /**************************
         end of modifying values
       **************************/
+
+      const colors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'black',
+        'aqua'
+      ];
 
       // tilesets
       const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
@@ -122,7 +135,26 @@
         center: center
       });
 
+      //old way
       // block group layer
+      // map.on('load', function() {
+      //   map.addLayer({
+      //     id: 'blockGroups',
+      //     type: 'fill',
+      //     source: {
+      //       type: 'vector',
+      //       url: blockGroupsUrl
+      //     },
+      //     'source-layer': blockGroupsSourceLayer,
+      //     filter: ['>', blockGroundPctAttr, 50],
+      //     paint: {
+      //       'fill-color': blockGroupFill,
+      //       'fill-opacity': 0.4
+      //     },
+      //     layout: {
+      //       visibility: 'visible'
+      //     }
+      //   });
 
       map.on('load', function() {
         map.addLayer({
@@ -133,15 +165,21 @@
             url: blockGroupsUrl
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
+          filter: ['>', blockGroundPctAttr, 0],
           paint: {
-            'fill-color': blockGroupFill,
+            'fill-color': [
+              'case',
+              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill
+            ],
             'fill-opacity': 0.4
           },
           layout: {
             visibility: 'visible'
           }
         });
+
 
         // blocks layer
 
@@ -153,10 +191,16 @@
             url: blocksUrl
           },
           'source-layer': blocksSourceLayer,
-          filter: ['>', blockMetersAttr, 0],
+          filter: ['>=', blockMetersAttr, 0],
           paint: {
             'fill-color': blockFill,
-            'fill-opacity': 0.9,
+            'fill-opacity': [
+              'case',
+                ['==', ['to-number', ['get', blockMetersAttr]], 0],
+                0.7,
+                0.9
+                ],            
+            // 'fill-opacity': 0.9,
             'fill-outline-color': blockBorder
           },
           layout: {
@@ -264,7 +308,7 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 50],
+              filter: ['>', blockGroundPctAttr, 0],
               paint: {
                 'text-color': blockGroupBorder
               },
