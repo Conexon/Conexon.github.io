@@ -142,5 +142,25 @@
     "center": [-89.4589, 30.5975],
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CONSOLOH",
+    "stateAbbr": "oh",
+    "rusNumber": "oh059",
+    "zoom": 9,
+    "center": [-82.9115, 40.4797],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CORNBELT",
+    "stateAbbr": "il",
+    "rusNumber": "il038",
+    "zoom": 9,
+    "center": [-88.9151, 40.3452],
+    "minZoom": 9,
+    "maxZoom": 15
   }
+
+
 ]
