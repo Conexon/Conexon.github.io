@@ -251,10 +251,42 @@
             substationIconExpression
           );
 
+          let meterFilters = [];
+          meterFilters.push('any');
+          listOfVisibleSubstations.forEach((substation) => {
+            meterFilters.push(['==', 'cn_substat', substation]);
+          });
+
+          map.setFilter('meters', [
+            'all',
+            ['==', 'coop_code', coopCode],
+            meterFilters,
+          ]);
+          map.setLayoutProperty('meters', 'visibility', 'visible');
+          map.once('idle', () => {
+            const metersShown = map.queryRenderedFeatures({
+              layers: ['meters'],
+            });
+            console.log(metersShown);
+            // get unique feeders
+            let feeders = [];
+            let filters = ['match', ['get', 'cn_feeder']];
+            let i = 0;
+            metersShown.forEach((meter) => {
+              if (!feeders.includes(meter.properties.cn_feeder)) {
+                feeders.push(meter.properties.cn_feeder);
+                filters.push(meter.properties.cn_feeder);
+                filters.push(meterColors[i % meterColors.length]);
+                i++;
+              }
+            });
+            filters.push('black'); // the default color
+
+            map.setPaintProperty('meters', 'circle-color', filters);
+          });
+
           let dataContainer = document.getElementById('data');
 
-          console.log('visible substations', listOfVisibleSubstations);
-          console.log('all substations', allSubstations);
           if (listOfVisibleSubstations.length > 0) {
             dataContainer.innerHTML = '';
             let countContainer = document.createElement('div');
@@ -328,6 +360,8 @@
               allSubstationHighlighted = false;
               dataContainer.innerHTML =
                 '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
+              map.setLayoutProperty('meters', 'visibility', 'none');
+              map.setFilter('meters', null);
               map.setPaintProperty('blockGroups', 'fill-color', [
                 'case',
                 ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
@@ -459,6 +493,7 @@
               '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
           }
         } else {
+          console.log('did i make it here?');
           listOfVisibleSubstations = [];
           dataForCSV = [];
           geoidFilters = [];
