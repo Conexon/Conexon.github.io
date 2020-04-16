@@ -90,9 +90,9 @@
             </div>
           </div>
         </div>
-        <div class="col-span-4 p-8 bg-gray-100" id="dataContainer">
+        <div class="col-span-4 px-8 bg-gray-100" id="dataContainer">
           <div class="min-h-screen max-h-screen overflow-auto" id="data">
-            <p class="text-lg font-semibold">
+            <p class="text-lg font-semibold mt-8">
               The industry’s only mapping tool that displays the exact total of
               federal funding available for a co-op, with an additional in-depth
               view that calculates eligible dollars at the census block,
@@ -119,6 +119,16 @@
                 profitable buildout
               </li>
             </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>
           </div>
         </div>
       </div>
@@ -308,7 +318,7 @@
             let countContainerClasses = [
               'p-3',
               'rounded-sm',
-              'mb-8',
+              'my-8',
               'bg-blue-100',
               'font-semibold',
               'text-blue-700',
@@ -373,8 +383,43 @@
               geoidFilters = [];
               substationIconExpression = [];
               allSubstationHighlighted = false;
-              dataContainer.innerHTML =
-                '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
+              dataContainer.innerHTML = `<p class="text-lg font-semibol mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout.
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
               map.setLayoutProperty('meters', 'visibility', 'none');
               map.setFilter('meters', null);
               map.setPaintProperty('blockGroups', 'fill-color', [
@@ -504,8 +549,43 @@
               });
             });
           } else {
-            dataContainer.innerHTML =
-              '<h1 class="text-2xl leading-none"> Click 1 or more substations to view meters and data or <button class="text-blue-700 underline" onclick="showHideSubstations()"> highlight all substations</button >.</h1>';
+            dataContainer.innerHTML = `<p class="text-lg font-semibold mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout.
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
           }
         } else {
           console.log('did i make it here?');
@@ -539,7 +619,7 @@
 
       if (!urlParams.get('coopCode')) {
         let mapContainer = document.getElementById('map');
-        let dataContainer = document.getElementById('dataContainer');
+        let dataContainer = document.getElementById('data');
         let menuContainer = document.getElementById('menu');
 
         mapContainer.innerHTML =
@@ -560,7 +640,7 @@
 
             if (!clientData) {
               let mapContainer = document.getElementById('map');
-              let dataContainer = document.getElementById('dataContainer');
+              let dataContainer = document.getElementById('data');
               let menuContainer = document.getElementById('menu');
 
               mapContainer.innerHTML = `<div class="m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
@@ -982,9 +1062,7 @@
                           );
                         }
 
-                        let dataContainer = document.getElementById(
-                          'dataContainer'
-                        );
+                        let dataContainer = document.getElementById('data');
 
                         if (listOfVisibleSubstations.length > 0) {
                           dataContainer.innerHTML = '';
@@ -992,7 +1070,7 @@
                           let countContainerClasses = [
                             'p-3',
                             'rounded-sm',
-                            'mb-8',
+                            'my-8',
                             'bg-blue-100',
                             'font-semibold',
                             'text-blue-700',
@@ -1002,17 +1080,18 @@
                           countContainer.classList.add(
                             ...countContainerClasses
                           );
-                          const countContainerHTML = `${
+                          const countContainerHTML = `<span class="block">${
                             listOfVisibleSubstations.length
                           } substation${
                             listOfVisibleSubstations.length === 1 ? '' : 's'
-                          } selected.`;
+                          } selected.</span>`;
                           countContainer.innerHTML = countContainerHTML;
                           const csvLink = document.createElement('button');
                           csvLinkClasses = [
-                            'block',
+                            'inline-block',
                             'underline',
                             'mt-8',
+                            'mr-8',
                             'text-xs',
                             'font-semibold',
                           ];
@@ -1038,7 +1117,113 @@
                               );
                             }
                           };
+                          // clear button
+                          const clearLink = document.createElement('button');
+                          clearLinkClasses = [
+                            'inline-block',
+                            'underline',
+                            'mt-8',
+                            'text-xs',
+                            'font-semibold',
+                          ];
+                          clearLink.classList.add(...clearLinkClasses);
+                          clearLink.textContent = 'Clear all substations';
+                          clearLink.onclick = function (e) {
+                            console.log('clear em');
+                            listOfVisibleSubstations = [];
+                            dataForCSV = [];
+                            geoidFilters = [];
+                            substationIconExpression = [];
+                            allSubstationHighlighted = false;
+                            dataContainer.innerHTML = `<p class="text-lg font-semibold mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout.
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
+                            map.setLayoutProperty(
+                              'meters',
+                              'visibility',
+                              'none'
+                            );
+                            map.setFilter('meters', null);
+                            map.setPaintProperty('blockGroups', 'fill-color', [
+                              'case',
+                              [
+                                '<',
+                                ['to-number', ['get', blockGroupPctAttr]],
+                                50,
+                              ],
+                              blockGroup2Fill,
+                              blockGroupFill,
+                            ]);
+                            map.setPaintProperty(
+                              'blockGroupsLines',
+                              'line-color',
+                              [
+                                'case',
+                                [
+                                  '<',
+                                  ['to-number', ['get', blockGroupPctAttr]],
+                                  50,
+                                ],
+                                blockGroup2Fill,
+                                blockGroupFill,
+                              ]
+                            );
+                            map.setPaintProperty(
+                              'blockGroupsText',
+                              'text-color',
+                              [
+                                'case',
+                                [
+                                  '<',
+                                  ['to-number', ['get', blockGroupPctAttr]],
+                                  50,
+                                ],
+                                blockGroup2Fill,
+                                blockGroupBorder,
+                              ]
+                            );
+                            map.setLayoutProperty(
+                              'substations',
+                              'icon-image',
+                              'black-square-15'
+                            );
+                          };
                           countContainer.appendChild(csvLink);
+                          countContainer.appendChild(clearLink);
                           dataContainer.appendChild(countContainer);
                           let myData = [
                             {
@@ -1164,11 +1349,7 @@
                             });
                           });
                         } else {
-                          dataContainer.innerHTML = `<div
-            class="min-h-screen max-h-screen overflow-auto"
-            id="data"
-          >
-            <p class="text-lg font-semibold">
+                          dataContainer.innerHTML = `<p class="text-lg font-semibold mt-8">
               The industry’s only mapping tool that displays the exact total of
               federal funding available for a co-op, with an additional in-depth
               view that calculates eligible dollars at the census block,
@@ -1194,8 +1375,16 @@
                 Leverage the data as a roadmap for the most logical and
                 profitable buildout.
               </li>
-            </ul>
-          </div>`;
+            </ul><p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
                         }
                       });
                     });
