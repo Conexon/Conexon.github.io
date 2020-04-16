@@ -194,400 +194,409 @@
       const showHideSubstations = () => {
         console.log('showhide');
         console.log(allSubstations);
-        allSubstationHighlighted === false
+        /*allSubstationHighlighted === false
           ? (allSubstationHighlighted = true)
-          : (allSubstationHighlighted = false);
-        if (allSubstationHighlighted) {
-          dataForCSV = [];
-          dataForCSV.push([
-            'Substation id',
-            'Substation name',
-            'GeoId',
-            'FCC locations',
-            'Percent meters',
-            'Amount',
-            'Meters',
+          : (allSubstationHighlighted = false);*/
+        //if (allSubstationHighlighted) {
+        dataForCSV = [];
+        listOfVisibleSubstations = [];
+        substationIconExpression = [];
+        dataForCSV.push([
+          'Substation id',
+          'Substation name',
+          'GeoId',
+          'FCC locations',
+          'Percent meters',
+          'Amount',
+          'Meters',
+        ]);
+        substationIconExpression.push('case');
+        geoidFilters = [];
+
+        allSubstations.features.forEach((feature) => {
+          listOfVisibleSubstations.push(feature.properties.cn_substat);
+          // create the filter
+          substationIconExpression.push([
+            '==',
+            ['get', 'cn_substat'],
+            feature.properties.cn_substat,
           ]);
-          substationIconExpression.push('case');
-          geoidFilters = [];
+          substationIconExpression.push('red-square-15');
 
-          allSubstations.features.forEach((feature) => {
-            listOfVisibleSubstations.push(feature.properties.cn_substat);
-            // create the filter
-            substationIconExpression.push([
-              '==',
-              ['get', 'cn_substat'],
-              feature.properties.cn_substat,
-            ]);
-            substationIconExpression.push('red-square-15');
+          if (feature.properties.sub_geoid_any) {
+            // set filters based on the keys
+            Object.keys(feature.properties.sub_geoid_any).forEach(
+              (key, index) => {
+                geoidFilters.push(['==', ['get', 'geoid'], key]);
+                geoidFilters.push('red');
+              }
+            );
 
-            if (feature.properties.sub_geoid_any) {
-              // set filters based on the keys
-              Object.keys(feature.properties.sub_geoid_any).forEach(
-                (key, index) => {
-                  geoidFilters.push(['==', ['get', 'geoid'], key]);
-                  geoidFilters.push('red');
-                }
-              );
+            // build the CSV content
+            const geoidKeys = Object.keys(feature.properties.sub_geoid_any);
+            Object.keys(feature.properties.sub_geoid_any).forEach(
+              (key, index) => {
+                // get the values
+                const values = Object.values(
+                  feature.properties.sub_geoid_any[key]
+                );
+                dataForCSV.push([
+                  feature.properties.cn_substat,
+                  feature.properties.subname,
+                  key,
+                  ...values,
+                ]);
+              }
+            );
+          }
+        });
+        console.log('csv', dataForCSV);
+        substationIconExpression.push('black-square-15');
+        console.log('icon', substationIconExpression);
 
-              // build the CSV content
-              const geoidKeys = Object.keys(feature.properties.sub_geoid_any);
-              Object.keys(feature.properties.sub_geoid_any).forEach(
-                (key, index) => {
-                  // get the values
-                  const values = Object.values(
-                    feature.properties.sub_geoid_any[key]
-                  );
-                  dataForCSV.push([
-                    feature.properties.cn_substat,
-                    feature.properties.subname,
-                    key,
-                    ...values,
-                  ]);
-                }
-              );
+        const currentFillExpression = [
+          'case',
+          ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+          blockGroup2Fill,
+          blockGroupFill,
+        ];
+
+        currentFillExpression.splice(1, 0, ...geoidFilters);
+
+        map.setPaintProperty('blockGroups', 'fill-color', [
+          ...currentFillExpression,
+        ]);
+        map.setPaintProperty('blockGroupsLines', 'line-color', [
+          ...currentFillExpression,
+        ]);
+        map.setPaintProperty('blockGroupsText', 'text-color', [
+          ...currentFillExpression,
+        ]);
+
+        map.setLayoutProperty(
+          'substations',
+          'icon-image',
+          substationIconExpression
+        );
+
+        let meterFilters = [];
+        meterFilters.push('any');
+        listOfVisibleSubstations.forEach((substation) => {
+          meterFilters.push(['==', 'cn_substat', substation]);
+        });
+
+        map.setFilter('meters', [
+          'all',
+          ['==', 'coop_code', coopCode],
+          meterFilters,
+        ]);
+        map.setLayoutProperty('meters', 'visibility', 'visible');
+        map.once('idle', () => {
+          const metersShown = map.queryRenderedFeatures({
+            layers: ['meters'],
+          });
+          console.log(metersShown);
+          // get unique feeders
+          let feeders = [];
+          let filters = ['match', ['get', 'cn_feeder']];
+          let i = 0;
+          metersShown.forEach((meter) => {
+            if (!feeders.includes(meter.properties.cn_feeder)) {
+              feeders.push(meter.properties.cn_feeder);
+              filters.push(meter.properties.cn_feeder);
+              filters.push(meterColors[i % meterColors.length]);
+              i++;
             }
           });
-          console.log('csv', dataForCSV);
-          substationIconExpression.push('black-square-15');
+          filters.push('black'); // the default color
 
-          const currentFillExpression = [
-            'case',
-            ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
-            blockGroup2Fill,
-            blockGroupFill,
+          map.setPaintProperty('meters', 'circle-color', filters);
+        });
+
+        let dataContainer = document.getElementById('data');
+
+        if (listOfVisibleSubstations.length > 0) {
+          dataContainer.innerHTML = '';
+          let countContainer = document.createElement('div');
+          let countContainerClasses = [
+            'p-3',
+            'rounded-sm',
+            'my-8',
+            'bg-blue-100',
+            'font-semibold',
+            'text-blue-700',
+            'border-blue-600',
+            'border-l-4',
+          ];
+          countContainer.classList.add(...countContainerClasses);
+          const countContainerHTML = `<span class="block mb-4">${
+            listOfVisibleSubstations.length
+          } substation${
+            listOfVisibleSubstations.length === 1 ? '' : 's'
+          } selected.</span>`;
+          countContainer.innerHTML = countContainerHTML;
+          const csvLink = document.createElement('button');
+          csvLinkClasses = [
+            'block',
+            'underline',
+            //'mt-8',
+            'mb-1',
+            'text-xs',
+            'font-semibold',
+          ];
+          csvLink.classList.add(...csvLinkClasses);
+          csvLink.textContent = 'Download CSV';
+          csvLink.onclick = function (e) {
+            const blobData = Papa.unparse(dataForCSV, {
+              header: true,
+            });
+            try {
+              saveAs(
+                new Blob([blobData], {
+                  type: 'text/csv;charset=utf-16',
+                }),
+                'file.csv'
+              );
+            } catch (e) {
+              window.open(
+                'data:text/csv;charset=utf-16,' + encodeURIComponent(blobData),
+                '_blank',
+                ''
+              );
+            }
+          };
+          countContainer.appendChild(csvLink);
+
+          const highlightLink = document.createElement('button');
+          highlightLink.classList.add(...csvLinkClasses);
+          highlightLink.textContent = 'Highlight all substations';
+          highlightLink.onclick = (e) => {
+            showHideSubstations();
+          };
+          countContainer.appendChild(highlightLink);
+
+          // clear button
+          const clearLink = document.createElement('button');
+          clearLinkClasses = [
+            'block',
+            'underline',
+            //'mt-8',
+            'mb-1',
+            'text-xs',
+            'font-semibold',
+          ];
+          clearLink.classList.add(...clearLinkClasses);
+          clearLink.textContent = 'Clear all substations';
+          clearLink.onclick = function (e) {
+            console.log('clear em');
+            listOfVisibleSubstations = [];
+            dataForCSV = [];
+            geoidFilters = [];
+            substationIconExpression = [];
+            allSubstationHighlighted = false;
+            dataContainer.innerHTML = `<p class="text-lg font-semibol mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout.
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
+            map.setLayoutProperty('meters', 'visibility', 'none');
+            map.setFilter('meters', null);
+            map.setPaintProperty('blockGroups', 'fill-color', [
+              'case',
+              ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill,
+            ]);
+            map.setPaintProperty('blockGroupsLines', 'line-color', [
+              'case',
+              ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupFill,
+            ]);
+            map.setPaintProperty('blockGroupsText', 'text-color', [
+              'case',
+              ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
+              blockGroup2Fill,
+              blockGroupBorder,
+            ]);
+            map.setLayoutProperty(
+              'substations',
+              'icon-image',
+              'black-square-15'
+            );
+          };
+          countContainer.appendChild(clearLink);
+          dataContainer.appendChild(countContainer);
+          let myData = [
+            {
+              label: '10 year reserve price',
+              data: [
+                { label: 'Total', count: 0 },
+                { label: 'At 50% meter coverage', count: 0 },
+              ],
+            },
+            {
+              label: 'FCC locations',
+              data: [{ label: 'Total', count: 0 }],
+            },
+            {
+              label: 'Number of block groups',
+              data: [
+                { label: 'Total', count: 0 },
+                { label: 'At 50% meter coverage', count: 0 },
+              ],
+            },
+            {
+              label: 'Meter data',
+              data: [
+                { label: 'Total', count: 0 },
+                { label: 'In RDOF blocks', count: 0 },
+                { label: 'With cable', count: 0 },
+                { label: 'With fiber', count: 0 },
+                { label: 'With TelCo', count: 0 },
+              ],
+            },
           ];
 
-          currentFillExpression.splice(1, 0, ...geoidFilters);
-
-          map.setPaintProperty('blockGroups', 'fill-color', [
-            ...currentFillExpression,
-          ]);
-          map.setPaintProperty('blockGroupsLines', 'line-color', [
-            ...currentFillExpression,
-          ]);
-          map.setPaintProperty('blockGroupsText', 'text-color', [
-            ...currentFillExpression,
-          ]);
-
-          map.setLayoutProperty(
-            'substations',
-            'icon-image',
-            substationIconExpression
-          );
-
-          let meterFilters = [];
-          meterFilters.push('any');
           listOfVisibleSubstations.forEach((substation) => {
-            meterFilters.push(['==', 'cn_substat', substation]);
-          });
-
-          map.setFilter('meters', [
-            'all',
-            ['==', 'coop_code', coopCode],
-            meterFilters,
-          ]);
-          map.setLayoutProperty('meters', 'visibility', 'visible');
-          map.once('idle', () => {
-            const metersShown = map.queryRenderedFeatures({
-              layers: ['meters'],
-            });
-            console.log(metersShown);
-            // get unique feeders
-            let feeders = [];
-            let filters = ['match', ['get', 'cn_feeder']];
-            let i = 0;
-            metersShown.forEach((meter) => {
-              if (!feeders.includes(meter.properties.cn_feeder)) {
-                feeders.push(meter.properties.cn_feeder);
-                filters.push(meter.properties.cn_feeder);
-                filters.push(meterColors[i % meterColors.length]);
-                i++;
+            allSubstations.features.forEach((feature) => {
+              if (feature.properties.cn_substat === substation) {
+                myData[3].data[0].count += feature.properties.meters;
+                myData[3].data[1].count += feature.properties.meters_rdof;
+                myData[3].data[2].count += feature.properties.meters_cable;
+                myData[3].data[3].count += feature.properties.meters_fiber;
+                myData[3].data[4].count += feature.properties.meters_telco;
+                myData[0].data[0].count = feature.properties.sub_amt_any
+                  ? myData[0].data[0].count + feature.properties.sub_amt_any
+                  : myData[0].data[0].count;
+                myData[0].data[1].count = feature.properties.sub_amt_50
+                  ? myData[0].data[1].count + feature.properties.sub_amt_50
+                  : myData[0].data[1].count;
+                myData[2].data[0].count = feature.properties.sub_bg_cnt_any
+                  ? myData[2].data[0].count + feature.properties.sub_bg_cnt_any
+                  : myData[2].data[0].count;
+                myData[2].data[1].count = feature.properties.sub_bg_cnt_50
+                  ? myData[2].data[1].count + feature.properties.sub_bg_cnt_50
+                  : myData[2].data[1].count;
+                myData[1].data[0].count = feature.properties.sub_bg_locs_any
+                  ? myData[1].data[0].count + feature.properties.sub_bg_locs_any
+                  : myData[1].data[0].count;
               }
             });
-            filters.push('black'); // the default color
-
-            map.setPaintProperty('meters', 'circle-color', filters);
           });
 
-          let dataContainer = document.getElementById('data');
+          myData.forEach((metricGroup, i) => {
+            let heading = document.createElement('h1');
+            headingClasses = ['font-semibold', 'text-2xl', 'leading-none'];
+            if (i !== 0) headingClasses.push('mt-16');
+            heading.classList.add(...headingClasses);
+            heading.innerHTML = metricGroup.label;
+            dataContainer.appendChild(heading);
 
-          if (listOfVisibleSubstations.length > 0) {
-            dataContainer.innerHTML = '';
-            let countContainer = document.createElement('div');
-            let countContainerClasses = [
-              'p-3',
-              'rounded-sm',
-              'my-8',
-              'bg-blue-100',
-              'font-semibold',
-              'text-blue-700',
-              'border-blue-600',
-              'border-l-4',
-            ];
-            countContainer.classList.add(...countContainerClasses);
-            const countContainerHTML = `<span class="block">${
-              listOfVisibleSubstations.length
-            } substation${
-              listOfVisibleSubstations.length === 1 ? '' : 's'
-            } selected.</span>`;
-            countContainer.innerHTML = countContainerHTML;
-            const csvLink = document.createElement('button');
-            csvLinkClasses = [
-              'inline-block',
-              'underline',
-              'mt-8',
-              'mr-8',
-              'text-xs',
-              'font-semibold',
-            ];
-            csvLink.classList.add(...csvLinkClasses);
-            csvLink.textContent = 'Download CSV';
-            csvLink.onclick = function (e) {
-              const blobData = Papa.unparse(dataForCSV, {
-                header: true,
-              });
-              try {
-                saveAs(
-                  new Blob([blobData], {
-                    type: 'text/csv;charset=utf-16',
-                  }),
-                  'file.csv'
-                );
-              } catch (e) {
-                window.open(
-                  'data:text/csv;charset=utf-16,' +
-                    encodeURIComponent(blobData),
-                  '_blank',
-                  ''
-                );
-              }
-            };
-            countContainer.appendChild(csvLink);
+            let dataList = document.createElement('dl');
+            let dataListClasses = ['my-4'];
+            dataList.classList.add(...dataListClasses);
+            metricGroup.data.forEach((metric, j) => {
+              let dt = document.createElement('dt');
+              let dd = document.createElement('dd');
+              dt.innerHTML = metric.label;
 
-            // clear button
-            const clearLink = document.createElement('button');
-            clearLinkClasses = [
-              'inline-block',
-              'underline',
-              'mt-8',
-              'text-xs',
-              'font-semibold',
-            ];
-            clearLink.classList.add(...clearLinkClasses);
-            clearLink.textContent = 'Clear all substations';
-            clearLink.onclick = function (e) {
-              console.log('clear em');
-              listOfVisibleSubstations = [];
-              dataForCSV = [];
-              geoidFilters = [];
-              substationIconExpression = [];
-              allSubstationHighlighted = false;
-              dataContainer.innerHTML = `<p class="text-lg font-semibol mt-8">
-              The industry’s only mapping tool that displays the exact total of
-              federal funding available for a co-op, with an additional in-depth
-              view that calculates eligible dollars at the census block,
-              substation and feeder level. It provides a discrete picture of
-              each census block, the percentage within a co-op is required to
-              serve, how it matches up to the co-op’s existing infrastructure,
-              and potential dollars.
-            </p>
-            <p class="mt-8 text-gray-800">
-              This unmatched level of detail gives you the information you need
-              to form a financially sound bidding strategy in the upcoming RDOF
-              auction. Co-ops who successfully bid in this auction stand to be
-              awarded as much as 75% to 100% of their total broadband network
-              costs:
-            </p>
-            <ul class="list-disc list-inside mt-8 text-gray-800">
-              <li>
-                Understand where it’s most advantageous to bid and where it’s
-                not;
-              </li>
-              <li>Identify potential partnerships with neighboring co-ops;</li>
-              <li>
-                Leverage the data as a roadmap for the most logical and
-                profitable buildout.
-              </li>
-            </ul>
-            <p class="my-8 text-gray-800">
-              Get started by clicking one or more substations to view RDOF data
-              and meters or
-              <button
-                class="text-blue-700 underline"
-                onclick="showHideSubstations()"
-              >
-                highlight all substations</button
-              >.
-            </p>`;
-              map.setLayoutProperty('meters', 'visibility', 'none');
-              map.setFilter('meters', null);
-              map.setPaintProperty('blockGroups', 'fill-color', [
-                'case',
-                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
-                blockGroup2Fill,
-                blockGroupFill,
-              ]);
-              map.setPaintProperty('blockGroupsLines', 'line-color', [
-                'case',
-                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
-                blockGroup2Fill,
-                blockGroupFill,
-              ]);
-              map.setPaintProperty('blockGroupsText', 'text-color', [
-                'case',
-                ['<', ['to-number', ['get', blockGroupPctAttr]], 50],
-                blockGroup2Fill,
-                blockGroupBorder,
-              ]);
-              map.setLayoutProperty(
-                'substations',
-                'icon-image',
-                'black-square-15'
-              );
-            };
-            countContainer.appendChild(clearLink);
-            dataContainer.appendChild(countContainer);
-            let myData = [
-              {
-                label: '10 year reserve price',
-                data: [
-                  { label: 'Total', count: 0 },
-                  { label: 'At 50% meter coverage', count: 0 },
-                ],
-              },
-              {
-                label: 'FCC locations',
-                data: [{ label: 'Total', count: 0 }],
-              },
-              {
-                label: 'Number of block groups',
-                data: [
-                  { label: 'Total', count: 0 },
-                  { label: 'At 50% meter coverage', count: 0 },
-                ],
-              },
-              {
-                label: 'Meter data',
-                data: [
-                  { label: 'Total', count: 0 },
-                  { label: 'In RDOF blocks', count: 0 },
-                  { label: 'With cable', count: 0 },
-                  { label: 'With fiber', count: 0 },
-                  { label: 'With TelCo', count: 0 },
-                ],
-              },
-            ];
+              let value =
+                i === 0
+                  ? metric.count.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                    })
+                  : metric.count;
+              dd.innerHTML = value;
+              const dtClasses = [
+                'text-sm',
+                'font-medium',
+                'text-gray-700',
+                'truncate',
+                'mt-2',
+              ];
+              const ddClasses = ['text-xl', 'font-semibold', 'text-gray-900'];
+              dt.classList.add(...dtClasses);
+              dd.classList.add(...ddClasses);
 
-            listOfVisibleSubstations.forEach((substation) => {
-              allSubstations.features.forEach((feature) => {
-                if (feature.properties.cn_substat === substation) {
-                  myData[3].data[0].count += feature.properties.meters;
-                  myData[3].data[1].count += feature.properties.meters_rdof;
-                  myData[3].data[2].count += feature.properties.meters_cable;
-                  myData[3].data[3].count += feature.properties.meters_fiber;
-                  myData[3].data[4].count += feature.properties.meters_telco;
-                  myData[0].data[0].count = feature.properties.sub_amt_any
-                    ? myData[0].data[0].count + feature.properties.sub_amt_any
-                    : myData[0].data[0].count;
-                  myData[0].data[1].count = feature.properties.sub_amt_50
-                    ? myData[0].data[1].count + feature.properties.sub_amt_50
-                    : myData[0].data[1].count;
-                  myData[2].data[0].count = feature.properties.sub_bg_cnt_any
-                    ? myData[2].data[0].count +
-                      feature.properties.sub_bg_cnt_any
-                    : myData[2].data[0].count;
-                  myData[2].data[1].count = feature.properties.sub_bg_cnt_50
-                    ? myData[2].data[1].count + feature.properties.sub_bg_cnt_50
-                    : myData[2].data[1].count;
-                  myData[1].data[0].count = feature.properties.sub_bg_locs_any
-                    ? myData[1].data[0].count +
-                      feature.properties.sub_bg_locs_any
-                    : myData[1].data[0].count;
-                }
-              });
+              dataList.appendChild(dt);
+              dataList.appendChild(dd);
+              dataContainer.appendChild(dataList);
             });
-
-            myData.forEach((metricGroup, i) => {
-              let heading = document.createElement('h1');
-              headingClasses = ['font-semibold', 'text-2xl', 'leading-none'];
-              if (i !== 0) headingClasses.push('mt-16');
-              heading.classList.add(...headingClasses);
-              heading.innerHTML = metricGroup.label;
-              dataContainer.appendChild(heading);
-
-              let dataList = document.createElement('dl');
-              let dataListClasses = ['my-4'];
-              dataList.classList.add(...dataListClasses);
-              metricGroup.data.forEach((metric, j) => {
-                let dt = document.createElement('dt');
-                let dd = document.createElement('dd');
-                dt.innerHTML = metric.label;
-
-                let value =
-                  i === 0
-                    ? metric.count.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
-                      })
-                    : metric.count;
-                dd.innerHTML = value;
-                const dtClasses = [
-                  'text-sm',
-                  'font-medium',
-                  'text-gray-700',
-                  'truncate',
-                  'mt-2',
-                ];
-                const ddClasses = ['text-xl', 'font-semibold', 'text-gray-900'];
-                dt.classList.add(...dtClasses);
-                dd.classList.add(...ddClasses);
-
-                dataList.appendChild(dt);
-                dataList.appendChild(dd);
-                dataContainer.appendChild(dataList);
-              });
-            });
-          } else {
-            dataContainer.innerHTML = `<p class="text-lg font-semibold mt-8">
-              The industry’s only mapping tool that displays the exact total of
-              federal funding available for a co-op, with an additional in-depth
-              view that calculates eligible dollars at the census block,
-              substation and feeder level. It provides a discrete picture of
-              each census block, the percentage within a co-op is required to
-              serve, how it matches up to the co-op’s existing infrastructure,
-              and potential dollars.
-            </p>
-            <p class="mt-8 text-gray-800">
-              This unmatched level of detail gives you the information you need
-              to form a financially sound bidding strategy in the upcoming RDOF
-              auction. Co-ops who successfully bid in this auction stand to be
-              awarded as much as 75% to 100% of their total broadband network
-              costs:
-            </p>
-            <ul class="list-disc list-inside mt-8 text-gray-800">
-              <li>
-                Understand where it’s most advantageous to bid and where it’s
-                not;
-              </li>
-              <li>Identify potential partnerships with neighboring co-ops;</li>
-              <li>
-                Leverage the data as a roadmap for the most logical and
-                profitable buildout.
-              </li>
-            </ul>
-            <p class="my-8 text-gray-800">
-              Get started by clicking one or more substations to view RDOF data
-              and meters or
-              <button
-                class="text-blue-700 underline"
-                onclick="showHideSubstations()"
-              >
-                highlight all substations</button
-              >.
-            </p>`;
-          }
+          });
         } else {
+          dataContainer.innerHTML = `<p class="text-lg font-semibold mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout.
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more substations to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="showHideSubstations()"
+              >
+                highlight all substations</button
+              >.
+            </p>`;
+        }
+        /*} else {
           console.log('did i make it here?');
           listOfVisibleSubstations = [];
           dataForCSV = [];
@@ -612,7 +621,7 @@
             blockGroupBorder,
           ]);
           map.setLayoutProperty('substations', 'icon-image', 'black-square-15');
-        }
+        }*/
       };
 
       var urlParams = new URLSearchParams(window.location.search);
@@ -1080,7 +1089,7 @@
                           countContainer.classList.add(
                             ...countContainerClasses
                           );
-                          const countContainerHTML = `<span class="block">${
+                          const countContainerHTML = `<span class="block mb-4">${
                             listOfVisibleSubstations.length
                           } substation${
                             listOfVisibleSubstations.length === 1 ? '' : 's'
@@ -1088,10 +1097,11 @@
                           countContainer.innerHTML = countContainerHTML;
                           const csvLink = document.createElement('button');
                           csvLinkClasses = [
-                            'inline-block',
+                            'block',
                             'underline',
-                            'mt-8',
-                            'mr-8',
+                            //'mt-8',
+                            //'mr-8',
+                            'mb-1',
                             'text-xs',
                             'font-semibold',
                           ];
@@ -1117,13 +1127,27 @@
                               );
                             }
                           };
+                          countContainer.appendChild(csvLink);
+
+                          const highlightLink = document.createElement(
+                            'button'
+                          );
+                          highlightLink.classList.add(...csvLinkClasses);
+                          highlightLink.textContent =
+                            'Highlight all substations';
+                          highlightLink.onclick = (e) => {
+                            showHideSubstations();
+                          };
+                          countContainer.appendChild(highlightLink);
+
                           // clear button
                           const clearLink = document.createElement('button');
                           clearLinkClasses = [
-                            'inline-block',
+                            'block',
                             'underline',
-                            'mt-8',
+                            //'mt-8',
                             'text-xs',
+                            'mb-1',
                             'font-semibold',
                           ];
                           clearLink.classList.add(...clearLinkClasses);
@@ -1222,7 +1246,6 @@
                               'black-square-15'
                             );
                           };
-                          countContainer.appendChild(csvLink);
                           countContainer.appendChild(clearLink);
                           dataContainer.appendChild(countContainer);
                           let myData = [
