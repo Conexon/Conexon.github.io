@@ -662,6 +662,7 @@
               rusNumber = clientData.rusNumber;
               blockMetersAttr = `${rusNumber}_m`;
               blockGroupPctAttr = `${rusNumber}_pct`;
+              blockGroupMetersAttr = `${rusNumber}_m`;
               coopCode = clientData.coopCode;
               zoom = clientData.zoom;
               center = clientData.center; // leave as an array  9//
@@ -1418,6 +1419,11 @@
                     return response.json();
                   })
                   .then((data) => {
+                    console.log(
+                      'fetched data',
+                      blockGroupMetersAttr,
+                      blockGroupPctAttr
+                    );
                     map.addSource('blockGroupsText', {
                       type: 'geojson',
                       data: data,
