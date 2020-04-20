@@ -214,6 +214,15 @@
     "center": [-94.2189, 38.3323], 
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "EMEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms045",
+    "zoom": 8.38,
+    "center": [-89.017, 32.517], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
