@@ -187,6 +187,15 @@
     "center": [-93.9457, 37.8552],
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "TRICNTGA",
+    "stateAbbr": "ga",
+    "rusNumber": "ga094",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
   }
 
 
