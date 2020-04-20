@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/filesaver.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .mapWrapper {
+        height: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #menu {
+        background: white;
+        position: absolute;
+        z-index: 1;
+        top: 1.5em;
+        right: 1.5em;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+      }
+
+      #menu a {
+        font-size: 13px;
+        color: lightgray;
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding: 10px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        text-align: center;
+      }
+
+      #menu a:last-child {
+        border: none;
+      }
+
+      #menu a:hover {
+        color: slategray;
+      }
+
+      #menu a.active {
+        background-color: white;
+        color: black;
+      }
+
+      #menu a.active:hover {
+        color: lightgray;
+      }
+    </style>
+
+    <div class="">
+      <div class="grid grid-cols-12">
+        <div class="col-span-8">
+          <div class="bg-white overflow-hidden shadow-xs rounded-sm">
+            <div class="mapWrapper min-h-screen max-h-screen">
+              <div id="map"></div>
+              <nav id="menu"></nav>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-4 px-8 bg-gray-100" id="content">
+          <div class="min-h-screen max-h-screen overflow-auto hidden" id="data">
+            <div
+              class="p-3 rounded-sm my-8 bg-blue-100 font-semibold text-blue-700 border-blue-600 border-l-4"
+            >
+              <span class="block mb-4"><span id="blockGroupCount"> block groups selected.</span
+              ><button class="block underline mb-1 text-xs font-semibold">
+                Download CSV</button
+              ><button class="block underline mb-1 text-xs font-semibold">Highlight all block groups</button
+              ><button class="block underline mb-1 text-xs font-semibold">
+                Clear all block groups
+              </button>
+            </div>
+
+            <h1 class="font-semibold text-2xl leading-none">10 year reserve price</h1>
+            <dl class="my-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt>
+              <dd class="text-xl font-semibold text-gray-900" id="reserveTotal"></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">At 50% meter coverage</dt>
+              <dd class="text-xl font-semibold text-gray-900" id="reserve50"></dd>
+            </dl>
+
+            <h1 class="font-semibold text-2xl leading-none">FCC locations</h1>
+            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt><dd class="text-xl font-semibold text-gray-900" id="fccLocations"></dd></dl>
+
+            <h1 class="font-semibold text-2xl leading-none">Number of block groups
+            </h1>
+            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt><dd class="text-xl font-semibold text-gray-900" id="blockGroupsTotal"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">At 50% meter coverage</dt><dd class="text-xl font-semibold text-gray-900" id="blockGroups50"></dd></dl>
+
+            <h1 class="font-semibold text-2xl leading-none">Meter data
+            </h1>
+            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2" id="metersTotal">Total</dt><dd class="text-xl font-semibold text-gray-900"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">In RDOF blocks</dt><dd class="text-xl font-semibold text-gray-900" id="metersRdof"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">With cable</dt><dd class="text-xl font-semibold text-gray-900" id="metersCable"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">With fiber</dt><dd class="text-xl font-semibold text-gray-900" id="metersFiber"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2" id="metersTelCo">With TelCo</dt><dd class="text-xl font-semibold text-gray-900"></dd></dl>
+          </div>
+          <div class="min-h-screen max-h-screen overflow-auto" id="intro">
+            <p class="text-lg font-semibold mt-8">
+              The industry’s only mapping tool that displays the exact total of
+              federal funding available for a co-op, with an additional in-depth
+              view that calculates eligible dollars at the census block,
+              substation and feeder level. It provides a discrete picture of
+              each census block, the percentage within a co-op is required to
+              serve, how it matches up to the co-op’s existing infrastructure,
+              and potential dollars.
+            </p>
+            <p class="mt-8 text-gray-800">
+              This unmatched level of detail gives you the information you need
+              to form a financially sound bidding strategy in the upcoming RDOF
+              auction. Co-ops who successfully bid in this auction stand to be
+              awarded as much as 75% to 100% of their total broadband network
+              costs:
+            </p>
+            <ul class="list-disc list-inside mt-8 text-gray-800">
+              <li>
+                Understand where it’s most advantageous to bid and where it’s
+                not;
+              </li>
+              <li>Identify potential partnerships with neighboring co-ops;</li>
+              <li>
+                Leverage the data as a roadmap for the most logical and
+                profitable buildout
+              </li>
+            </ul>
+            <p class="my-8 text-gray-800">
+              Get started by clicking one or more block groups to view RDOF data
+              and meters or
+              <button
+                class="text-blue-700 underline"
+                onclick="highlightAllBlockGroups()"
+              >
+                highlight all block groups</button
+              >.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto mt-8 border-t pt-8 text-lg">
+      <img width="75px" class="inline" src="../../images/logo.png" />
+      <span class="text-3xl">conexon</span>
+    </div>
+
+    <script>
+      // colors
+      const blockFill = 'orange';
+      const blockGroupFill = 'green';
+      const blockGroupBorder = 'darkgreen';
+      const blockGroup2Fill = 'blue';
+      const blockGroup2Border = 'blue';
+      const meters = 'gray';
+      const blockBorder = 'black';
+      const meterColors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'aqua',
+      ];
+
+      let substationData;
+
+      const dataContainer = document.getElementById('data');
+      const introContainer = document.getElementById('intro');
+      const menuContainer = document.getElementById('menu');
+      const mapContainer = document.getElementById('map');
+
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+      const map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+      });
+
+      // STARTING FRESH HERE
+
+      // get the URL params
+      var urlParams = new URLSearchParams(window.location.search);
+
+      // if there's no coopCode param
+      if (!urlParams.get('coopCode')) {
+        // reset things
+        dataContainer.innerHTML = '<h1 class="text-2xl m-8">Sorry you need to provide a coopCode, e.g. https://conexon.github.io/coop/rdof/index.html?<span class="font-semibold">coopCode=YourCoop</span></h1>';;
+        menuContainer.remove();
+      } else {
+        // fetch the list of clients
+        fetch(`/coop/data/clients/clients.json`)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            // find the given client
+            const clientData = data.find(
+              (client) =>
+                client.coopCode.toLowerCase() ===
+                urlParams.get('coopCode').toLowerCase()
+            );
+
+            // if not found
+            if(!clientData) {
+              dataContainer.innerHTML = `<h1 class="text-2xl m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
+                'coopCode'
+              )}</span>. Please double check it.</h1>`;
+              menuContainer.remove();
+            } else {
+              const stateAbbr = clientData.stateAbbr;
+              const rusNumber = clientData.rusNumber;
+              const metersAttribute = `${rusNumber}_m`;
+              const percentAttribute = `${rusNumber}_pct`;
+              const coopCode = clientData.coopCode;
+              const zoom = clientData.zoom;
+              const center = clientData.center; // leave as an array  9//
+              const minZoom = clientData.minZoom || 9;
+              const maxZoom = clientData.maxZoom || 15;
+
+              map.setZoom(zoom);
+              map.setMinZoom(minZoom);
+              map.setMaxZoom(maxZoom);
+              map.setCenter(center);
+              map.setBearing(0);
+              map.setPitch(0);
+
+              // tilesets
+              const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
+              const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
+
+              const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
+              const blocksSourceLayer = `rdof_block_${stateAbbr}`;
+
+              const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
+              const metersSourceLayer = `rdof_meters_${stateAbbr}`;
+
+              // initial load, first layers
+              map.on('load', function () {
+                // block groups fill
+                map.addLayer({
+                  id: 'blockGroups',
+                  type: 'fill',
+                  source: {
+                    type: 'vector',
+                    url: blockGroupsUrl,
+                  },
+                  'source-layer': blockGroupsSourceLayer,
+                  filter: ['>', percentAttribute, 0],
+                  paint: {
+                    'fill-color': [
+                'case',
+                ['<', ['to-number', ['get', percentAttribute]], 50],
+                blockGroup2Fill,
+                blockGroupFill,
+              ],
+                    'fill-opacity': 0.25,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
+                });
+                map.on('click', 'blockGroups', (event) => {
+                  console.log(event.features[0].properties);
+                });
+
+                // block groups line
+                map.addLayer({
+                  id: 'blockGroupsLines',
+                  type: 'line',
+                  source: {
+                    type: 'vector',
+                    url: blockGroupsUrl,
+                  },
+                  'source-layer': blockGroupsSourceLayer,
+                  filter: ['>', percentAttribute, 0],
+                  paint: {
+                    'line-color': [
+                      'case',
+                      ['<', ['to-number', ['get', percentAttribute]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill,
+                    ],
+                    'line-width': 3,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
+                });
+
+                // blocks layer
+                map.addLayer({
+                  id: 'blocks',
+                  type: 'fill',
+                  source: {
+                    type: 'vector',
+                    url: blocksUrl,
+                  },
+                  'source-layer': blocksSourceLayer,
+                  filter: ['>=', metersAttribute, 0],
+                  paint: {
+                    'fill-color': blockFill,
+                    'fill-opacity': [
+                      'case',
+                      ['==', ['to-number', ['get', metersAttribute]], 0],
+                      0.5,
+                      0.9,
+                    ],
+                    'fill-outline-color': blockBorder,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
+                });
+                map.on('click', 'blocks', (event) => {
+                  console.log(event.features[0].properties);
+                });
+
+                // blocks text layer
+                map.addLayer({
+                  id: 'blocksText',
+                  type: 'symbol',
+                  source: {
+                    type: 'vector',
+                    url: blocksUrl,
+                  },
+                  'source-layer': blocksSourceLayer,
+                  filter: ['>', metersAttribute, 0],
+                  layout: {
+                    'text-field': ['get', 'geoid10'],
+                    'symbol-placement': 'point',
+                    'text-allow-overlap': true,
+                    'text-justify': 'center',
+                    'text-padding': 4,
+                    'text-rotation-alignment': 'viewport',
+                    'text-size': {
+                      base: 0,
+                      stops: [
+                        [10, 0],
+                        [12, 4],
+                        [14, 8],
+                        [15, 12],
+                      ],
+                    },
+                    visibility: 'visible',
+                  },
+                });
+
+                // meters layer
+                map.addLayer({
+                  id: 'meters',
+                  type: 'circle',
+                  source: {
+                    type: 'vector',
+                    url: metersUrl,
+                  },
+                  'source-layer': metersSourceLayer,
+                  filter: ['==', 'coop_code', coopCode],
+                  paint: {
+                    'circle-radius': {
+                      base: 2,
+                      stops: [
+                        [12, 2],
+                        [13, 3],
+                        [14, 4],
+                        [15, 5],
+                        [16, 6],
+                      ],
+                    },
+                    'circle-color': meters,
+                  },
+                  layout: {
+                    visibility: 'none',
+                  },
+                });
+                
+                map.on('click', 'meters', (event) => {
+                  console.log(event.features[0].properties);
+                });
+              });
+
+              // load the substations
+              map.once('idle', () => {
+                const lowerCoopCode = coopCode.toLowerCase();
+                fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((data) => {
+                    substationData = data;
+                    let allBlockGroups =[];
+                    let count = 0
+                    // build the list of block groups based on this data
+                    data.features.forEach((feature) => {
+                      if (feature.properties.sub_geoid_any) {
+                      Object.keys(feature.properties.sub_geoid_any).forEach((key, index) => {
+                        console.log(key)
+                        count++
+                      });
+                    }
+                    })
+                    console.log(count)
+                    
+                });
+              });
+            // end we have a good client
+          }
+        // end we have a coopCode param
+          }) }
+        
+      </script>
+  </body>
+</html>
