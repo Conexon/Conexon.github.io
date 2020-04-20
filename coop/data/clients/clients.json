@@ -196,6 +196,24 @@
     "center": [-83.4365, 33.1385],
     "minZoom": 9,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "UTD",
+    "stateAbbr": "mo",
+    "rusNumber": "mo075",
+    "zoom": 9,
+    "center": [-94.7815, 40.1085],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "OSAGEVLY",
+    "stateAbbr": "mo",
+    "rusNumber": "mo037",
+    "zoom": 9,
+    "center": [-94.2189, 38.3323], 
+    "minZoom": 9,
+    "maxZoom": 15
   }
 
 
