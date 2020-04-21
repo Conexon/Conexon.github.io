@@ -223,6 +223,23 @@
     "center": [-89.017, 32.517], 
     "minZoom": 8,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "MIDSOUTH",
+    "stateAbbr": "tx",
+    "rusNumber": "tx115",
+    "zoom": 8.87,
+    "center": [-96.0319, 30.6296], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "SBEC",
+    "stateAbbr": "tx",
+    "rusNumber": "tx111",
+    "zoom": 8.87,
+    "center": [-96.4516, 29.7791], 
+    "maxZoom": 15
   }
 
 
