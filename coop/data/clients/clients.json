@@ -322,6 +322,52 @@
     "center": [-90.9325, 34.8937], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "BREC",
+    "stateAbbr": "mo",
+    "rusNumber": "mo038",
+    "zoom": 9.02, 
+    "center": [-90.6419, 37.2663], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "CALLAWAY",
+    "stateAbbr": "mo",
+    "rusNumber": "mo024",
+    "zoom": 9.86, 
+    "center": [-91.9634, 38.793], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "COMO",
+    "stateAbbr": "mo",
+    "rusNumber": "mo047",
+    "zoom": 9.02, 
+    "center": [-92.9119, 38.5888], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "HOEC",
+    "stateAbbr": "mo",
+    "rusNumber": "mo049",
+    "zoom": 9.01, 
+    "center": [-91.7022, 36.9664], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "OZARKS",
+    "stateAbbr": "mo",
+    "rusNumber": "mo030",
+    "zoom": 9.01, 
+    "center": [-93.7791, 37.1962], 
+    "minZoom": 9,
+    "maxZoom": 15
   }
+
 
 ]
