@@ -248,9 +248,80 @@
     "rusNumber": "ky065",
     "zoom": 8.69, 
     "center": [-87.3924, 37.5021], 
-    "minZoom": 4,
+    "minZoom": 8,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "AVEC",
+    "stateAbbr": "ar",
+    "rusNumber": "ar013",
+    "zoom": 8.87, 
+    "center": [-93.8642, 35.2899], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "FIRST",
+    "stateAbbr": "ar",
+    "rusNumber": "ar010",
+    "zoom": 9.01, 
+    "center": [-92.1374, 34.6788], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MCECI",
+    "stateAbbr": "ar",
+    "rusNumber": "ar023",
+    "zoom": 9.77, 
+    "center": [-90.0623, 35.761], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "NORTHAR",
+    "stateAbbr": "ar",
+    "rusNumber": "ar026",
+    "zoom": 9.15, 
+    "center": [-91.875, 36.243], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "OZARKSGO",
+    "stateAbbr": "ar",
+    "rusNumber": "ar024",
+    "zoom": 9.11, 
+    "center": [-94.1273, 35.9387], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PETITJEAN",
+    "stateAbbr": "ar",
+    "rusNumber": "ar028",
+    "zoom": 9.02, 
+    "center": [-92.7569, 35.6045], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SCAEC",
+    "stateAbbr": "ar",
+    "rusNumber": "ar029",
+    "zoom": 9.02, 
+    "center": [-93.3587, 33.9149], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "WECC",
+    "stateAbbr": "ar",
+    "rusNumber": "ar015",
+    "zoom": 9.02, 
+    "center": [-90.9325, 34.8937], 
+    "minZoom": 8,
     "maxZoom": 15
   }
-
 
 ]
