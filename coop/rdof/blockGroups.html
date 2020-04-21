@@ -417,18 +417,16 @@
                   .then((data) => {
                     substationData = data;
                     let allBlockGroups =[];
-                    let count = 0
                     // build the list of block groups based on this data
                     data.features.forEach((feature) => {
                       if (feature.properties.sub_geoid_any) {
-                      Object.keys(feature.properties.sub_geoid_any).forEach((key, index) => {
-                        console.log(key)
-                        count++
-                      });
-                    }
-                    })
-                    console.log(count)
-                    
+                        Object.keys(feature.properties.sub_geoid_any).forEach(  (key, index) => {
+                          console.log(key)
+                          allBlockGroups.push({key : feature.properties.sub_geoid_any[key]})
+                        });
+                      }
+                    })  
+                    console.log(allBlockGroups)                  
                 });
               });
             // end we have a good client
