@@ -239,6 +239,16 @@
     "rusNumber": "tx111",
     "zoom": 8.87,
     "center": [-96.4516, 29.7791], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "KEN",
+    "stateAbbr": "ky",
+    "rusNumber": "ky065",
+    "zoom": 8.69, 
+    "center": [-87.3924, 37.5021], 
+    "minZoom": 4,
     "maxZoom": 15
   }
 
