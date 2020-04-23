@@ -97,7 +97,10 @@
             >
               <span class="block mb-4"
                 ><span id="blockGroupCount"></span> block groups selected.</span
-              ><button class="block underline mb-1 text-xs font-semibold">
+              ><button
+                class="block underline mb-1 text-xs font-semibold"
+                onclick="downloadCsv()"
+              >
                 Download CSV</button
               ><button
                 class="block underline mb-1 text-xs font-semibold"
@@ -288,6 +291,7 @@
         meters_telco: 0,
       };
       let selectedGeoids = [];
+      let dataForCsv = [];
 
       const dataContainer = document.getElementById('data');
       const introContainer = document.getElementById('intro');
@@ -301,6 +305,26 @@
         hash: true,
         style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
       });
+
+      const downloadCsv = () => {
+        const blobData = Papa.unparse(dataForCsv, {
+          header: true,
+        });
+        try {
+          saveAs(
+            new Blob([blobData], {
+              type: 'text/csv;charset=utf-16',
+            }),
+            `${coopCode}-RDOF.csv`
+          );
+        } catch (e) {
+          window.open(
+            'data:text/csv;charset=utf-16,' + encodeURIComponent(blobData),
+            '_blank',
+            ''
+          );
+        }
+      };
 
       const updateData = (geoids) => {
         console.log('passed in', geoids, geoids.length);
@@ -341,6 +365,15 @@
         let meters_telco = 0;
         let meters_cable = 0;
 
+        dataForCsv = [];
+        dataForCsv.push([
+          'GeoId',
+          'FCC locations',
+          'Amount',
+          'Percent meters',
+          'Meters',
+        ]);
+
         geoids.forEach((geoid) => {
           const selectedBlockGroup = blockGroupData.find(
             (blockGroup) => blockGroup.geoid === geoid
@@ -357,6 +390,14 @@
           meters_rdof += selectedBlockGroup.meters_rdof;
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
+
+          dataForCsv.push([
+            geoid,
+            selectedBlockGroup.locations,
+            selectedBlockGroup.amount,
+            selectedBlockGroup.pct,
+            selectedBlockGroup.meters,
+          ]);
         });
         // update the data
 
