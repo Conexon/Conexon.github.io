@@ -95,33 +95,106 @@
             <div
               class="p-3 rounded-sm my-8 bg-blue-100 font-semibold text-blue-700 border-blue-600 border-l-4"
             >
-              <span class="block mb-4"><span id="blockGroupCount"> block groups selected.</span
+              <span class="block mb-4"
+                ><span id="blockGroupCount"></span> block groups selected.</span
               ><button class="block underline mb-1 text-xs font-semibold">
                 Download CSV</button
-              ><button class="block underline mb-1 text-xs font-semibold">Highlight all block groups</button
-              ><button class="block underline mb-1 text-xs font-semibold">
+              ><button
+                class="block underline mb-1 text-xs font-semibold"
+                onclick="highlightAllBlockGroups()"
+              >
+                Highlight all block groups</button
+              ><button
+                class="block underline mb-1 text-xs font-semibold"
+                onclick="clearAllBlockGroups()"
+              >
                 Clear all block groups
               </button>
             </div>
 
-            <h1 class="font-semibold text-2xl leading-none">10 year reserve price</h1>
+            <h1 class="font-semibold text-2xl leading-none">
+              10 year reserve price
+            </h1>
             <dl class="my-4">
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt>
-              <dd class="text-xl font-semibold text-gray-900" id="reserveTotal"></dd>
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">At 50% meter coverage</dt>
-              <dd class="text-xl font-semibold text-gray-900" id="reserve50"></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd class="text-xl font-semibold text-gray-900" id="amount"></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                At 50% meter coverage
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="amount50"
+              ></dd>
             </dl>
 
             <h1 class="font-semibold text-2xl leading-none">FCC locations</h1>
-            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt><dd class="text-xl font-semibold text-gray-900" id="fccLocations"></dd></dl>
+            <dl class="my-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="locations"
+              ></dd>
+            </dl>
 
-            <h1 class="font-semibold text-2xl leading-none">Number of block groups
+            <h1 class="font-semibold text-2xl leading-none">
+              Number of block groups
             </h1>
-            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2">Total</dt><dd class="text-xl font-semibold text-gray-900" id="blockGroupsTotal"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">At 50% meter coverage</dt><dd class="text-xl font-semibold text-gray-900" id="blockGroups50"></dd></dl>
+            <dl class="my-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="blockGroupsTotal"
+              ></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                At 50% meter coverage
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="blockGroups50"
+              ></dd>
+            </dl>
 
-            <h1 class="font-semibold text-2xl leading-none">Meter data
-            </h1>
-            <dl class="my-4"><dt class="text-sm font-medium text-gray-700 truncate mt-2" id="metersTotal">Total</dt><dd class="text-xl font-semibold text-gray-900"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">In RDOF blocks</dt><dd class="text-xl font-semibold text-gray-900" id="metersRdof"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">With cable</dt><dd class="text-xl font-semibold text-gray-900" id="metersCable"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2">With fiber</dt><dd class="text-xl font-semibold text-gray-900" id="metersFiber"></dd><dt class="text-sm font-medium text-gray-700 truncate mt-2" id="metersTelCo">With TelCo</dt><dd class="text-xl font-semibold text-gray-900"></dd></dl>
+            <h1 class="font-semibold text-2xl leading-none">Meter data</h1>
+            <dl class="my-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd class="text-xl font-semibold text-gray-900" id="meters"></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                In RDOF blocks
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="meters_rdof"
+              ></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                With cable
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="meters_cable"
+              ></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                With fiber
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="meters_fiber"
+              ></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                With TelCo
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="meters_telco"
+              ></dd>
+            </dl>
           </div>
           <div class="min-h-screen max-h-screen overflow-auto" id="intro">
             <p class="text-lg font-semibold mt-8">
@@ -172,6 +245,16 @@
     </div>
 
     <script>
+      let stateAbbr = '';
+      let rusNumber = '';
+      let metersAttribute = '';
+      let percentAttribute = '';
+      let coopCode = '';
+      let zoom = 12;
+      let center = [];
+      let minZoom = 9;
+      let maxZoom = 15;
+
       // colors
       const blockFill = 'orange';
       const blockGroupFill = 'green';
@@ -190,7 +273,21 @@
         'aqua',
       ];
 
-      let substationData;
+      let blockGroupData;
+      let allGeoids = [];
+      let blockGroupTotals = {
+        locations: 0,
+        amount: 0,
+        amount50: 0,
+        meters: 0,
+        meters_no_service: 0,
+        meters_underserved: 0,
+        meters_fiber: 0,
+        meters_rdof: 0,
+        meters_cable: 0,
+        meters_telco: 0,
+      };
+      let selectedGeoids = [];
 
       const dataContainer = document.getElementById('data');
       const introContainer = document.getElementById('intro');
@@ -205,7 +302,97 @@
         style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
       });
 
-      // STARTING FRESH HERE
+      const updateData = (geoids) => {
+        console.log('passed in', geoids, geoids.length);
+        if (geoids.length === 0) {
+          document.getElementById('intro').classList.remove('hidden');
+          document.getElementById('data').classList.add('hidden');
+        } else {
+          document.getElementById('intro').classList.add('hidden');
+          document.getElementById('data').classList.remove('hidden');
+        }
+
+        let geoidFilters = ['case'];
+        geoids.forEach((geoid) => {
+          geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
+        });
+        geoidFilters.push(
+          ['<', ['to-number', ['get', percentAttribute]], 50],
+          blockGroup2Fill,
+          blockGroupFill
+        );
+        map.setPaintProperty('blockGroups', 'fill-color', [...geoidFilters]);
+        map.setPaintProperty('blockGroupsLines', 'line-color', [
+          ...geoidFilters,
+        ]);
+        map.setPaintProperty('blockGroupsText', 'text-color', [
+          ...geoidFilters,
+        ]);
+
+        let locations = 0;
+        let amount = 0;
+        let amount50 = 0;
+        let groups50 = 0;
+        let meters = 0;
+        let meters_no_service = 0;
+        let meters_underserved = 0;
+        let meters_fiber = 0;
+        let meters_rdof = 0;
+        let meters_telco = 0;
+        let meters_cable = 0;
+
+        geoids.forEach((geoid) => {
+          const selectedBlockGroup = blockGroupData.find(
+            (blockGroup) => blockGroup.geoid === geoid
+          );
+          locations += selectedBlockGroup.locations;
+          amount += selectedBlockGroup.amount;
+          amount50 +=
+            selectedBlockGroup.pct >= 50 ? selectedBlockGroup.amount : 0;
+          groups50 += selectedBlockGroup.pct >= 50 ? 1 : 0;
+          meters += selectedBlockGroup.meters;
+          meters_no_service += selectedBlockGroup.meters_no_service;
+          meters_underserved += selectedBlockGroup.meters_underserved;
+          meters_fiber += selectedBlockGroup.meters_fiber;
+          meters_rdof += selectedBlockGroup.meters_rdof;
+          meters_telco += selectedBlockGroup.meters_telco;
+          meters_cable += selectedBlockGroup.meters_cable;
+        });
+        // update the data
+
+        document.getElementById('amount').innerHTML = amount.toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: 'USD',
+          }
+        );
+        document.getElementById('amount50').innerHTML = amount50.toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: 'USD',
+          }
+        );
+        document.getElementById('locations').innerHTML = locations;
+        document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
+        document.getElementById('blockGroups50').innerHTML = groups50;
+        document.getElementById('meters').innerHTML = meters;
+        document.getElementById('meters_rdof').innerHTML = meters_rdof;
+        document.getElementById('meters_cable').innerHTML = meters_cable;
+        document.getElementById('meters_fiber').innerHTML = meters_fiber;
+        document.getElementById('meters_telco').innerHTML = meters_telco;
+      };
+
+      const highlightAllBlockGroups = () => {
+        selectedGeoids = allGeoids;
+        updateData(allGeoids);
+      };
+
+      const clearAllBlockGroups = () => {
+        selectedGeoids = [];
+        updateData([]);
+      };
 
       // get the URL params
       var urlParams = new URLSearchParams(window.location.search);
@@ -213,7 +400,8 @@
       // if there's no coopCode param
       if (!urlParams.get('coopCode')) {
         // reset things
-        dataContainer.innerHTML = '<h1 class="text-2xl m-8">Sorry you need to provide a coopCode, e.g. https://conexon.github.io/coop/rdof/index.html?<span class="font-semibold">coopCode=YourCoop</span></h1>';;
+        dataContainer.innerHTML =
+          '<h1 class="text-2xl m-8">Sorry you need to provide a coopCode, e.g. https://conexon.github.io/coop/rdof/index.html?<span class="font-semibold">coopCode=YourCoop</span></h1>';
         menuContainer.remove();
       } else {
         // fetch the list of clients
@@ -230,21 +418,21 @@
             );
 
             // if not found
-            if(!clientData) {
+            if (!clientData) {
               dataContainer.innerHTML = `<h1 class="text-2xl m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
                 'coopCode'
               )}</span>. Please double check it.</h1>`;
               menuContainer.remove();
             } else {
-              const stateAbbr = clientData.stateAbbr;
-              const rusNumber = clientData.rusNumber;
-              const metersAttribute = `${rusNumber}_m`;
-              const percentAttribute = `${rusNumber}_pct`;
-              const coopCode = clientData.coopCode;
-              const zoom = clientData.zoom;
-              const center = clientData.center; // leave as an array  9//
-              const minZoom = clientData.minZoom || 9;
-              const maxZoom = clientData.maxZoom || 15;
+              stateAbbr = clientData.stateAbbr;
+              rusNumber = clientData.rusNumber;
+              metersAttribute = `${rusNumber}_m`;
+              percentAttribute = `${rusNumber}_pct`;
+              coopCode = clientData.coopCode;
+              zoom = clientData.zoom;
+              center = clientData.center; // leave as an array  9//
+              minZoom = clientData.minZoom || 9;
+              maxZoom = clientData.maxZoom || 15;
 
               map.setZoom(zoom);
               map.setMinZoom(minZoom);
@@ -277,11 +465,11 @@
                   filter: ['>', percentAttribute, 0],
                   paint: {
                     'fill-color': [
-                'case',
-                ['<', ['to-number', ['get', percentAttribute]], 50],
-                blockGroup2Fill,
-                blockGroupFill,
-              ],
+                      'case',
+                      ['<', ['to-number', ['get', percentAttribute]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill,
+                    ],
                     'fill-opacity': 0.25,
                   },
                   layout: {
@@ -401,39 +589,119 @@
                     visibility: 'none',
                   },
                 });
-                
+
                 map.on('click', 'meters', (event) => {
                   console.log(event.features[0].properties);
                 });
               });
 
-              // load the substations
+              // load the block groups
               map.once('idle', () => {
-                const lowerCoopCode = coopCode.toLowerCase();
-                fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
+                // add the text, the $ amounts
+                fetch(`/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`)
                   .then((response) => {
                     return response.json();
                   })
                   .then((data) => {
-                    substationData = data;
-                    let allBlockGroups =[];
+                    console.log(
+                      'fetched data',
+                      metersAttribute,
+                      percentAttribute
+                    );
+                    map.addSource('blockGroupsText', {
+                      type: 'geojson',
+                      data: data,
+                    });
+
+                    map.addLayer({
+                      id: 'blockGroupsText',
+                      type: 'symbol',
+                      source: 'blockGroupsText',
+                      filter: ['>', metersAttribute, 0],
+                      paint: {
+                        'text-color': [
+                          'case',
+                          ['<', ['to-number', ['get', percentAttribute]], 50],
+                          blockGroup2Fill,
+                          blockGroupBorder,
+                        ],
+                      },
+                      layout: {
+                        'text-field': [
+                          'number-format',
+                          ['*', ['get', 'fcc_amt'], 10],
+                          { currency: 'USD' },
+                        ],
+                        'symbol-placement': 'point',
+                        'text-allow-overlap': true,
+                        'text-justify': 'center',
+                        'text-padding': 4,
+                        'text-rotation-alignment': 'viewport',
+                        'text-font': [
+                          'literal',
+                          ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
+                        ],
+                        'text-size': {
+                          base: 0,
+                          stops: [
+                            [10, 12],
+                            [12, 14],
+                            [14, 20],
+                            [15, 22],
+                            [16, 28],
+                          ],
+                        },
+                      },
+                    });
+                  });
+
+                const lowerCoopCode = coopCode.toLowerCase();
+                fetch(`/coop/data/clients/${lowerCoopCode}_geoid.json`)
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((data) => {
+                    blockGroupData = data;
                     // build the list of block groups based on this data
-                    data.features.forEach((feature) => {
-                      if (feature.properties.sub_geoid_any) {
-                        Object.keys(feature.properties.sub_geoid_any).forEach(  (key, index) => {
-                          console.log(key)
-                          allBlockGroups.push({key : feature.properties.sub_geoid_any[key]})
-                        });
-                      }
-                    })  
-                    console.log(allBlockGroups)                  
+                    data.forEach((blockGroup) => {
+                      blockGroupTotals.locations += blockGroup.locations;
+                      blockGroupTotals.amount += blockGroup.amount;
+                      blockGroupTotals.amount50 +=
+                        blockGroup.pct >= 50 ? blockGroup.amount : 0;
+                      blockGroupTotals.meters += blockGroup.meters;
+                      blockGroupTotals.meters_no_service +=
+                        blockGroup.meters_no_service;
+                      blockGroupTotals.meters_underserved +=
+                        blockGroup.meters_underserved;
+                      blockGroupTotals.meters_fiber += blockGroup.meters_fiber;
+                      blockGroupTotals.meters_rdof += blockGroup.meters_rdof;
+                      blockGroupTotals.meters_telco += blockGroup.meters_telco;
+                      blockGroupTotals.meters_cable += blockGroup.meters_cable;
+
+                      allGeoids.push(blockGroup.geoid);
+                    });
+                  });
+
+                map.on('click', 'blockGroups', (event) => {
+                  if (
+                    selectedGeoids.includes(event.features[0].properties.geoid)
+                  ) {
+                    const filteredGeoids = selectedGeoids.filter((geoid) => {
+                      return geoid !== event.features[0].properties.geoid;
+                    });
+                    selectedGeoids = filteredGeoids;
+                  } else {
+                    selectedGeoids.push(event.features[0].properties.geoid);
+                  }
+
+                  updateData(selectedGeoids);
                 });
               });
-            // end we have a good client
-          }
-        // end we have a coopCode param
-          }) }
-        
-      </script>
+              // end we have a good client
+            }
+            // end we have a coopCode param
+          });
+      }
+    </script>
   </body>
 </html>
