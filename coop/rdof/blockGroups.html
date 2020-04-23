@@ -293,6 +293,8 @@
       let selectedGeoids = [];
       let dataForCsv = [];
 
+      let selectedSubstations = [];
+
       const dataContainer = document.getElementById('data');
       const introContainer = document.getElementById('intro');
       const menuContainer = document.getElementById('menu');
@@ -737,6 +739,92 @@
 
                   updateData(selectedGeoids);
                 });
+
+                // substations
+                fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
+                  .then((response) => {
+                    return response.json();
+                  })
+                  .then((data) => {
+                    allSubstations = data;
+
+                    map.addSource('substations', {
+                      type: 'geojson',
+                      data: data,
+                    });
+
+                    map.addLayer({
+                      id: 'substations',
+                      type: 'symbol',
+                      source: 'substations',
+                      layout: {
+                        'icon-image': 'black-square-15',
+                        'icon-size': {
+                          base: 0.5,
+                          stops: [
+                            [12, 0.75],
+                            [13, 1.25],
+                            [14, 1.75],
+                            [15, 2.25],
+                            [16, 3.75],
+                          ],
+                        },
+                        'icon-allow-overlap': true,
+                        'text-allow-overlap': true,
+                        'text-field': '{subname}',
+                        'text-offset': [0, -1],
+                      },
+                    });
+
+                    map.on('click', 'substations', (event) => {
+                      console.log(event.features[0].properties);
+                      if (
+                        selectedSubstations.includes(
+                          event.features[0].properties.cn_substat
+                        )
+                      ) {
+                        const filteredSubstations = selectedSubstations.filter(
+                          (cn_substat) => {
+                            return (
+                              cn_substat !==
+                              event.features[0].properties.cn_substat
+                            );
+                          }
+                        );
+                        selectedSubstations = filteredSubstations;
+                      } else {
+                        selectedSubstations.push(
+                          event.features[0].properties.cn_substat
+                        );
+                      }
+
+                      if (selectedSubstations.length > 0) {
+                        console.log(selectedSubstations);
+                        let meterFilters = [
+                          'all',
+                          ['==', 'coop_code', coopCode],
+                          ['any'],
+                        ];
+                        selectedSubstations.forEach((substation) => {
+                          meterFilters[2].push([
+                            '==',
+                            'cn_substat',
+                            substation,
+                          ]);
+                        });
+                        console.log(meterFilters);
+                        map.setFilter('meters', meterFilters);
+                        map.setLayoutProperty(
+                          'meters',
+                          'visibility',
+                          'visible'
+                        );
+                      } else {
+                        console.log();
+                        map.setLayoutProperty('meters', 'visibility', 'none');
+                      }
+                    });
+                  });
               });
               // end we have a good client
             }
