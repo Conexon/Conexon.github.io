@@ -695,6 +695,7 @@
                             [16, 28],
                           ],
                         },
+                        visibility: 'none',
                       },
                     });
                   });
@@ -774,6 +775,7 @@
                         'text-allow-overlap': true,
                         'text-field': '{subname}',
                         'text-offset': [0, -1],
+                        visibility: 'visible',
                       },
                     });
 
@@ -830,6 +832,72 @@
               // end we have a good client
             }
             // end we have a coopCode param
+
+            // toggle set up
+            const toggleableLayerIds = [
+              { name: 'Block groups', id: 'blockGroups' },
+              { name: 'Blocks', id: 'blocks' },
+            ];
+
+            for (let i = 0; i < toggleableLayerIds.length; i++) {
+              const id = toggleableLayerIds[i].id;
+              const name = toggleableLayerIds[i].name;
+
+              let link = document.createElement('a');
+              link.href = '#';
+              link.className = 'active';
+              link.textContent = name;
+              link.id = id;
+              link.onclick = function (e) {
+                const clickedLayer = this.id;
+                e.preventDefault();
+                e.stopPropagation();
+
+                const visibility = map.getLayoutProperty(
+                  clickedLayer,
+                  'visibility'
+                );
+
+                if (visibility === 'visible') {
+                  this.className = '';
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+
+                  map.setLayoutProperty(
+                    `${clickedLayer}Text`,
+                    'visibility',
+                    'none'
+                  );
+
+                  if (clickedLayer === 'blockGroups') {
+                    map.setLayoutProperty(
+                      `${clickedLayer}Lines`,
+                      'visibility',
+                      'none'
+                    );
+                  }
+                } else {
+                  this.className = 'active';
+                  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+
+                  map.setLayoutProperty(
+                    `${clickedLayer}Text`,
+                    'visibility',
+                    'visible'
+                  );
+
+                  if (clickedLayer === 'blockGroups') {
+                    map.setLayoutProperty(
+                      `${clickedLayer}Lines`,
+                      'visibility',
+                      'visible'
+                    );
+                  }
+                }
+              };
+
+              const layers = document.getElementById('menu');
+              layers.appendChild(link);
+            }
           });
       }
     </script>
