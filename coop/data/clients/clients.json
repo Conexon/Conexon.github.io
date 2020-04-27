@@ -367,6 +367,24 @@
     "center": [-93.7791, 37.1962], 
     "minZoom": 9,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "WECI",
+    "stateAbbr": "oh",
+    "rusNumber": "oh093",
+    "zoom": 9.5, 
+    "center": [-81.4073, 39.6371], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SRE",
+    "stateAbbr": "ga",
+    "rusNumber": "ga075",
+    "zoom": 9.2, 
+    "center": [-84.2261, 32.8906], 
+    "minZoom": 9,
+    "maxZoom": 15
   }
 
 
