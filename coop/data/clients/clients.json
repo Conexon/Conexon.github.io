@@ -381,7 +381,16 @@
     "coopCode": "SRE",
     "stateAbbr": "ga",
     "rusNumber": "ga075",
-    "zoom": 9.2, 
+    "zoom": 9.35, 
+    "center": [-97.6459, 34.7952], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "RECOK",
+    "stateAbbr": "ok",
+    "rusNumber": "ok020",
+    "zoom": 9.3, 
     "center": [-84.2261, 32.8906], 
     "minZoom": 9,
     "maxZoom": 15
