@@ -107,7 +107,7 @@
         'slategray',
         'red',
         'black',
-        'aqua'
+        'aqua',
       ];
 
       // tilesets
@@ -132,7 +132,7 @@
         zoom: zoom,
         minZoom: minZoom,
         maxZoom: maxZoom,
-        center: center
+        center: center,
       });
 
       //old way
@@ -156,13 +156,13 @@
       //     }
       //   });
 
-      map.on('load', function() {
+      map.on('load', function () {
         map.addLayer({
           id: 'blockGroups',
           type: 'fill',
           source: {
             type: 'vector',
-            url: blockGroupsUrl
+            url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
           filter: ['>', blockGroundPctAttr, 0],
@@ -171,15 +171,14 @@
               'case',
               ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
               blockGroup2Fill,
-              blockGroupFill
+              blockGroupFill,
             ],
-            'fill-opacity': 0.4
+            'fill-opacity': 0.4,
           },
           layout: {
-            visibility: 'visible'
-          }
+            visibility: 'visible',
+          },
         });
-
 
         // blocks layer
 
@@ -188,7 +187,7 @@
           type: 'fill',
           source: {
             type: 'vector',
-            url: blocksUrl
+            url: blocksUrl,
           },
           'source-layer': blocksSourceLayer,
           filter: ['>=', blockMetersAttr, 0],
@@ -196,16 +195,16 @@
             'fill-color': blockFill,
             'fill-opacity': [
               'case',
-                ['==', ['to-number', ['get', blockMetersAttr]], 0],
-                0.7,
-                0.9
-                ],            
+              ['==', ['to-number', ['get', blockMetersAttr]], 0],
+              0.7,
+              0.9,
+            ],
             // 'fill-opacity': 0.9,
-            'fill-outline-color': blockBorder
+            'fill-outline-color': blockBorder,
           },
           layout: {
-            visibility: 'visible'
-          }
+            visibility: 'visible',
+          },
         });
 
         // block group line layer
@@ -215,17 +214,17 @@
           type: 'line',
           source: {
             type: 'vector',
-            url: blockGroupsUrl
+            url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
           filter: ['>', blockGroundPctAttr, 50],
           paint: {
             'line-color': blockGroupFill,
-            'line-width': 3
+            'line-width': 3,
           },
           layout: {
-            visibility: 'visible'
-          }
+            visibility: 'visible',
+          },
         });
 
         // blocks text layer
@@ -235,7 +234,7 @@
           type: 'symbol',
           source: {
             type: 'vector',
-            url: blocksUrl
+            url: blocksUrl,
           },
           'source-layer': blocksSourceLayer,
           filter: ['>', blockMetersAttr, 0],
@@ -252,11 +251,11 @@
                 [10, 0],
                 [12, 4],
                 [14, 8],
-                [15, 12]
-              ]
+                [15, 12],
+              ],
             },
-            visibility: 'visible'
-          }
+            visibility: 'visible',
+          },
         });
 
         // meters layer
@@ -266,7 +265,7 @@
           type: 'circle',
           source: {
             type: 'vector',
-            url: metersUrl
+            url: metersUrl,
           },
           'source-layer': metersSourceLayer,
           filter: ['==', 'coop_code', coopCode],
@@ -280,28 +279,26 @@
                 [13, 2.5],
                 [14, 3.25],
                 [15, 4.25],
-                [16, 5.25]
-              ]
+                [16, 5.25],
+              ],
             },
-            'circle-color': meters
+            'circle-color': meters,
           },
           layout: {
-            visibility: 'visible'
-          }
+            visibility: 'visible',
+          },
         });
       });
 
       map.once('idle', () => {
-        fetch(
-          `https://conexon.github.io/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`
-        )
-          .then(response => {
+        fetch(`/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`)
+          .then((response) => {
             return response.json();
           })
-          .then(data => {
+          .then((data) => {
             map.addSource('blockGroupsText', {
               type: 'geojson',
-              data: data
+              data: data,
             });
 
             map.addLayer({
@@ -310,13 +307,13 @@
               source: 'blockGroupsText',
               filter: ['>', blockGroundPctAttr, 0],
               paint: {
-                'text-color': blockGroupBorder
+                'text-color': blockGroupBorder,
               },
               layout: {
                 'text-field': [
                   'number-format',
                   ['get', 'fcc_amt'],
-                  { currency: 'USD' }
+                  { currency: 'USD' },
                 ],
                 'symbol-placement': 'point',
                 'text-allow-overlap': true,
@@ -325,7 +322,7 @@
                 'text-rotation-alignment': 'viewport',
                 'text-font': [
                   'literal',
-                  ['DIN Offc Pro Bold', 'Arial Unicode MS Regular']
+                  ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
                 ],
                 'text-size': {
                   base: 0,
@@ -334,10 +331,10 @@
                     [12, 14],
                     [14, 20],
                     [15, 22],
-                    [16, 28]
-                  ]
-                }
-              }
+                    [16, 28],
+                  ],
+                },
+              },
             });
           });
       });
@@ -346,7 +343,7 @@
       const toggleableLayerIds = [
         { name: 'Block groups', id: 'blockGroups' },
         { name: 'Blocks', id: 'blocks' },
-        { name: 'Meters', id: 'meters' }
+        { name: 'Meters', id: 'meters' },
       ];
 
       for (let i = 0; i < toggleableLayerIds.length; i++) {
@@ -358,7 +355,7 @@
         link.className = 'active';
         link.textContent = name;
         link.id = id;
-        link.onclick = function(e) {
+        link.onclick = function (e) {
           const clickedLayer = this.id;
           e.preventDefault();
           e.stopPropagation();
