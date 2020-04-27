@@ -506,7 +506,7 @@
                     url: blockGroupsUrl,
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', percentAttribute, 0],
+                  filter: ['>', metersAttribute, 0],
                   paint: {
                     'fill-color': [
                       'case',
@@ -533,7 +533,7 @@
                     url: blockGroupsUrl,
                   },
                   'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', percentAttribute, 0],
+                  filter: ['>', metersAttribute, 0],
                   paint: {
                     'line-color': [
                       'case',
@@ -695,7 +695,7 @@
                             [16, 28],
                           ],
                         },
-                        visibility: 'none',
+                        visibility: 'visible',
                       },
                     });
                   });
