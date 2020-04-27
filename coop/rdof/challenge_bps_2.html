@@ -79,9 +79,9 @@
         modify these values
       **************************/
       // const stateAbbr = 'ar';
-      const zoom = 9;
-      const center = [-89.4589, 30.5975]; // leave as an array
-      const minZoom = 9;
+      const zoom = 8;
+      const center = [-90.173,36.275]; // /
+      const minZoom = 8;
       const maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
@@ -173,7 +173,25 @@
             visibility: 'visible'
           }
         });
-
+        // // adding the second layer just so colors work out
+        map.addLayer({
+          id: 'mo_blockGroup_challenge',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: MOblockGroupUrl
+          },
+          'source-layer': MOblockGroupSourceLayer,
+          paint: {
+            'fill-color': blockGroupFill,
+            'fill-opacity': 0.4,  //
+            'fill-outline-color': blockBorder
+          },
+          filter: ['all', ['>', 'fcc_904', 0],  ['>','bps_bl_cou', 0] ],
+          layout: {
+            visibility: 'visible'
+          }
+        });        
         // // // AR Block Group
         map.addLayer({
           id: 'ar_blockGroup',
@@ -193,6 +211,25 @@
             visibility: 'visible'
           }
         });
+        // // adding the second layer just so colors work out
+        map.addLayer({
+          id: 'ar_blockGroup_challenge',
+          type: 'fill',
+          source: {
+            type: 'vector',
+            url: ARblockGroupUrl
+          },
+          'source-layer': ARblockGroupSourceLayer,
+          paint: {
+            'fill-color': blockGroupFill,
+            'fill-opacity': 0.4,  //
+            'fill-outline-color': blockBorder
+          },
+          filter: ['all', ['>', 'fcc_904', 0],  ['>','bps_bl_cou', 0] ],
+          layout: {
+            visibility: 'visible'
+          }
+        });  
         // // // TN Block Group
         map.addLayer({
           id: 'tn_blockGroup',
@@ -208,12 +245,10 @@
             'fill-outline-color': blockBorder
           },
           filter: ['>', 'fcc_904', 0],
-
           layout: {
             visibility: 'visible'
           }
-        });
-
+        });  
         // // // KY Block Group
         map.addLayer({
           id: 'ky_blockGroup',
@@ -232,7 +267,7 @@
           layout: {
             visibility: 'visible'
           }
-        });
+        });  
         // // // IL Block Group
         map.addLayer({
           id: 'il_blockGroup',
@@ -251,8 +286,7 @@
           layout: {
             visibility: 'visible'
           }
-        });
-
+        });                        
         // // // // // // // // // // // // // // // // // // // // // //
         // // // // block layers
         // // // // // // // // // // // // // // // // // // // // // //
@@ -272,13 +306,10 @@
           },
           filter: ['>', 'fcc_904', 0],
           //filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
-          
           layout: {
             visibility: 'visible'
           }
         });
-
-        // // AR blocks layers
         map.addLayer({
           id: 'ar_blocks',
           type: 'fill',
@@ -293,165 +324,122 @@
             'fill-outline-color': blockBorder
           },
           filter: ['>', 'fcc_904', 0],
+          //filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
           layout: {
             visibility: 'visible'
           }
-        });        
-        // // // TN blocks layers
-        map.addLayer({
-          id: 'tn_blocks',
-          type: 'fill',
-          source: {
-            type: 'vector',
-            url: TNblocksUrl
-          },
-          'source-layer': TNblocksSourceLayer,
-          paint: {
-            'fill-color': blockFill,
-            'fill-opacity': 0.9,  //[
-
-            'fill-outline-color': blockBorder
-          },
-          filter: ['>', 'fcc_904', 0],
-          layout: {
-            visibility: 'visible'
-          }
-        });
-
-        // // //KY blocks layers
-        map.addLayer({
-          id: 'ky_blocks',
-          type: 'fill',
-          source: {
-            type: 'vector',
-            url: KYblocksUrl
-          },
-          'source-layer': KYblocksSourceLayer,
-
-          paint: {
-            'fill-color': blockFill,
-            'fill-opacity': 0.9,  //[
-            'fill-outline-color': blockBorder
-          },
-          filter: ['>', 'fcc_904', 0],
-          layout: {
-            visibility: 'visible'
-          }
-        });
-        // // // IL blocks layers
-
-        map.addLayer({
-          id: 'il_blocks',
-          type: 'fill',
-          source: {
-            type: 'vector',
-            url: ILblocksUrl
-          },
-          'source-layer': ILblocksSourceLayer,
-          paint: {
-            'fill-color': blockFill,
-            'fill-opacity': 0.9,  //[
-            'fill-outline-color': blockBorder
-          },
-          filter: ['>', 'fcc_904', 0],
-          layout: {
-            visibility: 'visible'
-          }
-        });
+        }); 
+        // map.addLayer({
+        //   id: 'tn_blocks',
+        //   type: 'fill',
+        //   source: {
+        //     type: 'vector',
+        //     url: TNblocksUrl
+        //   },
+        //   'source-layer': TNblocksSourceLayer,
+        //   paint: {
+        //     'fill-color': blockFill,
+        //     'fill-opacity': 0.9,  //[
+        //     'fill-outline-color': blockBorder
+        //   },
+        //   filter: ['>', 'fcc_904', 0],
+        //   //filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // }); 
+        // map.addLayer({
+        //   id: 'ky_blocks',
+        //   type: 'fill',
+        //   source: {
+        //     type: 'vector',
+        //     url: KYblocksUrl
+        //   },
+        //   'source-layer': KYblocksSourceLayer,
+        //   paint: {
+        //     'fill-color': blockFill,
+        //     'fill-opacity': 0.9,  //[
+        //     'fill-outline-color': blockBorder
+        //   },
+        //   filter: ['>', 'fcc_904', 0],
+        //   //filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });                  
 
         // // // // // // // // // // // // // // // // // // // // // //
         // // // // //block group lines
         // // // // // // // // // // // // // // // // // // // // // //
         // // // // MO Block Group Lines
-        map.addLayer({
-          id: 'mo_blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: MOblockGroupUrl
-          },
-          'source-layer': MOblockGroupSourceLayer,
-          filter: ['>', 'fcc_904', 0],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-        // // // AR Block Group Lines
-        map.addLayer({
-          id: 'ar_blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: ARblockGroupUrl
-          },
-          'source-layer': ARblockGroupSourceLayer,
-          filter: ['>', 'fcc_904', 0],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-        // // // TN Block Group Lines
-        map.addLayer({
-          id: 'tn_blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: TNblockGroupUrl
-          },
-          'source-layer': TNblockGroupSourceLayer,
-          filter: ['>', 'fcc_904', 0],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-        // // // KY Block Group Lines
-        map.addLayer({
-          id: 'ky_blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: KYblockGroupUrl
-          },
-          'source-layer': KYblockGroupSourceLayer,
-          filter: ['>', 'fcc_904', 0],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
-        // // // IL Block Group Lines
-        map.addLayer({
-          id: 'il_blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: ILblockGroupUrl
-          },
-          'source-layer': ILblockGroupSourceLayer,
-          filter: ['>', 'fcc_904', 0],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
+        // map.addLayer({
+        //   id: 'mo_blockGroupsLines',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: MOblockGroupUrl
+        //   },
+        //   'source-layer': MOblockGroupSourceLayer,
+        //   filter: ['>', 'fcc_904', 0],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });
+        // map.addLayer({
+        //   id: 'ar_blockGroupsLines',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: ARblockGroupUrl
+        //   },
+        //   'source-layer': ARblockGroupSourceLayer,
+        //   filter: ['>', 'fcc_904', 0],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });    
+        // map.addLayer({
+        //   id: 'tn_blockGroupsLines',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: TNblockGroupUrl
+        //   },
+        //   'source-layer': TNblockGroupSourceLayer,
+        //   filter: ['>', 'fcc_904', 0],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });
+        // map.addLayer({
+        //   id: 'ky_blockGroupsLines',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: KYblockGroupUrl
+        //   },
+        //   'source-layer': KYblockGroupSourceLayer,
+        //   filter: ['>', 'fcc_904', 0],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });                        
 
 
         // // // // // // // // // // // // // // // // // // // // //
@@ -470,12 +458,11 @@
             'fill-opacity': 0.4,  //
             'fill-outline-color': blockBorder
           },
-          filter: ['all', ['>', 'fcc_904', 0],  ['>','bps_bl_cou', 0] ],
+          filter: ['all', ['>', 'fcc_904', 0],  ['==','bps_bl_cou', 0] ],
           layout: {
             visibility: 'visible'
           }
         });
-        // // // AR Challenged block groups
         map.addLayer({
           id: 'ar_blockGroup_after_challenge',
           type: 'fill',
@@ -489,7 +476,7 @@
             'fill-opacity': 0.4,  //
             'fill-outline-color': blockBorder
           },
-          filter: ['all', ['>', 'fcc_904', 0],  ['!=','bps_remove', 1] ],
+          filter: ['all', ['>', 'fcc_904', 0],  ['==','bps_bl_cou', 0] ],
           layout: {
             visibility: 'visible'
           }
@@ -509,12 +496,13 @@
             'fill-opacity': 0.6,  //[
             'fill-outline-color': blockBorder
           },
-          filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
+          filter: ['all', ['>', 'fcc_904', 0], ['==','bps', 0]],
           layout: {
             visibility: 'visible'
           }
         });
-        // // // AR Challenged Blocks
+        // // // // // // // // // // // // // // // // // // // // //
+        // // AR Challenged blocks
         map.addLayer({
           id: 'ar_blocks_after_challenge',
           type: 'fill',
@@ -528,18 +516,56 @@
             'fill-opacity': 0.6,  //[
             'fill-outline-color': blockBorder
           },
-          filter: ['all', ['>', 'fcc_904', 0], ['!=','bps', 1]],
+          filter: ['all', ['>', 'fcc_904', 0], ['==','bps', 0]],
           layout: {
             visibility: 'visible'
           }
-        });
+        });        
+        // map.addLayer({
+        //   id: 'mo_blockGroupsLines_after_challenge',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: MOblockGroupUrl
+        //   },
+        //   'source-layer': MOblockGroupSourceLayer,
+        //   filter: ['all', ['>', 'fcc_904', 0],  ['==','bps_bl_cou', 0] ],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });
+        // map.addLayer({
+        //   id: 'ar_blockGroupsLines_after_challenge',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: ARblockGroupUrl
+        //   },
+        //   'source-layer': ARblockGroupSourceLayer,
+        //   filter: ['all', ['>', 'fcc_904', 0],  ['==','bps_bl_cou', 0] ],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });        
+
 
 
       });
 
+
+
+
       var toggleableLayerIds = 
-          [ 'mo_blocks', 'mo_blockGroup',
-            'ar_blocks', 'ar_blockGroup'
+          [ 'mo_blocks', 'mo_blockGroup', 'mo_blockGroupsLines','mo_blockGroup_challenge',
+          'ar_blocks', 'ar_blockGroup', 'ar_blockGroupsLines','ar_blockGroup_challenge'
           ];
 
       var link = document.createElement('a');
