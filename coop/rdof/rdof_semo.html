@@ -122,26 +122,26 @@
         center: center
       });
 
-      // block group layer
+      // // block group layer
 
-      map.on('load', function() {
-        map.addLayer({
-          id: 'blockGroups',
-          type: 'fill',
-          source: {
-            type: 'vector',
-            url: blockGroupsUrl
-          },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
-          paint: {
-            'fill-color': blockGroupFill,
-            'fill-opacity': 0.4
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
+      // map.on('load', function() {
+      //   map.addLayer({
+      //     id: 'blockGroups',
+      //     type: 'fill',
+      //     source: {
+      //       type: 'vector',
+      //       url: blockGroupsUrl
+      //     },
+      //     'source-layer': blockGroupsSourceLayer,
+      //     filter: ['>', blockGroundPctAttr, 50],
+      //     paint: {
+      //       'fill-color': blockGroupFill,
+      //       'fill-opacity': 0.4
+      //     },
+      //     layout: {
+      //       visibility: 'visible'
+      //     }
+      //   });
 
         // blocks layer
 
@@ -164,25 +164,25 @@
           }
         });
 
-        // block group line layer
+        // // block group line layer
 
-        map.addLayer({
-          id: 'blockGroupsLines',
-          type: 'line',
-          source: {
-            type: 'vector',
-            url: blockGroupsUrl
-          },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
-          paint: {
-            'line-color': blockGroupFill,
-            'line-width': 3
-          },
-          layout: {
-            visibility: 'visible'
-          }
-        });
+        // map.addLayer({
+        //   id: 'blockGroupsLines',
+        //   type: 'line',
+        //   source: {
+        //     type: 'vector',
+        //     url: blockGroupsUrl
+        //   },
+        //   'source-layer': blockGroupsSourceLayer,
+        //   filter: ['>', blockGroundPctAttr, 50],
+        //   paint: {
+        //     'line-color': blockGroupFill,
+        //     'line-width': 3
+        //   },
+        //   layout: {
+        //     visibility: 'visible'
+        //   }
+        // });
 
         // blocks text layer
 
