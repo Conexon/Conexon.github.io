@@ -381,8 +381,8 @@
     "coopCode": "SRE",
     "stateAbbr": "ga",
     "rusNumber": "ga075",
-    "zoom": 9.35, 
-    "center": [-97.6459, 34.7952], 
+    "zoom": 9, 
+    "center": [-84.3126, 32.9194], 
     "minZoom": 9,
     "maxZoom": 15
   }, 
@@ -411,6 +411,87 @@
     "zoom": 8.46, 
     "center": [-82.965, 39.4714], 
     "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "BLUERDG",
+    "stateAbbr": "sc",
+    "rusNumber": "sc038",
+    "zoom": 9.26, 
+    "center": [-82.7988, 34.8056], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "BROADRIVER",
+    "stateAbbr": "sc",
+    "rusNumber": "sc033",
+    "zoom": 9, 
+    "center": [-81.7722, 34.8086], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "EDISTO",
+    "stateAbbr": "sc",
+    "rusNumber": "sc023",
+    "zoom": 9, 
+    "center": [-80.9398,33.1685], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SANTEE",
+    "stateAbbr": "sc",
+    "rusNumber": "sc028",
+    "zoom": 9, 
+    "center": [-79.5599,33.6512], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PEEDEE",
+    "stateAbbr": "sc",
+    "rusNumber": "sc026",
+    "zoom": 9, 
+    "center": [-79.7465,34.191], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "TRICNTSC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc032",
+    "zoom": 9, 
+    "center": [-80.6493, 33.7169], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "YORK",
+    "stateAbbr": "sc",
+    "rusNumber": "sc041",
+    "zoom": 9.84, 
+    "center": [-81.2383, 34.9879],
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MCEC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc037",
+    "zoom": 9.48, 
+    "center": [-81.4413, 33.9421], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "NEC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc034",
+    "zoom": 9.48, 
+    "center": [-81.5896, 34.2752], 
+    "minZoom": 9,
     "maxZoom": 15
   }
 
