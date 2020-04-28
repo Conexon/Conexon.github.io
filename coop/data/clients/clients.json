@@ -403,6 +403,15 @@
     "center": [-107.293, 40.286], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SCP",
+    "stateAbbr": "oh",
+    "rusNumber": "oh065",
+    "zoom": 8.46, 
+    "center": [-82.965, 39.4714], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
