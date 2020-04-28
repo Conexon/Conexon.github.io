@@ -391,10 +391,20 @@
     "stateAbbr": "ok",
     "rusNumber": "ok020",
     "zoom": 9.3, 
-    "center": [-84.2261, 32.8906], 
+    "center": [-97.7468, 34.6923], 
     "minZoom": 9,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "YVEA",
+    "stateAbbr": "co",
+    "rusNumber": "co036",
+    "zoom": 8.25, 
+    "center": [-107.293, 40.286], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
+
 
 
 ]
