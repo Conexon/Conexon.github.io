@@ -502,6 +502,96 @@
     "center": [-89.5134, 35.9152], 
     "minZoom": 9,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "CNTRLOK",
+    "stateAbbr": "ok",
+    "rusNumber": "ok024",
+    "zoom": 9, 
+    "center": [-97.1464, 35.9843], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "CHOCTAW",
+    "stateAbbr": "ok",
+    "rusNumber": "ok030",
+    "zoom": 8.5, 
+    "center": [-95.2533, 34.2001], 
+    "minZoom": 8,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "COOKSON",
+    "stateAbbr": "ok",
+    "rusNumber": "ok035",
+    "zoom": 9, 
+    "center": [-94.8879, 35.2639], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "COTTON",
+    "stateAbbr": "ok",
+    "rusNumber": "ok022",
+    "zoom": 9, 
+    "center": [-98.1588, 34.3859], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "ECOEC",
+    "stateAbbr": "ok",
+    "rusNumber": "ok023",
+    "zoom": 8.75, 
+    "center": [-95.83, 35.6768], 
+    "minZoom": 8,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "INDIAN",
+    "stateAbbr": "ok",
+    "rusNumber": "ok028",
+    "zoom": 8.5, 
+    "center": [-96.3581, 36.4731], 
+    "minZoom": 8,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "KIAMICHI",
+    "stateAbbr": "ok",
+    "rusNumber": "ok033",
+    "zoom": 8.5, 
+    "center": [-95.2314, 34.8015], 
+    "minZoom": 8,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "RECOK",
+    "stateAbbr": "ok",
+    "rusNumber": "ok020",
+    "zoom": 9, 
+    "center": [-97.6459, 34.7952], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "VVEC",
+    "stateAbbr": "ok",
+    "rusNumber": "ok025",
+    "zoom": 8.7, 
+    "center": [-95.8249, 36.5401], 
+    "minZoom": 8,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "BERK",
+    "stateAbbr": "sc",
+    "rusNumber": "sc025",
+    "zoom": 9, 
+    "center": [-79.9357, 32.9781], 
+    "minZoom": 8,
+    "maxZoom": 10
   }
 
 
