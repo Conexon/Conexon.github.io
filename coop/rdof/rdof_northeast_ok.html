@@ -165,7 +165,7 @@
             url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 0],
+          filter: ['>=', blockGroundPctAttr, 0],
           paint: {
             'fill-color': [
               'case',
@@ -305,7 +305,7 @@
               id: 'blockGroupsText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 0],
+              filter: ['>=', blockGroundPctAttr, 0],
               paint: {
                 'text-color': blockGroupBorder,
               },
