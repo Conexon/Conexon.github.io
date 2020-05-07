@@ -592,6 +592,24 @@
     "center": [-79.9357, 32.9781], 
     "minZoom": 8,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "NHEC",
+    "stateAbbr": "nh",
+    "rusNumber": "nh004",
+    "zoom": 7.37, 
+    "center": [-71.08, 44.115], 
+    "minZoom": 7,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "CONSOLMO",
+    "stateAbbr": "mo",
+    "rusNumber": "mo036",
+    "zoom": 9, 
+    "center": [-91.8217, 39.265], 
+    "minZoom": 9,
+    "maxZoom": 10
   }
 
 
