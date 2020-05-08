@@ -610,6 +610,15 @@
     "center": [-91.8217, 39.265], 
     "minZoom": 9,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "GREATLAKES",
+    "stateAbbr": "mi",
+    "rusNumber": "mi048",
+    "zoom": 8.01, 
+    "center": [-85.195, 44.344], 
+    "minZoom": 7,
+    "maxZoom": 10
   }
 
 
