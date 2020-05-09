@@ -619,6 +619,51 @@
     "center": [-85.195, 44.344], 
     "minZoom": 7,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "SWREA",
+    "stateAbbr": "ar",
+    "rusNumber": "ar012",
+    "zoom": 9, 
+    "center": [-94.0176, 33.5045], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "SCREMC",
+    "stateAbbr": "in",
+    "rusNumber": "in053",
+    "zoom": 9, 
+    "center": [-85.0329, 41.6008], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "FEC",
+    "stateAbbr": "oh",
+    "rusNumber": "oh083",
+    "zoom": 9.2, 
+    "center": [-82.4913, 40.9589], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "LMRE",
+    "stateAbbr": "oh",
+    "rusNumber": "oh056",
+    "zoom": 9.8, 
+    "center": [-82.1834, 41.1296], 
+    "minZoom": 9,
+    "maxZoom": 10
+  }, 
+    {
+    "coopCode": "CBEC",
+    "stateAbbr": "or",
+    "rusNumber": "or029",
+    "zoom": 9.8, 
+    "center": [-119.7147, 45.2988], 
+    "minZoom": 9,
+    "maxZoom": 10
   }
 
 
