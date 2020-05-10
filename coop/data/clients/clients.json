@@ -664,6 +664,15 @@
     "center": [-119.7147, 45.2988], 
     "minZoom": 9,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "PPCS",
+    "stateAbbr": "wi",
+    "rusNumber": "wi058",
+    "zoom": 9.39, 
+    "center": [-92.5194, 44.6893], 
+    "minZoom": 9,
+    "maxZoom": 10
   }
 
 
