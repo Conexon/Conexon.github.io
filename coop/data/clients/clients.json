@@ -501,7 +501,7 @@
     "zoom": 10, 
     "center": [-89.5134, 35.9152], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "CNTRLOK",
@@ -510,7 +510,7 @@
     "zoom": 9, 
     "center": [-97.1464, 35.9843], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "CHOCTAW",
@@ -519,7 +519,7 @@
     "zoom": 8.5, 
     "center": [-95.2533, 34.2001], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "COOKSON",
@@ -528,7 +528,7 @@
     "zoom": 9, 
     "center": [-94.8879, 35.2639], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "COTTON",
@@ -537,7 +537,7 @@
     "zoom": 9, 
     "center": [-98.1588, 34.3859], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "ECOEC",
@@ -546,7 +546,7 @@
     "zoom": 8.75, 
     "center": [-95.83, 35.6768], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "INDIAN",
@@ -555,7 +555,7 @@
     "zoom": 8.5, 
     "center": [-96.3581, 36.4731], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "KIAMICHI",
@@ -564,7 +564,7 @@
     "zoom": 8.5, 
     "center": [-95.2314, 34.8015], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "RECOK",
@@ -573,7 +573,7 @@
     "zoom": 9, 
     "center": [-97.6459, 34.7952], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "VVEC",
@@ -582,7 +582,7 @@
     "zoom": 8.7, 
     "center": [-95.8249, 36.5401], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "BERK",
@@ -591,7 +591,7 @@
     "zoom": 9, 
     "center": [-79.9357, 32.9781], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "NHEC",
@@ -600,7 +600,7 @@
     "zoom": 7.37, 
     "center": [-71.08, 44.115], 
     "minZoom": 7,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "CONSOLMO",
@@ -609,7 +609,7 @@
     "zoom": 9, 
     "center": [-91.8217, 39.265], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "GREATLAKES",
@@ -618,7 +618,7 @@
     "zoom": 8.01, 
     "center": [-85.195, 44.344], 
     "minZoom": 7,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "SWREA",
@@ -627,7 +627,7 @@
     "zoom": 9, 
     "center": [-94.0176, 33.5045], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "SCREMC",
@@ -636,7 +636,7 @@
     "zoom": 9, 
     "center": [-85.0329, 41.6008], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "FEC",
@@ -645,7 +645,7 @@
     "zoom": 9.2, 
     "center": [-82.4913, 40.9589], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "LMRE",
@@ -654,7 +654,7 @@
     "zoom": 9.8, 
     "center": [-82.1834, 41.1296], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "CBEC",
@@ -663,7 +663,7 @@
     "zoom": 9.8, 
     "center": [-119.7147, 45.2988], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "PPCS",
@@ -672,7 +672,7 @@
     "zoom": 9.39, 
     "center": [-92.5194, 44.6893], 
     "minZoom": 9,
-    "maxZoom": 10
+    "maxZoom": 15
   }, 
     {
     "coopCode": "HWTCEC",
@@ -681,7 +681,16 @@
     "zoom": 8.13, 
     "center": [-84.809, 43.091], 
     "minZoom": 8,
-    "maxZoom": 10
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PIEG",
+    "stateAbbr": "mi",
+    "rusNumber": "mi028",
+    "zoom": 8.59, 
+    "center": [-83.8846, 45.2128], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
