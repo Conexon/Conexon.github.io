@@ -80,7 +80,34 @@
       }
     </style>
 
-    <div class="">
+    <div class="grid grid-cols-12 container mx-auto">
+      <div class="col-span-12">
+        <form id="form" class="my-8" onsubmit="event.preventDefault();">
+          <label
+            for="password"
+            class="block text-sm font-medium leading-5 text-gray-700"
+            >Enter your password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+          />
+          <p class="mt-2 text-sm text-red-600 hidden" id="password-error">
+            Password is incorrect.
+          </p>
+          <button
+            type="submit"
+            class="w-full flex justify-center py-2 px-4 mt-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out"
+          >
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="main" class="hidden">
       <div class="grid grid-cols-12">
         <div class="col-span-8">
           <div class="bg-white overflow-hidden shadow-xs rounded-sm">
@@ -248,658 +275,688 @@
     </div>
 
     <script>
-      let stateAbbr = '';
-      let rusNumber = '';
-      let metersAttribute = '';
-      let percentAttribute = '';
-      let coopCode = '';
-      let zoom = 12;
-      let center = [];
-      let minZoom = 9;
-      let maxZoom = 15;
-
-      // colors
-      const blockFill = 'orange';
-      const blockGroupFill = 'green';
-      const blockGroupBorder = 'darkgreen';
-      const blockGroup2Fill = 'blue';
-      const blockGroup2Border = 'blue';
-      const meters = 'gray';
-      const blockBorder = 'black';
-      const meterColors = [
-        'blue',
-        'orange',
-        'green',
-        'brown',
-        'slategray',
-        'red',
-        'aqua',
-      ];
-
-      let blockGroupData;
-      let allGeoids = [];
-      let blockGroupTotals = {
-        locations: 0,
-        amount: 0,
-        amount50: 0,
-        meters: 0,
-        meters_no_service: 0,
-        meters_underserved: 0,
-        meters_fiber: 0,
-        meters_rdof: 0,
-        meters_cable: 0,
-        meters_telco: 0,
-      };
-      let selectedGeoids = [];
-      let dataForCsv = [];
-
-      let selectedSubstations = [];
-
-      const dataContainer = document.getElementById('data');
-      const introContainer = document.getElementById('intro');
-      const menuContainer = document.getElementById('menu');
-      const mapContainer = document.getElementById('map');
-
-      mapboxgl.accessToken =
-        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
-      const map = new mapboxgl.Map({
-        container: 'map',
-        hash: true,
-        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-      });
-
-      const downloadCsv = () => {
-        const blobData = Papa.unparse(dataForCsv, {
-          header: true,
-        });
-        try {
-          saveAs(
-            new Blob([blobData], {
-              type: 'text/csv;charset=utf-16',
-            }),
-            `${coopCode}-RDOF.csv`
-          );
-        } catch (e) {
-          window.open(
-            'data:text/csv;charset=utf-16,' + encodeURIComponent(blobData),
-            '_blank',
-            ''
-          );
-        }
-      };
-
-      const updateData = (geoids) => {
-        console.log('passed in', geoids, geoids.length);
-        if (geoids.length === 0) {
-          document.getElementById('intro').classList.remove('hidden');
-          document.getElementById('data').classList.add('hidden');
-        } else {
-          document.getElementById('intro').classList.add('hidden');
-          document.getElementById('data').classList.remove('hidden');
-          document.getElementById('blockGroupCount').innerHTML = geoids.length;
-        }
-
-        let geoidFilters = ['case'];
-        geoids.forEach((geoid) => {
-          geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
-        });
-        geoidFilters.push(
-          ['<', ['to-number', ['get', percentAttribute]], 50],
-          blockGroup2Fill,
-          blockGroupFill
-        );
-        map.setPaintProperty('blockGroups', 'fill-color', [...geoidFilters]);
-        map.setPaintProperty('blockGroupsLines', 'line-color', [
-          ...geoidFilters,
-        ]);
-        map.setPaintProperty('blockGroupsText', 'text-color', [
-          ...geoidFilters,
-        ]);
-
-        let locations = 0;
-        let amount = 0;
-        let amount50 = 0;
-        let groups50 = 0;
-        let meters = 0;
-        let meters_no_service = 0;
-        let meters_underserved = 0;
-        let meters_fiber = 0;
-        let meters_rdof = 0;
-        let meters_telco = 0;
-        let meters_cable = 0;
-
-        dataForCsv = [];
-        dataForCsv.push([
-          'GeoId',
-          'FCC locations',
-          'Amount',
-          'Percent meters',
-          'Meters',
-        ]);
-
-        geoids.forEach((geoid) => {
-          const selectedBlockGroup = blockGroupData.find(
-            (blockGroup) => blockGroup.geoid === geoid
-          );
-          locations += selectedBlockGroup.locations;
-          amount += selectedBlockGroup.amount;
-          amount50 +=
-            selectedBlockGroup.pct >= 50 ? selectedBlockGroup.amount : 0;
-          groups50 += selectedBlockGroup.pct >= 50 ? 1 : 0;
-          meters += selectedBlockGroup.meters;
-          meters_no_service += selectedBlockGroup.meters_no_service;
-          meters_underserved += selectedBlockGroup.meters_underserved;
-          meters_fiber += selectedBlockGroup.meters_fiber;
-          meters_rdof += selectedBlockGroup.meters_rdof;
-          meters_telco += selectedBlockGroup.meters_telco;
-          meters_cable += selectedBlockGroup.meters_cable;
-
-          dataForCsv.push([
-            geoid,
-            selectedBlockGroup.locations,
-            selectedBlockGroup.amount,
-            selectedBlockGroup.pct,
-            selectedBlockGroup.meters,
-          ]);
-        });
-        // update the data
-
-        document.getElementById('amount').innerHTML = amount.toLocaleString(
-          'en-US',
-          {
-            style: 'currency',
-            currency: 'USD',
-          }
-        );
-        document.getElementById('amount50').innerHTML = amount50.toLocaleString(
-          'en-US',
-          {
-            style: 'currency',
-            currency: 'USD',
-          }
-        );
-        document.getElementById('locations').innerHTML = locations;
-        document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
-        document.getElementById('blockGroups50').innerHTML = groups50;
-        document.getElementById('meters').innerHTML = meters;
-        document.getElementById('meters_rdof').innerHTML = meters_rdof;
-        document.getElementById('meters_cable').innerHTML = meters_cable;
-        document.getElementById('meters_fiber').innerHTML = meters_fiber;
-        document.getElementById('meters_telco').innerHTML = meters_telco;
-      };
-
-      const highlightAllBlockGroups = () => {
-        selectedGeoids = allGeoids;
-        updateData(allGeoids);
-      };
-
-      const clearAllBlockGroups = () => {
-        selectedGeoids = [];
-        updateData([]);
-      };
-
       // get the URL params
       var urlParams = new URLSearchParams(window.location.search);
 
-      // if there's no coopCode param
-      if (!urlParams.get('coopCode')) {
-        // reset things
-        dataContainer.innerHTML =
-          '<h1 class="text-2xl m-8">Sorry you need to provide a coopCode, e.g. https://conexon.github.io/coop/rdof/index.html?<span class="font-semibold">coopCode=YourCoop</span></h1>';
-        menuContainer.remove();
-      } else {
-        // fetch the list of clients
-        fetch(`/coop/data/clients/clients.json`)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            // find the given client
-            const clientData = data.find(
-              (client) =>
-                client.coopCode.toLowerCase() ===
-                urlParams.get('coopCode').toLowerCase()
+      const form = document.getElementById('form');
+
+      const login = () => {
+        if (
+          document.getElementById('password').value.toLowerCase() ===
+            `${urlParams.get('coopCode').toLowerCase()}123!` ||
+          document.getElementById('password').value === 'conexon123!'
+        ) {
+          document.getElementById('main').classList.remove('hidden');
+          document.getElementById('form').classList.add('hidden');
+          document.getElementById('password-error').classList.add('hidden');
+          loadMap();
+        } else {
+          document.getElementById('password-error').classList.remove('hidden');
+        }
+      };
+
+      form.addEventListener('submit', login);
+
+      const loadMap = () => {
+        let stateAbbr = '';
+        let rusNumber = '';
+        let metersAttribute = '';
+        let percentAttribute = '';
+        let coopCode = '';
+        let zoom = 12;
+        let center = [];
+        let minZoom = 9;
+        let maxZoom = 15;
+
+        // colors
+        const blockFill = 'orange';
+        const blockGroupFill = 'green';
+        const blockGroupBorder = 'darkgreen';
+        const blockGroup2Fill = 'blue';
+        const blockGroup2Border = 'blue';
+        const meters = 'gray';
+        const blockBorder = 'black';
+        const meterColors = [
+          'blue',
+          'orange',
+          'green',
+          'brown',
+          'slategray',
+          'red',
+          'aqua',
+        ];
+
+        let blockGroupData;
+        let allGeoids = [];
+        let blockGroupTotals = {
+          locations: 0,
+          amount: 0,
+          amount50: 0,
+          meters: 0,
+          meters_no_service: 0,
+          meters_underserved: 0,
+          meters_fiber: 0,
+          meters_rdof: 0,
+          meters_cable: 0,
+          meters_telco: 0,
+        };
+        let selectedGeoids = [];
+        let dataForCsv = [];
+
+        let selectedSubstations = [];
+
+        const dataContainer = document.getElementById('data');
+        const introContainer = document.getElementById('intro');
+        const menuContainer = document.getElementById('menu');
+        const mapContainer = document.getElementById('map');
+
+        mapboxgl.accessToken =
+          'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+        const map = new mapboxgl.Map({
+          container: 'map',
+          hash: true,
+          style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+        });
+
+        const downloadCsv = () => {
+          const blobData = Papa.unparse(dataForCsv, {
+            header: true,
+          });
+          try {
+            saveAs(
+              new Blob([blobData], {
+                type: 'text/csv;charset=utf-16',
+              }),
+              `${coopCode}-RDOF.csv`
             );
+          } catch (e) {
+            window.open(
+              'data:text/csv;charset=utf-16,' + encodeURIComponent(blobData),
+              '_blank',
+              ''
+            );
+          }
+        };
 
-            // if not found
-            if (!clientData) {
-              dataContainer.innerHTML = `<h1 class="text-2xl m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
-                'coopCode'
-              )}</span>. Please double check it.</h1>`;
-              menuContainer.remove();
-            } else {
-              stateAbbr = clientData.stateAbbr;
-              rusNumber = clientData.rusNumber;
-              metersAttribute = `${rusNumber}_m`;
-              percentAttribute = `${rusNumber}_pct`;
-              coopCode = clientData.coopCode;
-              zoom = clientData.zoom;
-              center = clientData.center; // leave as an array  9//
-              minZoom = clientData.minZoom || 9;
-              maxZoom = clientData.maxZoom || 15;
+        const updateData = (geoids) => {
+          console.log('passed in', geoids, geoids.length);
+          if (geoids.length === 0) {
+            document.getElementById('intro').classList.remove('hidden');
+            document.getElementById('data').classList.add('hidden');
+          } else {
+            document.getElementById('intro').classList.add('hidden');
+            document.getElementById('data').classList.remove('hidden');
+            document.getElementById('blockGroupCount').innerHTML =
+              geoids.length;
+          }
 
-              map.setZoom(zoom);
-              map.setMinZoom(minZoom);
-              map.setMaxZoom(maxZoom);
-              map.setCenter(center);
-              map.setBearing(0);
-              map.setPitch(0);
+          let geoidFilters = ['case'];
+          geoids.forEach((geoid) => {
+            geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
+          });
+          geoidFilters.push(
+            ['<', ['to-number', ['get', percentAttribute]], 50],
+            blockGroup2Fill,
+            blockGroupFill
+          );
+          map.setPaintProperty('blockGroups', 'fill-color', [...geoidFilters]);
+          map.setPaintProperty('blockGroupsLines', 'line-color', [
+            ...geoidFilters,
+          ]);
+          map.setPaintProperty('blockGroupsText', 'text-color', [
+            ...geoidFilters,
+          ]);
 
-              // tilesets
-              const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
-              const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
+          let locations = 0;
+          let amount = 0;
+          let amount50 = 0;
+          let groups50 = 0;
+          let meters = 0;
+          let meters_no_service = 0;
+          let meters_underserved = 0;
+          let meters_fiber = 0;
+          let meters_rdof = 0;
+          let meters_telco = 0;
+          let meters_cable = 0;
 
-              const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
-              const blocksSourceLayer = `rdof_block_${stateAbbr}`;
+          dataForCsv = [];
+          dataForCsv.push([
+            'GeoId',
+            'FCC locations',
+            'Amount',
+            'Percent meters',
+            'Meters',
+          ]);
 
-              const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
-              const metersSourceLayer = `rdof_meters_${stateAbbr}`;
+          geoids.forEach((geoid) => {
+            const selectedBlockGroup = blockGroupData.find(
+              (blockGroup) => blockGroup.geoid === geoid
+            );
+            locations += selectedBlockGroup.locations;
+            amount += selectedBlockGroup.amount;
+            amount50 +=
+              selectedBlockGroup.pct >= 50 ? selectedBlockGroup.amount : 0;
+            groups50 += selectedBlockGroup.pct >= 50 ? 1 : 0;
+            meters += selectedBlockGroup.meters;
+            meters_no_service += selectedBlockGroup.meters_no_service;
+            meters_underserved += selectedBlockGroup.meters_underserved;
+            meters_fiber += selectedBlockGroup.meters_fiber;
+            meters_rdof += selectedBlockGroup.meters_rdof;
+            meters_telco += selectedBlockGroup.meters_telco;
+            meters_cable += selectedBlockGroup.meters_cable;
 
-              // initial load, first layers
-              map.on('load', function () {
-                // block groups fill
-                map.addLayer({
-                  id: 'blockGroups',
-                  type: 'fill',
-                  source: {
-                    type: 'vector',
-                    url: blockGroupsUrl,
-                  },
-                  'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', metersAttribute, 0],
-                  paint: {
-                    'fill-color': [
-                      'case',
-                      ['<', ['to-number', ['get', percentAttribute]], 50],
-                      blockGroup2Fill,
-                      blockGroupFill,
-                    ],
-                    'fill-opacity': 0.25,
-                  },
-                  layout: {
-                    visibility: 'visible',
-                  },
-                });
-                map.on('click', 'blockGroups', (event) => {
-                  console.log(event.features[0].properties);
-                });
+            dataForCsv.push([
+              geoid,
+              selectedBlockGroup.locations,
+              selectedBlockGroup.amount,
+              selectedBlockGroup.pct,
+              selectedBlockGroup.meters,
+            ]);
+          });
+          // update the data
 
-                // block groups line
-                map.addLayer({
-                  id: 'blockGroupsLines',
-                  type: 'line',
-                  source: {
-                    type: 'vector',
-                    url: blockGroupsUrl,
-                  },
-                  'source-layer': blockGroupsSourceLayer,
-                  filter: ['>', metersAttribute, 0],
-                  paint: {
-                    'line-color': [
-                      'case',
-                      ['<', ['to-number', ['get', percentAttribute]], 50],
-                      blockGroup2Fill,
-                      blockGroupFill,
-                    ],
-                    'line-width': 3,
-                  },
-                  layout: {
-                    visibility: 'visible',
-                  },
-                });
-
-                // blocks layer
-                map.addLayer({
-                  id: 'blocks',
-                  type: 'fill',
-                  source: {
-                    type: 'vector',
-                    url: blocksUrl,
-                  },
-                  'source-layer': blocksSourceLayer,
-                  filter: ['>=', metersAttribute, 0],
-                  paint: {
-                    'fill-color': blockFill,
-                    'fill-opacity': [
-                      'case',
-                      ['==', ['to-number', ['get', metersAttribute]], 0],
-                      0.5,
-                      0.9,
-                    ],
-                    'fill-outline-color': blockBorder,
-                  },
-                  layout: {
-                    visibility: 'visible',
-                  },
-                });
-                map.on('click', 'blocks', (event) => {
-                  console.log(event.features[0].properties);
-                });
-
-                // blocks text layer
-                map.addLayer({
-                  id: 'blocksText',
-                  type: 'symbol',
-                  source: {
-                    type: 'vector',
-                    url: blocksUrl,
-                  },
-                  'source-layer': blocksSourceLayer,
-                  filter: ['>', metersAttribute, 0],
-                  layout: {
-                    'text-field': ['get', 'geoid10'],
-                    'symbol-placement': 'point',
-                    'text-allow-overlap': true,
-                    'text-justify': 'center',
-                    'text-padding': 4,
-                    'text-rotation-alignment': 'viewport',
-                    'text-size': {
-                      base: 0,
-                      stops: [
-                        [10, 0],
-                        [12, 4],
-                        [14, 8],
-                        [15, 12],
-                      ],
-                    },
-                    visibility: 'visible',
-                  },
-                });
-
-                // meters layer
-                map.addLayer({
-                  id: 'meters',
-                  type: 'circle',
-                  source: {
-                    type: 'vector',
-                    url: metersUrl,
-                  },
-                  'source-layer': metersSourceLayer,
-                  filter: ['==', 'coop_code', coopCode],
-                  paint: {
-                    'circle-radius': {
-                      base: 2,
-                      stops: [
-                        [12, 2],
-                        [13, 3],
-                        [14, 4],
-                        [15, 5],
-                        [16, 6],
-                      ],
-                    },
-                    'circle-color': meters,
-                  },
-                  layout: {
-                    visibility: 'none',
-                  },
-                });
-
-                map.on('click', 'meters', (event) => {
-                  console.log(event.features[0].properties);
-                });
-              });
-
-              // load the block groups
-              map.once('idle', () => {
-                // add the text, the $ amounts
-                fetch(`/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`)
-                  .then((response) => {
-                    return response.json();
-                  })
-                  .then((data) => {
-                    console.log(
-                      'fetched data',
-                      metersAttribute,
-                      percentAttribute
-                    );
-                    map.addSource('blockGroupsText', {
-                      type: 'geojson',
-                      data: data,
-                    });
-
-                    map.addLayer({
-                      id: 'blockGroupsText',
-                      type: 'symbol',
-                      source: 'blockGroupsText',
-                      filter: ['>', metersAttribute, 0],
-                      paint: {
-                        'text-color': [
-                          'case',
-                          ['<', ['to-number', ['get', percentAttribute]], 50],
-                          blockGroup2Fill,
-                          blockGroupBorder,
-                        ],
-                      },
-                      layout: {
-                        'text-field': [
-                          'number-format',
-                          ['*', ['get', 'fcc_amt'], 10],
-                          { currency: 'USD' },
-                        ],
-                        'symbol-placement': 'point',
-                        'text-allow-overlap': true,
-                        'text-justify': 'center',
-                        'text-padding': 4,
-                        'text-rotation-alignment': 'viewport',
-                        'text-font': [
-                          'literal',
-                          ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
-                        ],
-                        'text-size': {
-                          base: 0,
-                          stops: [
-                            [10, 12],
-                            [12, 14],
-                            [14, 20],
-                            [15, 22],
-                            [16, 28],
-                          ],
-                        },
-                        visibility: 'visible',
-                      },
-                    });
-                  });
-
-                const lowerCoopCode = coopCode.toLowerCase();
-                fetch(`/coop/data/clients/${lowerCoopCode}_geoid.json`)
-                  .then((response) => {
-                    return response.json();
-                  })
-                  .then((data) => {
-                    blockGroupData = data;
-                    // build the list of block groups based on this data
-                    data.forEach((blockGroup) => {
-                      blockGroupTotals.locations += blockGroup.locations;
-                      blockGroupTotals.amount += blockGroup.amount;
-                      blockGroupTotals.amount50 +=
-                        blockGroup.pct >= 50 ? blockGroup.amount : 0;
-                      blockGroupTotals.meters += blockGroup.meters;
-                      blockGroupTotals.meters_no_service +=
-                        blockGroup.meters_no_service;
-                      blockGroupTotals.meters_underserved +=
-                        blockGroup.meters_underserved;
-                      blockGroupTotals.meters_fiber += blockGroup.meters_fiber;
-                      blockGroupTotals.meters_rdof += blockGroup.meters_rdof;
-                      blockGroupTotals.meters_telco += blockGroup.meters_telco;
-                      blockGroupTotals.meters_cable += blockGroup.meters_cable;
-
-                      allGeoids.push(blockGroup.geoid);
-                    });
-                  });
-
-                map.on('click', 'blockGroups', (event) => {
-                  if (
-                    selectedGeoids.includes(event.features[0].properties.geoid)
-                  ) {
-                    const filteredGeoids = selectedGeoids.filter((geoid) => {
-                      return geoid !== event.features[0].properties.geoid;
-                    });
-                    selectedGeoids = filteredGeoids;
-                  } else {
-                    selectedGeoids.push(event.features[0].properties.geoid);
-                  }
-
-                  updateData(selectedGeoids);
-                });
-
-                // substations
-                fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
-                  .then((response) => {
-                    return response.json();
-                  })
-                  .then((data) => {
-                    allSubstations = data;
-
-                    map.addSource('substations', {
-                      type: 'geojson',
-                      data: data,
-                    });
-
-                    map.addLayer({
-                      id: 'substations',
-                      type: 'symbol',
-                      source: 'substations',
-                      layout: {
-                        'icon-image': 'black-square-15',
-                        'icon-size': {
-                          base: 0.5,
-                          stops: [
-                            [12, 0.75],
-                            [13, 1.25],
-                            [14, 1.75],
-                            [15, 2.25],
-                            [16, 3.75],
-                          ],
-                        },
-                        'icon-allow-overlap': true,
-                        'text-allow-overlap': true,
-                        'text-field': '{subname}',
-                        'text-offset': [0, -1],
-                        visibility: 'visible',
-                      },
-                    });
-
-                    map.on('click', 'substations', (event) => {
-                      console.log(event.features[0].properties);
-                      if (
-                        selectedSubstations.includes(
-                          event.features[0].properties.cn_substat
-                        )
-                      ) {
-                        const filteredSubstations = selectedSubstations.filter(
-                          (cn_substat) => {
-                            return (
-                              cn_substat !==
-                              event.features[0].properties.cn_substat
-                            );
-                          }
-                        );
-                        selectedSubstations = filteredSubstations;
-                      } else {
-                        selectedSubstations.push(
-                          event.features[0].properties.cn_substat
-                        );
-                      }
-
-                      if (selectedSubstations.length > 0) {
-                        console.log(selectedSubstations);
-                        let meterFilters = [
-                          'all',
-                          ['==', 'coop_code', coopCode],
-                          ['any'],
-                        ];
-                        selectedSubstations.forEach((substation) => {
-                          meterFilters[2].push([
-                            '==',
-                            'cn_substat',
-                            substation,
-                          ]);
-                        });
-                        console.log(meterFilters);
-                        map.setFilter('meters', meterFilters);
-                        map.setLayoutProperty(
-                          'meters',
-                          'visibility',
-                          'visible'
-                        );
-                      } else {
-                        console.log();
-                        map.setLayoutProperty('meters', 'visibility', 'none');
-                      }
-                    });
-                  });
-              });
-              // end we have a good client
+          document.getElementById('amount').innerHTML = amount.toLocaleString(
+            'en-US',
+            {
+              style: 'currency',
+              currency: 'USD',
             }
-            // end we have a coopCode param
+          );
+          document.getElementById(
+            'amount50'
+          ).innerHTML = amount50.toLocaleString('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          });
+          document.getElementById('locations').innerHTML = locations;
+          document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
+          document.getElementById('blockGroups50').innerHTML = groups50;
+          document.getElementById('meters').innerHTML = meters;
+          document.getElementById('meters_rdof').innerHTML = meters_rdof;
+          document.getElementById('meters_cable').innerHTML = meters_cable;
+          document.getElementById('meters_fiber').innerHTML = meters_fiber;
+          document.getElementById('meters_telco').innerHTML = meters_telco;
+        };
 
-            // toggle set up
-            const toggleableLayerIds = [
-              { name: 'Block groups', id: 'blockGroups' },
-              { name: 'Blocks', id: 'blocks' },
-            ];
+        const highlightAllBlockGroups = () => {
+          selectedGeoids = allGeoids;
+          updateData(allGeoids);
+        };
 
-            for (let i = 0; i < toggleableLayerIds.length; i++) {
-              const id = toggleableLayerIds[i].id;
-              const name = toggleableLayerIds[i].name;
+        const clearAllBlockGroups = () => {
+          selectedGeoids = [];
+          updateData([]);
+        };
 
-              let link = document.createElement('a');
-              link.href = '#';
-              link.className = 'active';
-              link.textContent = name;
-              link.id = id;
-              link.onclick = function (e) {
-                const clickedLayer = this.id;
-                e.preventDefault();
-                e.stopPropagation();
+        // if there's no coopCode param
+        if (!urlParams.get('coopCode')) {
+          // reset things
+          dataContainer.innerHTML =
+            '<h1 class="text-2xl m-8">Sorry you need to provide a coopCode, e.g. https://conexon.github.io/coop/rdof/index.html?<span class="font-semibold">coopCode=YourCoop</span></h1>';
+          menuContainer.remove();
+        } else {
+          // fetch the list of clients
+          fetch(`/coop/data/clients/clients.json`)
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              // find the given client
+              const clientData = data.find(
+                (client) =>
+                  client.coopCode.toLowerCase() ===
+                  urlParams.get('coopCode').toLowerCase()
+              );
 
-                const visibility = map.getLayoutProperty(
-                  clickedLayer,
-                  'visibility'
-                );
+              // if not found
+              if (!clientData) {
+                dataContainer.innerHTML = `<h1 class="text-2xl m-8">Sorry we couldn't find <span class="font-semibold">coopCode=${urlParams.get(
+                  'coopCode'
+                )}</span>. Please double check it.</h1>`;
+                menuContainer.remove();
+              } else {
+                stateAbbr = clientData.stateAbbr;
+                rusNumber = clientData.rusNumber;
+                metersAttribute = `${rusNumber}_m`;
+                percentAttribute = `${rusNumber}_pct`;
+                coopCode = clientData.coopCode;
+                zoom = clientData.zoom;
+                center = clientData.center; // leave as an array  9//
+                minZoom = clientData.minZoom || 9;
+                maxZoom = clientData.maxZoom || 15;
 
-                if (visibility === 'visible') {
-                  this.className = '';
-                  map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                map.setZoom(zoom);
+                map.setMinZoom(minZoom);
+                map.setMaxZoom(maxZoom);
+                map.setCenter(center);
+                map.setBearing(0);
+                map.setPitch(0);
 
-                  map.setLayoutProperty(
-                    `${clickedLayer}Text`,
-                    'visibility',
-                    'none'
+                // tilesets
+                const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
+                const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
+
+                const blocksUrl = `mapbox://conexon-design.rdof_block_${stateAbbr}`;
+                const blocksSourceLayer = `rdof_block_${stateAbbr}`;
+
+                const metersUrl = `mapbox://conexon-design.rdof_meters_${stateAbbr}`;
+                const metersSourceLayer = `rdof_meters_${stateAbbr}`;
+
+                // initial load, first layers
+                map.on('load', function () {
+                  // block groups fill
+                  map.addLayer({
+                    id: 'blockGroups',
+                    type: 'fill',
+                    source: {
+                      type: 'vector',
+                      url: blockGroupsUrl,
+                    },
+                    'source-layer': blockGroupsSourceLayer,
+                    filter: ['>', metersAttribute, 0],
+                    paint: {
+                      'fill-color': [
+                        'case',
+                        ['<', ['to-number', ['get', percentAttribute]], 50],
+                        blockGroup2Fill,
+                        blockGroupFill,
+                      ],
+                      'fill-opacity': 0.25,
+                    },
+                    layout: {
+                      visibility: 'visible',
+                    },
+                  });
+                  map.on('click', 'blockGroups', (event) => {
+                    console.log(event.features[0].properties);
+                  });
+
+                  // block groups line
+                  map.addLayer({
+                    id: 'blockGroupsLines',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: blockGroupsUrl,
+                    },
+                    'source-layer': blockGroupsSourceLayer,
+                    filter: ['>', metersAttribute, 0],
+                    paint: {
+                      'line-color': [
+                        'case',
+                        ['<', ['to-number', ['get', percentAttribute]], 50],
+                        blockGroup2Fill,
+                        blockGroupFill,
+                      ],
+                      'line-width': 3,
+                    },
+                    layout: {
+                      visibility: 'visible',
+                    },
+                  });
+
+                  // blocks layer
+                  map.addLayer({
+                    id: 'blocks',
+                    type: 'fill',
+                    source: {
+                      type: 'vector',
+                      url: blocksUrl,
+                    },
+                    'source-layer': blocksSourceLayer,
+                    filter: ['>=', metersAttribute, 0],
+                    paint: {
+                      'fill-color': blockFill,
+                      'fill-opacity': [
+                        'case',
+                        ['==', ['to-number', ['get', metersAttribute]], 0],
+                        0.5,
+                        0.9,
+                      ],
+                      'fill-outline-color': blockBorder,
+                    },
+                    layout: {
+                      visibility: 'visible',
+                    },
+                  });
+                  map.on('click', 'blocks', (event) => {
+                    console.log(event.features[0].properties);
+                  });
+
+                  // blocks text layer
+                  map.addLayer({
+                    id: 'blocksText',
+                    type: 'symbol',
+                    source: {
+                      type: 'vector',
+                      url: blocksUrl,
+                    },
+                    'source-layer': blocksSourceLayer,
+                    filter: ['>', metersAttribute, 0],
+                    layout: {
+                      'text-field': ['get', 'geoid10'],
+                      'symbol-placement': 'point',
+                      'text-allow-overlap': true,
+                      'text-justify': 'center',
+                      'text-padding': 4,
+                      'text-rotation-alignment': 'viewport',
+                      'text-size': {
+                        base: 0,
+                        stops: [
+                          [10, 0],
+                          [12, 4],
+                          [14, 8],
+                          [15, 12],
+                        ],
+                      },
+                      visibility: 'visible',
+                    },
+                  });
+
+                  // meters layer
+                  map.addLayer({
+                    id: 'meters',
+                    type: 'circle',
+                    source: {
+                      type: 'vector',
+                      url: metersUrl,
+                    },
+                    'source-layer': metersSourceLayer,
+                    filter: ['==', 'coop_code', coopCode],
+                    paint: {
+                      'circle-radius': {
+                        base: 2,
+                        stops: [
+                          [12, 2],
+                          [13, 3],
+                          [14, 4],
+                          [15, 5],
+                          [16, 6],
+                        ],
+                      },
+                      'circle-color': meters,
+                    },
+                    layout: {
+                      visibility: 'none',
+                    },
+                  });
+
+                  map.on('click', 'meters', (event) => {
+                    console.log(event.features[0].properties);
+                  });
+                });
+
+                // load the block groups
+                map.once('idle', () => {
+                  // add the text, the $ amounts
+                  fetch(`/coop/data/rdof_bg_pnt_${stateAbbr}.geojson`)
+                    .then((response) => {
+                      return response.json();
+                    })
+                    .then((data) => {
+                      console.log(
+                        'fetched data',
+                        metersAttribute,
+                        percentAttribute
+                      );
+                      map.addSource('blockGroupsText', {
+                        type: 'geojson',
+                        data: data,
+                      });
+
+                      map.addLayer({
+                        id: 'blockGroupsText',
+                        type: 'symbol',
+                        source: 'blockGroupsText',
+                        filter: ['>', metersAttribute, 0],
+                        paint: {
+                          'text-color': [
+                            'case',
+                            ['<', ['to-number', ['get', percentAttribute]], 50],
+                            blockGroup2Fill,
+                            blockGroupBorder,
+                          ],
+                        },
+                        layout: {
+                          'text-field': [
+                            'number-format',
+                            ['*', ['get', 'fcc_amt'], 10],
+                            { currency: 'USD' },
+                          ],
+                          'symbol-placement': 'point',
+                          'text-allow-overlap': true,
+                          'text-justify': 'center',
+                          'text-padding': 4,
+                          'text-rotation-alignment': 'viewport',
+                          'text-font': [
+                            'literal',
+                            ['DIN Offc Pro Bold', 'Arial Unicode MS Regular'],
+                          ],
+                          'text-size': {
+                            base: 0,
+                            stops: [
+                              [10, 12],
+                              [12, 14],
+                              [14, 20],
+                              [15, 22],
+                              [16, 28],
+                            ],
+                          },
+                          visibility: 'visible',
+                        },
+                      });
+                    });
+
+                  const lowerCoopCode = coopCode.toLowerCase();
+                  fetch(`/coop/data/clients/${lowerCoopCode}_geoid.json`)
+                    .then((response) => {
+                      return response.json();
+                    })
+                    .then((data) => {
+                      blockGroupData = data;
+                      // build the list of block groups based on this data
+                      data.forEach((blockGroup) => {
+                        blockGroupTotals.locations += blockGroup.locations;
+                        blockGroupTotals.amount += blockGroup.amount;
+                        blockGroupTotals.amount50 +=
+                          blockGroup.pct >= 50 ? blockGroup.amount : 0;
+                        blockGroupTotals.meters += blockGroup.meters;
+                        blockGroupTotals.meters_no_service +=
+                          blockGroup.meters_no_service;
+                        blockGroupTotals.meters_underserved +=
+                          blockGroup.meters_underserved;
+                        blockGroupTotals.meters_fiber +=
+                          blockGroup.meters_fiber;
+                        blockGroupTotals.meters_rdof += blockGroup.meters_rdof;
+                        blockGroupTotals.meters_telco +=
+                          blockGroup.meters_telco;
+                        blockGroupTotals.meters_cable +=
+                          blockGroup.meters_cable;
+
+                        allGeoids.push(blockGroup.geoid);
+                      });
+                    });
+
+                  map.on('click', 'blockGroups', (event) => {
+                    if (
+                      selectedGeoids.includes(
+                        event.features[0].properties.geoid
+                      )
+                    ) {
+                      const filteredGeoids = selectedGeoids.filter((geoid) => {
+                        return geoid !== event.features[0].properties.geoid;
+                      });
+                      selectedGeoids = filteredGeoids;
+                    } else {
+                      selectedGeoids.push(event.features[0].properties.geoid);
+                    }
+
+                    updateData(selectedGeoids);
+                  });
+
+                  // substations
+                  fetch(`/coop/data/clients/${lowerCoopCode}_sub.geojson`)
+                    .then((response) => {
+                      return response.json();
+                    })
+                    .then((data) => {
+                      allSubstations = data;
+
+                      map.addSource('substations', {
+                        type: 'geojson',
+                        data: data,
+                      });
+
+                      map.addLayer({
+                        id: 'substations',
+                        type: 'symbol',
+                        source: 'substations',
+                        layout: {
+                          'icon-image': 'black-square-15',
+                          'icon-size': {
+                            base: 0.5,
+                            stops: [
+                              [12, 0.75],
+                              [13, 1.25],
+                              [14, 1.75],
+                              [15, 2.25],
+                              [16, 3.75],
+                            ],
+                          },
+                          'icon-allow-overlap': true,
+                          'text-allow-overlap': true,
+                          'text-field': '{subname}',
+                          'text-offset': [0, -1],
+                          visibility: 'visible',
+                        },
+                      });
+
+                      map.on('click', 'substations', (event) => {
+                        console.log(event.features[0].properties);
+                        if (
+                          selectedSubstations.includes(
+                            event.features[0].properties.cn_substat
+                          )
+                        ) {
+                          const filteredSubstations = selectedSubstations.filter(
+                            (cn_substat) => {
+                              return (
+                                cn_substat !==
+                                event.features[0].properties.cn_substat
+                              );
+                            }
+                          );
+                          selectedSubstations = filteredSubstations;
+                        } else {
+                          selectedSubstations.push(
+                            event.features[0].properties.cn_substat
+                          );
+                        }
+
+                        if (selectedSubstations.length > 0) {
+                          console.log(selectedSubstations);
+                          let meterFilters = [
+                            'all',
+                            ['==', 'coop_code', coopCode],
+                            ['any'],
+                          ];
+                          selectedSubstations.forEach((substation) => {
+                            meterFilters[2].push([
+                              '==',
+                              'cn_substat',
+                              substation,
+                            ]);
+                          });
+                          console.log(meterFilters);
+                          map.setFilter('meters', meterFilters);
+                          map.setLayoutProperty(
+                            'meters',
+                            'visibility',
+                            'visible'
+                          );
+                        } else {
+                          console.log();
+                          map.setLayoutProperty('meters', 'visibility', 'none');
+                        }
+                      });
+                    });
+                });
+                // end we have a good client
+              }
+              // end we have a coopCode param
+
+              // toggle set up
+              const toggleableLayerIds = [
+                { name: 'Block groups', id: 'blockGroups' },
+                { name: 'Blocks', id: 'blocks' },
+              ];
+
+              for (let i = 0; i < toggleableLayerIds.length; i++) {
+                const id = toggleableLayerIds[i].id;
+                const name = toggleableLayerIds[i].name;
+
+                let link = document.createElement('a');
+                link.href = '#';
+                link.className = 'active';
+                link.textContent = name;
+                link.id = id;
+                link.onclick = function (e) {
+                  const clickedLayer = this.id;
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  const visibility = map.getLayoutProperty(
+                    clickedLayer,
+                    'visibility'
                   );
 
-                  if (clickedLayer === 'blockGroups') {
+                  if (visibility === 'visible') {
+                    this.className = '';
+                    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+
                     map.setLayoutProperty(
-                      `${clickedLayer}Lines`,
+                      `${clickedLayer}Text`,
                       'visibility',
                       'none'
                     );
-                  }
-                } else {
-                  this.className = 'active';
-                  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
 
-                  map.setLayoutProperty(
-                    `${clickedLayer}Text`,
-                    'visibility',
-                    'visible'
-                  );
-
-                  if (clickedLayer === 'blockGroups') {
+                    if (clickedLayer === 'blockGroups') {
+                      map.setLayoutProperty(
+                        `${clickedLayer}Lines`,
+                        'visibility',
+                        'none'
+                      );
+                    }
+                  } else {
+                    this.className = 'active';
                     map.setLayoutProperty(
-                      `${clickedLayer}Lines`,
+                      clickedLayer,
                       'visibility',
                       'visible'
                     );
-                  }
-                }
-              };
 
-              const layers = document.getElementById('menu');
-              layers.appendChild(link);
-            }
-          });
-      }
+                    map.setLayoutProperty(
+                      `${clickedLayer}Text`,
+                      'visibility',
+                      'visible'
+                    );
+
+                    if (clickedLayer === 'blockGroups') {
+                      map.setLayoutProperty(
+                        `${clickedLayer}Lines`,
+                        'visibility',
+                        'visible'
+                      );
+                    }
+                  }
+                };
+
+                const layers = document.getElementById('menu');
+                layers.appendChild(link);
+              }
+            });
+        }
+      };
     </script>
   </body>
 </html>
