@@ -673,6 +673,15 @@
     "center": [-92.5194, 44.6893], 
     "minZoom": 9,
     "maxZoom": 10
+  }, 
+    {
+    "coopCode": "HWTCEC",
+    "stateAbbr": "mi",
+    "rusNumber": "mi026",
+    "zoom": 8.13, 
+    "center": [-84.809, 43.091], 
+    "minZoom": 8,
+    "maxZoom": 10
   }
 
 
