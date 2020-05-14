@@ -275,10 +275,176 @@
     </div>
 
     <script>
+      let stateAbbr = '';
+      let rusNumber = '';
+      let metersAttribute = '';
+      let percentAttribute = '';
+      let coopCode = '';
+      let zoom = 12;
+      let center = [];
+      let minZoom = 9;
+      let maxZoom = 15;
+
+      // colors
+      const blockFill = 'orange';
+      const blockGroupFill = 'green';
+      const blockGroupBorder = 'darkgreen';
+      const blockGroup2Fill = 'blue';
+      const blockGroup2Border = 'blue';
+      const meters = 'gray';
+      const blockBorder = 'black';
+      const meterColors = [
+        'blue',
+        'orange',
+        'green',
+        'brown',
+        'slategray',
+        'red',
+        'aqua',
+      ];
+
+      let blockGroupData;
+
+      let blockGroupTotals = {
+        locations: 0,
+        amount: 0,
+        amount50: 0,
+        meters: 0,
+        meters_no_service: 0,
+        meters_underserved: 0,
+        meters_fiber: 0,
+        meters_rdof: 0,
+        meters_cable: 0,
+        meters_telco: 0,
+      };
+
+      let dataForCsv = [];
+
+      let selectedSubstations = [];
+      let allGeoids = [];
+      let selectedGeoids = [];
       // get the URL params
       var urlParams = new URLSearchParams(window.location.search);
 
+      mapboxgl.accessToken =
+        'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+      const map = new mapboxgl.Map({
+        container: 'map',
+        hash: true,
+        style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+      });
+
       const form = document.getElementById('form');
+
+      const updateData = (geoids) => {
+        console.log('passed in', geoids, geoids.length);
+        if (geoids.length === 0) {
+          document.getElementById('intro').classList.remove('hidden');
+          document.getElementById('data').classList.add('hidden');
+        } else {
+          document.getElementById('intro').classList.add('hidden');
+          document.getElementById('data').classList.remove('hidden');
+          document.getElementById('blockGroupCount').innerHTML = geoids.length;
+        }
+
+        let geoidFilters = ['case'];
+        geoids.forEach((geoid) => {
+          geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
+        });
+        geoidFilters.push(
+          ['<', ['to-number', ['get', percentAttribute]], 50],
+          blockGroup2Fill,
+          blockGroupFill
+        );
+        map.setPaintProperty('blockGroups', 'fill-color', [...geoidFilters]);
+        map.setPaintProperty('blockGroupsLines', 'line-color', [
+          ...geoidFilters,
+        ]);
+        map.setPaintProperty('blockGroupsText', 'text-color', [
+          ...geoidFilters,
+        ]);
+
+        let locations = 0;
+        let amount = 0;
+        let amount50 = 0;
+        let groups50 = 0;
+        let meters = 0;
+        let meters_no_service = 0;
+        let meters_underserved = 0;
+        let meters_fiber = 0;
+        let meters_rdof = 0;
+        let meters_telco = 0;
+        let meters_cable = 0;
+
+        dataForCsv = [];
+        dataForCsv.push([
+          'GeoId',
+          'FCC locations',
+          'Amount',
+          'Percent meters',
+          'Meters',
+        ]);
+
+        geoids.forEach((geoid) => {
+          const selectedBlockGroup = blockGroupData.find(
+            (blockGroup) => blockGroup.geoid === geoid
+          );
+          locations += selectedBlockGroup.locations;
+          amount += selectedBlockGroup.amount;
+          amount50 +=
+            selectedBlockGroup.pct >= 50 ? selectedBlockGroup.amount : 0;
+          groups50 += selectedBlockGroup.pct >= 50 ? 1 : 0;
+          meters += selectedBlockGroup.meters;
+          meters_no_service += selectedBlockGroup.meters_no_service;
+          meters_underserved += selectedBlockGroup.meters_underserved;
+          meters_fiber += selectedBlockGroup.meters_fiber;
+          meters_rdof += selectedBlockGroup.meters_rdof;
+          meters_telco += selectedBlockGroup.meters_telco;
+          meters_cable += selectedBlockGroup.meters_cable;
+
+          dataForCsv.push([
+            geoid,
+            selectedBlockGroup.locations,
+            selectedBlockGroup.amount,
+            selectedBlockGroup.pct,
+            selectedBlockGroup.meters,
+          ]);
+        });
+        // update the data
+
+        document.getElementById('amount').innerHTML = amount.toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: 'USD',
+          }
+        );
+        document.getElementById('amount50').innerHTML = amount50.toLocaleString(
+          'en-US',
+          {
+            style: 'currency',
+            currency: 'USD',
+          }
+        );
+        document.getElementById('locations').innerHTML = locations;
+        document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
+        document.getElementById('blockGroups50').innerHTML = groups50;
+        document.getElementById('meters').innerHTML = meters;
+        document.getElementById('meters_rdof').innerHTML = meters_rdof;
+        document.getElementById('meters_cable').innerHTML = meters_cable;
+        document.getElementById('meters_fiber').innerHTML = meters_fiber;
+        document.getElementById('meters_telco').innerHTML = meters_telco;
+      };
+
+      const highlightAllBlockGroups = () => {
+        selectedGeoids = allGeoids;
+        updateData(allGeoids);
+      };
+
+      const clearAllBlockGroups = () => {
+        selectedGeoids = [];
+        updateData([]);
+      };
 
       const login = () => {
         if (
@@ -298,65 +464,11 @@
       form.addEventListener('submit', login);
 
       const loadMap = () => {
-        let stateAbbr = '';
-        let rusNumber = '';
-        let metersAttribute = '';
-        let percentAttribute = '';
-        let coopCode = '';
-        let zoom = 12;
-        let center = [];
-        let minZoom = 9;
-        let maxZoom = 15;
-
-        // colors
-        const blockFill = 'orange';
-        const blockGroupFill = 'green';
-        const blockGroupBorder = 'darkgreen';
-        const blockGroup2Fill = 'blue';
-        const blockGroup2Border = 'blue';
-        const meters = 'gray';
-        const blockBorder = 'black';
-        const meterColors = [
-          'blue',
-          'orange',
-          'green',
-          'brown',
-          'slategray',
-          'red',
-          'aqua',
-        ];
-
-        let blockGroupData;
-        let allGeoids = [];
-        let blockGroupTotals = {
-          locations: 0,
-          amount: 0,
-          amount50: 0,
-          meters: 0,
-          meters_no_service: 0,
-          meters_underserved: 0,
-          meters_fiber: 0,
-          meters_rdof: 0,
-          meters_cable: 0,
-          meters_telco: 0,
-        };
-        let selectedGeoids = [];
-        let dataForCsv = [];
-
-        let selectedSubstations = [];
-
+        map.resize();
         const dataContainer = document.getElementById('data');
         const introContainer = document.getElementById('intro');
         const menuContainer = document.getElementById('menu');
         const mapContainer = document.getElementById('map');
-
-        mapboxgl.accessToken =
-          'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
-        const map = new mapboxgl.Map({
-          container: 'map',
-          hash: true,
-          style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
-        });
 
         const downloadCsv = () => {
           const blobData = Papa.unparse(dataForCsv, {
@@ -376,116 +488,6 @@
               ''
             );
           }
-        };
-
-        const updateData = (geoids) => {
-          console.log('passed in', geoids, geoids.length);
-          if (geoids.length === 0) {
-            document.getElementById('intro').classList.remove('hidden');
-            document.getElementById('data').classList.add('hidden');
-          } else {
-            document.getElementById('intro').classList.add('hidden');
-            document.getElementById('data').classList.remove('hidden');
-            document.getElementById('blockGroupCount').innerHTML =
-              geoids.length;
-          }
-
-          let geoidFilters = ['case'];
-          geoids.forEach((geoid) => {
-            geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
-          });
-          geoidFilters.push(
-            ['<', ['to-number', ['get', percentAttribute]], 50],
-            blockGroup2Fill,
-            blockGroupFill
-          );
-          map.setPaintProperty('blockGroups', 'fill-color', [...geoidFilters]);
-          map.setPaintProperty('blockGroupsLines', 'line-color', [
-            ...geoidFilters,
-          ]);
-          map.setPaintProperty('blockGroupsText', 'text-color', [
-            ...geoidFilters,
-          ]);
-
-          let locations = 0;
-          let amount = 0;
-          let amount50 = 0;
-          let groups50 = 0;
-          let meters = 0;
-          let meters_no_service = 0;
-          let meters_underserved = 0;
-          let meters_fiber = 0;
-          let meters_rdof = 0;
-          let meters_telco = 0;
-          let meters_cable = 0;
-
-          dataForCsv = [];
-          dataForCsv.push([
-            'GeoId',
-            'FCC locations',
-            'Amount',
-            'Percent meters',
-            'Meters',
-          ]);
-
-          geoids.forEach((geoid) => {
-            const selectedBlockGroup = blockGroupData.find(
-              (blockGroup) => blockGroup.geoid === geoid
-            );
-            locations += selectedBlockGroup.locations;
-            amount += selectedBlockGroup.amount;
-            amount50 +=
-              selectedBlockGroup.pct >= 50 ? selectedBlockGroup.amount : 0;
-            groups50 += selectedBlockGroup.pct >= 50 ? 1 : 0;
-            meters += selectedBlockGroup.meters;
-            meters_no_service += selectedBlockGroup.meters_no_service;
-            meters_underserved += selectedBlockGroup.meters_underserved;
-            meters_fiber += selectedBlockGroup.meters_fiber;
-            meters_rdof += selectedBlockGroup.meters_rdof;
-            meters_telco += selectedBlockGroup.meters_telco;
-            meters_cable += selectedBlockGroup.meters_cable;
-
-            dataForCsv.push([
-              geoid,
-              selectedBlockGroup.locations,
-              selectedBlockGroup.amount,
-              selectedBlockGroup.pct,
-              selectedBlockGroup.meters,
-            ]);
-          });
-          // update the data
-
-          document.getElementById('amount').innerHTML = amount.toLocaleString(
-            'en-US',
-            {
-              style: 'currency',
-              currency: 'USD',
-            }
-          );
-          document.getElementById(
-            'amount50'
-          ).innerHTML = amount50.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          });
-          document.getElementById('locations').innerHTML = locations;
-          document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
-          document.getElementById('blockGroups50').innerHTML = groups50;
-          document.getElementById('meters').innerHTML = meters;
-          document.getElementById('meters_rdof').innerHTML = meters_rdof;
-          document.getElementById('meters_cable').innerHTML = meters_cable;
-          document.getElementById('meters_fiber').innerHTML = meters_fiber;
-          document.getElementById('meters_telco').innerHTML = meters_telco;
-        };
-
-        const highlightAllBlockGroups = () => {
-          selectedGeoids = allGeoids;
-          updateData(allGeoids);
-        };
-
-        const clearAllBlockGroups = () => {
-          selectedGeoids = [];
-          updateData([]);
         };
 
         // if there's no coopCode param
@@ -543,148 +545,148 @@
                 const metersSourceLayer = `rdof_meters_${stateAbbr}`;
 
                 // initial load, first layers
-                map.on('load', function () {
-                  // block groups fill
-                  map.addLayer({
-                    id: 'blockGroups',
-                    type: 'fill',
-                    source: {
-                      type: 'vector',
-                      url: blockGroupsUrl,
-                    },
-                    'source-layer': blockGroupsSourceLayer,
-                    filter: ['>', metersAttribute, 0],
-                    paint: {
-                      'fill-color': [
-                        'case',
-                        ['<', ['to-number', ['get', percentAttribute]], 50],
-                        blockGroup2Fill,
-                        blockGroupFill,
-                      ],
-                      'fill-opacity': 0.25,
-                    },
-                    layout: {
-                      visibility: 'visible',
-                    },
-                  });
-                  map.on('click', 'blockGroups', (event) => {
-                    console.log(event.features[0].properties);
-                  });
-
-                  // block groups line
-                  map.addLayer({
-                    id: 'blockGroupsLines',
-                    type: 'line',
-                    source: {
-                      type: 'vector',
-                      url: blockGroupsUrl,
-                    },
-                    'source-layer': blockGroupsSourceLayer,
-                    filter: ['>', metersAttribute, 0],
-                    paint: {
-                      'line-color': [
-                        'case',
-                        ['<', ['to-number', ['get', percentAttribute]], 50],
-                        blockGroup2Fill,
-                        blockGroupFill,
-                      ],
-                      'line-width': 3,
-                    },
-                    layout: {
-                      visibility: 'visible',
-                    },
-                  });
-
-                  // blocks layer
-                  map.addLayer({
-                    id: 'blocks',
-                    type: 'fill',
-                    source: {
-                      type: 'vector',
-                      url: blocksUrl,
-                    },
-                    'source-layer': blocksSourceLayer,
-                    filter: ['>=', metersAttribute, 0],
-                    paint: {
-                      'fill-color': blockFill,
-                      'fill-opacity': [
-                        'case',
-                        ['==', ['to-number', ['get', metersAttribute]], 0],
-                        0.5,
-                        0.9,
-                      ],
-                      'fill-outline-color': blockBorder,
-                    },
-                    layout: {
-                      visibility: 'visible',
-                    },
-                  });
-                  map.on('click', 'blocks', (event) => {
-                    console.log(event.features[0].properties);
-                  });
-
-                  // blocks text layer
-                  map.addLayer({
-                    id: 'blocksText',
-                    type: 'symbol',
-                    source: {
-                      type: 'vector',
-                      url: blocksUrl,
-                    },
-                    'source-layer': blocksSourceLayer,
-                    filter: ['>', metersAttribute, 0],
-                    layout: {
-                      'text-field': ['get', 'geoid10'],
-                      'symbol-placement': 'point',
-                      'text-allow-overlap': true,
-                      'text-justify': 'center',
-                      'text-padding': 4,
-                      'text-rotation-alignment': 'viewport',
-                      'text-size': {
-                        base: 0,
-                        stops: [
-                          [10, 0],
-                          [12, 4],
-                          [14, 8],
-                          [15, 12],
-                        ],
-                      },
-                      visibility: 'visible',
-                    },
-                  });
-
-                  // meters layer
-                  map.addLayer({
-                    id: 'meters',
-                    type: 'circle',
-                    source: {
-                      type: 'vector',
-                      url: metersUrl,
-                    },
-                    'source-layer': metersSourceLayer,
-                    filter: ['==', 'coop_code', coopCode],
-                    paint: {
-                      'circle-radius': {
-                        base: 2,
-                        stops: [
-                          [12, 2],
-                          [13, 3],
-                          [14, 4],
-                          [15, 5],
-                          [16, 6],
-                        ],
-                      },
-                      'circle-color': meters,
-                    },
-                    layout: {
-                      visibility: 'none',
-                    },
-                  });
-
-                  map.on('click', 'meters', (event) => {
-                    console.log(event.features[0].properties);
-                  });
+                //map.on('load', function () {
+                // block groups fill
+                map.addLayer({
+                  id: 'blockGroups',
+                  type: 'fill',
+                  source: {
+                    type: 'vector',
+                    url: blockGroupsUrl,
+                  },
+                  'source-layer': blockGroupsSourceLayer,
+                  filter: ['>', metersAttribute, 0],
+                  paint: {
+                    'fill-color': [
+                      'case',
+                      ['<', ['to-number', ['get', percentAttribute]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill,
+                    ],
+                    'fill-opacity': 0.25,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
                 });
+                map.on('click', 'blockGroups', (event) => {
+                  console.log(event.features[0].properties);
+                });
+
+                // block groups line
+                map.addLayer({
+                  id: 'blockGroupsLines',
+                  type: 'line',
+                  source: {
+                    type: 'vector',
+                    url: blockGroupsUrl,
+                  },
+                  'source-layer': blockGroupsSourceLayer,
+                  filter: ['>', metersAttribute, 0],
+                  paint: {
+                    'line-color': [
+                      'case',
+                      ['<', ['to-number', ['get', percentAttribute]], 50],
+                      blockGroup2Fill,
+                      blockGroupFill,
+                    ],
+                    'line-width': 3,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
+                });
+
+                // blocks layer
+                map.addLayer({
+                  id: 'blocks',
+                  type: 'fill',
+                  source: {
+                    type: 'vector',
+                    url: blocksUrl,
+                  },
+                  'source-layer': blocksSourceLayer,
+                  filter: ['>=', metersAttribute, 0],
+                  paint: {
+                    'fill-color': blockFill,
+                    'fill-opacity': [
+                      'case',
+                      ['==', ['to-number', ['get', metersAttribute]], 0],
+                      0.5,
+                      0.9,
+                    ],
+                    'fill-outline-color': blockBorder,
+                  },
+                  layout: {
+                    visibility: 'visible',
+                  },
+                });
+                map.on('click', 'blocks', (event) => {
+                  console.log(event.features[0].properties);
+                });
+
+                // blocks text layer
+                map.addLayer({
+                  id: 'blocksText',
+                  type: 'symbol',
+                  source: {
+                    type: 'vector',
+                    url: blocksUrl,
+                  },
+                  'source-layer': blocksSourceLayer,
+                  filter: ['>', metersAttribute, 0],
+                  layout: {
+                    'text-field': ['get', 'geoid10'],
+                    'symbol-placement': 'point',
+                    'text-allow-overlap': true,
+                    'text-justify': 'center',
+                    'text-padding': 4,
+                    'text-rotation-alignment': 'viewport',
+                    'text-size': {
+                      base: 0,
+                      stops: [
+                        [10, 0],
+                        [12, 4],
+                        [14, 8],
+                        [15, 12],
+                      ],
+                    },
+                    visibility: 'visible',
+                  },
+                });
+
+                // meters layer
+                map.addLayer({
+                  id: 'meters',
+                  type: 'circle',
+                  source: {
+                    type: 'vector',
+                    url: metersUrl,
+                  },
+                  'source-layer': metersSourceLayer,
+                  filter: ['==', 'coop_code', coopCode],
+                  paint: {
+                    'circle-radius': {
+                      base: 2,
+                      stops: [
+                        [12, 2],
+                        [13, 3],
+                        [14, 4],
+                        [15, 5],
+                        [16, 6],
+                      ],
+                    },
+                    'circle-color': meters,
+                  },
+                  layout: {
+                    visibility: 'none',
+                  },
+                });
+
+                map.on('click', 'meters', (event) => {
+                  console.log(event.features[0].properties);
+                });
+                //});
 
                 // load the block groups
                 map.once('idle', () => {

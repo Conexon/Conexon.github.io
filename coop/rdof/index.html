@@ -491,6 +491,7 @@
           ];
 
           listOfVisibleSubstations.forEach((substation) => {
+            console.log('substations', listOfVisibleSubstations.length);
             allSubstations.features.forEach((feature) => {
               if (feature.properties.cn_substat === substation) {
                 myData[3].data[0].count += feature.properties.meters;
@@ -1281,6 +1282,10 @@
                           ];
 
                           listOfVisibleSubstations.forEach((substation) => {
+                            console.log(
+                              'substations',
+                              listOfVisibleSubstations.length
+                            );
                             data.features.forEach((feature) => {
                               if (
                                 feature.properties.cn_substat === substation
