@@ -718,7 +718,17 @@
     "center": [-90.4148, 34.4246], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "NTEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms050",
+    "zoom": 9.64, 
+    "center": [-89.2307, 33.8404], 
+    "minZoom": 9,
+    "maxZoom": 15
   }
+
 
 
 
