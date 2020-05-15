@@ -727,6 +727,24 @@
     "center": [-89.2307, 33.8404], 
     "minZoom": 9,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "CMEC",
+    "stateAbbr": "mo",
+    "rusNumber": "mo040",
+    "zoom": 9, 
+    "center": [-93.0523, 38.8528], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "LEC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc019",
+    "zoom": 9.42, 
+    "center": [-81.9473, 34.5413], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
