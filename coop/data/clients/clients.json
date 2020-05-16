@@ -817,7 +817,17 @@
     "center": [-82.9977, 36.3608], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PDEC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc026",
+    "zoom": 9, 
+    "center": [-79.7465,34.191], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
+
 
 
 
