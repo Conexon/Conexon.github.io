@@ -745,7 +745,35 @@
     "center": [-81.9473, 34.5413], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PEC",
+    "stateAbbr": "tx",
+    "rusNumber": "tx076",
+    "zoom": 8.01, 
+    "center": [-99.143, 30.18], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PLATTE",
+    "stateAbbr": "mo",
+    "rusNumber": "mo041",
+    "zoom": 9.2, 
+    "center": [-94.5405, 39.5234], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "WESTCEN",
+    "stateAbbr": "mo",
+    "rusNumber": "mo050",
+    "zoom": 9.2, 
+    "center": [-93.7331, 38.878], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
+
 
 
 
