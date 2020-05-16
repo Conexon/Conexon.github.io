@@ -772,7 +772,53 @@
     "center": [-93.7331, 38.878], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "TWINCOEPA",
+    "stateAbbr": "ms",
+    "rusNumber": "ms031",
+    "zoom": 8.7, 
+    "center": [-90.62, 32.9851], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "LCEC",
+    "stateAbbr": "oh",
+    "rusNumber": "oh071",
+    "zoom": 9.6, 
+    "center": [-83.8775, 40.3696], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "LRE",
+    "stateAbbr": "oh",
+    "rusNumber": "oh041",
+    "zoom": 9.06, 
+    "center": [-82.387, 40.2544], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PEC",
+    "stateAbbr": "tx",
+    "rusNumber": "tx076",
+    "zoom": 8.01, 
+    "center": [-99.143, 30.18], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "HEC",
+    "stateAbbr": "tn",
+    "rusNumber": "tn037",
+    "zoom": 9.56, 
+    "center": [-82.9977, 36.3608], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
+
 
 
 
