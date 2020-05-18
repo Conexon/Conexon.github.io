@@ -844,6 +844,15 @@
     "center": [-91.8842, 38.3739], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PALMETTO",
+    "stateAbbr": "sc",
+    "rusNumber": "sc040",
+    "zoom": 9, 
+    "center": [-81.0513, 32.6182], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
