@@ -835,6 +835,15 @@
     "center": [-82.4451, 31.5727], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "THREERIVERS",
+    "stateAbbr": "mo",
+    "rusNumber": "mo045",
+    "zoom": 9, 
+    "center": [-91.8842, 38.3739], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
