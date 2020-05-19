@@ -99,8 +99,6 @@
 
         //*
         map.on('click', 'USAC_MS', (event) => {
-          console.log(event.features[0].properties);
-
           // set the paint property with an expression
           map.setPaintProperty('USAC_MS', 'fill-color', [
             'case',
