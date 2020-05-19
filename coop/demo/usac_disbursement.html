@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Federal Support to Price Cap Carriers w/o results</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<style>
+.mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+</style>
+<div id="map"></div>
+<script>
+
+	var unserved_1_URL = 'mapbox://conexon-design.unserved_1';
+	var unserved_1_SourceLayer = 'unserved_1';
+	var unserved_2_URL = 'mapbox://conexon-design.unserved_2';
+	var unserved_2_SourceLayer = 'unserved_2';
+	var unserved_3_URL = 'mapbox://conexon-design.unserved_3';
+	var unserved_3_SourceLayer = 'unserved_3';
+	var unserved_4_URL = 'mapbox://conexon-design.unserved_4';
+	var unserved_4_SourceLayer = 'unserved_4';
+	var unserved_5_URL = 'mapbox://conexon-design.unserved_5';
+	var unserved_5_SourceLayer = 'unserved_5';
+	var unserved_6_URL = 'mapbox://conexon-design.unserved_6';
+	var unserved_6_SourceLayer = 'unserved_6';			
+
+	var SACUrl = 'mapbox://conexon-design.sac';
+	var SACSourceLayer = 'sac';
+
+	var unservedFill = '#FFA500';
+	var blackBorder = '#000000';
+	var SACFill = '#0000FF'
+	var SACSelectFill = '#0000FF';
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+	var map = new mapboxgl.Map({
+		container: 'map',
+		hash: true,
+		// style: 'mapbox://styles/mapbox/streets-v11',
+		style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+		center: [-91.96, 38.02],
+		minZoom:4,
+		maxZoom: 10,
+		zoom: 4
+	});
+
+
+	map.on('load', function() { 
+	//unserved layer
+	map.addLayer({
+	  id: 'unserved_1',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_1_URL,
+	  },
+	  'source-layer': unserved_1_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+	map.addLayer({
+	  id: 'unserved_2',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_2_URL,
+	  },
+	  'source-layer': unserved_2_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});	
+	map.addLayer({
+	  id: 'unserved_3',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_3_URL,
+	  },
+	  'source-layer': unserved_3_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+	map.addLayer({
+	  id: 'unserved_4',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_4_URL,
+	  },
+	  'source-layer': unserved_4_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+	map.addLayer({
+	  id: 'unserved_5',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_5_URL,
+	  },
+	  'source-layer': unserved_5_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+	map.addLayer({
+	  id: 'unserved_6',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: unserved_6_URL,
+	  },
+	  'source-layer': unserved_6_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.7,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+
+	//SAC layer
+	map.addLayer({
+	  id: 'sac_poly',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: SACUrl,
+	  },
+	  'source-layer': SACSourceLayer,
+	  paint: {
+	    'fill-color': SACFill,
+	    'fill-opacity': 0.1,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});
+
+	
+	map.addLayer({
+      id: 'SAC_Lines',
+      type: 'line',
+      source: {
+        type: 'vector',
+        url: SACUrl,
+      },
+      'source-layer': SACSourceLayer,
+      paint: {
+        'line-color': SACFill,
+        'line-width': 1.1,
+      },
+      layout: {
+        visibility: 'visible',
+      },
+    });
+
+    //*change the color of the area
+    map.on('click', 'sac_poly', (event) => {
+      // set the paint property with an expression
+      map.setPaintProperty('sac_poly', 'fill-color', [
+        'case',
+        ['==', ['get', 'sac'], event.features[0].properties.sac],
+        'red',
+        SACSelectFill,
+      ]);
+      map.setPaintProperty('sac_poly', 'fill-opacity', [
+        'case',
+        ['==', ['get', 'sac'], event.features[0].properties.sac],
+        0.4,
+        0.1,
+      ]);
+    });
+    //*/
+
+	// When a click event occurs on a feature in the states layer, open a popup at the
+	// location of the click, with description HTML from its properties.
+	map.on('click', 'sac_poly', function(e) {
+	new mapboxgl.Popup()
+	.setLngLat(e.lngLat)
+	.setHTML(e.features[0].properties.co_lower + " has received " + 
+		e.features[0].properties.high_cost + " federal dollars in High Cost support and " + 
+		e.features[0].properties.caf + " federal dollars in Connect America support totaling " + 
+		e.features[0].properties.total + " support dollars in " + 
+		e.features[0].properties.state_name + " since 2015. " + 
+		"Even with this support, the orange shaded areas " +
+		"still lack access to basic broadband services, such as services that are widely available in urban and suburban areas. " + 
+		"Source: The Universal Service Administrative Co Funding Disbursement Tool - https://www.usac.org, " + 
+		"and FCC Form 477 - http://www.fcc.gov."
+		)
+
+
+
+		// e.features[0].properties.disburse + "here")
+	.addTo(map);
+	});
+ 
+	// Change the cursor to a pointer when the mouse is over the states layer.
+	map.on('mouseenter', 'sac_poly', function() {
+	map.getCanvas().style.cursor = 'pointer';
+	});
+ 
+	// Change it back to a pointer when it leaves.
+	map.on('mouseleave', 'sac_poly', function() {
+	map.getCanvas().style.cursor = '';
+	});
+});
+
+</script>
+ 
+</body>
+</html>
