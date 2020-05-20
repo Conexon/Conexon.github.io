@@ -21,6 +21,8 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 <div id="map"></div>
 <script>
 
+	var sac_remain_URL = 'mapbox://conexon-design.sac_remain';
+	var sac_remain_SourceLayer = 'sac_remain';
 	var unserved_1_URL = 'mapbox://conexon-design.unserved_1';
 	var unserved_1_SourceLayer = 'unserved_1';
 	var unserved_2_URL = 'mapbox://conexon-design.unserved_2';
@@ -56,6 +58,25 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
 
 	map.on('load', function() { 
+	//the unaccoutned for sac remain
+	map.addLayer({
+	  id: 'sac_remain',
+	  type: 'fill',
+	  source: {
+	    type: 'vector',
+	    url: sac_remain_URL,
+	  },
+	  'source-layer': sac_remain_SourceLayer,
+	  // filter: ['>', 'fcc_904', 0],
+	  paint: {
+	    'fill-color': unservedFill,
+	    'fill-opacity': 0.1,
+	    'fill-outline-color': blackBorder,
+	  },
+	  layout: {
+	    visibility: 'visible',
+	  },
+	});	
 	//unserved layer
 	map.addLayer({
 	  id: 'unserved_1',
@@ -218,31 +239,84 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         0.4,
         0.1,
       ]);
+      //reset the other selected
+      map.setPaintProperty('sac_remain', 'fill-color', unservedFill);
+      map.setPaintProperty('sac_remain', 'fill-opacity', 0.1);
+
     });
     //*/
+
 
 	// When a click event occurs on a feature in the states layer, open a popup at the
 	// location of the click, with description HTML from its properties.
 	map.on('click', 'sac_poly', function(e) {
 	new mapboxgl.Popup()
 	.setLngLat(e.lngLat)
-	.setHTML(e.features[0].properties.co_lower + " has received " + 
-		e.features[0].properties.high_cost + " federal dollars in High Cost support and " + 
-		e.features[0].properties.caf + " federal dollars in Connect America support totaling " + 
-		e.features[0].properties.total + " support dollars in " + 
-		e.features[0].properties.state_name + " since 2015. " + 
+	.setHTML(e.features[0].properties.co_lower + 
+		" has received the federal support shown below " + 
+		" to deliver broadband in the red shaded area. " + 
 		"Even with this support, the orange shaded areas " +
 		"still lack access to basic broadband services, such as services that are widely available in urban and suburban areas. " + 
-		"Source: The Universal Service Administrative Co Funding Disbursement Tool - https://www.usac.org, " + 
-		"and FCC Form 477 - http://www.fcc.gov."
+		'<table border = "1"> <tr> <th> Program </th> <th> Support since 2015</th></tr>' + 
+		"<tr> <td> " + "High Cost" + " </td> <td> " + e.features[0].properties.high_cost + " </td> </tr> " +
+		"<tr> <td> " + "CAF" + " </td> <td> " + e.features[0].properties.caf + " </td> </tr> " +
+		"<tr> <td> " + "Total" + " </td> <td> <b>" + e.features[0].properties.total + " </b></td> </tr> " +
+		"</table> " +
+		'<p style="font-size:9px"> ' + 
+		'Source: The Universal Service Administrative Co Funding Disbursement Tool - https://www.usac.org;  <br>'+ 
+		'FCC Form 477 - http://www.fcc.gov. <br>' + 
+		'Unserved is defined as lacking 25/3 service ' +
+		'</p>' 
+
 		)
-
-
-
-		// e.features[0].properties.disburse + "here")
 	.addTo(map);
 	});
- 
+
+    //*change the color of the area
+    map.on('click', 'sac_remain', (event) => {
+      // set the paint property with an expression
+      map.setPaintProperty('sac_remain', 'fill-color', [
+        'case',
+        ['==', ['get', 'state_abbv'], event.features[0].properties.state_abbv],
+        'red',
+        SACSelectFill,
+      ]);
+      map.setPaintProperty('sac_remain', 'fill-opacity', [
+        'case',
+        ['==', ['get', 'state_abbv'], event.features[0].properties.state_abbv],
+        0.8,
+        0.1,
+      ]);
+      //reset the other selection one
+      map.setPaintProperty('sac_poly', 'fill-color', SACSelectFill);
+      map.setPaintProperty('sac_poly', 'fill-opacity', 0.1);
+
+    });
+    //*/
+
+	map.on('click', 'sac_remain', function(e) {
+	new mapboxgl.Popup()
+	.setLngLat(e.lngLat)
+	.setHTML(
+		"USAC reports and distributes money based on the Study Area Code (SAC) geography." +
+		"There is no wall to wall publically avaialble dataset for SACs, " +
+		"leaving the public to guess at where these funds are meant to provide service." +
+		"The red shaded area represents the accounted for funds presented below in " + 
+		e.features[0].properties.state_name + ".<br>" +
+		'<table border = "1"> <tr> <th> Statistic </th> <th> Amount</th></tr>' + 
+		"<tr> <td> " + "High Cost" + " </td> " + 
+		    "<td>" + e.features[0].properties.unacc_hc + "</td> </tr>" +
+		"<tr> <td> " + "CAF" + " </td> " + 
+		    "<td>" + e.features[0].properties.unacc_caf + " </td> </tr>" +
+		"<tr> <td> " + "TOTAL" + " </td> " + 
+		    "<td>" + e.features[0].properties.total + " </td> </tr>" +
+		"<tr> <td> " + "Number of SACs unaccounted for " + " </td> " +
+		    "<td>" + e.features[0].properties.num_sac + " </td> </tr>" +
+		"</table> " 
+		)
+	.addTo(map);
+	});
+
 	// Change the cursor to a pointer when the mouse is over the states layer.
 	map.on('mouseenter', 'sac_poly', function() {
 	map.getCanvas().style.cursor = 'pointer';
@@ -252,6 +326,15 @@ font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 	map.on('mouseleave', 'sac_poly', function() {
 	map.getCanvas().style.cursor = '';
 	});
+
+	map.on('mouseenter', 'sac_remain', function() {
+	map.getCanvas().style.cursor = 'pointer';
+	});
+ 
+	// Change it back to a pointer when it leaves.
+	map.on('mouseleave', 'sac_remain', function() {
+	map.getCanvas().style.cursor = '';
+	});	
 });
 
 </script>
