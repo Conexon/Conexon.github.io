@@ -844,7 +844,53 @@
     "center": [-81.0513, 32.6182], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "CGEMC",
+    "stateAbbr": "ga",
+    "rusNumber": "ga058",
+    "zoom": 9, 
+    "center": [-83.8597, 33.2273], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MEC",
+    "stateAbbr": "mi",
+    "rusNumber": "mi049",
+    "zoom": 8.5, 
+    "center": [-84.9913, 41.9319], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "COOSCURRY",
+    "stateAbbr": "or",
+    "rusNumber": "or021",
+    "zoom": 8, 
+    "center": [-123.762, 42.775], 
+    "minZoom": 7.5,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "CVEC",
+    "stateAbbr": "va",
+    "rusNumber": "va029",
+    "zoom": 8.75, 
+    "center": [-78.583, 37.6858], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MECKELEC",
+    "stateAbbr": "va",
+    "rusNumber": "va031",
+    "zoom": 9, 
+    "center": [-78.4568, 36.7981], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
+
 
 
 
