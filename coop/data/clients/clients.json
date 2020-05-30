@@ -880,6 +880,15 @@
     "center": [-78.4568, 36.7981], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SREC",
+    "stateAbbr": "ms",
+    "rusNumber": "ms039",
+    "zoom": 8.65, 
+    "center": [-88.5017, 30.9498], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
