@@ -844,16 +844,7 @@
     "center": [-83.8597, 33.2273], 
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
-    "coopCode": "MEC",
-    "stateAbbr": "mi",
-    "rusNumber": "mi049",
-    "zoom": 8.5, 
-    "center": [-84.9913, 41.9319], 
-    "minZoom": 8,
-    "maxZoom": 15
-  }, 
+  },  
     {
     "coopCode": "COOSCURRY",
     "stateAbbr": "or",
