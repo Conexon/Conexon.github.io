@@ -604,7 +604,7 @@
   }, 
     {
     "coopCode": "SWREA",
-    "stateAbbr": "ar",
+    "stateAbbr": "alot",
     "rusNumber": "ar012",
     "zoom": 9, 
     "center": [-94.0176, 33.5045], 
@@ -887,6 +887,15 @@
     "rusNumber": "ms030",
     "zoom": 9, 
     "center": [-89.0237, 31.5538], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MTEMC",
+    "stateAbbr": "tn",
+    "rusNumber": "tn019",
+    "zoom": 9.1, 
+    "center": [-86.4304, 36.026], 
     "minZoom": 9,
     "maxZoom": 15
   }
