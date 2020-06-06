@@ -898,6 +898,24 @@
     "center": [-86.4304, 36.026], 
     "minZoom": 9,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "KCEC",
+    "stateAbbr": "nm",
+    "rusNumber": "nm011",
+    "zoom": 8.7, 
+    "center": [-105.5912, 36.4834], 
+    "minZoom": 8,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "GMEC",
+    "stateAbbr": "oh",
+    "rusNumber": "oh086",
+    "zoom": 9.2, 
+    "center": [-81.6958, 39.9844], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 

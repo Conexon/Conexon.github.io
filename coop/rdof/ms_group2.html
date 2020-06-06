@@ -78,13 +78,13 @@
       /**************************
         modify these values
       **************************/
-      const stateAbbr = 'nm';
-      const rusNumber = 'nm011';
+      const stateAbbr = 'ms';
+      const rusNumber = 'ms028';
       const blockMetersAttr = `${rusNumber}_m`;
       const blockGroundPctAttr = `${rusNumber}_pct`;
-      const coopCode = 'KCEC';
-      const zoom = 8.7;
-      const center = [-105.5912, 36.4834]; // 
+      const coopCode = 'NCE';
+      const zoom = 9.04;
+      const center = [-88.9716, 34.271]; // leave as an array 
       const minZoom = 8;
       const maxZoom = 15;
       // colors
@@ -92,13 +92,18 @@
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
       const blockGroup2Fill = '#0000FF';
+      const blockGroupText = '#4609b8';
       const blockGroup2Border = '#0000FF';
       const meters = '#808080';
       const blockBorder = '#000000';
+      const slateColor = '#9ba6b1';
+      const darkSlateColor = '#9ba6b1';
       /**************************
         end of modifying values
       **************************/
-
+      //NEMS - "MS024"
+      //PONTOTOC - "MS017"
+      //TOMBB = "MS049"
       const colors = [
         'blue',
         'orange',
@@ -111,6 +116,9 @@
       ];
 
       // tilesets
+      const coopsUrl = `mapbox://conexon-design.8q8mtxgm`;
+      const coopsSourceLayer = `coops-9vspdx`;
+
       const blockGroupsUrl = `mapbox://conexon-design.rdof_bg_${stateAbbr}`;
       const blockGroupsSourceLayer = `rdof_bg_${stateAbbr}`;
 
@@ -134,45 +142,21 @@
         maxZoom: maxZoom,
         center: center,
       });
-
-      //old way
-      // block group layer
-      // map.on('load', function() {
-      //   map.addLayer({
-      //     id: 'blockGroups',
-      //     type: 'fill',
-      //     source: {
-      //       type: 'vector',
-      //       url: blockGroupsUrl
-      //     },
-      //     'source-layer': blockGroupsSourceLayer,
-      //     filter: ['>', blockGroundPctAttr, 50],
-      //     paint: {
-      //       'fill-color': blockGroupFill,
-      //       'fill-opacity': 0.4
-      //     },
-      //     layout: {
-      //       visibility: 'visible'
-      //     }
-      //   });
-
+      //DIXIEEPA - Dixie
       map.on('load', function () {
         map.addLayer({
-          id: 'blockGroups',
+          id: 'blockGroups_gt_50',
           type: 'fill',
           source: {
             type: 'vector',
             url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 0],
+          filter: ["any",['>', 'ms024_pct', 50], ['>', 'ms017_pct', 50],
+                    ['>', 'ms049_pct', 50]
+            ], 
           paint: {
-            'fill-color': [
-              'case',
-              ['<', ['to-number', ['get', blockGroundPctAttr]], 50],
-              blockGroup2Fill,
-              blockGroupFill,
-            ],
+            'fill-color': slateColor, 
             'fill-opacity': 0.4,
           },
           layout: {
@@ -180,44 +164,71 @@
           },
         });
 
-        // blocks layer
-
+      // //< 50  
+      // //DIXIEEPA - Dixie
         map.addLayer({
-          id: 'blocks',
+          id: 'blockGroups_purple',
           type: 'fill',
           source: {
             type: 'vector',
-            url: blocksUrl,
+            url: blockGroupsUrl,
           },
-          'source-layer': blocksSourceLayer,
-          filter: ['>=', blockMetersAttr, 0],
+          'source-layer': blockGroupsSourceLayer,
+          filter: ["any", ['<', 'ms024_pct', 50], ['<', 'ms017_pct', 50],
+                    ['<', 'ms049_pct', 50]
+            ], 
           paint: {
-            'fill-color': blockFill,
-            'fill-opacity': [
-              'case',
-              ['==', ['to-number', ['get', blockMetersAttr]], 0],
-              0.7,
-              0.9,
-            ],
-            // 'fill-opacity': 0.9,
-            'fill-outline-color': blockBorder,
+            'fill-color': blockGroup2Fill, 
+            'fill-opacity': 0.4,
           },
           layout: {
             visibility: 'visible',
           },
         });
 
+
+        // blocks layer
+
+        // map.addLayer({
+        //   id: 'blocks',
+        //   type: 'fill',
+        //   source: {
+        //     type: 'vector',
+        //     url: blocksUrl,
+        //   },
+        //   'source-layer': blocksSourceLayer,
+        //   filter: ['>=', blockMetersAttr, 0],
+        //   paint: {
+        //     'fill-color': blockFill,
+        //     'fill-opacity': [
+        //       'case',
+        //       ['==', ['to-number', ['get', blockMetersAttr]], 0],
+        //       0.7,
+        //       0.9,
+        //     ],
+        //     // 'fill-opacity': 0.9,
+        //     'fill-outline-color': blockBorder,
+        //   },
+        //   layout: {
+        //     visibility: 'visible',
+        //   },
+        // });
+
         // block group line layer
 
         map.addLayer({
-          id: 'blockGroupsLines',
+          id: 'coopLines',
           type: 'line',
           source: {
             type: 'vector',
-            url: blockGroupsUrl,
+            url: coopsUrl,
           },
-          'source-layer': blockGroupsSourceLayer,
-          filter: ['>', blockGroundPctAttr, 50],
+          'source-layer': coopsSourceLayer,
+          filter: ["any",
+            ['==', "NAME", "North East Mississippi E P A"],
+            ['==', "NAME", "Pontotoc Electric Power Association"],
+            ['==', "NAME", "Tombigbee Electric Power Association"]
+          ],
           paint: {
             'line-color': blockGroupFill,
             'line-width': 3,
@@ -237,7 +248,8 @@
             url: blocksUrl,
           },
           'source-layer': blocksSourceLayer,
-          filter: ['>', blockMetersAttr, 0],
+          filter: ["any",['>', blockMetersAttr, 0]
+            ],
           layout: {
             'text-field': ['get', 'geoid10'],
             'symbol-placement': 'point',
@@ -260,34 +272,35 @@
 
         // meters layer
 
-        map.addLayer({
-          id: 'meters',
-          type: 'circle',
-          source: {
-            type: 'vector',
-            url: metersUrl,
-          },
-          'source-layer': metersSourceLayer,
-          filter: ['==', 'coop_code', coopCode],
-          paint: {
-            'circle-radius': {
-              base: 0.4,
-              stops: [
-                [10, 1],
-                [11, 1.5],
-                [12, 2],
-                [13, 2.5],
-                [14, 3.25],
-                [15, 4.25],
-                [16, 5.25],
-              ],
-            },
-            'circle-color': meters,
-          },
-          layout: {
-            visibility: 'visible',
-          },
-        });
+        // map.addLayer({
+        //   id: 'meters',
+        //   type: 'circle',
+        //   source: {
+        //     type: 'vector',
+        //     url: metersUrl,
+        //   },
+        //   'source-layer': metersSourceLayer,
+        //   filter: ['==', 'coop_code', coopCode],
+        //   paint: {
+        //     'circle-radius': {
+        //       base: 0.4,
+        //       stops: [
+        //         [10, 1],
+        //         [11, 1.5],
+        //         [12, 2],
+        //         [13, 2.5],
+        //         [14, 3.25],
+        //         [15, 4.25],
+        //         [16, 5.25],
+        //       ],
+        //     },
+        //     'circle-color': meters,
+        //   },
+        //   layout: {
+        //     visibility: 'visible',
+        //   },
+        // });
+
       });
 
       map.once('idle', () => {
@@ -302,17 +315,19 @@
             });
 
             map.addLayer({
-              id: 'blockGroupsText',
+              id: 'blockGroups_purpleText',
               type: 'symbol',
               source: 'blockGroupsText',
-              filter: ['>', blockGroundPctAttr, 0],
+              filter: ["any", ['<', 'ms024_pct', 50], ['<', 'ms017_pct', 50],
+                    ['<', 'ms049_pct', 50]
+                ],
               paint: {
-                'text-color': blockGroupBorder,
+                'text-color': blockGroupText,
               },
               layout: {
                 'text-field': [
                   'number-format',
-                  ['get', 'fcc_amt'],
+                  ['*', ['get', 'fcc_amt'], 10],
                   { currency: 'USD' },
                 ],
                 'symbol-placement': 'point',
@@ -341,9 +356,9 @@
 
       // toggle set up
       const toggleableLayerIds = [
-        { name: 'Block groups', id: 'blockGroups' },
-        { name: 'Blocks', id: 'blocks' },
-        { name: 'Meters', id: 'meters' },
+        { name: 'Block groups in competition', id: 'blockGroups_purple' },
+        { name: 'Block groups not in competition', id: 'blockGroups_gt_50' },
+        { name: 'COOP Boundaries', id: 'coopLines' },
       ];
 
       for (let i = 0; i < toggleableLayerIds.length; i++) {
@@ -371,7 +386,7 @@
                 'visibility',
                 'none'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups_purple')
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
@@ -386,7 +401,7 @@
                 'visibility',
                 'visible'
               );
-            if (clickedLayer === 'blockGroups')
+            if (clickedLayer === 'blockGroups_purple')
               map.setLayoutProperty(
                 `${clickedLayer}Lines`,
                 'visibility',
