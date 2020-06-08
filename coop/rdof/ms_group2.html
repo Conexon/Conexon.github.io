@@ -152,8 +152,8 @@
             url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ["any",['>', 'ms024_pct', 50], ['>', 'ms017_pct', 50],
-                    ['>', 'ms049_pct', 50]
+          filter: ["any",['>', 'ms024_pct', 50], ['>', 'ms049_pct', 50],
+                     ['<', 'ms017_pct', 50]
             ], 
           paint: {
             'fill-color': slateColor, 
@@ -174,8 +174,9 @@
             url: blockGroupsUrl,
           },
           'source-layer': blockGroupsSourceLayer,
-          filter: ["any", ['<', 'ms024_pct', 50], ['<', 'ms017_pct', 50],
-                    ['<', 'ms049_pct', 50]
+          filter: ["any", ['<', 'ms024_pct', 50], ['<', 'ms049_pct', 50],
+                    ['==', 'geoid', '281159502003'], ['==', 'geoid', '281159502002'],
+                    ['==', 'geoid', '281159502001']
             ], 
           paint: {
             'fill-color': blockGroup2Fill, 
