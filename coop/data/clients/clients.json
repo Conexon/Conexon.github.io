@@ -916,6 +916,15 @@
     "center": [-81.6958, 39.9844], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "DMEA",
+    "stateAbbr": "co",
+    "rusNumber": "co020",
+    "zoom": 8.81, 
+    "center": [-107.692, 38.4638], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
 
 
