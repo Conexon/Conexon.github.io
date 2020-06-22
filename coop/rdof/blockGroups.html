@@ -634,6 +634,32 @@
                   },
                 });
 
+                if (coopCode.toLowerCase() === 'osagevly') {
+                  map.addLayer({
+                    id: 'span',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://conexon-design.1twxmcyp',
+                    },
+                    'source-layer': 'electric_span-bs7qf0',
+                    layout: { 'line-join': 'round', 'line-cap': 'round' },
+                  });
+                }
+
+                if (coopCode.toLowerCase() === 'sacosage') {
+                  map.addLayer({
+                    id: 'span',
+                    type: 'line',
+                    source: {
+                      type: 'vector',
+                      url: 'mapbox://conexon-design.2eazu3om',
+                    },
+                    'source-layer': 'electric_span_2-bxelav',
+                    layout: { 'line-join': 'round', 'line-cap': 'round' },
+                  });
+                }
+
                 map.on('click', 'meters', (event) => {
                   console.log(event.features[0].properties);
                 });
