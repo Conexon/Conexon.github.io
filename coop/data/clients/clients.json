@@ -925,7 +925,26 @@
     "center": [-107.692, 38.4638], 
     "minZoom": 8,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "IEMC",
+    "stateAbbr": "ga",
+    "rusNumber": "ga065",
+    "zoom": 9.3, 
+    "center": [-83.2957, 31.6983], 
+    "minZoom": 9,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "MGEMC",
+    "stateAbbr": "ga",
+    "rusNumber": "ga097",
+    "zoom": 9.3, 
+    "center": [-83.4925, 32.0865], 
+    "minZoom": 9,
+    "maxZoom": 15
   }
+
 
 
 
