@@ -341,7 +341,7 @@
 
         let geoidFilters = ['case'];
         geoids.forEach((geoid) => {
-          geoidFilters.push(['==', ['get', 'geoid'], geoid], 'red');
+          geoidFilters.push(['==', ['get', 'geoid10'], geoid], 'red');
         });
         geoidFilters.push(
           ['<', ['to-number', ['get', percentAttribute]], 50],
@@ -754,15 +754,18 @@
                   });
 
                 map.on('click', 'blockGroups', (event) => {
+                  console.log(event.features[0].properties);
                   if (
-                    selectedGeoids.includes(event.features[0].properties.geoid)
+                    selectedGeoids.includes(
+                      event.features[0].properties.geoid10
+                    )
                   ) {
                     const filteredGeoids = selectedGeoids.filter((geoid) => {
-                      return geoid !== event.features[0].properties.geoid;
+                      return geoid !== event.features[0].properties.geoid10;
                     });
                     selectedGeoids = filteredGeoids;
                   } else {
-                    selectedGeoids.push(event.features[0].properties.geoid);
+                    selectedGeoids.push(event.features[0].properties.geoid10);
                   }
 
                   updateData(selectedGeoids);
