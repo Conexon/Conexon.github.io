@@ -1,6 +1,6 @@
 {
 "type": "FeatureCollection",
-"name": "bg_05_pnt",
+"name": "bg_05_pnt_2010",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4269" } },
 "features": [
 { "type": "Feature", "properties": { "gid": 230, "statefp10": "05", "countyfp10": "143", "tractce10": "010102", "blkgrpce10": "3", "geoid10": "051430101023", "namelsad10": "Block Group 3", "mtfcc10": "G5030", "funcstat10": "S", "aland10": 32264001.0, "awater10": 881570.0, "intptlat10": "+36.1146007", "intptlon10": "-094.0803531", "fcc_904": 17, "fcc_amt": 1019, "ar031_m": null, "ar031_pct": null, "ar011_m": null, "ar011_pct": null, "ar010_m": null, "ar010_pct": null, "ar023_m": null, "ar023_pct": null, "ar026_m": null, "ar026_pct": null, "ar024_m": 10, "ar024_pct": 59, "ar028_m": null, "ar028_pct": null, "ar029_m": null, "ar029_pct": null, "ar015_m": null, "ar015_pct": null, "geoid": "051430101023" }, "geometry": { "type": "Point", "coordinates": [ -94.079106738477591, 36.116219664228396 ] } },
