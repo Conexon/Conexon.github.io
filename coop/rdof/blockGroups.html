@@ -260,6 +260,7 @@
 
       // colors
       const blockFill = 'orange';
+      const partialBlockFill = 'red';
       const blockGroupFill = 'green';
       const blockGroupBorder = 'darkgreen';
       const blockGroup2Fill = 'blue';
@@ -559,7 +560,12 @@
                   'source-layer': blocksSourceLayer,
                   filter: ['>=', metersAttribute, 0],
                   paint: {
-                    'fill-color': blockFill,
+                    'fill-color': [
+                      'case',
+                      ['==', ['to-number', ['get', 'partial']], 0],
+                      blockFill,
+                      partialBlockFill,
+                    ],
                     'fill-opacity': [
                       'case',
                       ['==', ['to-number', ['get', metersAttribute]], 0],

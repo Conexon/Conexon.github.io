@@ -172,6 +172,7 @@
       let maxZoom = 15;
       // colors
       const blockFill = '#FFA500';
+      const partialBlockFill = '#FF0000';
       const blockGroupFill = '#008000';
       const blockGroupBorder = '#044D04';
       const blockGroup2Fill = '#0000FF';
@@ -757,7 +758,12 @@
                   'source-layer': blocksSourceLayer,
                   filter: ['>=', blockMetersAttr, 0],
                   paint: {
-                    'fill-color': blockFill,
+                    'fill-color': [
+                      'case',
+                      ['==', ['to-number', ['get', 'partial']], 0],
+                      blockFill,
+                      partialBlockFill,
+                    ],
                     'fill-opacity': [
                       'case',
                       ['==', ['to-number', ['get', blockMetersAttr]], 0],
