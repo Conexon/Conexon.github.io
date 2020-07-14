@@ -952,8 +952,7 @@
     "center": [-75.158, 42.6011], 
     "minZoom": 9,
     "maxZoom": 15
-  }
-, 
+  }, 
     {
     "coopCode": "OZARKBORD",
     "stateAbbr": "mo",
@@ -962,7 +961,25 @@
     "center": [-89.6255, 36.9389], 
     "minZoom": 9,
     "maxZoom": 15
-  }  
+  }, 
+    {
+    "coopCode": "SECPA",
+    "stateAbbr": "co",
+    "rusNumber": "co017",
+    "zoom": 8.01, 
+    "center": [-103.25, 38.391], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "FEMC",
+    "stateAbbr": "ga",
+    "rusNumber": "ga066",
+    "zoom": 8.72, 
+    "center": [-84.1455, 32.4513], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }   
 
 
 ]
