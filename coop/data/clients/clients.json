@@ -979,7 +979,63 @@
     "center": [-84.1455, 32.4513], 
     "minZoom": 7,
     "maxZoom": 15
-  }   
+  }, 
+    {
+    "coopCode": "WEMC",
+    "stateAbbr": "ga",
+    "rusNumber": "ga069",
+    "zoom": 8.93, 
+    "center": [-82.8026, 33.0206], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "KREMC",
+    "stateAbbr": "in",
+    "rusNumber": "in088",
+    "zoom": 10.08, 
+    "center": [-85.8757, 41.2218], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "CPI",
+    "stateAbbr": "or",
+    "rusNumber": "or004",
+    "zoom": 8, 
+    "center": [-123.013, 44.511], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "DFN",
+    "stateAbbr": "or",
+    "rusNumber": "or017",
+    "zoom": 8.92, 
+    "center": [-122.8243, 43.9145], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "LREC",
+    "stateAbbr": "sc",
+    "rusNumber": "sc021",
+    "zoom": 9.36, 
+    "center": [-80.3844, 34.5584], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }, 
+    {
+    "coopCode": "PGEC",
+    "stateAbbr": "va",
+    "rusNumber": "va036",
+    "zoom": 9.2, 
+    "center": [-77.1358, 37.0184], 
+    "minZoom": 7,
+    "maxZoom": 15
+  }
+   
+   
 
 
 ]

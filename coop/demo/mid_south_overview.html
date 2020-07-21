@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiY29uZXhvbi1kZXNpZ24iLCJhIjoiY2pvdzZlb2djMXVhOTN3bmhpYzk3NndoZCJ9.On4IrAd0sgmmgd_sAqg_Gg';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/conexon-design/cjow6vt3sax7q2rpbj5wm7s84',
+    zoom: 9.14,
+    center: [-95.8602,30.6418],
+    hash: true
+});
+
+
+var span_source_layer = 'midsouth_base_electric_span'
+var span_url = 'mapbox://conexon-design.midsouth_base_electric_span'
+
+// var poles_source_layer = 'demo_mid_south_poles-1oovxl'
+// var poles_url = 'mapbox://conexon-design.57ncsxp3'
+
+var substat_source_layer = 'midsouth_base_substation'
+var substat_url = 'mapbox://conexon-design.midsouth_base_substation'
+
+var ring_source_layer = 'mid_south_ring-b845d1'
+var ring_url = 'mapbox://conexon-design.48c2e1t6'
+
+// var consumers_source_layer = 'demo_mid_south_consumers-cmn0qp'
+// var consumers_url = 'mapbox://conexon-design.b73t2q8z'
+
+// var feeder_poly_source_layer = 'demo_mid_south_feeder_poly-bycv7l'
+// var feeder_poly_url = 'mapbox://conexon-design.5tam2zjz'
+
+// var cable_phase1_source_layer = 'demo_mid_south_cable-dfvtkf'
+// var cable_phase1_url = 'mapbox://conexon-design.5uwj2wkk'
+
+var spanAerial = '#551a8b' //purple
+var spanUnder = '#FFA500'
+var myOrange = '#FFA500'
+var myWhite = '#FFFFFF'
+var myBlack = '#000000'
+var myGray = '#67696d'
+
+var myBlue = '#0000FF'
+var myGreen = '#008000'
+var myRed = '#FF0000'
+var myViolet = '#EE82EE'
+var myAqua = '#00FFFF'
+var myRose = '#FFC0CB'
+var myYellow = '#FFFF00'
+var myBrown = '#894444'
+var myCream = '#fffdd0'
+
+// map.on('load', function () {
+//      map.addLayer({//feeder_poly
+//         'id': 'feeder_poly',
+//         'type': 'fill',
+//          'source': {
+//             type: 'vector', 
+//             url: feeder_poly_url},
+//         'source-layer': feeder_poly_source_layer,
+//         filter: ["all", ['in', 'cn_substat', '21','06','03','17A','17B','26','22','13A','13B','15','15B','15C']],
+//         'paint': {
+//             'fill-color': myCream,
+//             'fill-opacity': 0.6,
+//             'fill-outline-color': myBlack
+
+//         }
+//     }); 
+// });
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'span',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: span_url},
+        'source-layer': span_source_layer,
+            // filter: ['==', 'ring', 1],
+        'paint': {
+            'line-width': .5,
+            'line-color': myBlack}
+    }); 
+});
+
+map.on('load', function () {
+     map.addLayer({//SPAN
+        'id': 'ring',
+        'type': 'line',
+         'source': {
+            type: 'vector', 
+            url: ring_url},
+        'source-layer': ring_source_layer,
+            // filter: ['==', 'ring', 1],
+        'paint': {
+            'line-width': 4,
+            'line-color': myRed}
+    }); 
+});
+
+
+
+
+// //remember shapefile fields need to be upper case for mapbox to recognize them
+// //span
+// map.on('load', function () {
+//      map.addLayer({//SPAN
+//         'id': 'span',
+//         'type': 'line',
+//          'source': {
+//             type: 'vector', 
+//             url: span_url},
+//         'source-layer': span_source_layer,
+//         'paint': {
+//             'line-width': 1.5,
+//             'line-color': {
+//                 property: 'cn_substat',
+//                 type: 'categorical',
+//                 stops: [ 
+//                     ['01',myBlue],
+//                     ['03', myGreen],
+//                     ['04', myRed],
+//                     ['06', myViolet],
+//                     ['07', myAqua],
+//                     ['09', myRose],
+//                     ['10', myBrown],
+//                     ['12',myBlue],
+//                     ['13', myGreen],
+//                     ['14', myRed],
+//                     ['15', myViolet],
+//                     ['17', myAqua],
+//                     ['18', myRose],
+//                     ['19', myBrown],  
+//                     ['20',myBlue],
+//                     ['21', myGreen],
+//                     ['22', myRed],
+//                     ['26', myViolet]                                   
+//                     ] } }
+//     }); 
+// });
+
+// //consumers-outside ring
+// map.on('load', function () {
+//     map.addLayer({//CONSUMERS
+//         'id': 'consumers-rings',
+//         'type': 'circle',
+//         'source': {
+//             type: 'vector', 
+//             url: consumers_url},
+//         'source-layer': consumers_source_layer,
+//         'layout': {'visibility': 'visible'},
+//         //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+//         'paint': {
+//             'circle-radius': {
+//                 'base': .5,
+//                 'stops': [[12, 1], [13,2], [14,3], [15,5], [16,8] ]}, 
+//             'circle-color': myOrange}
+//     }); 
+// });
+
+// //consumers-inside ring
+// map.on('load', function () {
+//     map.addLayer({//CONSUMERS
+//         'id': 'consumers-inside',
+//         'type': 'circle',
+//         'source': {
+//             type: 'vector', 
+//             url: consumers_url},
+//         'source-layer': consumers_source_layer,
+//         //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+//         'layout': {'visibility': 'visible'},
+//         'paint': {
+//             'circle-radius': {
+//                 'base': .4,
+//                 'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}, //, [22, 60]] }, 
+//             'circle-color': myWhite}
+//     }); 
+// });
+
+// //consumers-text - 'M'
+// map.on('load', function () {
+//      map.addLayer({//CONSUMERS
+//         'id': 'consumers-text',
+//         'type': 'symbol',
+//         'source': {
+//             type: 'vector', 
+//             url: consumers_url},
+//         'source-layer': consumers_source_layer,
+//         //filter: ["all",['in', 'ML_SUBSTAT', 'DV','IM','LO','SB','AD','OR','MV']],
+//         'paint': {
+//             'text-color': myOrange},
+//         'layout': {
+//             'text-field':'M', //
+//             'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],
+//             'text-allow-overlap': true,
+//             'text-size': {
+//                 'base': .1, 
+//                 'stops': [[12, .75], [13,1], [14,2], [15,4], [16,7] ]}}
+//     }); 
+// });
+
+// //poles
+// map.on('load', function () {
+//     map.addLayer({//POLES
+//         'id': 'poles',
+//         'type': 'circle',
+//         'source': {
+//             type: 'vector', 
+//             url: poles_url},
+//         'source-layer': poles_source_layer,
+//         'layout': {
+//             'visibility': 'visible'},
+//         'paint': {
+//             'circle-radius': {
+//                 'base': .9,
+//                 'stops': [[12, .85], [13,1.5], [14,2.5], [15,3], [16,4] ]}, 
+//             'circle-color': myGray}
+//     }); 
+// });
+
+//Substation - these are squares
+map.on('load', function () {
+    map.addLayer({//SUBSTATION
+        'id': 'substation',
+        'type': 'symbol',
+        'source': {
+            type: 'vector', 
+            url: substat_url},
+        'source-layer': substat_source_layer,
+        'layout': {
+            'text-field': '{subname}', //
+            "text-offset": [0, -1],
+            'text-font': ["Open Sans Semibold", "Arial Unicode MS Bold"],            
+            'visibility': 'visible',
+            'icon-image': 'black-square-15',
+            'icon-size':{
+                 'base': .5,
+                 'stops': [[12, .75], [13,1.25], [14,1.75], [15,2.25], [16,3.75] ]} }
+    }); 
+});
+
+
+</script>
+</body>
+</html>
