@@ -163,6 +163,22 @@
               ></dd>
             </dl>
 
+            <h1 class="font-semibold text-2xl leading-none">
+              Off system cost estimate
+            </h1>
+            <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
+              (FCC locations - Meters in RDOF blocks) * 4000
+            </h2>
+            <dl class="my-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="offSystemCostEstimate"
+              ></dd>
+            </dl>
+
             <h1 class="font-semibold text-2xl leading-none">Meter data</h1>
             <dl class="my-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
@@ -393,6 +409,7 @@
           meters_rdof += selectedBlockGroup.meters_rdof;
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
+          offSystemCostEstimate = (locations - meters_rdof) * 4000;
 
           dataForCsv.push([
             geoid,
@@ -421,6 +438,12 @@
         document.getElementById('locations').innerHTML = locations;
         document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
         document.getElementById('blockGroups50').innerHTML = groups50;
+        document.getElementById(
+          'offSystemCostEstimate'
+        ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
         document.getElementById('meters').innerHTML = meters;
         document.getElementById('meters_rdof').innerHTML = meters_rdof;
         document.getElementById('meters_cable').innerHTML = meters_cable;
