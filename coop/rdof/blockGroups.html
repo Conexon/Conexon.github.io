@@ -292,23 +292,6 @@
       ).innerHTML = document.getElementById('estimate').value;
       console.log(document.getElementById('estimate').value);
 
-      const updateCost = () => {
-        document.getElementById(
-          'costEstimate'
-        ).innerHTML = document.getElementById('estimate').value;
-        const enteredCost = document.getElementById('estimate').value;
-        const locations = document.getElementById('locations').textContent;
-        const rdofMeters = document.getElementById('meters_rdof').textContent;
-        const updatedEstimate = (locations - rdofMeters) * enteredCost;
-        console.log('updateCost', updatedEstimate, enteredCost);
-        document.getElementById(
-          'offSystemCostEstimate'
-        ).innerHTML = updatedEstimate.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        });
-      };
-
       let stateAbbr = '';
       let rusNumber = '';
       let metersAttribute = '';
@@ -389,6 +372,50 @@
         }
       };
 
+      const updateCost = () => {
+        let offSystemCostEstimate = 0;
+        const enteredEstimate = parseInt(
+          document.getElementById('estimate').value
+        );
+
+        selectedGeoids.forEach((geoid) => {
+          console.log('updatecost', geoid);
+          const selectedBlockGroup = blockGroupData.find(
+            (blockGroup) => blockGroup.geoid === geoid
+          );
+          console.log(
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate
+          );
+          console.log(
+            selectedBlockGroup.locations,
+            selectedBlockGroup.meters_rdof,
+            enteredEstimate
+          );
+
+          console.log('first', offSystemCostEstimate);
+
+          offSystemCostEstimate =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate >
+            0
+              ? offSystemCostEstimate +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  enteredEstimate
+              : offSystemCostEstimate;
+
+          console.log('second', offSystemCostEstimate);
+        });
+
+        document.getElementById(
+          'offSystemCostEstimate'
+        ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+      };
+
       const updateData = (geoids) => {
         console.log('passed in', geoids, geoids.length);
         if (geoids.length === 0) {
@@ -438,6 +465,8 @@
           'Amount',
           'Percent meters',
           'Meters',
+          'Estimated off system cost',
+          'Basement bid',
         ]);
 
         geoids.forEach((geoid) => {
@@ -457,8 +486,13 @@
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
           offSystemCostEstimate =
-            (locations - meters_rdof) *
-            document.getElementById('estimate').value;
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              document.getElementById('estimate').value >
+            0
+              ? (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                document.getElementById('estimate').value
+              : 0;
 
           dataForCsv.push([
             geoid,
@@ -466,6 +500,8 @@
             selectedBlockGroup.amount,
             selectedBlockGroup.pct,
             selectedBlockGroup.meters,
+            offSystemCostEstimate,
+            '50%',
           ]);
         });
         // update the data
@@ -838,6 +874,7 @@
                   }
 
                   updateData(selectedGeoids);
+                  updateCost(selectedGeoids);
                 });
 
                 // substations
