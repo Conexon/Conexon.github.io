@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      href="https://unpkg.com/tailwindcss@1.6.2/dist/tailwind.min.css"
       rel="stylesheet"
     />
     <style>
@@ -167,8 +167,30 @@
               Off system cost estimate
             </h1>
             <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
-              (FCC locations - Meters in RDOF blocks) * 4000
+              (FCC locations - Meters in RDOF blocks) *
+              <span id="costEstimate"></span>
             </h2>
+
+            <label
+              for="estimate"
+              class="mt-4 block text-sm font-medium leading-5"
+              >Enter your per meter cost estimate</label
+            >
+            <div class="mt-1 relative flex rounded-md shadow-sm w-16">
+              <span
+                class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+              >
+                $ </span
+              ><input
+                id="estimate"
+                class="border border-gray-400 flex-1 block w-16 px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                name="estimate"
+                placeholder="you@example.com"
+                value="4000"
+                onchange="updateCost()"
+              />
+            </div>
+
             <dl class="my-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
                 Total
@@ -264,6 +286,29 @@
     </div>
 
     <script>
+      // cost estimate
+      document.getElementById(
+        'costEstimate'
+      ).innerHTML = document.getElementById('estimate').value;
+      console.log(document.getElementById('estimate').value);
+
+      const updateCost = () => {
+        document.getElementById(
+          'costEstimate'
+        ).innerHTML = document.getElementById('estimate').value;
+        const enteredCost = document.getElementById('estimate').value;
+        const locations = document.getElementById('locations').textContent;
+        const rdofMeters = document.getElementById('meters_rdof').textContent;
+        const updatedEstimate = (locations - rdofMeters) * enteredCost;
+        console.log('updateCost', updatedEstimate, enteredCost);
+        document.getElementById(
+          'offSystemCostEstimate'
+        ).innerHTML = updatedEstimate.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+      };
+
       let stateAbbr = '';
       let rusNumber = '';
       let metersAttribute = '';
@@ -349,6 +394,8 @@
         if (geoids.length === 0) {
           document.getElementById('intro').classList.remove('hidden');
           document.getElementById('data').classList.add('hidden');
+          document.getElementById('estimate').value = 4000;
+          document.getElementById('costEstimate').innerHTML = 4000;
         } else {
           document.getElementById('intro').classList.add('hidden');
           document.getElementById('data').classList.remove('hidden');
@@ -409,7 +456,9 @@
           meters_rdof += selectedBlockGroup.meters_rdof;
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
-          offSystemCostEstimate = (locations - meters_rdof) * 4000;
+          offSystemCostEstimate =
+            (locations - meters_rdof) *
+            document.getElementById('estimate').value;
 
           dataForCsv.push([
             geoid,
