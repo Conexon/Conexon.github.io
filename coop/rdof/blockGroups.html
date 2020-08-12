@@ -414,6 +414,8 @@
           style: 'currency',
           currency: 'USD',
         });
+
+        updateData(selectedGeoids);
       };
 
       const updateData = (geoids) => {
@@ -457,6 +459,7 @@
         let meters_rdof = 0;
         let meters_telco = 0;
         let meters_cable = 0;
+        let totalOffSystemCostEstimate = 0;
 
         dataForCsv = [];
         dataForCsv.push([
@@ -485,6 +488,15 @@
           meters_rdof += selectedBlockGroup.meters_rdof;
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
+          totalOffSystemCostEstimate =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              document.getElementById('estimate').value >
+            0
+              ? totalOffSystemCostEstimate +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  document.getElementById('estimate').value
+              : totalOffSystemCostEstimate;
           offSystemCostEstimate =
             (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
               document.getElementById('estimate').value >
@@ -525,7 +537,7 @@
         document.getElementById('blockGroups50').innerHTML = groups50;
         document.getElementById(
           'offSystemCostEstimate'
-        ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
+        ).innerHTML = totalOffSystemCostEstimate.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
