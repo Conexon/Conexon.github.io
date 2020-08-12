@@ -290,7 +290,6 @@
       document.getElementById(
         'costEstimate'
       ).innerHTML = document.getElementById('estimate').value;
-      console.log(document.getElementById('estimate').value);
 
       let stateAbbr = '';
       let rusNumber = '';
@@ -379,21 +378,9 @@
         );
 
         selectedGeoids.forEach((geoid) => {
-          console.log('updatecost', geoid);
           const selectedBlockGroup = blockGroupData.find(
             (blockGroup) => blockGroup.geoid === geoid
           );
-          console.log(
-            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
-              enteredEstimate
-          );
-          console.log(
-            selectedBlockGroup.locations,
-            selectedBlockGroup.meters_rdof,
-            enteredEstimate
-          );
-
-          console.log('first', offSystemCostEstimate);
 
           offSystemCostEstimate =
             (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
@@ -404,8 +391,6 @@
                   selectedBlockGroup.meters_rdof) *
                   enteredEstimate
               : offSystemCostEstimate;
-
-          console.log('second', offSystemCostEstimate);
         });
 
         document.getElementById(
@@ -419,7 +404,6 @@
       };
 
       const updateData = (geoids) => {
-        console.log('passed in', geoids, geoids.length);
         if (geoids.length === 0) {
           document.getElementById('intro').classList.remove('hidden');
           document.getElementById('data').classList.add('hidden');
@@ -793,11 +777,6 @@
                     return response.json();
                   })
                   .then((data) => {
-                    console.log(
-                      'fetched data',
-                      metersAttribute,
-                      percentAttribute
-                    );
                     map.addSource('blockGroupsText', {
                       type: 'geojson',
                       data: data,
@@ -949,7 +928,6 @@
                       }
 
                       if (selectedSubstations.length > 0) {
-                        console.log(selectedSubstations);
                         let meterFilters = [
                           'all',
                           ['==', 'coop_code', coopCode],
@@ -962,7 +940,6 @@
                             substation,
                           ]);
                         });
-                        console.log(meterFilters);
                         map.setFilter('meters', meterFilters);
                         map.setLayoutProperty(
                           'meters',
@@ -970,7 +947,6 @@
                           'visible'
                         );
                       } else {
-                        console.log();
                         map.setLayoutProperty('meters', 'visibility', 'none');
                       }
                     });
