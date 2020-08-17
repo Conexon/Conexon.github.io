@@ -385,6 +385,14 @@
     "center": [-107.293, 40.286], 
     "minZoom": 8,
     "maxZoom": 15
+  },    {
+    "coopCode": "HOLYCROSS",
+    "stateAbbr": "co",
+    "rusNumber": "co034",
+    "zoom": 8.25, 
+    "center": [-107.352,39.356], 
+    "minZoom": 8,
+    "maxZoom": 15
   }, 
     {
     "coopCode": "SCP",
