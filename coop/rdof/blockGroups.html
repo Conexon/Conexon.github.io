@@ -186,7 +186,7 @@
                 class="border border-gray-400 flex-1 block w-16 px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
                 name="estimate"
                 placeholder="you@example.com"
-                value="4000"
+                value="5000"
                 onchange="updateCost()"
               />
             </div>
@@ -407,8 +407,8 @@
         if (geoids.length === 0) {
           document.getElementById('intro').classList.remove('hidden');
           document.getElementById('data').classList.add('hidden');
-          document.getElementById('estimate').value = 4000;
-          document.getElementById('costEstimate').innerHTML = 4000;
+          document.getElementById('estimate').value = 5000;
+          document.getElementById('costEstimate').innerHTML = 5000;
         } else {
           document.getElementById('intro').classList.add('hidden');
           document.getElementById('data').classList.remove('hidden');
