@@ -167,7 +167,7 @@
               Off system cost estimate
             </h1>
             <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
-              (FCC locations - Meters in RDOF blocks) *
+              (FCC locations - Meters in RDOF) *
               <span id="costEstimate"></span> / 24.1987
             </h2>
 
@@ -193,14 +193,14 @@
 
             <dl class="my-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Cost per year
+                Off system cost per year
               </dt>
               <dd
                 class="text-xl font-semibold text-gray-900"
                 id="offSystemCostEstimate"
               ></dd>
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Potential revenue per year
+                Potential off system revenue per year
               </dt>
               <dd
                 class="text-xl font-semibold text-gray-900"
@@ -208,7 +208,10 @@
               ></dd>
             </dl>
 
-            <table>
+            <h1 class="font-semibold text-2xl leading-none">
+              FCC location revenue potential
+            </h1>
+            <table class="my-4">
               <tr>
                 <th>% of RDOF funds</th>
                 <th>Revenue + % RDOF funds</th>
@@ -409,12 +412,16 @@
       };
 
       const updateCost = () => {
+        console.log('update cost', selectedGeoids);
         let offSystemCostEstimate = 0;
+        let totalRevenue = 0;
+        let fullTotalRevenue = 0;
         const enteredEstimate = parseInt(
           document.getElementById('estimate').value
         );
 
         selectedGeoids.forEach((geoid) => {
+          console.log('lloop', totalRevenue);
           const selectedBlockGroup = blockGroupData.find(
             (blockGroup) => blockGroup.geoid === geoid
           );
@@ -428,11 +435,120 @@
                   selectedBlockGroup.meters_rdof) *
                   enteredEstimate
               : offSystemCostEstimate;
+
+          totalRevenue =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate >
+            0
+              ? totalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
+              : totalRevenue;
+
+          fullTotalRevenue =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate >
+            0
+              ? fullTotalRevenue + selectedBlockGroup.locations * 60 * 0.32 * 12
+              : fullTotalRevenue;
+          console.log('lloop', totalRevenue);
         });
 
         document.getElementById(
           'offSystemCostEstimate'
         ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        /*document.getElementById('offSystemCostEstimate').innerHTML = (
+          totalOffSystemCostEstimate / 24.1987
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });*/
+        console.log('lloop', totalRevenue);
+        document.getElementById(
+          'totalRevenue'
+        ).innerHTML = totalRevenue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at100').innerHTML = (
+          fullTotalRevenue +
+          amount / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at90').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.9) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at80').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.8) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at70').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.7) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at60').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.6) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at50').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.5) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at40').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.4) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at30').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.3) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at20').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.2) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at10').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.1) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById(
+          'at0'
+        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
@@ -541,6 +657,7 @@
         let meters_cable = 0;
         let totalOffSystemCostEstimate = 0;
         let totalRevenue = 0;
+        let fullTotalRevenue = 0;
 
         dataForCsv = [];
         dataForCsv.push([
@@ -593,11 +710,26 @@
           // 60 = gross margins
           // .32 = take rate %
           // 12 is monthly
-          totalRevenue =
+          /*totalRevenue += Math.abs(
             (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
-            60 *
-            0.32 *
-            12;
+              60 *
+              0.32 *
+              12
+          );
+
+          fullTotalRevenue += selectedBlockGroup.locations * 60 * 0.32 * 12;*/
+
+          totalRevenue =
+            selectedBlockGroup.locations - selectedBlockGroup.meters_rdof > 0
+              ? totalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
+              : totalRevenue;
+
+          fullTotalRevenue += selectedBlockGroup.locations * 60 * 0.32 * 12;
 
           const stateCode = geoid.substring(0, 2);
           let stateAbbreviation = '';
@@ -647,6 +779,7 @@
           style: 'currency',
           currency: 'USD',
         });
+        console.log('no loop', totalRevenue);
         document.getElementById(
           'totalRevenue'
         ).innerHTML = totalRevenue.toLocaleString('en-US', {
@@ -654,82 +787,81 @@
           currency: 'USD',
         });
         document.getElementById('at100').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           amount / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at90').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.9) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at80').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.8) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at70').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.7) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at60').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.6) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at50').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.5) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at40').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.4) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at30').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.3) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at20').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.2) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at10').innerHTML = (
-          totalRevenue +
+          fullTotalRevenue +
           (amount * 0.1) / 10
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
-        document.getElementById('at0').innerHTML = totalRevenue.toLocaleString(
-          'en-US',
-          {
-            style: 'currency',
-            currency: 'USD',
-          }
-        );
+        document.getElementById(
+          'at0'
+        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
         document.getElementById('meters').innerHTML = meters;
         document.getElementById('meters_rdof').innerHTML = meters_rdof;
       };
