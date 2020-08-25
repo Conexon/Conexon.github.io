@@ -1,0 +1,3 @@
+State, Name, RUSNo, Locations, Annual, 10 Year
+CO,Delta_Montrose_Electric_Association,4939,2964082,29640820,CO020
+

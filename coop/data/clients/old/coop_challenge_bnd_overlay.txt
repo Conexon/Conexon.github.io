@@ -1,0 +1,771 @@
+Name, Locations, Annual, 10 Year
+
+AL,Black Warrior EMC,AL029,16052,8973849,89738490
+AL,Central Alabama Electric Cooperative,AL030,17866,6862893,68628930
+AL,Cherokee Electric Cooperative,AL021,2268,757164,7571640
+AL,Clarke-Washington EMC,AL009,10148,5187972,51879720
+AL,Coosa Valley Electric Cooperative, Inc.,AL033,10361,3485784,34857840
+AL,Covington Electric Cooperative, Inc.,AL044,4987,3040867,30408670
+AL,Cullman Electric Cooperative,AL018,10689,2272160,22721600
+AL,Dixie Electric Cooperative,AL025,5625,1965991,19659910
+AL,Franklin Electric Co-op, Inc.,AL046,4823,2034382,20343820
+AL,Joe Wheeler EMC,AL037,9997,2636730,26367300
+AL,Marshall-DeKalb Electric Cooperative,AL043,769,222279,2222790
+AL,North Alabama Electric Cooperative,AL035,4772,2174481,21744810
+AL,Pea River Electric Cooperative,AL026,6785,3529795,35297950
+AL,Pioneer Electric Cooperative,AL022,11892,7071196,70711960
+AL,Sand Mountain Electric Cooperative,AL036,2367,1060274,10602740
+AL,South Alabama Electric Cooperative, Inc.,AL023,2725,1757721,17577210
+AL,Southern Pine Electric Co-op,AL027,10527,6006961,60069610
+AL,Tallapoosa River Elec Co-op,AL028,17115,7955924,79559240
+AL,Tombigbee Electric Cooperative, Inc.,AL039,5525,2478540,24785400
+AL,Wiregrass Electric Cooperative, Inc.,AL032,9148,3330971,33309710
+
+AZ,Mohave Electric Co-op, Inc.,AZ022,5986,6397387,63973870
+AZ,Navopache Electric Co-op, Inc.,AZ013,9715,6453563,64535630
+AZ,Sulphur Springs Valley Elec. Co-op,AZ014,9553,6262571,62625710
+AZ,Trico Electric Cooperative, Inc.,AZ020,4446,3161691,31616910
+
+AR,Arkansas Valley Electric Cooperative Corp.,AR013,22980,11737974,117379740
+AR,Ashley-Chicot Electric Co-op, Inc.,AR031,6991,4588513,45885130
+AR,Carroll Electric Cooperative Corporation,AR018,12746,5077935,50779350
+AR,Clay County Electric Co-op Corp.,AR022,7524,5375582,53755820
+AR,C & L Electric Co-op Corp.,AR021,14816,9186994,91869940
+AR,Craighead Electric Co-op Corp.,AR009,18955,8566303,85663030
+AR,Farmers Electric Cooperative Corp.,AR011,4372,2898206,28982060
+AR,First Electric Cooperative Corporation,AR010,28306,15154639,151546390
+AR,Mississippi County Elec. Co-op, Inc.,AR023,429,273679,2736790
+AR,North Arkansas Electric Cooperative, Inc.,AR026,12274,5447465,54474650
+AR,Ouachita Electric Cooperative Corporation,AR027,6174,4085419,40854190
+AR,Ozarks Electric Co-op Corp.,AR024,8727,3284632,32846320
+AR,Petit Jean Electric Co-op Corporation,AR028,9593,6317252,63172520
+AR,Rich Mountain Electric Cooperative, Inc.,AR033,6275,4443335,44433350
+AR,South Central Arkansas Electric Cooperative, Inc.,AR029,8495,6400446,64004460
+AR,Southwest Arkansas Electric Cooperative Corp,AR012,10803,5832956,58329560
+AR,Woodruff Electric Cooperative Corp.,AR015,16416,10105903,101059030
+
+CA,Anza Electric Co-op, Inc.,CA041,2090,1471677,14716770
+CA,Plumas-Sierra REC,CA016,8312,5632787,56327870
+CA,Surprise Valley Electrification Corp,CA006,4451,4123483,41234830
+
+CO,Delta-Montrose Electric Assn.,CO020,5402,3305065,33050650
+CO,Empire Electric Assn., Inc.,CO033,5899,3884363,38843630
+CO,Grand Valley Rural Power Lines, Inc.,CO007,4284,2403244,24032440
+CO,Gunnison County Electric Association, Inc.,CO018,3939,4024527,40245270
+CO,Highline Electric Association,CO029,2707,4363661,43636610
+CO,Holy Cross Energy,CO034,4562,3196193,31961930
+CO,Intermountain REA,CO016,11318,5528117,55281170
+CO,K. C. Electric Association,CO039,444,819960,8199600
+CO,La Plata Electric Association, Inc.,CO032,13503,7344070,73440700
+CO,Morgan County REA,CO015,2358,3165121,31651210
+CO,Mountain Parks Electric, Inc.,CO042,5730,5563756,55637560
+CO,Mountain View Electric Assn., Inc.,CO037,7551,5372246,53722460
+CO,Poudre Valley REA, Inc.,CO031,7358,4529805,45298050
+CO,Sangre De Cristo Electric Association, Inc.,CO035,4831,4876393,48763930
+CO,San Isabel Electric Assn., Inc.,CO025,4171,5047900,50479000
+CO,San Luis Valley REC, Inc.,CO014,3514,2544465,25444650
+CO,San Miguel Power Assn., Inc.,CO026,5080,4432935,44329350
+CO,Southeast Colorado Power Association,CO017,4409,5940310,59403100
+CO,United Power, Inc.,CO022,5839,2410019,24100190
+CO,White River Electric Assn., Inc.,CO040,1592,2239633,22396330
+CO,Yampa Valley Electric Assn., Inc.,CO036,2814,3520433,35204330
+CO,Y-W Electric Association, Inc.,CO038,2474,3713302,37133020
+
+
+DE,Delaware Electric Cooperative, Inc.,DE002,6317,2043429,20434290
+
+
+FL,Central Florida Electric Cooperative, Inc.,FL023,21983,5554827,55548270
+FL,Choctawhatchee Electric Cooperative, Inc.,FL030,7518,2694138,26941380
+FL,Clay Electric Cooperative, Inc.,FL014,18033,4765621,47656210
+FL,Escambia River Electric Co-op, Inc.,FL022,5193,2120343,21203430
+FL,Florida Keys Electric Co-op Assn., Inc.,FL024,365,137273,1372730
+FL,Glades Electric Cooperative, Inc.,FL035,3949,2064547,20645470
+FL,Gulf Coast Electric Cooperative, Inc.,FL034,9197,3035601,30356010
+FL,Lee County Electric Cooperative, Inc.,FL025,9797,3023745,30237450
+FL,Peace River Electric Cooperative, Inc.,FL026,1594,304932,3049320
+FL,Sumter Electric Cooperative, Inc.,FL016,13569,3277988,32779880
+FL,Suwannee Valley Electric Co-op, Inc.,FL015,12201,4285456,42854560
+FL,Talquin Electric Cooperative, Inc.,FL029,3240,1224500,12245000
+FL,Tri-County Electric Cooperative, Inc.,FL028,10895,4960830,49608300
+FL,West Florida Electric Co-op Assn.,FL017,18359,6210030,62100300
+FL,Withlacoochee River Electric Cooperative,FL033,5753,1124928,11249280
+
+GA,Altamaha EMC,GA042,8353,3181352,31813520
+GA,Amicalola EMC,GA096,3175,1036887,10368870
+GA,Blue Ridge Mountain EMC,GA081,917,197072,1970720
+GA,Canoochee EMC,GA087,4697,2281546,22815460
+GA,Carroll EMC,GA034,13538,3273442,32734420
+GA,Central Georgia EMC,GA058,14851,4174357,41743570
+GA,Coastal EMC,GA099,941,421270,4212700
+GA,Cobb Electric Membership Corporation,GA084,335,60038,600380
+GA,Colquitt EMC,GA022,9944,4396941,43969410
+GA,Coweta-Fayette EMC,GA103,2991,731726,7317260
+GA,Diverse Power Incorporated,GA020,4218,1029150,10291500
+GA,Excelsior EMC,GA090,785,500932,5009320
+GA,Flint EMC (dba FlintEnergies),GA066,7235,3434988,34349880
+GA,Grady EMC,GA068,6753,3234768,32347680
+GA,GreyStone Power Corporation,GA037,2204,428070,4280700
+GA,Habersham EMC,GA078,2934,594290,5942900
+GA,Hart EMC,GA039,7759,2075134,20751340
+GA,Irwin EMC,GA065,5265,3693409,36934090
+GA,Jackson EMC,GA083,5598,1226124,12261240
+GA,Jefferson Energy Cooperative,GA074,10684,5034912,50349120
+GA,Southern Rivers Energy,GA075,10575,3029003,30290030
+GA,Little Ocmulgee EMC,GA088,4393,3119474,31194740
+GA,Middle Georgia EMC,GA097,4109,3077683,30776830
+GA,Mitchell EMC,GA070,9283,5806632,58066320
+GA,North Georgia EMC,GA007,3089,1106220,11062200
+GA,Ocmulgee EMC,GA073,4274,2313028,23130280
+GA,Oconee EMC,GA091,5672,2747495,27474950
+GA,Okefenoke REMC,GA092,2729,1591731,15917310
+GA,Planters EMC,GA017,3962,2461875,24618750
+GA,Rayle EMC,GA008,8733,4030962,40309620
+GA,Satilla REMC,GA067,13137,7254147,72541470
+GA,Sawnee EMC,GA077,451,75264,752640
+GA,Snapping Shoals EMC,GA051,3406,666497,6664970
+GA,Sumter EMC,GA045,6600,4989158,49891580
+GA,Three Notch EMC,GA086,6519,4005089,40050890
+GA,Tri-County EMC,GA094,7110,2637558,26375580
+GA,Tri-State EMC,GA108,259,44923,449230
+GA,Upson EMC,GA031,2756,978588,9785880
+GA,Walton EMC,GA035,5752,1605360,16053600
+GA,Washington EMC,GA069,11959,6150417,61504170
+
+
+ID,Clearwater Power Company,ID010,13400,10707363,107073630
+ID,Fall River Rural Electric Cooperative, Inc.,ID017,41,101083,1010830
+ID,Idaho County Light & Power Co-op Assn., Inc.,ID015,6903,6945307,69453070
+ID,Kootenai Electric Co-op, Inc.,ID011,4626,2076457,20764570
+ID,Lost River Electric Cooperative, Inc.,ID019,366,367207,3672070
+ID,Northern Lights, Inc.,ID004,1580,1529489,15294890
+ID,Raft River REC, Inc.,ID016,14,37380,373800
+ID,Salmon River Electric Co-op, Inc.,ID023,1361,1550000,15500000
+ID,South Side Electric Lines, Inc.,ID240,0,0,0
+ID,United Electric Cooperative,ID195,0,0,0
+
+IL,Adams Electric Cooperative,IL030,2912,2903927,29039270
+IL,Clay Electric Cooperative, Inc.,IL048,1103,1060125,10601250
+IL,Clinton County Electric Cooperative, Inc.,IL045,333,236768,2367680
+IL,Coles-Moultrie Electric Cooperative,IL008,6353,5997796,59977960
+IL,Corn Belt Energy Corporation,IL038,9978,8983684,89836840
+IL,Eastern Illini Electric Cooperative,IL054,16646,17493272,174932720
+IL,Egyptian Electric Cooperative Assn.,IL034,973,654109,6541090
+IL,Illinois Rural Electric Cooperative,IL018,3097,2648342,26483420
+IL,Jo-Carroll Energy, Inc.,IL044,5036,4782495,47824950
+IL,McDonough Power Cooperative,IL032,1219,1623135,16231350
+IL,Menard Electric Cooperative,IL021,5751,5903159,59031590
+IL,Monroe County Electric Cooperative, Inc.,IL031,0,0,0
+IL,Norris Electric Cooperative,IL036,14353,13414390,134143900
+IL,Rural Electric Convenience Cooperative ,IL023,4849,5042146,50421460
+IL,Shelby Electric Cooperative,IL029,7338,9101986,91019860
+IL,SouthEastern Illinois Elec. Co-op, Inc.,IL037,5044,2631732,26317320
+IL,Southern Illinois Electric Cooperative,IL043,8623,4600648,46006480
+IL,Southwestern Electric Cooperative, Inc.,IL046,4340,4383169,43831690
+IL,Spoon River Electric Cooperative, Inc.,IL039,1561,1726534,17265340
+IL,Tri-County Elec. Cooperative, Inc.,IL041,2281,2040871,20408710
+IL,Wayne-White Counties Electric Cooperative,IL002,4856,4785848,47858480
+IL,Western Illinois Electrical Cooperative,IL033,1606,1582572,15825720
+
+IN,Bartholomew County REMC,IN021,3555,1419880,14198800
+IN,Boone REMC,IN006,5003,2802573,28025730
+IN,Carroll White REMC,IN112,4342,2510959,25109590
+IN,Ninestar Connect,IN032,146,37576,375760
+IN,Clark County REMC,IN072,3537,1191628,11916280
+IN,Daviess-Martin County REMC,IN026,4288,2383534,23835340
+IN,Decatur County REMC,IN027,4128,1869422,18694220
+IN,Dubois REC, Inc.,IN083,3522,1460101,14601010
+IN,Fulton County REMC,IN029,1848,1103825,11038250
+IN,Harrison County REMC,IN089,5831,1818160,18181600
+IN,Hendricks Power Cooperative,IN033,3390,1425067,14250670
+IN,Henry County REMC,IN016,1820,642328,6423280
+IN,Jackson County REMC,IN092,14276,6436838,64368380
+IN,Jasper County REMC,IN035,2223,1527260,15272600
+IN,Jay County REMC,IN037,1839,1097074,10970740
+IN,Johnson County REMC,IN038,2822,776600,7766000
+IN,Kankakee Valley REMC,IN087,3319,1504669,15046690
+IN,Kosciusko REMC,IN088,924,297156,2971560
+IN,LaGrange County REMC,IN041,2454,659549,6595490
+IN,Marshall County REMC,IN009,3881,1184128,11841280
+IN,Miami-Cass County REMC,IN046,1884,1083827,10838270
+IN,Newton County REMC,IN100,1018,1271490,12714900
+IN,Noble REMC,IN080,1737,472378,4723780
+IN,Northeastern REMC,IN007,47,6384,63840
+IN,Orange County REMC,IN047,3506,1751178,17511780
+IN,Parke County REMC,IN042,7369,4278053,42780530
+IN,RushShelby Energy, Inc.,IN018,5387,2203101,22031010
+IN,South Central Indiana REMC,IN060,9715,2962176,29621760
+IN,Southeastern Indiana REMC,IN052,11733,4899307,48993070
+IN,Southern Indiana Power,IN099,3830,2055474,20554740
+IN,Steuben County REMC,IN053,2699,765592,7655920
+IN,Tipmont REMC,IN055,6299,3580675,35806750
+IN,United REMC,IN108,1263,761888,7618880
+IN,Utilities District of Western Indiana REMC,IN001,5299,3121439,31214390
+IN,Wabash County REMC,IN008,681,289136,2891360
+IN,Warren County REMC,IN011,2628,2090756,20907560
+IN,WIN Energy REMC,IN110,9572,6306486,63064860
+IN,Whitewater Valley REMC,IN109,11133,4640447,46404470
+
+IA,Access Energy Cooperative,IA069,1938,1759074,17590740
+IA,Allamakee-Clayton Elec. Co-op, Inc.,IA074,1983,2330119,23301190
+IA,Boone Valley Electric Co-op,IA018,346,410885,4108850
+IA,Butler County Rural Electric Cooperative,IA032,1565,1602938,16029380
+IA,Calhoun County Electric Cooperative Assn.,IA033,1763,2129605,21296050
+IA,Chariton Valley Electric Co-op, Inc.,IA082,2255,2779707,27797070
+IA,Clarke Electric Cooperative, Inc.,IA079,2998,3581892,35818920
+IA,Consumers Energy,IA007,2149,2022192,20221920
+IA,East-Central Iowa REC,IA095,2211,2305392,23053920
+IA,Farmers Electric Cooperative, Inc.,IA073,2445,2888849,28888490
+IA,Franklin Rural Electric Cooperative,IA030,1873,2136144,21361440
+IA,Grundy County REC,IA031,1774,1960883,19608830
+IA,Guthrie County REC,IA021,1843,1855362,18553620
+IA,Harrison County REC,IA015,3039,3452783,34527830
+IA,Hawkeye REC,IA052,2644,2864272,28642720
+IA,Heartland Power Cooperative,IA098,1108,1264277,12642770
+IA,Iowa Lakes Electric Cooperative,IA092,2619,3061130,30611300
+IA,Linn County REC,IA053,2099,1454126,14541260
+IA,Lyon Rural Electric Cooperative,IA050,653,680146,6801460
+IA,Maquoketa Valley REC,IA034,3470,3050106,30501060
+IA,Midland Power Cooperative,IA093,4331,4624316,46243160
+IA,Nishnabotna Valley REC,IA026,2317,2593251,25932510
+IA,North West Rural Electric Cooperative,IA094,2126,2449617,24496170
+IA,Osceola Electric Cooperative, Inc.,IA070,626,741816,7418160
+IA,Pella Co-op Electric Assn.,IA040,1808,1767442,17674420
+IA,Prairie Energy Cooperative,IA099,1625,1774136,17741360
+IA,Southern Iowa Electric Co-op, Inc.,IA077,1245,1101352,11013520
+IA,Southwest Iowa Rural Electric Co-op,IA100,2721,3710840,37108400
+IA,T.I.P. Rural Electric Cooperative,IA056,2492,2579089,25790890
+IA,Western Iowa Power Cooperative,IA096,3053,3771426,37714260
+IA,Woodbury County RECA,IA059,921,1164167,11641670
+
+KS,Ark Valley Electric Co-op Assn.,KS032,6730,7550358,75503580
+KS,Bluestem Electric Cooperative, Inc.,KS058,3613,3922950,39229500
+KS,Brown-Atchison Electric Co-op Assn.,KS013,2347,2779786,27797860
+KS,Butler REC, Inc.,KS019,3250,2421110,24211100
+KS,Caney Valley Electric Co-op Assn.,KS038,1276,1620267,16202670
+KS,CMS Electric Co-op, Inc.,KS046,458,777991,7779910
+KS,Doniphan Electric Co-op Association, Inc.,KS022,3254,4134786,41347860
+KS,DS&O Rural Electric Co-op Assn.,KS015,4777,3910053,39100530
+KS,Flint Hills RECA, Inc.,KS027,3387,3482347,34823470
+KS,Heartland REC,KS057,880,621027,6210270
+KS,Kaw Valley Elec. Cooperative, Inc.,KS021,428,429155,4291550
+KS,Lane-Scott Electric Cooperative, Inc.,KS042,186,397376,3973760
+KS,Leavenworth-Jefferson Electric Cooperative,KS040,1487,1041651,10416510
+KS,Lyon-Coffey Electric Co-op, Inc.,KS056,1006,1185670,11856700
+KS,Midwest Energy, Inc.,KS055,7207,9867842,98678420
+KS,Ninnescah RECA, Inc.,KS033,2975,4460985,44609850
+KS,Pioneer Electric Cooperative, Inc.,KS044,156,305527,3055270
+KS,Prairie Land Electric Cooperative Inc.,KS028,4006,4465808,44658080
+KS,Radiant Electric Co-op, Inc.,KS041,550,701060,7010600
+KS,Sedgwick County Electric Cooperative Assn., Inc.,KS018,4025,2961843,29618430
+KS,Sumner-Cowley Electric Coop, Inc.,KS014,3325,2981823,29818230
+KS,Twin Valley Electric Cooperative,KS050,794,916435,9164350
+KS,The Victory Electric Cooperative Assn., Inc.,KS048,2375,3490509,34905090
+KS,Western Cooperative Electric Assn. Inc.,KS047,1209,1528211,15282110
+KS,Wheatland Electric Co-op, Inc.,KS051,1587,2426874,24268740
+
+KY,Big Sandy RECC,KY058,432,249699,2496990
+KY,Blue Grass Energy Cooperative Corp.,KY064,5926,3147256,31472560
+KY,Clark Energy Cooperative, Inc.,KY049,6854,2397491,23974910
+KY,Cumberland Valley Electric, Inc.,KY057,1624,577412,5774120
+KY,Farmers RECC,KY034,1074,321664,3216640
+KY,Fleming-Mason Energy Cooperative,KY052,6471,3931776,39317760
+KY,Grayson RECC,KY061,2148,1119376,11193760
+KY,Hickman-Fulton Counties RECC,KY038,349,222215,2222150
+KY,Jackson Energy Cooperative,KY003,4485,2100839,21008390
+KY,Jackson Purchase Energy Corp.,KY020,2534,909177,9091770
+KY,Kenergy Corp,KY065,19824,10129022,101290220
+KY,Licking Valley RECC,KY056,1689,946382,9463820
+KY,Meade County RECC,KY018,2555,1795931,17959310
+KY,Nolin RECC,KY051,1921,1002569,10025690
+KY,Owen Electric Cooperative, Inc.,KY037,5330,2418416,24184160
+KY,Pennyrile RECC,KY026,14737,7646066,76460660
+KY,Salt River Electric Cooperative Corp.,KY021,6371,2540793,25407930
+KY,Shelby Energy Cooperative,KY030,3057,1777768,17777680
+KY,South Kentucky RECC,KY054,3343,1334805,13348050
+KY,Taylor County RECC,KY023,2898,1249935,12499350
+KY,Warren RECC,KY035,12929,5557084,55570840
+KY,West Kentucky RECC,KY050,1248,432210,4322100
+
+LA,Beauregard Electric Co-op, Inc.,LA018,15879,7219139,72191390
+LA,Claiborne Electric Cooperative, Inc.,LA017,28925,13335738,133357380
+LA,Concordia Electric Cooperative, Inc.,LA020,18040,9056563,90565630
+LA,Dixie Electric Membership Corp.,LA013,14227,4325308,43253080
+LA,Jefferson Davis Electric Co-op,LA019,4749,2633920,26339200
+LA,Northeast Louisiana Power Cooperative, Inc.,LA012,22772,12822001,128220010
+LA,South Louisiana Electric Co-op Assn,LA008,875,413099,4130990
+LA,Southwest Louisiana EMC,LA009,12330,4091952,40919520
+LA,Washington-St. Tammany Elec. Co-op,LA010,14776,3535585,35355850
+
+ME,Eastern Maine Electric Co-op, Inc.,ME012,5335,4356866,43568660
+ME,Fox Islands Electric Co-op,ME019,169,111724,1117240
+
+MD,Choptank Electric Co-op, Inc.,MD007,17047,4943653,49436530
+MD,Southern Maryland Electric Cooperative,MD004,4838,1321859,13218590
+
+
+MI,Alger-Delta Co-op Electric Assn.,MI020,13988,11023598,110235980
+MI,Cherryland Electric Cooperative,MI044,5259,2253312,22533120
+MI,Cloverland Electric Cooperative,MI043,16390,9379290,93792900
+MI,Great Lakes Energy Cooperative,MI048,49323,19056903,190569030
+MI,Midwest Energy Cooperative,MI049,13805,3628521,36285210
+MI,Ontonagon County REA,MI029,4383,3262434,32624340
+MI,Presque Isle Electric & Gas Co-op,MI028,15447,7128927,71289270
+MI,Thumb Electric Co-op, Inc.,MI037,26355,11650672,116506720
+MI,HomeWorks Tri-County Electric Co-op, Inc.,MI026,5425,1144977,11449770
+
+MN,Agralite Electric Cooperative,MN079,438,269180,2691800
+MN,Arrowhead Electric Cooperative, Inc.,MN104,6331,4935798,49357980
+MN,Beltrami Electric Cooperative, Inc.,MN096,646,916487,9164870
+MN,BENCO Electric Cooperative,MN108,7355,5321411,53214110
+MN,Brown County REA,MN035,702,675641,6756410
+MN,Clearwater-Polk Electric Cooperative,MN101,8,19911,199110
+MN,Connexus Energy,MN048,6416,1702794,17027940
+MN,Co-op Light & Power Association,MN004,5725,4546924,45469240
+MN,Dakota Electric Association,MN065,2618,1130341,11303410
+MN,East Central Energy,MN001,19903,13169920,131699200
+MN,Federated REA,MN037,3569,4655182,46551820
+MN,Freeborn-Mower Co-op Services,MN061,2786,2877982,28779820
+MN,Goodhue County Cooperative Electric Assn.,MN009,186,158155,1581550
+MN,Itasca-Mantrap Co-op Electrical Assn,MN083,137,113886,1138860
+MN,Kandiyohi Power Cooperative,MN058,3049,2922433,29224330
+MN,Lake Country Power,MN109,28164,22028493,220284930
+MN,Lake Region Electric Cooperative,MN057,1291,1556491,15564910
+MN,Lyon-Lincoln Electric Cooperative, Inc.,MN080,1339,1791849,17918490
+MN,McLeod Cooperative Power Assn.,MN025,1650,1646443,16464430
+MN,Meeker Cooperative Light & Power Assn.,MN003,1741,2041712,20417120
+MN,Mille Lacs Energy Cooperative,MN081,8015,4849993,48499930
+MN,Minn. Valley Co-op L & P Assn.,MN039,3967,5294122,52941220
+MN,Minnesota Valley Electric Cooperative,MN063,7312,4303170,43031700
+MN,Nobles Cooperative Electric,MN066,3,4122,41220
+MN,North Itasca Electric Co-op,MN094,1165,1707170,17071700
+MN,North Star Electric Co-op, Inc.,MN095,4260,4260197,42601970
+MN,People''s Cooperative Services,MN059,211,307267,3072670
+MN,P.K.M. Electric Cooperative, Inc.,MN087,731,942351,9423510
+MN,Red Lake Electric Cooperative, Inc.,MN075,2288,1218923,12189230
+MN,Red River Valley Co-op Power Assn.,MN074,473,618835,6188350
+MN,Redwood Electric Cooperative,MN060,527,615164,6151640
+MN,Renville-Sibley Cooperative Power Assn.,MN072,1749,1823913,18239130
+MN,Roseau Electric Cooperative, Inc.,MN097,1918,1431263,14312630
+MN,Runestone Electric Association,MN018,713,823103,8231030
+MN,South Central Electric Association,MN055,3700,4553616,45536160
+MN,Stearns Electric Association,MN034,4778,2810990,28109900
+MN,Steele-Waseca Cooperative Electric,MN053,4366,3993440,39934400
+MN,Todd-Wadena Electric Cooperative,MN085,2193,1820395,18203950
+MN,Traverse Electric Cooperative, Inc.,MN084,656,753925,7539250
+MN,Tri-County Electric Co-op,MN032,1659,2343256,23432560
+MN,Wild Rice Electric Cooperative, Inc.,MN082,542,511576,5115760
+MN,Wright-Hennepin Cooperative Electric Assn.,MN062,6349,2746504,27465040
+
+MS,Alcorn County Electric Power Assn.,MS056,3170,866951,8669510
+MS,Central Electric Power Association,MS022,21789,9274736,92747360
+MS,Coahoma Electric Power Association,MS021,5902,4217140,42171400
+MS,Coast Electric Power Association,MS028,7461,2581902,25819020
+MS,Delta Electric Power Association,MS034,15607,13275413,132754130
+MS,Dixie Electric Power Association,MS030,12451,4523225,45232250
+MS,East Mississippi EPA,MS045,18132,10230938,102309380
+MS,Magnolia Electric Power Association,MS041,21010,6784396,67843960
+MS,Monroe County Electric Power Assn.,MS001,6281,2150619,21506190
+MS,Natchez Trace EPA,MS050,5456,2969280,29692800
+MS,Northcentral Mississippi EPA,MS048,2795,502234,5022340
+MS,North East Mississippi EPA,MS024,6303,2343525,23435250
+MS,Pearl River Valley EPA,MS036,21623,6612855,66128550
+MS,Pontotoc Electric Power Assn.,MS017,6810,2002216,20022160
+MS,Prentiss County Electric Power Association,MS046,5983,1973452,19734520
+MS,Singing River Electric Power Assn.,MS039,5535,2404469,24044690
+MS,Southern Pine Electric Power Assn.,MS040,32769,11354519,113545190
+MS,Southwest Mississippi EPA,MS023,9915,5050484,50504840
+MS,Tallahatchie Valley EPA,MS026,11752,6186831,61868310
+MS,Tippah Electric Power Association,MS047,3922,1830773,18307730
+MS,Tishomingo County EPA,MS043,7079,2570863,25708630
+MS,Tombigbee Electric Power Association,MS049,9363,2638648,26386480
+MS,Twin County Electric Power Association,MS031,3482,3387419,33874190
+MS,Yazoo Valley Electric Power Association,MS020,8324,5925569,59255690
+
+MO,Atchison-Holt Electric Cooperative,MO032,1333,1427318,14273180
+MO,Barry Electric Co-op,MO069,126,82601,826010
+MO,Barton County Electric Co-op, Inc.,MO028,4168,4588725,45887250
+MO,Black River Electric Cooperative,MO038,19881,16832644,168326440
+MO,Boone Electric Co-op,MO019,8178,3943500,39435000
+MO,Callaway Electric Cooperative,MO024,933,262611,2626110
+MO,Central Missouri Electric Cooperative,MO040,9277,5485393,54853930
+MO,Citizens Electric Corp.,MO058,9580,2568348,25683480
+MO,Co-Mo Electric Cooperative, Inc.,MO047,15408,5474135,54741350
+MO,Consolidated Electric Co-op,MO036,3279,2881826,28818260
+MO,Crawford Electric Cooperative, Inc.,MO054,6467,3921705,39217050
+MO,Cuivre River Electric Co-op, Inc.,MO057,6444,2228594,22285940
+MO,Farmers Electric Cooperative, Inc.,MO042,6149,5649490,56494900
+MO,Gascosage Electric Cooperative,MO068,5704,3022273,30222730
+MO,Grundy Electric Cooperative, Inc.,MO044,58,90732,907320
+MO,Howard Electric Cooperative,MO022,1856,697417,6974170
+MO,Howell-Oregon Electric Cooperative, Inc.,MO049,10772,10856176,108561760
+MO,Intercounty Electric Cooperative Assn.,MO018,18492,14236736,142367360
+MO,Laclede Electric Co-op,MO043,5109,2413198,24131980
+MO,Lewis County REC,MO023,732,612918,6129180
+MO,Macon Electric Cooperative,MO034,1633,1437952,14379520
+MO,Missouri REC,MO020,1710,1487331,14873310
+MO,M.J.M. Electric Cooperative, Inc.,IL040,0,0,0
+MO,New-Mac Electric Cooperative, Inc.,MO048,727,559926,5599260
+MO,North Central Missouri Elec. Co-op,MO056,614,769752,7697520
+MO,Osage Valley Electric Co-op Assn.,MO037,14423,12662034,126620340
+MO,Ozark Border Electric Cooperative,MO033,13770,10812887,108128870
+MO,Ozark Electric Co-op,MO030,1185,1402495,14024950
+MO,Pemiscot-Dunklin Electric Cooperative,MO012,1025,1207724,12077240
+MO,Platte-Clay Electric Cooperative, Inc.,MO041,8909,4584657,45846570
+MO,Ralls County Electric Cooperative,MO026,2097,1775784,17757840
+MO,Sac Osage Electric Cooperative, Inc.,MO055,11361,9311227,93112270
+MO,Se-Ma-No Electric Co-op,MO067,0,0,0
+MO,SEMO Electric Cooperative,MO031,6014,4180660,41806600
+MO,Southwest Electric Co-op,MO053,17198,6614737,66147370
+MO,Three Rivers Electric Co-op,MO045,12314,7229856,72298560
+MO,Tri-County Electric Cooperative Assn.,MO035,831,645312,6453120
+MO,United Electric Cooperative,MO075,5117,3866333,38663330
+MO,Webster Electric Co-op,MO066,0,0,0
+MO,West Central Electric Cooperative, Inc.,MO050,16282,8875958,88759580
+MO,White River Valley Electric Cooperative,MO046,6596,5688955,56889550
+
+MT,Beartooth Electric Cooperative, Inc.,MT019,3996,3441814,34418140
+MT,Big Horn County Electric Co-op, Inc.,MT021,601,742042,7420420
+MT,Fergus Electric Cooperative, Inc.,MT015,559,875412,8754120
+MT,Flathead Electric Cooperative, Inc.,MT013,9341,4875355,48753550
+MT,Glacier Electric Co-op, Inc.,MT030,2589,1621121,16211210
+MT,Goldenwest Electric Cooperative, Inc.,MT029,208,200526,2005260
+MT,Hill County Electric Cooperative, Inc.,MT032,258,358294,3582940
+MT,Lincoln Electric Co-op, Inc.,MT036,5316,3923552,39235520
+MT,Lower Yellowstone REA, Inc.,MT005,261,349756,3497560
+MT,Marias River Electric Cooperative, Inc.,MT031,247,135964,1359640
+MT,Mid-Yellowstone Electric Cooperative, Inc.,MT017,317,519119,5191190
+MT,Missoula Electric Co-op, Inc.,MT012,2247,1625096,16250960
+MT,Park Electric Cooperative, Inc.,MT016,3954,3091335,30913350
+MT,Ravalli County Electric Cooperative, Inc.,MT001,1792,1423324,14233240
+MT,Sun River Electric Cooperative, Inc.,MT002,2482,2047766,20477660
+MT,Tongue River Electric Co-op, Inc.,MT033,208,271566,2715660
+MT,Vigilante Electric Cooperative, Inc.,MT010,11468,8839801,88398010
+MT,Yellowstone Valley Electric Cooperative, Inc.,MT009,3587,2729075,27290750
+
+NE,Niobrara Valley EMC,NE080,563,949899,9498990
+NE,Panhandle REMA,NE084,2097,3184705,31847050
+
+NV,Mt. Wheeler Power, Inc.,NV019,6839,4420233,44202330
+NV,Valley Electric Association,NV018,2827,2129439,21294390
+NV,Wells REC,NV015,1286,1589334,15893340
+
+NH,New Hampshire Electric Co-op,NH004,10434,4328852,43288520
+
+
+NM,Central New Mexico Electric Co-op,NM021,7204,5091712,50917120
+NM,Central Valley Electric Cooperative, Inc.,NM004,1001,835361,8353610
+NM,Columbus Electric Cooperative, Inc.,NM025,2358,1972597,19725970
+NM,Continental Divide Electric Cooperative, Inc.,NM022,9883,7862650,78626500
+NM,Jemez Mountains Electric Co-op,NM028,8946,4880214,48802140
+NM,Kit Carson Electric Cooperative, Inc.,NM011,6116,4108929,41089290
+NM,Lea County Electric Cooperative, Inc.,NM023,284,225218,2252180
+NM,Mora-San Miguel Electric Co-op, Inc.,NM014,5965,3739260,37392600
+NM,Northern Rio Arriba Electric Co-op,NM015,1411,1307058,13070580
+NM,Otero County Electric Cooperative, Inc.,NM012,1827,1182138,11821380
+NM,Roosevelt County Electric Cooperative, Inc.,NM008,1048,678104,6781040
+NM,Sierra Electric Cooperative, Inc.,NM017,1370,846922,8469220
+NM,Socorro Electric Co-op, Inc.,NM020,3420,2684245,26842450
+NM,Springer Electric Cooperative, Inc.,NM019,3421,2061586,20615860
+
+NY,Delaware County Electric Cooperative, Inc.,NY020,1267,674719,6747190
+NY,Oneida-Madison Electric Cooperative, Inc.,NY024,2149,1030406,10304060
+NY,Otsego Electric Cooperative, Inc.,NY019,4903,2607948,26079480
+
+NC,Albemarle EMC,NC066,2372,677538,6775380
+NC,Blue Ridge EMC,NC023,2159,821151,8211510
+NC,Brunswick EMC,NC040,1372,404142,4041420
+NC,Central EMC,NC058,4955,845985,8459850
+NC,Edgecombe-Martin County EMC,NC016,4771,1650898,16508980
+NC,EnergyUnited,NC069,5831,1092669,10926690
+NC,Four County EMC,NC021,10372,2663600,26636000
+NC,French Broad EMC,NC046,1692,451638,4516380
+NC,Halifax EMC,NC033,6130,1733336,17333360
+NC,Haywood EMC,NC010,13177,3588705,35887050
+NC,Jones-Onslow EMC,NC043,2957,1041476,10414760
+NC,Lumbee River EMC,NC051,7752,1833557,18335570
+NC,Pee Dee EMC,NC034,4077,1558735,15587350
+NC,Piedmont EMC,NC032,9810,1924998,19249980
+NC,Pitt & Greene EMC,NC014,4847,812370,8123700
+NC,Randolph EMC,NC036,5722,1092426,10924260
+NC,Roanoke Electric Cooperative,NC031,8784,2522298,25222980
+NC,Rutherford EMC,NC025,12280,2714620,27146200
+NC,South River EMC,NC052,5685,846095,8460950
+NC,Surry-Yadkin EMC,NC049,707,174057,1740570
+NC,Tideland EMC,NC059,5647,2192142,21921420
+NC,Tri-County EMC,NC050,8595,1619155,16191550
+NC,Union Power Cooperative,NC039,1450,333584,3335840
+NC,Wake EMC,NC047,2456,488402,4884020
+
+ND,Capital Electric Cooperative, Inc.,ND035,22,5575,55750
+ND,Cass County Electric Cooperative, Inc.,ND011,1254,1773712,17737120
+ND,Dakota Valley Electric Cooperative,ND051,68,112933,1129330
+ND,McKenzie Electric Cooperative, Inc.,ND029,318,520457,5204570
+ND,Mor-Gran-Sou Electric Co-op, Inc.,ND025,260,442255,4422550
+ND,Northern Plains Electric Cooperative,ND050,67,98689,986890
+ND,Roughrider Electric Cooperative, Inc.,ND052,281,469163,4691630
+
+OH,Adams REC, Inc.,OH094,8764,3922885,39228850
+OH,Buckeye REC, Inc.,OH088,19176,8810388,88103880
+OH,Butler REC, Inc.,OH074,1700,512611,5126110
+OH,Carroll Electric Cooperative, Inc.,OH084,7211,3422755,34227550
+OH,Consolidated Electric Cooperative, Inc.,OH059,5662,1606322,16063220
+OH,Darke REC, Inc.,OH042,2939,1396380,13963800
+OH,Firelands Electric Cooperative, Inc.,OH083,4524,1909304,19093040
+OH,Frontier Power Company,OH055,9572,5496167,54961670
+OH,Guernsey-Muskingum Electric Co-op, Inc.,OH086,13581,7878302,78783020
+OH,Hancock-Wood Electric Co-op, Inc.,OH087,1334,678364,6783640
+OH,Holmes-Wayne Electric Cooperative, Inc.,OH031,10922,4539789,45397890
+OH,Licking Rural Electrification,OH041,10180,5181791,51817910
+OH,Logan County Co-op Pwr. & Light Assn.,OH071,1197,470650,4706500
+OH,Lorain-Medina REC, Inc.,OH056,3997,900475,9004750
+OH,Mid-Ohio Energy Cooperative, Inc.,OH085,3373,1199918,11999180
+OH,Midwest Electric, Inc.,OH033,448,171980,1719800
+OH,North Central Electric Co-op, Inc.,OH060,1481,753393,7533930
+OH,North Western Electric Co-op, Inc.,OH075,10,1871,18710
+OH,Paulding-Putnam Electric Co-op, Inc.,OH039,26,10957,109570
+OH,Pioneer REC, Inc.,OH001,1769,719319,7193190
+OH,South Central Power Co.,OH065,34461,16858932,168589320
+OH,Tricounty REC, Inc.,OH068,2,592,5920
+OH,Union REC, Inc.,OH050,199,43150,431500
+OH,Washington Electric Cooperative, Inc.,OH093,10985,7866307,78663070
+
+OK,Alfalfa Electric Cooperative, Inc.,OK012,1445,546502,5465020
+OK,Caddo Electric Cooperative,OK006,4366,2237469,22374690
+OK,Canadian Valley Electric Cooperative. Inc.,OK029,12953,7359731,73597310
+OK,Central REC,OK024,121,28434,284340
+OK,Choctaw Electric Cooperative, Inc.,OK030,5909,3689302,36893020
+OK,Cimarron Electric Cooperative,OK001,1547,432033,4320330
+OK,Cookson Hills Electric Cooperative, Inc.,OK035,8081,2171543,21715430
+OK,Cotton Electric Cooperative, Inc.,OK022,7687,4832579,48325790
+OK,East Central Oklahoma Electric Cooperative, Inc.,OK023,11738,4352799,43527990
+OK,Harmon Electric Association, Inc.,OK026,1547,587538,5875380
+OK,Indian Electric Cooperative, Inc.,OK028,6249,2431420,24314200
+OK,Kay Electric Cooperative,OK002,2844,610720,6107200
+OK,Kiamichi Electric Cooperative, Inc.,OK033,7231,4302039,43020390
+OK,Kiwash Electric Cooperative, Inc.,OK021,2077,1287019,12870190
+OK,Lake Region Electric Co-op, Inc.,OK037,6647,1722740,17227400
+OK,Northeast Oklahoma Electric Co-op,OK019,7812,2628936,26289360
+OK,Oklahoma Electric Cooperative,OK010,14413,3921337,39213370
+OK,People''s Electric Cooperative,OK016,10929,7730314,77303140
+OK,Red River Valley REA,OK014,99,113404,1134040
+OK,Rural Electric Cooperative, Inc.,OK020,3585,3157075,31570750
+OK,Southeastern Electric Cooperative, Inc.,OK027,5253,2898176,28981760
+OK,Southwest Rural Electric Association, Inc.,OK015,1647,809992,8099920
+OK,Tri-County Elec. Co-op, Inc.,OK034,23,58150,581500
+OK,Verdigris Valley Electric Cooperative,OK025,12422,3752467,37524670
+
+OR,Blachly-Lane Co. Co-op Elec. Assn.,OR002,1429,1152591,11525910
+OR,Central Electric Cooperative, Inc.,OR025,7433,6741007,67410070
+OR,Columbia Basin Electric Co-op,OR029,3576,4467207,44672070
+OR,Columbia Power Cooperative Association,OR037,2186,2904354,29043540
+OR,Consumers Power, Inc.,OR004,2523,1934626,19346260
+OR,Coos-Curry Electric Cooperative, Inc.,OR021,4629,3823374,38233740
+OR,Douglas Electric Cooperative, Inc.,OR017,2770,2858237,28582370
+OR,Harney Electric Cooperative, Inc.,OR041,3225,5012978,50129780
+OR,Hood River Electric Cooperative,OR194,2078,670739,6707390
+OR,Lane Electric Cooperative, Inc.,OR018,4987,3908683,39086830
+OR,Midstate Electric Cooperative, Inc.,OR039,5395,5010558,50105580
+OR,Oregon Trail Elec. Consumers Co-op,OR193,5701,7470193,74701930
+OR,Umatilla Electric Cooperative,OR014,2676,2883788,28837880
+OR,Wasco Electric Cooperative, Inc.,OR026,3594,3316577,33165770
+OR,West Oregon Electric Cooperative, Inc.,OR032,6564,3854970,38549700
+
+PA,Adams Electric Cooperative, Inc.,PA025,10750,3324956,33249560
+PA,Bedford REC, Inc.,PA024,5849,3916649,39166490
+PA,Central Electric Cooperative, Inc.,PA017,10034,4409959,44099590
+PA,Claverack Rural Electric Cooperative, Inc.,PA015,13848,7320071,73200710
+PA,New Enterprise REC,PA250,2289,1055774,10557740
+PA,REA Energy Cooperative, Inc.,PA006,11456,4613478,46134780
+PA,Somerset REC, Inc.,PA021,3331,1343913,13439130
+PA,Sullivan County REC,PA012,6558,3258384,32583840
+PA,Tri-County REC, Inc.,PA013,8372,3534293,35342930
+PA,United Electric Cooperative, Inc.,PA028,8952,4399627,43996270
+PA,Valley REC, Inc.,PA020,15977,6603610,66036100
+PA,Warren Electric Cooperative, Inc.,PA019,6725,2252624,22526240
+
+
+SC,Aiken Electric Cooperative, Inc.,SC014,16243,5819187,58191870
+SC,Berkeley Electric Cooperative, Inc.,SC025,2076,943363,9433630
+SC,Black River Electric Cooperative, Inc.,SC029,2232,725348,7253480
+SC,Blue Ridge Electric Cooperative, Inc.,SC038,10475,2417266,24172660
+SC,Broad River Electric Cooperative, Inc.,SC033,7620,2387602,23876020
+SC,Fairfield Electric Cooperative, Inc.,SC022,5015,1614552,16145520
+SC,Laurens Electric Cooperative, Inc.,SC019,4907,1228307,12283070
+SC,Little River Electric Cooperative, Inc.,SC035,5247,1885330,18853300
+SC,Lynches River Electric Cooperative, Inc.,SC021,2639,844692,8446920
+SC,Marlboro Electric Cooperative, Inc.,SC027,4755,1705333,17053330
+SC,Mid-Carolina Electric Cooperative, Inc.,SC037,3751,610977,6109770
+SC,Newberry Electric Cooperative,SC034,6042,2094790,20947900
+SC,Palmetto Electric Cooperative, Inc.,SC040,5281,2065018,20650180
+SC,Pee Dee Electric Cooperative, Inc.,SC026,11181,3342633,33426330
+SC,Santee Electric Cooperative, Inc.,SC028,0,0,0
+SC,Tri-County Electric Cooperative,SC032,4214,1174606,11746060
+SC,York Electric Cooperative, Inc.,SC041,4215,995813,9958130
+
+SD,Black Hills Electric Cooperative, Inc.,SD013,3341,3274542,32745420
+SD,Bon Homme Yankton Electric Assn. Inc.,SD027,292,206945,2069450
+SD,Butte Electric Cooperative, Inc.,SD015,2046,2255015,22550150
+SD,Central Electric Cooperative,SD051,0,0,0
+SD,Cherry-Todd Electric Co-op, Inc.,SD041,176,327090,3270900
+SD,Clay-Union Electric Corporation,SD003,724,787670,7876700
+SD,Codington-Clark Electric Cooperative, Inc.,SD018,833,1021936,10219360
+SD,Dakota Energy Cooperative, Inc.,SD050,550,714289,7142890
+SD,FEM Electric Association, Inc.,SD036,0,0,0
+SD,H-D Electric Cooperative, Inc.,SD017,43,50819,508190
+SD,Kingsbury Electric Cooperative, Inc.,SD030,483,537278,5372780
+SD,Lacreek Electric Association, Inc.,SD035,0,0,0
+SD,Moreau-Grand Electric Cooperative, Inc.,SD038,560,578720,5787200
+SD,Northern Electric Cooperative, Inc.,SD021,5,10565,105650
+SD,Oahe Electric Cooperative, Inc.,SD037,540,469192,4691920
+SD,Southeastern Electric Cooperative, Inc.,SD052,848,701738,7017380
+SD,Union County Electric Co-op, Inc.,SD006,396,437963,4379630
+SD,West Central Electric Co-op, Inc.,SD042,86,167498,1674980
+SD,West River Electric Assn., Inc.,SD011,784,722812,7228120
+SD,Whetstone Valley Electric Cooperative, Inc.,SD016,799,954985,9549850
+
+TN,Appalachian Electric Cooperative,TN038,6285,1166305,11663050
+TN,Chickasaw Electric Cooperative,TN049,4107,1919560,19195600
+TN,Cumberland Electric Membership Corporation,TN024,9504,3065556,30655560
+TN,Duck River Electric Membership Corp,TN021,11351,5088491,50884910
+TN,Fort Loudoun Electric Co-op,TN026,3094,754631,7546310
+TN,Gibson EMC,TN020,5092,2194001,21940010
+TN,Holston Electric Cooperative, Inc.,TN037,4910,1065783,10657830
+TN,Meriwether Lewis Electric Cooperative,TN032,12402,6118006,61180060
+TN,Middle Tennessee EMC,TN019,4571,1208976,12089760
+TN,Mountain Electric Cooperative, Inc.,TN051,1589,509372,5093720
+TN,Pickwick Electric Cooperative,TN031,10723,3659819,36598190
+TN,Plateau Electric Cooperative,TN036,454,153279,1532790
+TN,Powell Valley Electric Cooperative,TN061,4075,1239141,12391410
+TN,Sequachee Valley Electric Co-op,TN035,1353,677270,6772700
+TN,Southwest Tennessee EMC,TN016,16960,6415389,64153890
+TN,Tennessee Valley Electric Co-op,TN034,5107,2371332,23713320
+TN,Tri-County Electric Membership Corp.,TN009,669,195152,1951520
+TN,Upper Cumberland EMC,TN025,951,346553,3465530
+TN,Volunteer Energy Cooperative,TN001,18307,5178596,51785960
+
+TX,Bailey County Electric Cooperative Assn,TX062,637,826603,8266030
+TX,Bandera Electric Cooperative, Inc.,TX092,5508,3489876,34898760
+TX,Bartlett Electric Cooperative, Inc.,TX007,18203,9602804,96028040
+TX,Big Country Electric Cooperative, Inc.,TX163,4717,6326473,63264730
+TX,Bluebonnet Electric Cooperative, Inc.,TX100,7415,3235614,32356140
+TX,Bowie-Cass Electric Cooperative, Inc.,TX040,10161,5512335,55123350
+TX,Central Texas Electric Cooperative, Inc.,TX149,5673,3807108,38071080
+TX,Cherokee County Electric Cooperative Association,TX078,2248,1628478,16284780
+TX,Coleman County Electric Co-op, Inc.,TX061,2248,2230707,22307070
+TX,Comanche County Electric Cooperative Assn, Inc.,TX086,754,1202490,12024900
+TX,Concho Valley Electric Cooperative, Inc.,TX114,4011,3733232,37332320
+TX,Cooke County Electric Co-op Assn.,TX068,27,29621,296210
+TX,Deaf Smith Electric Cooperative, Inc.,TX047,975,1195728,11957280
+TX,Deep East Texas Electric Cooperative, Inc.,TX064,12802,7397876,73978760
+TX,Fannin County Electric Cooperative, Inc.,TX052,1805,1245607,12456070
+TX,Farmers Electric Cooperative, Inc.,TX067,3305,1760061,17600610
+TX,Fayette Electric Co-op, Inc.,TX058,3090,1962816,19628160
+TX,Fort Belknap Electric Cooperative, Inc.,TX098,457,920141,9201410
+TX,Grayson-Collin Electric Co-op, Inc.,TX050,2667,790247,7902470
+TX,Greenbelt Electric Co-op, Inc.,TX080,1654,2358059,23580590
+TX,Guadalupe Valley Electric Cooperative, Inc.,TX094,1152,1125446,11254460
+TX,Hamilton County Electric Co-op Assn,TX070,1914,1497147,14971470
+TX,Heart of Texas Electric Cooperative,TX166,4697,3600046,36000460
+TX,Houston County Electric Co-op, Inc.,TX089,6178,4916590,49165900
+TX,J-A-C Electric Cooperative, Inc.,TX071,510,516556,5165560
+TX,Jackson Electric Co-op, Inc.,TX102,6308,3390989,33909890
+TX,Jasper-Newton Electric Cooperative, Inc.,TX125,11390,7040991,70409910
+TX,Karnes Electric Cooperative, Inc.,TX087,688,413659,4136590
+TX,Lamar County Electric Cooperative Association,TX072,2394,2289492,22894920
+TX,Lamb County Electric Co-op, Inc.,TX059,704,934383,9343830
+TX,Lighthouse Electric Cooperative, Inc.,TX055,2512,3946898,39468980
+TX,Lyntegar Electric Cooperative, Inc.,TX060,756,1228551,12285510
+TX,Magic Valley Electric Cooperative, Inc.,TX048,109,83520,835200
+TX,Medina Electric Co-op, Inc.,TX095,6999,5044439,50444390
+TX,Mid-South Synergy,TX115,18262,7682916,76829160
+TX,Navarro County Electric Co-op, Inc.,TX063,0,0,0
+TX,Navasota Valley Electric Cooperative, Inc.,TX122,6042,4110403,41104030
+TX,North Plains Electric Cooperative, Inc.,TX135,2919,4149814,41498140
+TX,Nueces Electric Cooperative, Inc.,TX088,438,347453,3474530
+TX,Panola-Harrison Electric Cooperative, Inc.,TX041,3544,1605309,16053090
+TX,Pedernales Electric Co-op, Inc.,TX076,12787,7951292,79512920
+TX,Rio Grande Electric Cooperative, Inc.,TX144,5305,4654114,46541140
+TX,Rusk County Electric Cooperative, Inc.,TX065,4495,1628564,16285640
+TX,Sam Houston Electric Cooperative, Inc.,TX103,6225,3435035,34350350
+TX,San Bernard Electric Cooperative, Inc.,TX111,2879,2227605,22276050
+TX,San Patricio Electric Cooperative, Inc.,TX091,1057,889894,8898940
+TX,South Plains Electric Cooperative, Inc.,TX056,2359,2515500,25155000
+TX,Southwest Texas Electric Cooperative, Inc.,TX124,3081,3123471,31234710
+TX,Swisher Electric Cooperative, Inc.,TX108,1419,1700543,17005430
+TX,Taylor Electric Cooperative, Inc.,TX106,2108,2293516,22935160
+TX,Trinity Valley Electric Co-op,TX162,3646,2104090,21040900
+TX,United Cooperative Services, Inc.,TX164,0,0,0
+TX,Upshur-Rural Electric Cooperative Corporation,TX030,6808,2279633,22796330
+TX,Victoria Electric Cooperative, Inc.,TX096,9044,4486054,44860540
+TX,Wharton County Electric Co-op, Inc.,TX075,3336,2833653,28336530
+TX,Wise Electric Cooperative, Inc.,TX085,24,44780,447800
+TX,Wood County Electric Co-op, Inc.,TX054,560,466306,4663060
+
+UT,Dixie Power,UT020,13,8033,80330
+UT,Flowell Electric Association, Inc.,UT011,223,117691,1176910
+UT,Garkane Energy Cooperative, Inc.,UT006,212,277221,2772210
+UT,Moon Lake Electric Association, Inc.,UT008,451,276858,2768580
+
+VT,Vermont Electric Cooperative, Inc.,VT007,6563,2254185,22541850
+VT,Washington Electric Co-op, Inc.,VT008,4856,1940552,19405520
+
+VA,A&N Electric Cooperative,VA039,3124,793381,7933810
+VA,BARC Electric Cooperative,VA030,2721,1283942,12839420
+VA,Central Virginia Electric Cooperative,VA029,17029,4388602,43886020
+VA,Community Electric Cooperative,VA037,8186,3755912,37559120
+VA,Craig-Botetourt Electric Cooperative,VA002,1030,486734,4867340
+VA,Mecklenburg Electric Cooperative,VA031,24610,8027901,80279010
+VA,Northern Neck Electric Cooperative, Inc.,VA028,8126,2901218,29012180
+VA,Northern Virginia Electric Cooperative,VA055,2668,800088,8000880
+VA,Prince George Electric Cooperative,VA036,5377,1591497,15914970
+VA,Rappahannock Electric Cooperative,VA054,46450,14663845,146638450
+VA,Shenandoah Valley Electric Cooperative, Inc.,VA011,19239,6741835,67418350
+VA,Southside Electric Cooperative,VA027,31459,11027519,110275190
+
+WA,Benton Rural Electric Assn,WA008,3465,2996293,29962930
+WA,Big Bend Electric Cooperative, Inc.,WA036,1415,1537117,15371170
+WA,Columbia Rural Electric Assn.,WA020,2135,2810316,28103160
+WA,Inland Power & Light Company,WA018,5086,4677515,46775150
+WA,Nespelem Valley Electric Co-op, Inc.,WA039,536,611593,6115930
+WA,Okanogan County Electric Co-op,WA032,180,127277,1272770
+WA,Tanner Electric Cooperative,WA014,1597,550436,5504360
+
+WV,Harrison Rural Electrification Assn., Inc.,WV010,8973,7007878,70078780
+
+WI,Adams-Columbia Electric Co-op,WI055,15723,7504874,75048740
+WI,Barron Electric Cooperative,WI040,7913,4472473,44724730
+WI,Bayfield Electric Cooperative, Inc.,WI063,17120,11231960,112319600
+WI,Central Wisconsin Electric Cooperative,WI066,1273,768815,7688150
+WI,Chippewa Valley Electric Cooperative,WI019,4830,3309735,33097350
+WI,Clark Electric Cooperative,WI029,5963,4650462,46504620
+WI,Dunn Energy Cooperative,WI049,3201,2486026,24860260
+WI,Eau Claire Energy Co-op,WI053,5806,4155345,41553450
+WI,Jackson Electric Cooperative,WI047,5330,4120700,41207000
+WI,Jump River Electric Cooperative,WI057,4889,4037134,40371340
+WI,Oakdale Electric Cooperative,WI025,6975,4652597,46525970
+WI,Oconto Electric Cooperative,WI014,11253,5147114,51471140
+WI,Pierce Pepin Cooperative Services,WI032,6251,3221942,32219420
+WI,Polk-Burnett Electric Cooperative,WI054,4214,1797996,17979960
+WI,Price Electric Cooperative,WI058,5794,4697606,46976060
+WI,Richland Electric Cooperative,WI035,2915,2461231,24612310
+WI,Rock Energy Cooperative,WI038,8143,4042120,40421200
+WI,Taylor Electric Cooperative,WI021,4328,3256421,32564210
+WI,Vernon Electric Cooperative,WI041,3628,2752117,27521170
+WI,Washington Island Elec. Co-op, Inc.,WI059,385,112956,1129560
+
+WY,Big Horn Rural Electric Company,WY005,482,321469,3214690
+WY,Carbon Power & Light, Inc.,WY021,705,505970,5059700
+WY,Garland Light & Power Co.,WY012,1483,640927,6409270
+WY,High Plains Power, Inc.,WY027,4056,2988769,29887690
+WY,High West Energy, Inc.,WY014,1014,636862,6368620
+WY,Lower Valley Energy,WY011,2635,2140672,21406720
+WY,Niobrara Electric Assn., Inc.,WY022,1495,956819,9568190
+WY,Powder River Energy Corp.,WY025,1926,1619231,16192310
+WY,Wheatland REA,WY010,1712,1265165,12651650
+WY,Wyrulec Company,WY006,2624,2836231,28362310
+
+
+
+
+

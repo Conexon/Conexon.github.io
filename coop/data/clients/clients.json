@@ -385,6 +385,14 @@
     "center": [-107.293, 40.286], 
     "minZoom": 8,
     "maxZoom": 15
+  },    {
+    "coopCode": "HOLYCROSS",
+    "stateAbbr": "co",
+    "rusNumber": "co034",
+    "zoom": 8.25, 
+    "center": [-107.352,39.356], 
+    "minZoom": 8,
+    "maxZoom": 15
   }, 
     {
     "coopCode": "SCP",
@@ -1032,6 +1040,42 @@
     "zoom": 9.2, 
     "center": [-77.1358, 37.0184], 
     "minZoom": 7,
+    "maxZoom": 15
+  },    
+    {
+    "coopCode": "MVEA",
+    "stateAbbr": "co",
+    "rusNumber": "co037",
+    "zoom": 8.25, 
+    "center": [-103.745,39.068], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },   
+    {
+    "coopCode": "SIEA",
+    "stateAbbr": "co",
+    "rusNumber": "co025",
+    "zoom": 8.25, 
+    "center": [-104.282,37.555], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },   
+    {
+    "coopCode": "ACEC",
+    "stateAbbr": "ar",
+    "rusNumber": "ar031",
+    "zoom": 9.25, 
+    "center": [-91.6129,33.2215],   
+    "minZoom": 8,
+    "maxZoom": 15
+  },   
+    {
+    "coopCode": "FECC",
+    "stateAbbr": "ar",
+    "rusNumber": "ar011",
+    "zoom": 8, 
+    "center": [-91.355,35.104], 
+    "minZoom": 8,
     "maxZoom": 15
   }
    
