@@ -1077,6 +1077,15 @@
     "center": [-91.355,35.104], 
     "minZoom": 8,
     "maxZoom": 15
+  },   
+    {
+    "coopCode": "MONROE",
+    "stateAbbr": "ms",
+    "rusNumber": "ms001",
+    "zoom": 9.7, 
+    "center": [-88.5177,33.8764], 
+    "minZoom": 8,
+    "maxZoom": 15 
   }
    
    
