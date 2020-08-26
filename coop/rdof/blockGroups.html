@@ -158,26 +158,6 @@
               ></dd>
             </dl>
 
-            <!--<h1 class="font-semibold text-2xl leading-none">
-              Number of block groups
-            </h1>
-            <dl class="mb-8 mt-4">
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Green or Purple Block Group Total
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="blockGroupsTotal"
-              ></dd>
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Green Block Groups Only
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="blockGroups50"
-              ></dd>
-            </dl>-->
-
             <h1 class="font-semibold text-2xl leading-none">
               Off system cost estimate
             </h1>
@@ -223,10 +203,10 @@
             </dl>
 
             <h1 class="font-semibold text-2xl leading-none">
-              FCC location revenue potential
+              Revenue potential
             </h1>
             <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
-              Total FCC locations at a 32% take rate
+              FCC locations at a 32% take rate w/ % of RDOF funds
             </h2>
             <table class="mb-8 mt-4 min-w-full divide-y divide-gray-400">
               <thead>
@@ -417,11 +397,6 @@
     </div>
 
     <script>
-      // cost estimate
-      /*document.getElementById(
-        'costEstimate'
-      ).innerHTML = document.getElementById('estimate').value;*/
-
       let stateAbbr = '';
       let rusNumber = '';
       let metersAttribute = '';
@@ -503,7 +478,6 @@
       };
 
       const updateCost = () => {
-        console.log('update cost', selectedGeoids);
         let offSystemCostEstimate = 0;
         let totalRevenue = 0;
         let fullTotalRevenue = 0;
@@ -512,7 +486,6 @@
         );
 
         selectedGeoids.forEach((geoid) => {
-          console.log('lloop', totalRevenue);
           const selectedBlockGroup = blockGroupData.find(
             (blockGroup) => blockGroup.geoid === geoid
           );
@@ -545,15 +518,8 @@
             0
               ? fullTotalRevenue + selectedBlockGroup.locations * 60 * 0.32 * 12
               : fullTotalRevenue;
-          console.log('lloop', totalRevenue);
         });
 
-        /*document.getElementById(
-          'offSystemCostEstimate'
-        ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
-          style: 'currency',
-          currency: 'USD',
-        });*/
         document.getElementById('offSystemCostEstimate').innerHTML = (
           ((offSystemCostEstimate * 0.011041) / 2.31349) *
           12
@@ -561,7 +527,6 @@
           style: 'currency',
           currency: 'USD',
         });
-        console.log('lloop', totalRevenue);
         document.getElementById(
           'totalRevenue'
         ).innerHTML = totalRevenue.toLocaleString('en-US', {
@@ -802,15 +767,6 @@
           // 60 = gross margins
           // .32 = take rate %
           // 12 is monthly
-          /*totalRevenue += Math.abs(
-            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
-              60 *
-              0.32 *
-              12
-          );
-
-          fullTotalRevenue += selectedBlockGroup.locations * 60 * 0.32 * 12;*/
-
           totalRevenue =
             selectedBlockGroup.locations - selectedBlockGroup.meters_rdof > 0
               ? totalRevenue +
@@ -832,16 +788,6 @@
           });
           const countyFIPS = geoid.substring(2, 5);
           const blockGroupNumber = geoid.substring(6, 12);
-
-          /*const stateCode = geoid.substring(0, 2);
-          let stateAbbreviation = '';
-          stateCodes.forEach((stateArray) => {
-            if (stateArray[1] === stateCode) {
-              stateAbbreviation = stateArray[0];
-            }
-          });
-          const countyFIPS = geoid.substring(2, 5);
-          const blockGroupNumber = geoid.substring(6, 12);*/
 
           dataForCsv.push([
             `${stateAbbreviation}-${countyFIPS}-${blockGroupNumber}`,
@@ -873,8 +819,6 @@
           }
         );
         document.getElementById('locations').innerHTML = locations;
-        //document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
-        //document.getElementById('blockGroups50').innerHTML = groups50;
         document.getElementById('offSystemCostEstimate').innerHTML = (
           ((totalOffSystemCostEstimate * 0.011041) / 2.31349) *
           12
@@ -882,7 +826,6 @@
           style: 'currency',
           currency: 'USD',
         });
-        console.log('no loop', totalRevenue);
         document.getElementById(
           'totalRevenue'
         ).innerHTML = totalRevenue.toLocaleString('en-US', {
