@@ -143,7 +143,22 @@
               ></dd>
             </dl>
 
-            <h1 class="font-semibold text-2xl leading-none">
+            <h1 class="font-semibold text-2xl leading-none">Meter data</h1>
+            <dl class="mb-8 mt-4">
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                Total
+              </dt>
+              <dd class="text-xl font-semibold text-gray-900" id="meters"></dd>
+              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
+                In RDOF blocks
+              </dt>
+              <dd
+                class="text-xl font-semibold text-gray-900"
+                id="meters_rdof"
+              ></dd>
+            </dl>
+
+            <!--<h1 class="font-semibold text-2xl leading-none">
               Number of block groups
             </h1>
             <dl class="mb-8 mt-4">
@@ -161,7 +176,7 @@
                 class="text-xl font-semibold text-gray-900"
                 id="blockGroups50"
               ></dd>
-            </dl>
+            </dl>-->
 
             <h1 class="font-semibold text-2xl leading-none">
               Off system cost estimate
@@ -210,6 +225,9 @@
             <h1 class="font-semibold text-2xl leading-none">
               FCC location revenue potential
             </h1>
+            <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
+              Total FCC locations at a 32% take rate
+            </h2>
             <table class="mb-8 mt-4 min-w-full divide-y divide-gray-400">
               <thead>
                 <tr>
@@ -349,21 +367,6 @@
                 </tr>
               </tbody>
             </table>
-
-            <h1 class="font-semibold text-2xl leading-none">Meter data</h1>
-            <dl class="mb-8 mt-4">
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Total
-              </dt>
-              <dd class="text-xl font-semibold text-gray-900" id="meters"></dd>
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                In RDOF blocks
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="meters_rdof"
-              ></dd>
-            </dl>
           </div>
           <div class="min-h-screen max-h-screen overflow-auto" id="intro">
             <p class="text-lg font-semibold mt-8">
@@ -709,7 +712,7 @@
           document.getElementById('intro').classList.remove('hidden');
           document.getElementById('data').classList.add('hidden');
           document.getElementById('estimate').value = 5000;
-          document.getElementById('costEstimate').innerHTML = 5000;
+          //document.getElementById('costEstimate').innerHTML = 5000;
         } else {
           document.getElementById('intro').classList.add('hidden');
           document.getElementById('data').classList.remove('hidden');
@@ -870,8 +873,8 @@
           }
         );
         document.getElementById('locations').innerHTML = locations;
-        document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
-        document.getElementById('blockGroups50').innerHTML = groups50;
+        //document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
+        //document.getElementById('blockGroups50').innerHTML = groups50;
         document.getElementById('offSystemCostEstimate').innerHTML = (
           ((totalOffSystemCostEstimate * 0.011041) / 2.31349) *
           12
