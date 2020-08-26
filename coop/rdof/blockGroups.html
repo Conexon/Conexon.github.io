@@ -168,7 +168,8 @@
             </h1>
             <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
               (FCC locations - Meters in RDOF) *
-              <span id="costEstimate"></span> / 24.1987
+              <span id="costEstimate"></span> * 0.0110449933820231 /
+              2.31349801460694
             </h2>
 
             <label
@@ -546,18 +547,19 @@
           console.log('lloop', totalRevenue);
         });
 
-        document.getElementById(
+        /*document.getElementById(
           'offSystemCostEstimate'
         ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
-        });
-        /*document.getElementById('offSystemCostEstimate').innerHTML = (
-          totalOffSystemCostEstimate / 24.1987
+        });*/
+        document.getElementById('offSystemCostEstimate').innerHTML = (
+          (totalOffSystemCostEstimate * 0.0110449933820231) /
+          2.31349801460694
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
-        });*/
+        });
         console.log('lloop', totalRevenue);
         document.getElementById(
           'totalRevenue'
@@ -830,6 +832,16 @@
           const countyFIPS = geoid.substring(2, 5);
           const blockGroupNumber = geoid.substring(6, 12);
 
+          const stateCode = geoid.substring(0, 2);
+          let stateAbbreviation = '';
+          stateCodes.forEach((stateArray) => {
+            if (stateArray[1] === stateCode) {
+              stateAbbreviation = stateArray[0];
+            }
+          });
+          const countyFIPS = geoid.substring(2, 5);
+          const blockGroupNumber = geoid.substring(6, 12);
+
           dataForCsv.push([
             `${stateAbbreviation}-${countyFIPS}-${blockGroupNumber}`,
             '0',
@@ -863,7 +875,8 @@
         document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
         document.getElementById('blockGroups50').innerHTML = groups50;
         document.getElementById('offSystemCostEstimate').innerHTML = (
-          totalOffSystemCostEstimate / 24.1987
+          (totalOffSystemCostEstimate * 0.0110449933820231) /
+          2.31349801460694
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
