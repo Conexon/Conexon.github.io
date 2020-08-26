@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      href="https://unpkg.com/tailwindcss@1.6.2/dist/tailwind.min.css"
       rel="stylesheet"
     />
     <style>
@@ -118,7 +118,7 @@
             <h1 class="font-semibold text-2xl leading-none">
               10 year reserve price
             </h1>
-            <dl class="my-4">
+            <dl class="mb-8 mt-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
                 Green or Purple Block Group Total
               </dt>
@@ -133,7 +133,7 @@
             </dl>
 
             <h1 class="font-semibold text-2xl leading-none">FCC locations</h1>
-            <dl class="my-4">
+            <dl class="mb-8 mt-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
                 Total
               </dt>
@@ -143,28 +143,8 @@
               ></dd>
             </dl>
 
-            <h1 class="font-semibold text-2xl leading-none">
-              Number of block groups
-            </h1>
-            <dl class="my-4">
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Green or Purple Block Group Total
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="blockGroupsTotal"
-              ></dd>
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                Green Block Groups Only
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="blockGroups50"
-              ></dd>
-            </dl>
-
             <h1 class="font-semibold text-2xl leading-none">Meter data</h1>
-            <dl class="my-4">
+            <dl class="mb-8 mt-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
                 Total
               </dt>
@@ -176,28 +156,197 @@
                 class="text-xl font-semibold text-gray-900"
                 id="meters_rdof"
               ></dd>
+            </dl>
+
+            <h1 class="font-semibold text-2xl leading-none">
+              Off system cost estimate
+            </h1>
+            <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
+              With a 30 year loan at 4%
+            </h2>
+
+            <label
+              for="estimate"
+              class="mt-4 block text-sm font-medium leading-5"
+              >Enter your per meter cost estimate</label
+            >
+            <div class="mt-1 relative flex rounded-md shadow-sm w-16">
+              <span
+                class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm"
+              >
+                $ </span
+              ><input
+                id="estimate"
+                class="border border-gray-400 flex-1 block w-16 px-3 py-2 rounded-none rounded-r-md sm:text-sm sm:leading-5"
+                name="estimate"
+                placeholder="you@example.com"
+                value="6000"
+                onchange="updateCost()"
+              />
+            </div>
+
+            <dl class="mb-8 mt-4">
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                With cable
+                Off system cost per year
               </dt>
               <dd
                 class="text-xl font-semibold text-gray-900"
-                id="meters_cable"
+                id="offSystemCostEstimate"
               ></dd>
               <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                With fiber
+                Potential off system revenue per year
               </dt>
               <dd
                 class="text-xl font-semibold text-gray-900"
-                id="meters_fiber"
-              ></dd>
-              <dt class="text-sm font-medium text-gray-700 truncate mt-2">
-                With TelCo
-              </dt>
-              <dd
-                class="text-xl font-semibold text-gray-900"
-                id="meters_telco"
+                id="totalRevenue"
               ></dd>
             </dl>
+
+            <h1 class="font-semibold text-2xl leading-none">
+              Revenue potential
+            </h1>
+            <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
+              FCC locations at a 32% take rate w/ % of RDOF funds
+            </h2>
+            <table class="mb-8 mt-4 min-w-full divide-y divide-gray-400">
+              <thead>
+                <tr>
+                  <th
+                    class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider"
+                  >
+                    % of RDOF funds
+                  </th>
+                  <th
+                    class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-700 uppercase tracking-wider"
+                  >
+                    Revenue + % RDOF funds
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-300">
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    100%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at100"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    90%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at90"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    80%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at80"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    70%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at70"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    60%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at60"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    50%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at50"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    40%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at40"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    30%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at30"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    20%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at20"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    10%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at10"
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-700"
+                  >
+                    0%
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900"
+                    id="at0"
+                  ></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div class="min-h-screen max-h-screen overflow-auto" id="intro">
             <p class="text-lg font-semibold mt-8">
@@ -330,6 +479,8 @@
 
       const updateCost = () => {
         let offSystemCostEstimate = 0;
+        let totalRevenue = 0;
+        let fullTotalRevenue = 0;
         const enteredEstimate = parseInt(
           document.getElementById('estimate').value
         );
@@ -348,11 +499,113 @@
                   selectedBlockGroup.meters_rdof) *
                   enteredEstimate
               : offSystemCostEstimate;
+
+          totalRevenue =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate >
+            0
+              ? totalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
+              : totalRevenue;
+
+          fullTotalRevenue =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              enteredEstimate >
+            0
+              ? fullTotalRevenue + selectedBlockGroup.locations * 60 * 0.32 * 12
+              : fullTotalRevenue;
         });
 
+        document.getElementById('offSystemCostEstimate').innerHTML = (
+          ((offSystemCostEstimate * 0.011041) / 2.31349) *
+          12
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
         document.getElementById(
-          'offSystemCostEstimate'
-        ).innerHTML = offSystemCostEstimate.toLocaleString('en-US', {
+          'totalRevenue'
+        ).innerHTML = totalRevenue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at100').innerHTML = (
+          fullTotalRevenue +
+          amount / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at90').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.9) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at80').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.8) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at70').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.7) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at60').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.6) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at50').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.5) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at40').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.4) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at30').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.3) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at20').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.2) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at10').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.1) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById(
+          'at0'
+        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
@@ -420,10 +673,10 @@
       ];
 
       const updateData = (geoids) => {
-        console.log('passed in', geoids, geoids.length);
         if (geoids.length === 0) {
           document.getElementById('intro').classList.remove('hidden');
           document.getElementById('data').classList.add('hidden');
+          document.getElementById('estimate').value = 6000;
         } else {
           document.getElementById('intro').classList.add('hidden');
           document.getElementById('data').classList.remove('hidden');
@@ -458,6 +711,9 @@
         let meters_rdof = 0;
         let meters_telco = 0;
         let meters_cable = 0;
+        let totalOffSystemCostEstimate = 0;
+        let totalRevenue = 0;
+        let fullTotalRevenue = 0;
 
         dataForCsv = [];
         dataForCsv.push([
@@ -489,6 +745,38 @@
           meters_rdof += selectedBlockGroup.meters_rdof;
           meters_telco += selectedBlockGroup.meters_telco;
           meters_cable += selectedBlockGroup.meters_cable;
+          totalOffSystemCostEstimate =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              document.getElementById('estimate').value >
+            0
+              ? totalOffSystemCostEstimate +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  document.getElementById('estimate').value
+              : totalOffSystemCostEstimate;
+          offSystemCostEstimate =
+            (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
+              document.getElementById('estimate').value >
+            0
+              ? (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                document.getElementById('estimate').value
+              : 0;
+
+          // 60 = gross margins
+          // .32 = take rate %
+          // 12 is monthly
+          totalRevenue =
+            selectedBlockGroup.locations - selectedBlockGroup.meters_rdof > 0
+              ? totalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
+              : totalRevenue;
+
+          fullTotalRevenue += selectedBlockGroup.locations * 60 * 0.32 * 12;
 
           const stateCode = geoid.substring(0, 2);
           let stateAbbreviation = '';
@@ -530,13 +818,97 @@
           }
         );
         document.getElementById('locations').innerHTML = locations;
-        document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
-        document.getElementById('blockGroups50').innerHTML = groups50;
+        document.getElementById('offSystemCostEstimate').innerHTML = (
+          ((totalOffSystemCostEstimate * 0.011041) / 2.31349) *
+          12
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById(
+          'totalRevenue'
+        ).innerHTML = totalRevenue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at100').innerHTML = (
+          fullTotalRevenue +
+          amount / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at90').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.9) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at80').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.8) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at70').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.7) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at60').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.6) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at50').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.5) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at40').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.4) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at30').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.3) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at20').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.2) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById('at10').innerHTML = (
+          fullTotalRevenue +
+          (amount * 0.1) / 10
+        ).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+        document.getElementById(
+          'at0'
+        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
         document.getElementById('meters').innerHTML = meters;
         document.getElementById('meters_rdof').innerHTML = meters_rdof;
-        document.getElementById('meters_cable').innerHTML = meters_cable;
-        document.getElementById('meters_fiber').innerHTML = meters_fiber;
-        document.getElementById('meters_telco').innerHTML = meters_telco;
       };
 
       const highlightAllBlockGroups = () => {
@@ -784,11 +1156,6 @@
                     return response.json();
                   })
                   .then((data) => {
-                    console.log(
-                      'fetched data',
-                      metersAttribute,
-                      percentAttribute
-                    );
                     map.addSource('blockGroupsText', {
                       type: 'geojson',
                       data: data,
@@ -877,6 +1244,7 @@
                   }
 
                   updateData(selectedGeoids);
+                  updateCost(selectedGeoids);
                 });
 
                 // substations
@@ -939,7 +1307,6 @@
                       }
 
                       if (selectedSubstations.length > 0) {
-                        console.log(selectedSubstations);
                         let meterFilters = [
                           'all',
                           ['==', 'coop_code', coopCode],
@@ -952,7 +1319,6 @@
                             substation,
                           ]);
                         });
-                        console.log(meterFilters);
                         map.setFilter('meters', meterFilters);
                         map.setLayoutProperty(
                           'meters',
@@ -960,7 +1326,6 @@
                           'visible'
                         );
                       } else {
-                        console.log();
                         map.setLayoutProperty('meters', 'visibility', 'none');
                       }
                     });
