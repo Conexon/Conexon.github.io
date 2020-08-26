@@ -167,9 +167,7 @@
               Off system cost estimate
             </h1>
             <h2 class="font-semibold text-xs leading-none mt-2 text-gray-600">
-              (FCC locations - Meters in RDOF) *
-              <span id="costEstimate"></span> * 0.0110449933820231 /
-              2.31349801460694
+              With a 30 year loan at 4%
             </h2>
 
             <label
@@ -417,9 +415,9 @@
 
     <script>
       // cost estimate
-      document.getElementById(
+      /*document.getElementById(
         'costEstimate'
-      ).innerHTML = document.getElementById('estimate').value;
+      ).innerHTML = document.getElementById('estimate').value;*/
 
       let stateAbbr = '';
       let rusNumber = '';
@@ -554,8 +552,8 @@
           currency: 'USD',
         });*/
         document.getElementById('offSystemCostEstimate').innerHTML = (
-          (totalOffSystemCostEstimate * 0.0110449933820231) /
-          2.31349801460694
+          ((offSystemCostEstimate * 0.011041) / 2.31349) *
+          12
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
@@ -832,7 +830,7 @@
           const countyFIPS = geoid.substring(2, 5);
           const blockGroupNumber = geoid.substring(6, 12);
 
-          const stateCode = geoid.substring(0, 2);
+          /*const stateCode = geoid.substring(0, 2);
           let stateAbbreviation = '';
           stateCodes.forEach((stateArray) => {
             if (stateArray[1] === stateCode) {
@@ -840,7 +838,7 @@
             }
           });
           const countyFIPS = geoid.substring(2, 5);
-          const blockGroupNumber = geoid.substring(6, 12);
+          const blockGroupNumber = geoid.substring(6, 12);*/
 
           dataForCsv.push([
             `${stateAbbreviation}-${countyFIPS}-${blockGroupNumber}`,
@@ -875,8 +873,8 @@
         document.getElementById('blockGroupsTotal').innerHTML = geoids.length;
         document.getElementById('blockGroups50').innerHTML = groups50;
         document.getElementById('offSystemCostEstimate').innerHTML = (
-          (totalOffSystemCostEstimate * 0.0110449933820231) /
-          2.31349801460694
+          ((totalOffSystemCostEstimate * 0.011041) / 2.31349) *
+          12
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
