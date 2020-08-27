@@ -526,10 +526,12 @@
               : fullTotalRevenue;
         });
 
-        document.getElementById('offSystemCostEstimate').innerHTML = (
-          ((offSystemCostEstimate * 0.011041) / 2.31349) *
-          12
-        ).toLocaleString('en-US', {
+        const costWithLoan =
+          ((offSystemCostEstimate * 0.011041) / 2.31349) * 12;
+
+        document.getElementById(
+          'offSystemCostEstimate'
+        ).innerHTML = costWithLoan.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
@@ -541,77 +543,92 @@
         });
         document.getElementById('at100').innerHTML = (
           fullTotalRevenue +
-          amount / 10
+          amount / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at90').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.9) / 10
+          (amount * 0.9) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at80').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.8) / 10
+          (amount * 0.8) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at70').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.7) / 10
+          (amount * 0.7) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at60').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.6) / 10
+          (amount * 0.6) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at50').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.5) / 10
+          (amount * 0.5) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at40').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.4) / 10
+          (amount * 0.4) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at30').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.3) / 10
+          (amount * 0.3) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at20').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.2) / 10
+          (amount * 0.2) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at10').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.1) / 10
+          (amount * 0.1) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
-        document.getElementById(
-          'at0'
-        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
+        console.log(
+          fullTotalRevenue,
+          costWithLoan,
+          fullTotalRevenue - costWithLoan
+        );
+        document.getElementById('at0').innerHTML = (
+          fullTotalRevenue - costWithLoan
+        ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
@@ -817,6 +834,9 @@
         });
         // update the data
 
+        const costWithLoan =
+          ((offSystemCostEstimate * 0.011041) / 2.31349) * 12;
+
         document.getElementById('amount').innerHTML = amount.toLocaleString(
           'en-US',
           {
@@ -847,77 +867,92 @@
         });
         document.getElementById('at100').innerHTML = (
           fullTotalRevenue +
-          amount / 10
+          amount / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at90').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.9) / 10
+          (amount * 0.9) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at80').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.8) / 10
+          (amount * 0.8) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at70').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.7) / 10
+          (amount * 0.7) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at60').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.6) / 10
+          (amount * 0.6) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at50').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.5) / 10
+          (amount * 0.5) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at40').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.4) / 10
+          (amount * 0.4) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at30').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.3) / 10
+          (amount * 0.3) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at20').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.2) / 10
+          (amount * 0.2) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
         document.getElementById('at10').innerHTML = (
           fullTotalRevenue +
-          (amount * 0.1) / 10
+          (amount * 0.1) / 10 -
+          costWithLoan
         ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
-        document.getElementById(
-          'at0'
-        ).innerHTML = fullTotalRevenue.toLocaleString('en-US', {
+        console.log(
+          fullTotalRevenue,
+          costWithLoan,
+          fullTotalRevenue - costWithLoan
+        );
+        document.getElementById('at0').innerHTML = (
+          fullTotalRevenue - costWithLoan
+        ).toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD',
         });
