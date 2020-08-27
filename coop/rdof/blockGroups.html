@@ -517,7 +517,12 @@
             (selectedBlockGroup.locations - selectedBlockGroup.meters_rdof) *
               enteredEstimate >
             0
-              ? fullTotalRevenue + selectedBlockGroup.locations * 60 * 0.32 * 12
+              ? fullTotalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
               : fullTotalRevenue;
         });
 
@@ -777,7 +782,15 @@
                   12
               : totalRevenue;
 
-          fullTotalRevenue += selectedBlockGroup.locations * 60 * 0.32 * 12;
+          fullTotalRevenue =
+            selectedBlockGroup.locations - selectedBlockGroup.meters_rdof > 0
+              ? fullTotalRevenue +
+                (selectedBlockGroup.locations -
+                  selectedBlockGroup.meters_rdof) *
+                  60 *
+                  0.32 *
+                  12
+              : fullTotalRevenue;
 
           const stateCode = geoid.substring(0, 2);
           let stateAbbreviation = '';
