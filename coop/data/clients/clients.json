@@ -1019,8 +1019,8 @@
     "coopCode": "DFN",
     "stateAbbr": "or",
     "rusNumber": "or017",
-    "zoom": 8.92, 
-    "center": [-122.8243, 43.9145], 
+    "zoom": 7.4, 
+    "center": [-123.001, 43.066], 
     "minZoom": 7,
     "maxZoom": 15
   }, 
