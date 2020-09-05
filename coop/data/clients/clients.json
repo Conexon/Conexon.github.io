@@ -873,7 +873,7 @@
   }, 
     {
     "coopCode": "MECKELEC",
-    "stateAbbr": "va",
+    "stateAbbr": "vanc",
     "rusNumber": "va031",
     "zoom": 9, 
     "center": [-78.4568, 36.7981], 
@@ -882,7 +882,7 @@
   }, 
     {
     "coopCode": "SREC",
-    "stateAbbr": "ms",
+    "stateAbbr": "alms",
     "rusNumber": "ms039",
     "zoom": 8.65, 
     "center": [-88.5017, 30.9498], 
