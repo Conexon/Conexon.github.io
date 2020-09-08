@@ -813,6 +813,7 @@
                   12
               : fullTotalRevenue;
 
+          console.log('geoid = ', geoid);
           const stateCode = geoid.substring(0, 2);
           let stateAbbreviation = '';
           stateCodes.forEach((stateArray) => {
@@ -821,7 +822,7 @@
             }
           });
           const countyFIPS = geoid.substring(2, 5);
-          const blockGroupNumber = geoid.substring(6, 12);
+          const blockGroupNumber = geoid.substring(5, 12);
 
           dataForCsv.push([
             `${stateAbbreviation}-${countyFIPS}-${blockGroupNumber}`,
