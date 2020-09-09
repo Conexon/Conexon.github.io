@@ -650,9 +650,9 @@
     "coopCode": "CBEC",
     "stateAbbr": "or",
     "rusNumber": "or029",
-    "zoom": 9.8, 
+    "zoom": 9, 
     "center": [-119.7147, 45.2988], 
-    "minZoom": 9,
+    "minZoom": 8,
     "maxZoom": 15
   }, 
     {
@@ -1086,9 +1086,16 @@
     "center": [-88.5177,33.8764], 
     "minZoom": 8,
     "maxZoom": 15 
+  },   
+    {
+    "coopCode": "NCE",
+    "stateAbbr": "oh",
+    "rusNumber": "oh060",
+    "zoom": 9,
+    "center": [-83.1612, 41.0318],
+    "minZoom": 9,
+    "maxZoom": 15
   }
    
-   
-
 
 ]
