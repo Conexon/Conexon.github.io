@@ -1095,6 +1095,15 @@
     "center": [-83.1612, 41.0318],
     "minZoom": 9,
     "maxZoom": 15
+  }, 
+    {
+    "coopCode": "SEC",
+    "stateAbbr": "nm",
+    "rusNumber": "nm019",
+    "zoom": 8.7, 
+    "center": [-104.5903, 36.5581], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
    
 
