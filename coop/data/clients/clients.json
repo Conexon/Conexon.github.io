@@ -1104,6 +1104,33 @@
     "center": [-104.5903, 36.5581], 
     "minZoom": 8,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "TVEC",
+    "stateAbbr": "tn",
+    "rusNumber": "tn034",
+    "zoom": 9.54,
+    "center": [-88.0346, 35.1821],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "HWE",
+    "stateAbbr": "oh",
+    "rusNumber": "oh087",
+    "zoom": 9, 
+    "center": [-83.6194, 40.9236], 
+    "minZoom": 8,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "COOPCN",
+    "stateAbbr": "oh",
+    "rusNumber": "coopcn",
+    "zoom": 9, 
+    "center": [-83.4389, 40.9931],
+    "minZoom": 8,
+    "maxZoom": 15
   }
    
 
