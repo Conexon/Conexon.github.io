@@ -1131,6 +1131,15 @@
     "center": [-83.4389, 40.9931],
     "minZoom": 8,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "NOEC",
+    "stateAbbr": "ok",
+    "rusNumber": "ok019",
+    "zoom": 9,
+    "center": [-95.0612, 36.5282], 
+    "minZoom": 8,
+    "maxZoom": 15
   }
    
 
