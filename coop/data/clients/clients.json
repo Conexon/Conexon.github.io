@@ -1140,6 +1140,15 @@
     "center": [-95.0612, 36.5282], 
     "minZoom": 8,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXVA",
+    "stateAbbr": "va",
+    "rusNumber": "va099",
+    "zoom": 8,
+    "center": [-77.669, 37.394], 
+    "minZoom": 7,
+    "maxZoom": 15
   }
    
 
