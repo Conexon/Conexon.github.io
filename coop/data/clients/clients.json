@@ -1142,6 +1142,105 @@
     "maxZoom": 15
   },
     {
+    "coopCode": "CONEXAZ",
+    "stateAbbr": "az",
+    "rusNumber": "az099",
+    "zoom": 7,
+    "center": [-109.907, 34.044],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CONEXCO",
+    "stateAbbr": "co",
+    "rusNumber": "co099",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CONEXFL",
+    "stateAbbr": "fl",
+    "rusNumber": "fl099",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CONEXKY",
+    "stateAbbr": "ky",
+    "rusNumber": "ky099",
+    "zoom": 8,
+    "center": [-87.552, 36.938],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CONEXLA",
+    "stateAbbr": "la",
+    "rusNumber": "la099",
+    "zoom": 8,
+    "center": [-92.384, 32.35],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXME",
+    "stateAbbr": "me",
+    "rusNumber": "me099",
+    "zoom": 7,
+    "center": [-68.18, 45.577],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXMO",
+    "stateAbbr": "mo",
+    "rusNumber": "mo099",
+    "zoom": 8,
+    "center": [-92.208, 37.509], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXMS",
+    "stateAbbr": "ms",
+    "rusNumber": "ms099",
+    "zoom": 8,
+    "center": [-89.962, 31.859], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXOH",
+    "stateAbbr": "oh",
+    "rusNumber": "oh099",
+    "zoom": 8,
+    "center": [-82.56, 39.699],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CONEXTN",
+    "stateAbbr": "tn",
+    "rusNumber": "tn099",
+    "zoom": 8,
+    "center": [-87.091, 35.729], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+   {
+    "coopCode": "CONEXTX",
+    "stateAbbr": "tx",
+    "rusNumber": "tx099",
+    "zoom": 7,
+    "center": [-97.879, 30.438], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
     "coopCode": "CONEXVA",
     "stateAbbr": "va",
     "rusNumber": "va099",
