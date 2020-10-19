@@ -1169,6 +1169,15 @@
     "maxZoom": 15
   },
   {
+    "coopCode": "CONEXGA",
+    "stateAbbr": "ga",
+    "rusNumber": "ga099",
+    "zoom": 8,
+    "center": [-83.434, 32.207],
+    "minZoom": 6,
+    "maxZoom": 15
+  },  
+  {
     "coopCode": "CONEXKY",
     "stateAbbr": "ky",
     "rusNumber": "ky099",
