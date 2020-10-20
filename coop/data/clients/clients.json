@@ -1169,6 +1169,15 @@
     "maxZoom": 15
   },
   {
+    "coopCode": "CONEXIL",
+    "stateAbbr": "il",
+    "rusNumber": "il099",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
     "coopCode": "CONEXGA",
     "stateAbbr": "ga",
     "rusNumber": "ga099",
