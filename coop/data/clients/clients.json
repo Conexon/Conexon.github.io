@@ -1626,6 +1626,33 @@
     "center": [-87.091, 35.729], 
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_VA_COMM",
+    "stateAbbr": "va",
+    "rusNumber": "va037",
+    "zoom": 8,
+    "center": [-77.669, 37.394], 
+    "minZoom": 7,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_VA_NECK",
+    "stateAbbr": "va",
+    "rusNumber": "va028",
+    "zoom": 8,
+    "center": [-77.669, 37.394], 
+    "minZoom": 7,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_VA_SOUTH",
+    "stateAbbr": "va",
+    "rusNumber": "va027",
+    "zoom": 8,
+    "center": [-77.669, 37.394], 
+    "minZoom": 7,
+    "maxZoom": 15
   }
 
 ]
