@@ -1506,7 +1506,25 @@
     "stateAbbr": "il",
     "rusNumber": "il043",    
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-89.253, 37.414], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },  
+  {
+    "coopCode": "CI_KY_PENNY",
+    "stateAbbr": "ky",
+    "rusNumber": "ky026",
+    "zoom": 8,
+    "center": [-87.552, 36.938],
+    "minZoom": 6,
+    "maxZoom": 15
+  },  
+  {
+    "coopCode": "CI_KY_WARREN",
+    "stateAbbr": "ky",
+    "rusNumber": "ky035",
+    "zoom": 8,
+    "center": [-87.552, 36.938],
     "minZoom": 6,
     "maxZoom": 15
   }
