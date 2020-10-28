@@ -1275,6 +1275,15 @@
     "center": [-68.18, 45.577],
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_AZ_NAVA",
+    "stateAbbr": "az",
+    "rusNumber": "az013",
+    "zoom": 7,
+    "center": [-109.907, 34.044],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
