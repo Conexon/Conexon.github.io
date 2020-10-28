@@ -1554,6 +1554,24 @@
     "center": [-92.384, 32.35],
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_MS_MAG",
+    "stateAbbr": "ms",
+    "rusNumber": "ms041",
+    "zoom": 8,
+    "center": [-89.962, 31.859], 
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_MS_SOUWEST",
+    "stateAbbr": "ms",
+    "rusNumber": "ms023",
+    "zoom": 8,
+    "center": [-89.962, 31.859], 
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
