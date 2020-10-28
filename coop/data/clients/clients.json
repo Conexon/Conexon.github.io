@@ -1308,7 +1308,7 @@
     "stateAbbr": "co",
     "rusNumber": "co033",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-108.902, 37.648],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1317,7 +1317,7 @@
     "stateAbbr": "co",
     "rusNumber": "co032",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-107.682, 37.167],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1326,7 +1326,7 @@
     "stateAbbr": "co",
     "rusNumber": "co018",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-107.252, 38.566],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1335,7 +1335,79 @@
     "stateAbbr": "co",
     "rusNumber": "co099",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-107.05, 39.394],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_ESC",
+    "stateAbbr": "fl",
+    "rusNumber": "fl022",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_CHOW",
+    "stateAbbr": "fl",
+    "rusNumber": "fl030",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_WEST",
+    "stateAbbr": "fl",
+    "rusNumber": "fl017",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_GULF",
+    "stateAbbr": "fl",
+    "rusNumber": "fl034",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_TALQUIN",
+    "stateAbbr": "fl",
+    "rusNumber": "fl029",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_TRICNTY",
+    "stateAbbr": "fl",
+    "rusNumber": "fl028",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_SWU",
+    "stateAbbr": "fl",
+    "rusNumber": "fl015",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_FL_CENTRAL",
+    "stateAbbr": "fl",
+    "rusNumber": "fl023",
+    "zoom": 7,
+    "center": [-84.957, 30.148],
     "minZoom": 6,
     "maxZoom": 15
   }
