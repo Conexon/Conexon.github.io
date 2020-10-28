@@ -1362,7 +1362,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl017",
     "zoom": 7,
-    "center": [-85.4825 30.6673],
+    "center": [-85.4825, 30.6673],
     "minZoom": 6,
     "maxZoom": 15
   },
