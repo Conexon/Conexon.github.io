@@ -116,7 +116,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "COAST",
     "stateAbbr": "ms",
     "rusNumber": "ms028",
@@ -125,7 +125,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONSOLOH",
     "stateAbbr": "oh",
     "rusNumber": "oh059",
@@ -134,7 +134,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CORNBELT",
     "stateAbbr": "il",
     "rusNumber": "il038",
@@ -143,7 +143,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CADVALLEY",
     "stateAbbr": "ok",
     "rusNumber": "ok029",
@@ -152,7 +152,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "OEC",
     "stateAbbr": "ok",
     "rusNumber": "ok010",
@@ -161,7 +161,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "SACOSAGE",
     "stateAbbr": "mo",
     "rusNumber": "mo055",
@@ -170,7 +170,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "TRICNTGA",
     "stateAbbr": "ga",
     "rusNumber": "ga094",
@@ -179,7 +179,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "UTD",
     "stateAbbr": "im",
     "rusNumber": "mo075",
@@ -188,906 +188,907 @@
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "OSAGEVLY",
     "stateAbbr": "mo",
     "rusNumber": "mo037",
     "zoom": 9,
-    "center": [-94.2189, 38.3323], 
+    "center": [-94.2189, 38.3323],
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "EMEPA",
     "stateAbbr": "ms",
     "rusNumber": "ms045",
     "zoom": 8.38,
-    "center": [-89.017, 32.517], 
+    "center": [-89.017, 32.517],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "MIDSOUTH",
     "stateAbbr": "tx",
     "rusNumber": "tx115",
     "zoom": 8.87,
-    "center": [-96.0319, 30.6296], 
+    "center": [-96.0319, 30.6296],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "SBEC",
     "stateAbbr": "tx",
     "rusNumber": "tx111",
     "zoom": 8.87,
-    "center": [-96.4516, 29.7791], 
+    "center": [-96.4516, 29.7791],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "KEN",
     "stateAbbr": "ky",
     "rusNumber": "ky065",
-    "zoom": 8.69, 
-    "center": [-87.3924, 37.5021], 
+    "zoom": 8.69,
+    "center": [-87.3924, 37.5021],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "AVEC",
     "stateAbbr": "ao",
     "rusNumber": "ar013",
-    "zoom": 8.87, 
-    "center": [-93.8642, 35.2899], 
+    "zoom": 8.87,
+    "center": [-93.8642, 35.2899],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "FIRST",
     "stateAbbr": "ar",
     "rusNumber": "ar010",
-    "zoom": 9.01, 
-    "center": [-92.1374, 34.6788], 
+    "zoom": 9.01,
+    "center": [-92.1374, 34.6788],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "MCECI",
     "stateAbbr": "ar",
     "rusNumber": "ar023",
-    "zoom": 9.77, 
-    "center": [-90.0623, 35.761], 
+    "zoom": 9.77,
+    "center": [-90.0623, 35.761],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "NORTHAR",
     "stateAbbr": "am",
     "rusNumber": "ar026",
-    "zoom": 9.15, 
-    "center": [-91.875, 36.243], 
+    "zoom": 9.15,
+    "center": [-91.875, 36.243],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "OZARKSGO",
     "stateAbbr": "ao",
     "rusNumber": "ar024",
-    "zoom": 9.11, 
-    "center": [-94.1273, 35.9387], 
+    "zoom": 9.11,
+    "center": [-94.1273, 35.9387],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PETITJEAN",
     "stateAbbr": "ar",
     "rusNumber": "ar028",
-    "zoom": 9.02, 
-    "center": [-92.7569, 35.6045], 
+    "zoom": 9.02,
+    "center": [-92.7569, 35.6045],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SCAEC",
     "stateAbbr": "ar",
     "rusNumber": "ar029",
-    "zoom": 9.02, 
-    "center": [-93.3587, 33.9149], 
+    "zoom": 9.02,
+    "center": [-93.3587, 33.9149],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "WECC",
     "stateAbbr": "ar",
     "rusNumber": "ar015",
-    "zoom": 9.02, 
-    "center": [-90.9325, 34.8937], 
+    "zoom": 9.02,
+    "center": [-90.9325, 34.8937],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "BREC",
     "stateAbbr": "mo",
     "rusNumber": "mo038",
-    "zoom": 9.02, 
-    "center": [-90.6419, 37.2663], 
+    "zoom": 9.02,
+    "center": [-90.6419, 37.2663],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CALLAWAY",
     "stateAbbr": "mo",
     "rusNumber": "mo024",
-    "zoom": 9.86, 
-    "center": [-91.9634, 38.793], 
+    "zoom": 9.86,
+    "center": [-91.9634, 38.793],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "COMO",
     "stateAbbr": "mo",
     "rusNumber": "mo047",
-    "zoom": 9.02, 
-    "center": [-92.9119, 38.5888], 
+    "zoom": 9.02,
+    "center": [-92.9119, 38.5888],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "HOEC",
     "stateAbbr": "mo",
     "rusNumber": "mo049",
-    "zoom": 9.01, 
-    "center": [-91.7022, 36.9664], 
+    "zoom": 9.01,
+    "center": [-91.7022, 36.9664],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "OZARKS",
     "stateAbbr": "mo",
     "rusNumber": "mo030",
-    "zoom": 9.01, 
-    "center": [-93.7791, 37.1962], 
+    "zoom": 9.01,
+    "center": [-93.7791, 37.1962],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "WECI",
     "stateAbbr": "oh",
     "rusNumber": "oh093",
-    "zoom": 9.5, 
-    "center": [-81.4073, 39.6371], 
+    "zoom": 9.5,
+    "center": [-81.4073, 39.6371],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SRE",
     "stateAbbr": "ga",
     "rusNumber": "ga075",
-    "zoom": 9, 
-    "center": [-84.3126, 32.9194], 
+    "zoom": 9,
+    "center": [-84.3126, 32.9194],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "RECOK",
     "stateAbbr": "ok",
     "rusNumber": "ok020",
-    "zoom": 9.3, 
-    "center": [-97.7468, 34.6923], 
+    "zoom": 9.3,
+    "center": [-97.7468, 34.6923],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "YVEA",
     "stateAbbr": "co",
     "rusNumber": "co036",
-    "zoom": 8.25, 
-    "center": [-107.293, 40.286], 
+    "zoom": 8.25,
+    "center": [-107.293, 40.286],
     "minZoom": 8,
     "maxZoom": 15
-  },    {
+  },
+  {
     "coopCode": "HOLYCROSS",
     "stateAbbr": "co",
     "rusNumber": "co034",
-    "zoom": 8.25, 
-    "center": [-107.352,39.356], 
+    "zoom": 8.25,
+    "center": [-107.352, 39.356],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SCP",
     "stateAbbr": "oh",
     "rusNumber": "oh065",
-    "zoom": 8.46, 
-    "center": [-82.965, 39.4714], 
+    "zoom": 8.46,
+    "center": [-82.965, 39.4714],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "BLUERDG",
     "stateAbbr": "sc",
     "rusNumber": "sc038",
-    "zoom": 9.26, 
-    "center": [-82.7988, 34.8056], 
+    "zoom": 9.26,
+    "center": [-82.7988, 34.8056],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "BROADRIVER",
     "stateAbbr": "sc",
     "rusNumber": "sc033",
-    "zoom": 9, 
-    "center": [-81.7722, 34.8086], 
+    "zoom": 9,
+    "center": [-81.7722, 34.8086],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "EDISTO",
     "stateAbbr": "sc",
     "rusNumber": "sc023",
-    "zoom": 9, 
-    "center": [-80.9398,33.1685], 
+    "zoom": 9,
+    "center": [-80.9398, 33.1685],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SANTEE",
     "stateAbbr": "sc",
     "rusNumber": "sc028",
-    "zoom": 9, 
-    "center": [-79.5599,33.6512], 
+    "zoom": 9,
+    "center": [-79.5599, 33.6512],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PEEDEE",
     "stateAbbr": "sc",
     "rusNumber": "sc026",
-    "zoom": 9, 
-    "center": [-79.7465,34.191], 
+    "zoom": 9,
+    "center": [-79.7465, 34.191],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "TRICNTSC",
     "stateAbbr": "sc",
     "rusNumber": "sc032",
-    "zoom": 9, 
-    "center": [-80.6493, 33.7169], 
+    "zoom": 9,
+    "center": [-80.6493, 33.7169],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "YORK",
     "stateAbbr": "sc",
     "rusNumber": "sc041",
-    "zoom": 9.84, 
+    "zoom": 9.84,
     "center": [-81.2383, 34.9879],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "MCEC",
     "stateAbbr": "sc",
     "rusNumber": "sc037",
-    "zoom": 9.48, 
-    "center": [-81.4413, 33.9421], 
+    "zoom": 9.48,
+    "center": [-81.4413, 33.9421],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "NEC",
     "stateAbbr": "sc",
     "rusNumber": "sc034",
-    "zoom": 9.48, 
-    "center": [-81.5896, 34.2752], 
+    "zoom": 9.48,
+    "center": [-81.5896, 34.2752],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "FDEC",
     "stateAbbr": "tn",
     "rusNumber": "tn048",
-    "zoom": 10, 
-    "center": [-89.5134, 35.9152], 
+    "zoom": 10,
+    "center": [-89.5134, 35.9152],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CNTRLOK",
     "stateAbbr": "ok",
     "rusNumber": "ok024",
-    "zoom": 9, 
-    "center": [-97.1464, 35.9843], 
+    "zoom": 9,
+    "center": [-97.1464, 35.9843],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CHOCTAW",
     "stateAbbr": "ok",
     "rusNumber": "ok030",
-    "zoom": 8.5, 
-    "center": [-95.2533, 34.2001], 
+    "zoom": 8.5,
+    "center": [-95.2533, 34.2001],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "COOKSON",
     "stateAbbr": "ok",
     "rusNumber": "ok035",
-    "zoom": 9, 
-    "center": [-94.8879, 35.2639], 
+    "zoom": 9,
+    "center": [-94.8879, 35.2639],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "COTTON",
     "stateAbbr": "ok",
     "rusNumber": "ok022",
-    "zoom": 9, 
-    "center": [-98.1588, 34.3859], 
+    "zoom": 9,
+    "center": [-98.1588, 34.3859],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "ECOEC",
     "stateAbbr": "ok",
     "rusNumber": "ok023",
-    "zoom": 8.75, 
-    "center": [-95.83, 35.6768], 
+    "zoom": 8.75,
+    "center": [-95.83, 35.6768],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "INDIAN",
     "stateAbbr": "ok",
     "rusNumber": "ok028",
-    "zoom": 8.5, 
-    "center": [-96.3581, 36.4731], 
+    "zoom": 8.5,
+    "center": [-96.3581, 36.4731],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "KIAMICHI",
     "stateAbbr": "ok",
     "rusNumber": "ok033",
-    "zoom": 8.5, 
-    "center": [-95.2314, 34.8015], 
+    "zoom": 8.5,
+    "center": [-95.2314, 34.8015],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "RECOK",
     "stateAbbr": "ok",
     "rusNumber": "ok020",
-    "zoom": 9, 
-    "center": [-97.6459, 34.7952], 
+    "zoom": 9,
+    "center": [-97.6459, 34.7952],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "VVEC",
     "stateAbbr": "ok",
     "rusNumber": "ok025",
-    "zoom": 8.7, 
-    "center": [-95.8249, 36.5401], 
+    "zoom": 8.7,
+    "center": [-95.8249, 36.5401],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "BERK",
     "stateAbbr": "sc",
     "rusNumber": "sc025",
-    "zoom": 9, 
-    "center": [-79.9357, 32.9781], 
+    "zoom": 9,
+    "center": [-79.9357, 32.9781],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "NHEC",
     "stateAbbr": "nh",
     "rusNumber": "nh004",
-    "zoom": 7.37, 
-    "center": [-71.08, 44.115], 
+    "zoom": 7.37,
+    "center": [-71.08, 44.115],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CONSOLMO",
     "stateAbbr": "mo",
     "rusNumber": "mo036",
-    "zoom": 9, 
-    "center": [-91.8217, 39.265], 
+    "zoom": 9,
+    "center": [-91.8217, 39.265],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "GREATLAKES",
     "stateAbbr": "mi",
     "rusNumber": "mi048",
-    "zoom": 8.01, 
-    "center": [-85.195, 44.344], 
+    "zoom": 8.01,
+    "center": [-85.195, 44.344],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SWREA",
     "stateAbbr": "alot",
     "rusNumber": "ar012",
-    "zoom": 9, 
-    "center": [-94.0176, 33.5045], 
+    "zoom": 9,
+    "center": [-94.0176, 33.5045],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SCREMC",
     "stateAbbr": "in",
     "rusNumber": "in053",
-    "zoom": 9, 
-    "center": [-85.0329, 41.6008], 
+    "zoom": 9,
+    "center": [-85.0329, 41.6008],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "FEC",
     "stateAbbr": "oh",
     "rusNumber": "oh083",
-    "zoom": 9.2, 
-    "center": [-82.4913, 40.9589], 
+    "zoom": 9.2,
+    "center": [-82.4913, 40.9589],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "LMRE",
     "stateAbbr": "oh",
     "rusNumber": "oh056",
-    "zoom": 9.8, 
-    "center": [-82.1834, 41.1296], 
+    "zoom": 9.8,
+    "center": [-82.1834, 41.1296],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CBEC",
     "stateAbbr": "or",
     "rusNumber": "or029",
-    "zoom": 9, 
-    "center": [-119.7147, 45.2988], 
+    "zoom": 9,
+    "center": [-119.7147, 45.2988],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PPCS",
     "stateAbbr": "wi",
     "rusNumber": "wi058",
-    "zoom": 9.39, 
-    "center": [-92.5194, 44.6893], 
+    "zoom": 9.39,
+    "center": [-92.5194, 44.6893],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "HWTCEC",
     "stateAbbr": "mi",
     "rusNumber": "mi026",
-    "zoom": 8.13, 
-    "center": [-84.809, 43.091], 
+    "zoom": 8.13,
+    "center": [-84.809, 43.091],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PIEG",
     "stateAbbr": "mi",
     "rusNumber": "mi028",
-    "zoom": 8.59, 
-    "center": [-83.8846, 45.2128], 
+    "zoom": 8.59,
+    "center": [-83.8846, 45.2128],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SMECO",
     "stateAbbr": "md",
     "rusNumber": "md004",
-    "zoom": 9.37, 
-    "center": [-76.7218, 38.4024], 
+    "zoom": 9.37,
+    "center": [-76.7218, 38.4024],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CALLAWAY",
     "stateAbbr": "mo",
     "rusNumber": "mo024",
-    "zoom": 9.8, 
-    "center": [-91.8532, 38.8215], 
+    "zoom": 9.8,
+    "center": [-91.8532, 38.8215],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "COEPA",
     "stateAbbr": "ms",
     "rusNumber": "ms021",
-    "zoom": 8.5, 
-    "center": [-90.4148, 34.4246], 
+    "zoom": 8.5,
+    "center": [-90.4148, 34.4246],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "NTEPA",
     "stateAbbr": "ms",
     "rusNumber": "ms050",
-    "zoom": 9.64, 
-    "center": [-89.2307, 33.8404], 
+    "zoom": 9.64,
+    "center": [-89.2307, 33.8404],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CMEC",
     "stateAbbr": "mo",
     "rusNumber": "mo040",
-    "zoom": 9, 
-    "center": [-93.0523, 38.8528], 
+    "zoom": 9,
+    "center": [-93.0523, 38.8528],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "LEC",
     "stateAbbr": "sc",
     "rusNumber": "sc019",
-    "zoom": 9.42, 
-    "center": [-81.9473, 34.5413], 
+    "zoom": 9.42,
+    "center": [-81.9473, 34.5413],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PEC",
     "stateAbbr": "tx",
     "rusNumber": "tx076",
-    "zoom": 8.01, 
-    "center": [-99.143, 30.18], 
+    "zoom": 8.01,
+    "center": [-99.143, 30.18],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PLATTE",
     "stateAbbr": "mo",
     "rusNumber": "mo041",
-    "zoom": 9.2, 
-    "center": [-94.5405, 39.5234], 
+    "zoom": 9.2,
+    "center": [-94.5405, 39.5234],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "WESTCEN",
     "stateAbbr": "mo",
     "rusNumber": "mo050",
-    "zoom": 9.2, 
-    "center": [-93.7331, 38.878], 
+    "zoom": 9.2,
+    "center": [-93.7331, 38.878],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "TWINCOEPA",
     "stateAbbr": "ms",
     "rusNumber": "ms031",
-    "zoom": 8.7, 
-    "center": [-90.62, 32.9851], 
+    "zoom": 8.7,
+    "center": [-90.62, 32.9851],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "LCEC",
     "stateAbbr": "oh",
     "rusNumber": "oh071",
-    "zoom": 9.6, 
-    "center": [-83.8775, 40.3696], 
+    "zoom": 9.6,
+    "center": [-83.8775, 40.3696],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "LRE",
     "stateAbbr": "oh",
     "rusNumber": "oh041",
-    "zoom": 9.06, 
-    "center": [-82.387, 40.2544], 
+    "zoom": 9.06,
+    "center": [-82.387, 40.2544],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PEC",
     "stateAbbr": "tx",
     "rusNumber": "tx076",
-    "zoom": 8.01, 
-    "center": [-99.143, 30.18], 
+    "zoom": 8.01,
+    "center": [-99.143, 30.18],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "HEC",
     "stateAbbr": "tn",
     "rusNumber": "tn037",
-    "zoom": 9.56, 
-    "center": [-82.9977, 36.3608], 
+    "zoom": 9.56,
+    "center": [-82.9977, 36.3608],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PDEC",
     "stateAbbr": "sc",
     "rusNumber": "sc026",
-    "zoom": 9, 
-    "center": [-79.7465,34.191], 
+    "zoom": 9,
+    "center": [-79.7465, 34.191],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SREMC",
     "stateAbbr": "ga",
     "rusNumber": "ga067",
-    "zoom": 9, 
-    "center": [-82.4451, 31.5727], 
+    "zoom": 9,
+    "center": [-82.4451, 31.5727],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "THREERIVERS",
     "stateAbbr": "mo",
     "rusNumber": "mo045",
-    "zoom": 9, 
-    "center": [-91.8842, 38.3739], 
+    "zoom": 9,
+    "center": [-91.8842, 38.3739],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PALMETTO",
     "stateAbbr": "sc",
     "rusNumber": "sc040",
-    "zoom": 9, 
-    "center": [-81.0513, 32.6182], 
+    "zoom": 9,
+    "center": [-81.0513, 32.6182],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CGEMC",
     "stateAbbr": "ga",
     "rusNumber": "ga058",
-    "zoom": 9, 
-    "center": [-83.8597, 33.2273], 
+    "zoom": 9,
+    "center": [-83.8597, 33.2273],
     "minZoom": 8,
     "maxZoom": 15
-  },  
-    {
+  },
+  {
     "coopCode": "COOSCURRY",
     "stateAbbr": "or",
     "rusNumber": "or021",
-    "zoom": 8, 
-    "center": [-123.762, 42.775], 
+    "zoom": 8,
+    "center": [-123.762, 42.775],
     "minZoom": 7.5,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CVEC",
     "stateAbbr": "va",
     "rusNumber": "va029",
-    "zoom": 8.75, 
-    "center": [-78.583, 37.6858], 
+    "zoom": 8.75,
+    "center": [-78.583, 37.6858],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "MECKELEC",
     "stateAbbr": "vanc",
     "rusNumber": "va031",
-    "zoom": 9, 
-    "center": [-78.4568, 36.7981], 
+    "zoom": 9,
+    "center": [-78.4568, 36.7981],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SREC",
     "stateAbbr": "alms",
     "rusNumber": "ms039",
-    "zoom": 8.65, 
-    "center": [-88.5017, 30.9498], 
+    "zoom": 8.65,
+    "center": [-88.5017, 30.9498],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "DIXIEEPA",
     "stateAbbr": "ms",
     "rusNumber": "ms030",
-    "zoom": 9, 
-    "center": [-89.0237, 31.5538], 
+    "zoom": 9,
+    "center": [-89.0237, 31.5538],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "MTEMC",
     "stateAbbr": "tn",
     "rusNumber": "tn019",
-    "zoom": 9.1, 
-    "center": [-86.4304, 36.026], 
+    "zoom": 9.1,
+    "center": [-86.4304, 36.026],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "KCEC",
     "stateAbbr": "nm",
     "rusNumber": "nm011",
-    "zoom": 8.7, 
-    "center": [-105.5912, 36.4834], 
+    "zoom": 8.7,
+    "center": [-105.5912, 36.4834],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "GMEC",
     "stateAbbr": "oh",
     "rusNumber": "oh086",
-    "zoom": 9.2, 
-    "center": [-81.6958, 39.9844], 
+    "zoom": 9.2,
+    "center": [-81.6958, 39.9844],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "DMEA",
     "stateAbbr": "co",
     "rusNumber": "co020",
-    "zoom": 8.81, 
-    "center": [-107.692, 38.4638], 
+    "zoom": 8.81,
+    "center": [-107.692, 38.4638],
     "minZoom": 8,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "IEMC",
     "stateAbbr": "ga",
     "rusNumber": "ga065",
-    "zoom": 9.3, 
-    "center": [-83.2957, 31.6983], 
+    "zoom": 9.3,
+    "center": [-83.2957, 31.6983],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "MGEMC",
     "stateAbbr": "ga",
     "rusNumber": "ga097",
-    "zoom": 9.3, 
-    "center": [-83.4925, 32.0865], 
+    "zoom": 9.3,
+    "center": [-83.4925, 32.0865],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "OTSEGO",
     "stateAbbr": "ny",
     "rusNumber": "ny019",
-    "zoom": 9, 
-    "center": [-75.158, 42.6011], 
+    "zoom": 9,
+    "center": [-75.158, 42.6011],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "OZARKBORD",
     "stateAbbr": "mo",
     "rusNumber": "mo033",
-    "zoom": 9, 
-    "center": [-89.6255, 36.9389], 
+    "zoom": 9,
+    "center": [-89.6255, 36.9389],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SECPA",
     "stateAbbr": "co",
     "rusNumber": "co017",
-    "zoom": 8.01, 
-    "center": [-103.25, 38.391], 
+    "zoom": 8.01,
+    "center": [-103.25, 38.391],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "FEMC",
     "stateAbbr": "ga",
     "rusNumber": "ga066",
-    "zoom": 8.72, 
-    "center": [-84.1455, 32.4513], 
+    "zoom": 8.72,
+    "center": [-84.1455, 32.4513],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "WEMC",
     "stateAbbr": "ga",
     "rusNumber": "ga069",
-    "zoom": 8.93, 
-    "center": [-82.8026, 33.0206], 
+    "zoom": 8.93,
+    "center": [-82.8026, 33.0206],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "KREMC",
     "stateAbbr": "in",
     "rusNumber": "in088",
-    "zoom": 10.08, 
-    "center": [-85.8757, 41.2218], 
+    "zoom": 10.08,
+    "center": [-85.8757, 41.2218],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "CPI",
     "stateAbbr": "or",
     "rusNumber": "or004",
-    "zoom": 8, 
-    "center": [-123.013, 44.511], 
+    "zoom": 8,
+    "center": [-123.013, 44.511],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "DFN",
     "stateAbbr": "or",
     "rusNumber": "or017",
-    "zoom": 7.4, 
-    "center": [-123.001, 43.066], 
+    "zoom": 7.4,
+    "center": [-123.001, 43.066],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "LREC",
     "stateAbbr": "sc",
     "rusNumber": "sc021",
-    "zoom": 9.36, 
-    "center": [-80.3844, 34.5584], 
+    "zoom": 9.36,
+    "center": [-80.3844, 34.5584],
     "minZoom": 7,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "PGEC",
     "stateAbbr": "va",
     "rusNumber": "va036",
-    "zoom": 9.2, 
-    "center": [-77.1358, 37.0184], 
+    "zoom": 9.2,
+    "center": [-77.1358, 37.0184],
     "minZoom": 7,
     "maxZoom": 15
-  },    
-    {
+  },
+  {
     "coopCode": "MVEA",
     "stateAbbr": "co",
     "rusNumber": "co037",
-    "zoom": 8.25, 
-    "center": [-103.745,39.068], 
+    "zoom": 8.25,
+    "center": [-103.745, 39.068],
     "minZoom": 8,
     "maxZoom": 15
-  },   
-    {
+  },
+  {
     "coopCode": "SIEA",
     "stateAbbr": "co",
     "rusNumber": "co025",
-    "zoom": 8.25, 
-    "center": [-104.282,37.555], 
+    "zoom": 8.25,
+    "center": [-104.282, 37.555],
     "minZoom": 8,
     "maxZoom": 15
-  },   
-    {
+  },
+  {
     "coopCode": "ACEC",
     "stateAbbr": "ar",
     "rusNumber": "ar031",
-    "zoom": 9.25, 
-    "center": [-91.6129,33.2215],   
+    "zoom": 9.25,
+    "center": [-91.6129, 33.2215],
     "minZoom": 8,
     "maxZoom": 15
-  },   
-    {
+  },
+  {
     "coopCode": "FECC",
     "stateAbbr": "ar",
     "rusNumber": "ar011",
-    "zoom": 8, 
-    "center": [-91.355,35.104], 
+    "zoom": 8,
+    "center": [-91.355, 35.104],
     "minZoom": 8,
     "maxZoom": 15
-  },   
-    {
+  },
+  {
     "coopCode": "MONROE",
     "stateAbbr": "ms",
     "rusNumber": "ms001",
-    "zoom": 9.7, 
-    "center": [-88.5177,33.8764], 
+    "zoom": 9.7,
+    "center": [-88.5177, 33.8764],
     "minZoom": 8,
-    "maxZoom": 15 
-  },   
-    {
+    "maxZoom": 15
+  },
+  {
     "coopCode": "NCE",
     "stateAbbr": "oh",
     "rusNumber": "oh060",
@@ -1095,13 +1096,13 @@
     "center": [-83.1612, 41.0318],
     "minZoom": 9,
     "maxZoom": 15
-  }, 
-    {
+  },
+  {
     "coopCode": "SEC",
     "stateAbbr": "nm",
     "rusNumber": "nm019",
-    "zoom": 8.7, 
-    "center": [-104.5903, 36.5581], 
+    "zoom": 8.7,
+    "center": [-104.5903, 36.5581],
     "minZoom": 8,
     "maxZoom": 15
   },
@@ -1118,8 +1119,8 @@
     "coopCode": "HWE",
     "stateAbbr": "oh",
     "rusNumber": "oh087",
-    "zoom": 9, 
-    "center": [-83.6194, 40.9236], 
+    "zoom": 9,
+    "center": [-83.6194, 40.9236],
     "minZoom": 8,
     "maxZoom": 15
   },
@@ -1127,21 +1128,21 @@
     "coopCode": "COOPCN",
     "stateAbbr": "oh",
     "rusNumber": "coopcn",
-    "zoom": 9, 
+    "zoom": 9,
     "center": [-83.4389, 40.9931],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "NOEC",
     "stateAbbr": "ok",
     "rusNumber": "ok019",
     "zoom": 9,
-    "center": [-95.0612, 36.5282], 
+    "center": [-95.0612, 36.5282],
     "minZoom": 8,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXAZ",
     "stateAbbr": "az",
     "rusNumber": "az099",
@@ -1171,9 +1172,9 @@
   {
     "coopCode": "CONEXIL",
     "stateAbbr": "il",
-    "rusNumber": "il099",    
+    "rusNumber": "il099",
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-89.0189, 37.2252],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1185,7 +1186,7 @@
     "center": [-83.434, 32.207],
     "minZoom": 6,
     "maxZoom": 15
-  },  
+  },
   {
     "coopCode": "CONEXKY",
     "stateAbbr": "ky",
@@ -1204,7 +1205,7 @@
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXME",
     "stateAbbr": "me",
     "rusNumber": "me099",
@@ -1213,25 +1214,25 @@
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXMO",
     "stateAbbr": "mo",
     "rusNumber": "mo099",
     "zoom": 8,
-    "center": [-92.208, 37.509], 
+    "center": [-92.208, 37.509],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXMS",
     "stateAbbr": "ms",
     "rusNumber": "ms099",
     "zoom": 8,
-    "center": [-89.962, 31.859], 
+    "center": [-89.962, 31.859],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXOH",
     "stateAbbr": "oh",
     "rusNumber": "oh099",
@@ -1240,43 +1241,43 @@
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXTN",
     "stateAbbr": "tn",
     "rusNumber": "tn099",
     "zoom": 8,
-    "center": [-87.091, 35.729], 
+    "center": [-87.091, 35.729],
     "minZoom": 6,
     "maxZoom": 15
   },
-   {
+  {
     "coopCode": "CONEXTX",
     "stateAbbr": "tx",
     "rusNumber": "tx099",
     "zoom": 7,
-    "center": [-97.879, 30.438], 
+    "center": [-97.879, 30.438],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CONEXVA",
     "stateAbbr": "va",
     "rusNumber": "va099",
     "zoom": 8,
-    "center": [-77.669, 37.394], 
+    "center": [-77.669, 37.394],
     "minZoom": 7,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_ME_EASTERN",
     "stateAbbr": "me",
     "rusNumber": "me012",
     "zoom": 7,
-    "center": [-68.18, 45.577],
+    "center": [-67.854, 45.321],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_AZ_NAVA",
     "stateAbbr": "az",
     "rusNumber": "az013",
@@ -1290,7 +1291,7 @@
     "stateAbbr": "co",
     "rusNumber": "co037",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-104.046, 38.864],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1299,7 +1300,7 @@
     "stateAbbr": "co",
     "rusNumber": "co042",
     "zoom": 7,
-    "center": [-104.76, 39.56],
+    "center": [-106.058, 40.325],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1308,7 +1309,7 @@
     "stateAbbr": "co",
     "rusNumber": "co033",
     "zoom": 7,
-    "center": [-108.902, 37.648],
+    "center": [-108.608, 37.19],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1317,7 +1318,7 @@
     "stateAbbr": "co",
     "rusNumber": "co032",
     "zoom": 7,
-    "center": [-107.682, 37.167],
+    "center": [-107.413, 37.097],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1326,7 +1327,7 @@
     "stateAbbr": "co",
     "rusNumber": "co018",
     "zoom": 7,
-    "center": [-107.252, 38.566],
+    "center": [-106.931, 38.45],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1389,7 +1390,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl028",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-83.634, 29.991],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1398,7 +1399,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl015",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-82.9, 29.823],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1407,29 +1408,29 @@
     "stateAbbr": "fl",
     "rusNumber": "fl023",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-82.945, 29.357],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_GARDY",
     "stateAbbr": "ga",
     "rusNumber": "ga068",
-    "zoom": 9,
-    "center": [-84.2827, 30.8599],
+    "zoom": 8,
+    "center": [-84.261, 30.739],
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_LITOCUML",
     "stateAbbr": "ga",
     "rusNumber": "ga088",
     "zoom": 9,
-    "center": [-82.9228, 32.0594], 
+    "center": [-82.9228, 32.0594],
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_OCUML",
     "stateAbbr": "ga",
     "rusNumber": "ga073",
@@ -1438,7 +1439,7 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_SLASH",
     "stateAbbr": "ga",
     "rusNumber": "ga095",
@@ -1447,16 +1448,16 @@
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_SUMTER",
     "stateAbbr": "ga",
     "rusNumber": "ga045",
-    "zoom": 9,
-    "center": [-84.417, 32.0784],
+    "zoom": 8,
+    "center": [-84.521, 31.983],
     "minZoom": 9,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_GA_THREE",
     "stateAbbr": "ga",
     "rusNumber": "ga086",
@@ -1468,48 +1469,48 @@
   {
     "coopCode": "CI_IL_EASTERN",
     "stateAbbr": "il",
-    "rusNumber": "il054",    
+    "rusNumber": "il054",
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-88.138, 40.272],
     "minZoom": 6,
     "maxZoom": 15
   },
   {
     "coopCode": "CI_IL_MJM",
     "stateAbbr": "il",
-    "rusNumber": "il040",    
+    "rusNumber": "il040",
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-89.911, 38.995],
     "minZoom": 6,
     "maxZoom": 15
   },
   {
     "coopCode": "CI_IL_NORRIS",
     "stateAbbr": "il",
-    "rusNumber": "il036",    
+    "rusNumber": "il036",
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-88.111, 38.862],
     "minZoom": 6,
     "maxZoom": 15
   },
   {
     "coopCode": "CI_IL_CONV",
     "stateAbbr": "il",
-    "rusNumber": "il023",    
+    "rusNumber": "il023",
     "zoom": 8,
-    "center": [-88.578, 39.571],
+    "center": [-89.689, 39.363],
     "minZoom": 6,
     "maxZoom": 15
   },
   {
     "coopCode": "CI_IL_SOUTHERN",
     "stateAbbr": "il",
-    "rusNumber": "il043",    
+    "rusNumber": "il043",
     "zoom": 8,
-    "center": [-89.253, 37.414], 
+    "center": [-89.253, 37.414],
     "minZoom": 6,
     "maxZoom": 15
-  },  
+  },
   {
     "coopCode": "CI_KY_PENNY",
     "stateAbbr": "ky",
@@ -1518,13 +1519,13 @@
     "center": [-87.552, 36.938],
     "minZoom": 6,
     "maxZoom": 15
-  },  
+  },
   {
     "coopCode": "CI_KY_WARREN",
     "stateAbbr": "ky",
     "rusNumber": "ky035",
     "zoom": 8,
-    "center": [-87.552, 36.938],
+    "center": [-86.543, 36.893],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1533,7 +1534,7 @@
     "stateAbbr": "la",
     "rusNumber": "la017",
     "zoom": 8,
-    "center": [-92.384, 32.35],
+    "center": [-92.686, 32.45],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1542,7 +1543,7 @@
     "stateAbbr": "la",
     "rusNumber": "la012",
     "zoom": 8,
-    "center": [-92.384, 32.35],
+    "center": [-91.653, 32.273],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1551,117 +1552,116 @@
     "stateAbbr": "la",
     "rusNumber": "la020",
     "zoom": 8,
-    "center": [-92.384, 32.35],
+    "center": [-91.903, 31.6],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_MS_MAG",
     "stateAbbr": "ms",
     "rusNumber": "ms041",
     "zoom": 8,
-    "center": [-89.962, 31.859], 
+    "center": [-90.415, 31.222],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_MS_SOUWEST",
     "stateAbbr": "ms",
     "rusNumber": "ms023",
     "zoom": 8,
-    "center": [-89.962, 31.859], 
+    "center": [-91.041, 31.555],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_MO_INTER",
     "stateAbbr": "mo",
     "rusNumber": "mo018",
     "zoom": 8,
-    "center": [-92.208, 37.509], 
+    "center": [-91.73, 37.62],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_OH_ADAMS",
     "stateAbbr": "oh",
     "rusNumber": "oh099",
     "zoom": 8,
-    "center": [-82.56, 39.699],
+    "center": [-83.521, 40.538],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_OH_FRONTIER",
     "stateAbbr": "oh",
     "rusNumber": "oh055",
-    "zoom": 8,
-    "center": [-82.56, 39.699],
+    "zoom": 9,
+    "center": [-81.8422, 40.2607],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_OH_CARROLL",
     "stateAbbr": "oh",
     "rusNumber": "oh084",
-    "zoom": 8,
-    "center": [-82.56, 39.699],
+    "zoom": 9,
+    "center": [-81.0125, 40.4619],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_OH_MID",
     "stateAbbr": "oh",
     "rusNumber": "oh085",
     "zoom": 8,
-    "center": [-82.56, 39.699],
+    "center": [-83.562, 40.6],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_TN_DUCK",
     "stateAbbr": "tn",
     "rusNumber": "tn021",
     "zoom": 8,
-    "center": [-87.091, 35.729], 
+    "center": [-86.601, 35.277],
     "minZoom": 6,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_VA_COMM",
     "stateAbbr": "va",
     "rusNumber": "va037",
-    "zoom": 8,
-    "center": [-77.669, 37.394], 
+    "zoom": 9,
+    "center": [-76.9349, 36.7138],
     "minZoom": 7,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_VA_NECK",
     "stateAbbr": "va",
     "rusNumber": "va028",
     "zoom": 8,
-    "center": [-77.669, 37.394], 
+    "center": [-76.87, 37.83],
     "minZoom": 7,
     "maxZoom": 15
   },
-    {
+  {
     "coopCode": "CI_VA_SOUTH",
     "stateAbbr": "va",
     "rusNumber": "va027",
     "zoom": 8,
-    "center": [-77.669, 37.394], 
+    "center": [-78.525, 37.083],
     "minZoom": 7,
     "maxZoom": 15
   },
-   {
+  {
     "coopCode": "CI_TX_WARTON",
     "stateAbbr": "tx",
     "rusNumber": "tx075",
     "zoom": 7,
-    "center": [-97.879, 30.438], 
+    "center": [-96.39, 28.862],
     "minZoom": 6,
     "maxZoom": 15
   }
-
 ]
