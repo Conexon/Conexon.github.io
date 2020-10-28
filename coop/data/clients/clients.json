@@ -1464,6 +1464,51 @@
     "center": [-84.8608, 31.0675],
     "minZoom": 9,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_IL_EASTERN",
+    "stateAbbr": "il",
+    "rusNumber": "il054",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_IL_MJM",
+    "stateAbbr": "il",
+    "rusNumber": "il040",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_IL_NORRIS",
+    "stateAbbr": "il",
+    "rusNumber": "il036",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_IL_CONV",
+    "stateAbbr": "il",
+    "rusNumber": "il023",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_IL_SOUTHERN",
+    "stateAbbr": "il",
+    "rusNumber": "il043",    
+    "zoom": 8,
+    "center": [-88.578, 39.571],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
