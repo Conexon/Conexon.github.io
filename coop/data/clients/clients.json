@@ -1344,7 +1344,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl022",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-87.1241, 30.8902],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1353,7 +1353,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl030",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-86.501, 30.463],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1362,7 +1362,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl017",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-85.4825 30.6673],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1371,7 +1371,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl034",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-85.2967, 30.2868],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1380,7 +1380,7 @@
     "stateAbbr": "fl",
     "rusNumber": "fl029",
     "zoom": 7,
-    "center": [-84.957, 30.148],
+    "center": [-84.6304, 30.3733],
     "minZoom": 6,
     "maxZoom": 15
   },
@@ -1409,6 +1409,60 @@
     "zoom": 7,
     "center": [-84.957, 30.148],
     "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_GARDY",
+    "stateAbbr": "ga",
+    "rusNumber": "ga068",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_LITOCUML",
+    "stateAbbr": "ga",
+    "rusNumber": "ga088",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_OCUML",
+    "stateAbbr": "ga",
+    "rusNumber": "ga073",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_SLASH",
+    "stateAbbr": "ga",
+    "rusNumber": "ga095",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_SUMTER",
+    "stateAbbr": "ga",
+    "rusNumber": "ga045",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_GA_THREE",
+    "stateAbbr": "ga",
+    "rusNumber": "ga086",
+    "zoom": 9,
+    "center": [-83.4365, 33.1385],
+    "minZoom": 9,
     "maxZoom": 15
   }
 
