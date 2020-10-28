@@ -1581,6 +1581,42 @@
     "center": [-92.208, 37.509], 
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_OH_ADAMS",
+    "stateAbbr": "oh",
+    "rusNumber": "oh099",
+    "zoom": 8,
+    "center": [-82.56, 39.699],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_OH_FRONTIER",
+    "stateAbbr": "oh",
+    "rusNumber": "oh055",
+    "zoom": 8,
+    "center": [-82.56, 39.699],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_OH_CARROLL",
+    "stateAbbr": "oh",
+    "rusNumber": "oh084",
+    "zoom": 8,
+    "center": [-82.56, 39.699],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_OH_MID",
+    "stateAbbr": "oh",
+    "rusNumber": "oh085",
+    "zoom": 8,
+    "center": [-82.56, 39.699],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
