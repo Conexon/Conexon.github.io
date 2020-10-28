@@ -1653,6 +1653,15 @@
     "center": [-77.669, 37.394], 
     "minZoom": 7,
     "maxZoom": 15
+  },
+   {
+    "coopCode": "CI_TX_WARTON",
+    "stateAbbr": "tx",
+    "rusNumber": "tx075",
+    "zoom": 7,
+    "center": [-97.879, 30.438], 
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
