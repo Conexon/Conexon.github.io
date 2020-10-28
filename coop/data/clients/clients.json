@@ -1284,6 +1284,60 @@
     "center": [-109.907, 34.044],
     "minZoom": 6,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_VIEW",
+    "stateAbbr": "co",
+    "rusNumber": "co037",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_PARKS",
+    "stateAbbr": "co",
+    "rusNumber": "co042",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_EMPIRE",
+    "stateAbbr": "co",
+    "rusNumber": "co033",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_LAPLATA",
+    "stateAbbr": "co",
+    "rusNumber": "co032",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_GUN",
+    "stateAbbr": "co",
+    "rusNumber": "co018",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_CO_BASALT",
+    "stateAbbr": "co",
+    "rusNumber": "co099",
+    "zoom": 7,
+    "center": [-104.76, 39.56],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
