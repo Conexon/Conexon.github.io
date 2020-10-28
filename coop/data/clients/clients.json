@@ -1572,6 +1572,15 @@
     "center": [-89.962, 31.859], 
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_MO_INTER",
+    "stateAbbr": "mo",
+    "rusNumber": "mo018",
+    "zoom": 8,
+    "center": [-92.208, 37.509], 
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
