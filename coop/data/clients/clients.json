@@ -1617,6 +1617,15 @@
     "center": [-82.56, 39.699],
     "minZoom": 6,
     "maxZoom": 15
+  },
+    {
+    "coopCode": "CI_TN_DUCK",
+    "stateAbbr": "tn",
+    "rusNumber": "tn021",
+    "zoom": 8,
+    "center": [-87.091, 35.729], 
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
