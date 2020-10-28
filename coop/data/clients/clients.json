@@ -1416,7 +1416,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga068",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-84.2827, 30.8599],
     "minZoom": 9,
     "maxZoom": 15
   },
@@ -1425,7 +1425,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga088",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-82.9228, 32.0594], 
     "minZoom": 9,
     "maxZoom": 15
   },
@@ -1434,7 +1434,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga073",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-83.2576, 32.2047],
     "minZoom": 9,
     "maxZoom": 15
   },
@@ -1443,7 +1443,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga095",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-82.7124, 30.858],
     "minZoom": 9,
     "maxZoom": 15
   },
@@ -1452,7 +1452,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga045",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-84.417, 32.0784],
     "minZoom": 9,
     "maxZoom": 15
   },
@@ -1461,7 +1461,7 @@
     "stateAbbr": "ga",
     "rusNumber": "ga086",
     "zoom": 9,
-    "center": [-83.4365, 33.1385],
+    "center": [-84.8608, 31.0675],
     "minZoom": 9,
     "maxZoom": 15
   }
