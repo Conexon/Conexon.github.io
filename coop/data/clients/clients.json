@@ -1527,6 +1527,33 @@
     "center": [-87.552, 36.938],
     "minZoom": 6,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_LA_CLAI",
+    "stateAbbr": "la",
+    "rusNumber": "la017",
+    "zoom": 8,
+    "center": [-92.384, 32.35],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_LA_NOREAST",
+    "stateAbbr": "la",
+    "rusNumber": "la012",
+    "zoom": 8,
+    "center": [-92.384, 32.35],
+    "minZoom": 6,
+    "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_LA_CONCORD",
+    "stateAbbr": "la",
+    "rusNumber": "la020",
+    "zoom": 8,
+    "center": [-92.384, 32.35],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 
 ]
