@@ -1672,5 +1672,14 @@
     "center": [-92.208, 37.509],
     "minZoom": 6,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_MO_BARTON",
+    "stateAbbr": "mo",
+    "rusNumber": "mo028",
+    "zoom": 8,
+    "center": [-92.208, 37.509],
+    "minZoom": 6,
+    "maxZoom": 15
   }
 ]
