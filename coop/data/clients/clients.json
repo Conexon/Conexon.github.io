@@ -1586,9 +1586,9 @@
   {
     "coopCode": "CI_OH_ADAMS",
     "stateAbbr": "oh",
-    "rusNumber": "oh099",
-    "zoom": 8,
-    "center": [-83.521, 40.538],
+    "rusNumber": "oh094",
+    "zoom": 9,
+    "center": [-83.4313, 38.8292], 
     "minZoom": 6,
     "maxZoom": 15
   },
