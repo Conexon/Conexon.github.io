@@ -1681,5 +1681,14 @@
     "center": [-92.208, 37.509],
     "minZoom": 6,
     "maxZoom": 15
+  },
+  {
+    "coopCode": "CI_VA_REC",
+    "stateAbbr": "va",
+    "rusNumber": "va099",
+    "zoom": 8,
+    "center": [-77.853, 38.393],
+    "minZoom": 8,
+    "maxZoom": 15
   }
 ]
